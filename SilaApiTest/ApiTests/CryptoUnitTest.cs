@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.com.silamoney.client.security;
+using SilaAPI.silamoney.client.security;
 
 namespace SilaApiTest
 {

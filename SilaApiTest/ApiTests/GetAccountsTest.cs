@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.com.silamoney.client.api;
-using SilaAPI.com.silamoney.client.domain;
-using SilaAPI.com.silamoney.client.exceptions;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.exceptions;
 
 namespace SilaApiTest
 {
@@ -29,8 +29,7 @@ namespace SilaApiTest
         [TestMethod]
         public void Response200()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.GetAccounts("user.silamoney.eth", userPrivateKey);
+            ApiResponse<object> response = api.GetAccounts("user.silamoney.eth", DefaultConfig.userPrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", ((GetAccountsResponse)response.Data).status);
@@ -39,21 +38,13 @@ namespace SilaApiTest
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.GetAccounts("", userPrivateKey);
-
-            Assert.AreEqual(400, response.StatusCode);
-            Assert.AreEqual("FAILURE", ((GetAccountsResponse)response.Data).status);
+            ApiResponse<object> response = api.GetAccounts("", DefaultConfig.userPrivateKey);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid signature permited.")]
         public void Response401()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.GetAccounts("wrongSignature.silamoney.eth", userPrivateKey);
-
-            Assert.AreEqual(401, response.StatusCode);
-            Assert.AreEqual("FAILURE", ((GetAccountsResponse)response.Data).status);
+            ApiResponse<object> response = api.GetAccounts("wrongSignature.silamoney.eth", DefaultConfig.userPrivateKey);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SilaAPI.com.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,12 +58,12 @@ namespace SilaApiTest
 
         public static IssueMsg createIssueMessage()
         {
-            return new IssueMsg(0, "Account Name", createHeader());
+            return new IssueMsg("user.silamoney.eth", 1000, "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1", DefaultConfig.appHandler, "default");
         }
 
         public static LinkAccountMsg createLinkAccountMessage()
         {
-            return new LinkAccountMsg("public-xxx-xxx", "Custom Account Name", "optional_selected_account_id", DefaultConfig.appHandler);
+            return new LinkAccountMsg("public-xxx-xxx", "Custom Account Name", "optional_selected_account_id", DefaultConfig.appHandler, "default");
         }
 
         public static TransferMsg createTransferMessage()

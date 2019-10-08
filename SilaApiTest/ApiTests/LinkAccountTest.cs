@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.com.silamoney.client.api;
-using SilaAPI.com.silamoney.client.domain;
-using SilaAPI.com.silamoney.client.exceptions;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.exceptions;
 
 namespace SilaApiTest
 {
@@ -26,8 +26,7 @@ namespace SilaApiTest
         [TestMethod]
         public void Response200Success()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.LinkAccount("user.silamoney.eth", "public-xxx-xxx", userPrivateKey);
+            ApiResponse<object> response = api.LinkAccount("user.silamoney.eth", "public-xxx-xxx", DefaultConfig.userPrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).status);
@@ -35,8 +34,7 @@ namespace SilaApiTest
         [TestMethod]
         public void Response200Failure()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.LinkAccount("notlinked.silamoney.eth", "public-xxx-xxx", userPrivateKey);
+            ApiResponse<object> response = api.LinkAccount("notlinked.silamoney.eth", "public-xxx-xxx", DefaultConfig.userPrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).status);
@@ -45,15 +43,13 @@ namespace SilaApiTest
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.LinkAccount("", "public-xxx-xxx", userPrivateKey);
+            ApiResponse<object> response = api.LinkAccount("", "public-xxx-xxx", DefaultConfig.userPrivateKey);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid signature permited.")]
         public void Response401()
         {
-            String userPrivateKey = "9C87D93E39297DA31565B2885BF5237CCF6595880E17765A1FD233D691E40E5D";
-            ApiResponse<object> response = api.LinkAccount("wrongSignature.silamoney.eth", "public-xxx-xxx", userPrivateKey);
+            ApiResponse<object> response = api.LinkAccount("wrongSignature.silamoney.eth", "public-xxx-xxx", DefaultConfig.userPrivateKey);
         }
     }
 }

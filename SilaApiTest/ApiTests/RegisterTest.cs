@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.com.silamoney.client.api;
-using SilaAPI.com.silamoney.client.domain;
-using SilaAPI.com.silamoney.client.exceptions;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.exceptions;
 using System.Threading;
 
 namespace SilaApiTest
