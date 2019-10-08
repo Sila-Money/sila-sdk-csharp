@@ -11,7 +11,7 @@ namespace SilaApiTest
     [TestClass]
     public class GetAccountsTest
     {
-        UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandler);
+        UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
         public void configuartion()

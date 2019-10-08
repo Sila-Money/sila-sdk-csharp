@@ -10,7 +10,7 @@ namespace SilaApiTest
     [TestClass]
     public class RequestKYCTest
     {
-        UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandler);
+        UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandle);
         [TestInitialize]
         public void configuartion()
         {

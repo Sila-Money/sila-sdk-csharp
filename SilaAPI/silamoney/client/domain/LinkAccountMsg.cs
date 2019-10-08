@@ -20,11 +20,10 @@ namespace SilaAPI.silamoney.client.domain
 
         public LinkAccountMsg(string userHandle,
             string publicToken,
-            string privateKey,
-            string appHandler,
+            string appHandle,
             string accountName)
         {
-            this.header = new Header(userHandle,appHandler);
+            this.header = new Header(userHandle,appHandle);
             this.publicToken = publicToken;
             this.message = MessageEnum.LinkAccountMsg;
             this.accountName = accountName;

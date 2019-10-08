@@ -135,6 +135,7 @@
     <Compile Include="ApiTests\GetAccountsTest.cs" />
     <Compile Include="ApiTests\IssueSilaTest.cs" />
     <Compile Include="ApiTests\TransferSilaTests.cs" />
+    <Compile Include="ApiTests\RedeemSilaTests.cs" />
     <Compile Include="MockServer.cs" />
     <Compile Include="Utilities\ModelsUtilities.cs" />
     <Compile Include="Utilities\DefaultConfig.cs" />

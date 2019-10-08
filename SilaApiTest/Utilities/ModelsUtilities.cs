@@ -18,7 +18,7 @@ namespace SilaApiTest
 
         public static HeaderMsg createHeaderMessage()
         {
-            return new HeaderMsg("user.silamoney.eth", DefaultConfig.appHandler);
+            return new HeaderMsg("user.silamoney.eth", DefaultConfig.appHandle);
         }
 
         public static Address createAddress()
@@ -48,32 +48,32 @@ namespace SilaApiTest
 
         public static EntityMsg createEntityMessage()
         {
-            return new EntityMsg(createUser(), DefaultConfig.appHandler);
+            return new EntityMsg(createUser(), DefaultConfig.appHandle);
         }
 
         public static GetAccountsMsg createGetAccountsMessage()
         {
-            return new GetAccountsMsg("user.silamoney.eth", DefaultConfig.appHandler);
+            return new GetAccountsMsg("user.silamoney.eth", DefaultConfig.appHandle);
         }
 
         public static IssueMsg createIssueMessage()
         {
-            return new IssueMsg("user.silamoney.eth", 1000, "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1", DefaultConfig.appHandler, "default");
+            return new IssueMsg("user.silamoney.eth", 1000, DefaultConfig.appHandle, "default");
         }
 
         public static LinkAccountMsg createLinkAccountMessage()
         {
-            return new LinkAccountMsg("public-xxx-xxx", "Custom Account Name", "optional_selected_account_id", DefaultConfig.appHandler, "default");
+            return new LinkAccountMsg("public-xxx-xxx", "Custom Account Name", DefaultConfig.appHandle, "default");
         }
 
         public static TransferMsg createTransferMessage()
         {
-            return new TransferMsg("user.silamoney.eth", 13, "user2.silamoney.eth", DefaultConfig.appHandler);
+            return new TransferMsg("user.silamoney.eth", 13, "user2.silamoney.eth", DefaultConfig.appHandle);
         }
 
         public static RedeemMsg createRedeemMessage()
         {
-            return new RedeemMsg("Account Name", 0, createHeader());
+            return new RedeemMsg("user.silamoney.eth", 1000, DefaultConfig.appHandle, "default");
         }
 
         public static SearchFilters createSearchFilters()

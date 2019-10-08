@@ -19,11 +19,11 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "entity", EmitDefaultValue = false)]
         public Entity entity { get; set; }
 
-        public EntityMsg(User user, string appHandler)
+        public EntityMsg(User user, string appHandle)
         {
-            if (user != null && appHandler != null)
+            if (user != null && appHandle != null)
             {
-                this.header = new Header(user.userHandle, appHandler);
+                this.header = new Header(user.userHandle, appHandle);
                 this.address = new Address(user);
                 this.identity = new Identity(user);
                 this.contact = new Contact(user);

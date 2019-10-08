@@ -13,15 +13,16 @@ namespace SilaAPI.silamoney.client.api
 {
     public partial class UserApi
     {
-        public UserApi(String basePath, string privateKey, string appHandler)
+        public UserApi(String basePath, string privateKey, string appHandle)
         {
-            this.Configuration = new Configuration { BasePath = basePath, PrivateKey = privateKey, AppHandler = appHandler };
+            this.Configuration = new Configuration { BasePath = basePath, PrivateKey = privateKey, appHandle = appHandle };
         }
 
-        public UserApi(string privateKey, string appHandler)
+        public UserApi(string privateKey, string appHandle)
         {
             this.Configuration = Configuration.Default;
             this.Configuration.PrivateKey = privateKey;
+            this.Configuration.appHandle = appHandle;
         }
 
         public String GetBasePath()
@@ -33,7 +34,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> CheckHandle(string handle)
         {
-            HeaderMsg body = new HeaderMsg(handle, this.Configuration.AppHandler);
+            HeaderMsg body = new HeaderMsg(handle, this.Configuration.appHandle);
             var path = "/check_handle";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -70,7 +71,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> CheckKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle,userPrivateKey);
+            HeaderMsg body = new HeaderMsg(userHandle,this.Configuration.appHandle);
             var path = "/check_kyc";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -106,7 +107,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> GetAccounts(string userHandle, string userPrivateKey)
         {
-            GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.AppHandler);
+            GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.appHandle);
             var path = "/get_accounts";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -162,7 +163,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
-            IssueMsg body = new IssueMsg(userHandle, amount, userPrivateKey, this.Configuration.AppHandler, accountName);
+            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.appHandle, accountName);
             var path = "/issue_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -198,7 +199,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> LinkAccount(string userHandle, string publicToken, string userPrivateKey, string accountName = "default")
         {
-            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, userPrivateKey, this.Configuration.AppHandler, accountName);
+            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, this.Configuration.appHandle, accountName);
             var path = "/link_account";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -232,29 +233,45 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
-        public ApiResponse<Object> RedeemSila(RedeemMsg body)
+        public ApiResponse<Object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
+            RedeemMsg body = new RedeemMsg(userHandle, amount, accountName, this.Configuration.appHandle);
             var path = "/redeem_sila";
             var headerParams = new Dictionary<String, String>();
-            Object _body = null;
+            string _body = null;
 
             String contentType = "application/json";
 
             _body = SerializationUtil.Serialize(body);
+
+            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
 
+            switch (statusCode)
+            {
+                case 400:
+                    throw new BadRequestException("Invalid request body format.");
+                case 401:
+                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                case 500:
+                    throw new ServerSideException();
+                default:
+                    break;
+            }
+
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
         public ApiResponse<Object> Register(User user)
         {
-            EntityMsg body = new EntityMsg(user, this.Configuration.AppHandler);
+            EntityMsg body = new EntityMsg(user, this.Configuration.appHandle);
             var path = "/register";
             var headerParams = new Dictionary<String, String>();
             String _body = null;
@@ -289,7 +306,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> RequestKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle, userPrivateKey);
+            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.appHandle);
             var path = "/request_kyc";
             var headerParams = new Dictionary<String, String>();
             String _body = null;
@@ -345,7 +362,7 @@ namespace SilaAPI.silamoney.client.api
 
         public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.AppHandler);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.appHandle);
             var path = "/transfer_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;

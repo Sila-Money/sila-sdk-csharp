@@ -50,6 +50,7 @@ namespace WebServer
             GetAccountsMsg getAccountsMsg;
             IssueMsg issueMsg;
             TransferMsg transferMsg;
+            RedeemMsg redeemMsg;
 
             switch (request.RawUrl)
             {
@@ -70,13 +71,16 @@ namespace WebServer
                     return getLinkAccountResponse(context, linkAccountMsg);
                 case "/get_accounts":
                     getAccountsMsg = JsonConvert.DeserializeObject<GetAccountsMsg>(s);
-                    return getLinkAccountResponse(context, getAccountsMsg);
+                    return getGetAccountsResponse(context, getAccountsMsg);
                 case "/issue_sila":
                     issueMsg = JsonConvert.DeserializeObject<IssueMsg>(s);
                     return getIssueMsgResponse(context, issueMsg);
                 case "/transfer_sila":
                     transferMsg = JsonConvert.DeserializeObject<TransferMsg>(s);
-                    return getIssueMsgResponse(context, transferMsg);
+                    return getTransferMsgResponse(context, transferMsg);
+                case "/redeem_sila":
+                    redeemMsg = JsonConvert.DeserializeObject<RedeemMsg>(s);
+                    return getRedeemMsgResponse(context, redeemMsg);
                 default:
                     break;
             }
@@ -84,7 +88,52 @@ namespace WebServer
             return null;
         }
 
-        private static HttpListenerResponse getIssueMsgResponse(HttpListenerContext context, TransferMsg transferMsg)
+        private static HttpListenerResponse getRedeemMsgResponse(HttpListenerContext context, RedeemMsg redeemMsg)
+        {
+            string responseString = "";
+            byte[] buffer;
+            HttpListenerResponse response = context.Response;
+
+            if (!redeemMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            {
+                if (redeemMsg.header.userHandle.Equals("user.silamoney.eth"))
+                {
+                    response.StatusCode = 200;
+                    response.StatusDescription = "SUCCESS";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Redemption process started.\",\"status\": \"SUCCESS\"}";
+                }
+                else if (redeemMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
+                {
+                    response.StatusCode = 200;
+                    response.StatusDescription = "FAILURE";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Redemption process not started; see message attribute.\",\"status\": \"FAILURE\"}";
+                }
+                else if (redeemMsg.header.userHandle.Equals(""))
+                {
+                    response.StatusCode = 400;
+                    response.StatusDescription = "FAILURE";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                }
+            }
+            else
+            {
+                response.StatusCode = 401;
+                response.StatusDescription = "FAILURE";
+                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+            }
+
+            buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+
+            output.Close();
+
+            return response;
+        }
+
+        private static HttpListenerResponse getTransferMsgResponse(HttpListenerContext context, TransferMsg transferMsg)
         {
             string responseString = "";
             byte[] buffer;
@@ -174,7 +223,7 @@ namespace WebServer
             return response;
         }
 
-        private static HttpListenerResponse getLinkAccountResponse(HttpListenerContext context, GetAccountsMsg getAccountsMsg)
+        private static HttpListenerResponse getGetAccountsResponse(HttpListenerContext context, GetAccountsMsg getAccountsMsg)
         {
             string responseString = "";
             byte[] buffer;

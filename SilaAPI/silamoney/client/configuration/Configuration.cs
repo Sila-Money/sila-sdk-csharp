@@ -39,7 +39,7 @@ namespace SilaAPI.silamoney.client.configuration
         {
             UserAgent = "SilaSDK/1.0.0/csharp";
             BasePath = "https://sandbox.silamoney.com/0.2";
-            AppHandler = "handle.silamoney.eth";
+            appHandle = "handle.silamoney.eth";
 
             Timeout = 100000;
         }
@@ -84,12 +84,12 @@ namespace SilaAPI.silamoney.client.configuration
             set { _privateKey = value; }
         }
 
-        private String _appHandler = null;
+        private String _appHandle = null;
 
-        public virtual string AppHandler
+        public virtual string appHandle
         {
-            get { return _appHandler; }
-            set { _appHandler = value; }
+            get { return _appHandle; }
+            set { _appHandle = value; }
         }
 
         public virtual int Timeout

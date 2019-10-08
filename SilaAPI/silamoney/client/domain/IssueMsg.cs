@@ -16,7 +16,6 @@ namespace SilaAPI.silamoney.client.domain
 
         public IssueMsg(string userHandle,
             float amount,
-            string userPrivateKey,
             string authHandle,
             string accountName)
         {
