@@ -8,7 +8,7 @@ using SilaAPI.silamoney.client.exceptions;
 namespace SilaApiTest
 {
     [TestClass]
-    public class RedeemSilaTests
+    public class GetTransactionsTest
     {
         UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
@@ -22,36 +22,28 @@ namespace SilaApiTest
         private void createWebServer()
         {
             string[] prefixes = new string[1];
-            prefixes[0] = "http://localhost:8080/redeem_sila/";
+            prefixes[0] = "http://localhost:8080/get_transactions/";
             WebServer.TestHttpServer.Listener(prefixes);
         }
         [TestMethod]
-        public void Response200Success()
+        public void Response200()
         {
-            ApiResponse<object> response = api.RedeemSila("user.silamoney.eth", 1000, DefaultConfig.userPrivateKey);
+            ApiResponse<object> response = api.GetTransactions("user.silamoney.eth",DefaultConfig.userPrivateKey, null);
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).status);
-        }
-        [TestMethod]
-        public void Response200Failure()
-        {
-            ApiResponse<object> response = api.RedeemSila("notStarted.silamoney.eth", 1000, DefaultConfig.userPrivateKey);
-
-            Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).status);
+            Assert.AreEqual("SUCCESS", ((GetTransactionsResponse)response.Data).status);
         }
         [TestMethod]
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
         {
-            ApiResponse<object> response = api.RedeemSila("", 1000, DefaultConfig.userPrivateKey);
+            ApiResponse<object> response = api.GetTransactions("", DefaultConfig.userPrivateKey, null);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid signature permited.")]
-        public void Response401()
+        public void Response403()
         {
-            ApiResponse<object> response = api.RedeemSila("wrongSignature.silamoney.eth", 1000, DefaultConfig.userPrivateKey);
+            ApiResponse<object> response = api.GetTransactions("wrongSignature.silamoney.eth", DefaultConfig.userPrivateKey, null);
         }
     }
 }

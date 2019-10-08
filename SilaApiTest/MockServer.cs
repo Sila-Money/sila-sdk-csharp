@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SilaAPI.silamoney.client.domain;
+using SilaApiTest;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,6 +52,8 @@ namespace WebServer
             IssueMsg issueMsg;
             TransferMsg transferMsg;
             RedeemMsg redeemMsg;
+            GetTransactionsMsg getTransactionsMsg;
+            SilaBalanceRequest silaBalanceRequest;
 
             switch (request.RawUrl)
             {
@@ -81,11 +84,78 @@ namespace WebServer
                 case "/redeem_sila":
                     redeemMsg = JsonConvert.DeserializeObject<RedeemMsg>(s);
                     return getRedeemMsgResponse(context, redeemMsg);
+                case "/get_transactions":
+                    getTransactionsMsg = JsonConvert.DeserializeObject<GetTransactionsMsg>(s);
+                    return getGetTransactionsMsgResponse(context, getTransactionsMsg);
+                case "/silaBalance":
+                    silaBalanceRequest = JsonConvert.DeserializeObject<SilaBalanceRequest>(s);
+                    return getSilaBalanceResponse(context, silaBalanceRequest);
                 default:
                     break;
             }
 
             return null;
+        }
+
+        private static HttpListenerResponse getSilaBalanceResponse(HttpListenerContext context, SilaBalanceRequest silaBalanceRequest)
+        {
+            string responseString = "";
+            byte[] buffer;
+            HttpListenerResponse response = context.Response;
+
+            response.StatusCode = 200;
+            response.StatusDescription = "OK";
+            responseString = "1000";
+
+            buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+
+            output.Close();
+
+            return response;
+        }
+
+        private static HttpListenerResponse getGetTransactionsMsgResponse(HttpListenerContext context, GetTransactionsMsg getTransactionsMsg)
+        {
+            string responseString = "";
+            byte[] buffer;
+            HttpListenerResponse response = context.Response;
+
+            if (!getTransactionsMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            {
+                if (getTransactionsMsg.header.userHandle.Equals("user.silamoney.eth"))
+                {
+                    response.StatusCode = 200;
+                    response.StatusDescription = "SUCCESS";
+
+                    responseString = "{\"reference\": \"ref\",\"message\": " + JsonConvert.SerializeObject(ModelsUtilities.createTransactionResult()) + ",\"status\": \"SUCCESS\"}";
+                }
+                else if (getTransactionsMsg.header.userHandle.Equals(""))
+                {
+                    response.StatusCode = 400;
+                    response.StatusDescription = "FAILURE";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                }
+            }
+            else
+            {
+                response.StatusCode = 403;
+                response.StatusDescription = "FAILURE";
+                responseString = "{\"reference\": \"ref\",\"message\": \"Bad or absent signature header.\",\"status\": \"FAILURE\"}";
+            }
+
+            buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+
+            output.Close();
+
+            return response;
         }
 
         private static HttpListenerResponse getRedeemMsgResponse(HttpListenerContext context, RedeemMsg redeemMsg)
@@ -235,7 +305,7 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"[{\\\"account_number\\\": \\\"1234\\\",\\\"account_name\\\": \\\"default\\\",\\\"account_type\\\": \\\"CHECKING\\\",\\\"account_status\\\": \\\"active\\\"}]\",\"status\": \"SUCCESS\"}";
+                    responseString = "{\"reference\": \"ref\",\"message\": " + JsonConvert.SerializeObject(ModelsUtilities.createGetAccountsResult()) + ",\"status\": \"SUCCESS\"}";
                 }
                 else if (getAccountsMsg.header.userHandle.Equals(""))
                 {

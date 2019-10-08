@@ -141,24 +141,40 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<GetAccountsResponse>(response.Content));
         }
 
-        public ApiResponse<Object> GetTransactions(GetTransactionsMsg body)
+        public ApiResponse<Object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
         {
+            GetTransactionsMsg body = new GetTransactionsMsg(userHandle, this.Configuration.appHandle, searchFilters);
             var path = "/get_transactions";
             var headerParams = new Dictionary<String, String>();
-            Object _body = null;
+            string _body = null;
 
             String contentType = "application/json";
 
             _body = SerializationUtil.Serialize(body);
+
+            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
 
+            switch (statusCode)
+            {
+                case 400:
+                    throw new BadRequestException("Invalid request body format.");
+                case 403:
+                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                case 500:
+                    throw new ServerSideException();
+                default:
+                    break;
+            }
+
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                JsonConvert.DeserializeObject<GetTransactionsResponse>(response.Content));
         }
 
         public ApiResponse<Object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
@@ -340,11 +356,12 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
-        public ApiResponse<Object> SilaBalance(Address body)
+        public ApiResponse<Object> SilaBalance(string address)
         {
+            SilaBalanceRequest body = new SilaBalanceRequest(address);
             var path = "/silaBalance";
             var headerParams = new Dictionary<String, String>();
-            Object _body = null;
+            string _body = null;
 
             String contentType = "application/json";
 
@@ -357,7 +374,7 @@ namespace SilaAPI.silamoney.client.api
 
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                response.Content);
         }
 
         public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
