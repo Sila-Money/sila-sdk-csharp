@@ -8,34 +8,14 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "destination", EmitDefaultValue = false)]
         public string destination { get; set; }
 
-        public TransferMsg(float? amount = default(float?),
-            string destination = default(string),
-            Header header = default(Header))
+        public TransferMsg(string userHandle,
+            float amount,
+            string destinationHandle,
+            string authHandle)
         {
-            if (amount == null)
-            {
-                throw new InvalidDataException("amount is a required property for TransferMsg and cannot be null");
-            }
-            else
-            {
-                this.amount = amount;
-            }
-            if (destination == null)
-            {
-                throw new InvalidDataException("destination is a required property for TransferMsg and cannot be null");
-            }
-            else
-            {
-                this.destination = destination;
-            }
-            if (header == null)
-            {
-                throw new InvalidDataException("header is a required property for TransferMsg and cannot be null");
-            }
-            else
-            {
-                this.header = header;
-            }
+            this.header = new Header(userHandle, authHandle);
+            this.destination = destinationHandle;
+            this.amount = amount;
             this.message = MessageEnum.TransferMsg;
         }
     }

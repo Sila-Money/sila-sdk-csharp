@@ -68,7 +68,7 @@ namespace SilaApiTest
 
         public static TransferMsg createTransferMessage()
         {
-            return new TransferMsg(0, "destination", createHeader());
+            return new TransferMsg("user.silamoney.eth", 13, "user2.silamoney.eth", DefaultConfig.appHandler);
         }
 
         public static RedeemMsg createRedeemMessage()

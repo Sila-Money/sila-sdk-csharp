@@ -343,24 +343,40 @@ namespace SilaAPI.silamoney.client.api
                 null);
         }
 
-        public ApiResponse<Object> TransferSila(TransferMsg body)
+        public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
         {
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.AppHandler);
             var path = "/transfer_sila";
             var headerParams = new Dictionary<String, String>();
-            Object _body = null;
+            string _body = null;
 
             String contentType = "application/json";
 
             _body = SerializationUtil.Serialize(body);
+
+            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
 
+            switch (statusCode)
+            {
+                case 400:
+                    throw new BadRequestException("Invalid request body format.");
+                case 401:
+                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                case 500:
+                    throw new ServerSideException();
+                default:
+                    break;
+            }
+
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
     }
 }

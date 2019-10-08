@@ -49,6 +49,7 @@ namespace WebServer
             LinkAccountMsg linkAccountMsg;
             GetAccountsMsg getAccountsMsg;
             IssueMsg issueMsg;
+            TransferMsg transferMsg;
 
             switch (request.RawUrl)
             {
@@ -73,11 +74,59 @@ namespace WebServer
                 case "/issue_sila":
                     issueMsg = JsonConvert.DeserializeObject<IssueMsg>(s);
                     return getIssueMsgResponse(context, issueMsg);
+                case "/transfer_sila":
+                    transferMsg = JsonConvert.DeserializeObject<TransferMsg>(s);
+                    return getIssueMsgResponse(context, transferMsg);
                 default:
                     break;
             }
 
             return null;
+        }
+
+        private static HttpListenerResponse getIssueMsgResponse(HttpListenerContext context, TransferMsg transferMsg)
+        {
+            string responseString = "";
+            byte[] buffer;
+            HttpListenerResponse response = context.Response;
+
+            if (!transferMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            {
+                if (transferMsg.header.userHandle.Equals("user.silamoney.eth"))
+                {
+                    response.StatusCode = 200;
+                    response.StatusDescription = "SUCCESS";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Transfer process started.\",\"status\": \"SUCCESS\"}";
+                }
+                else if (transferMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
+                {
+                    response.StatusCode = 200;
+                    response.StatusDescription = "FAILURE";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Transfer process not started; see message attribute.\",\"status\": \"FAILURE\"}";
+                }
+                else if (transferMsg.header.userHandle.Equals(""))
+                {
+                    response.StatusCode = 400;
+                    response.StatusDescription = "FAILURE";
+                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                }
+            }
+            else
+            {
+                response.StatusCode = 401;
+                response.StatusDescription = "FAILURE";
+                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+            }
+
+            buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+
+            output.Close();
+
+            return response;
         }
 
         private static HttpListenerResponse getIssueMsgResponse(HttpListenerContext context, IssueMsg issueMsg)
