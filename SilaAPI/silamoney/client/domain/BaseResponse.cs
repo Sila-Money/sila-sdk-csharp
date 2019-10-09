@@ -9,8 +9,17 @@ namespace SilaAPI.silamoney.client.domain
     /// </summary>
     public class BaseResponse
     {
+        /// <summary>
+        /// String field used in the BaseResponse object to save reference
+        /// </summary>
         public string reference { get; set; }
+        /// <summary>
+        /// String field used in the BaseResponse object to save message 
+        /// </summary>
         public string message { get; set; }
+        /// <summary>
+        /// String field used in the BaseResponse object to save status
+        /// </summary>
         public string status { get; set; }
     }
 }
