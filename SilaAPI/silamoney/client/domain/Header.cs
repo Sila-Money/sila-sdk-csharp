@@ -79,7 +79,7 @@ namespace SilaAPI.silamoney.client.domain
             this.crypto = CryptoEnum.ETH;
             this.version = VersionEnum._02;
             this.created = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            this.reference = (new Random()).ToString();
+            this.reference = (new Random()).Next(1,999999).ToString();
         }
     }
 }
