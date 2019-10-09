@@ -1,4 +1,4 @@
-image: ************************** # Choose an image matching your project needs
+#image: ************************** # Choose an image matching your project needs
 clone:
       depth: full              # SonarCloud scanner needs the full history to assign issues properly
 
@@ -9,10 +9,10 @@ definitions:
       - step: &build-test-sonarcloud
               name: Build, test and analyze on SonarCloud
               caches:
-              - ************************** # See https://confluence.atlassian.com/bitbucket/caching-dependencies-895552876.html
+              # ************************** # See https://confluence.atlassian.com/bitbucket/caching-dependencies-895552876.html
               - sonar
               script:
-              - ************************** # Build your project and run
+             # - ************************** # Build your project and run
               - pipe: sonarsource/sonarcloud-scan:1.0.1
       - step: &check-quality-gate-sonarcloud
               name: Check the Quality Gate on SonarCloud
