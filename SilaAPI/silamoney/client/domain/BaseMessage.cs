@@ -9,8 +9,14 @@ namespace SilaAPI.silamoney.client.domain
     [DataContract]
     public class BaseMessage
     {
+        /// <summary>
+        /// Header object field used in the BaseMessage object
+        /// </summary>
         [DataMember(Name = "header", EmitDefaultValue = false)]
         public Header header { get; set; }
+        /// <summary>
+        /// EnumMember values for Message field
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum MessageEnum
         {
@@ -31,7 +37,9 @@ namespace SilaAPI.silamoney.client.domain
             [EnumMember(Value = "transfer_msg")]
             TransferMsg = 8
         }
-
+        /// <summary>
+        /// Enum field used in the BaseMessage object to select message
+        /// </summary>
         [DataMember(Name = "message", EmitDefaultValue = false)]
         public MessageEnum message { get; set; }
     }

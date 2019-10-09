@@ -11,27 +11,55 @@ namespace SilaAPI.silamoney.client.domain
     [DataContract]
     public partial class Address
     {
+        /// <summary>
+        /// EnumMember values for Country field
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum CountryEnum
         {
             [EnumMember(Value = "US")]
             US = 1
         }
+        /// <summary>
+        /// Enum field used in the Address object to select Country
+        /// </summary>
         [DataMember(Name = "country", EmitDefaultValue = false)]
         public CountryEnum country { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save city
+        /// </summary>
         [DataMember(Name = "city", EmitDefaultValue = false)]
         public string city { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save address alias
+        /// </summary>
         [DataMember(Name = "address_alias", EmitDefaultValue = false)]
         public string addressAlias { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save street address 1
+        /// </summary>
         [DataMember(Name = "street_address_1", EmitDefaultValue = false)]
         public string streetAddress1 { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save street address 2
+        /// </summary>
         [DataMember(Name = "street_address_2", EmitDefaultValue = false)]
         public string streetAddress2 { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save state
+        /// </summary>
         [DataMember(Name = "state", EmitDefaultValue = false)]
         public string state { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save postal code
+        /// </summary>
         [DataMember(Name = "postal_code", EmitDefaultValue = false)]
         public string postalCode { get; set; }
 
+        /// <summary>
+        /// If user is not null, set user values in the Address object
+        /// </summary>
+        /// <param name="user"></param>
         public Address(User user)
         {
             if (user != null)
