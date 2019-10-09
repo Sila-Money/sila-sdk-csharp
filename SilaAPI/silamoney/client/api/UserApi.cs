@@ -11,13 +11,27 @@ using Newtonsoft.Json;
 
 namespace SilaAPI.silamoney.client.api
 {
+    /// <summary>
+    /// Class used to expose the api calls to the developer.
+    /// </summary>
     public partial class UserApi
     {
-        public UserApi(String basePath, string privateKey, string appHandle)
+        /// <summary>
+        /// UserApi constructor. SilaAPI.silamoney.client.domain.Environments class values can be used for this.
+        /// </summary>
+        /// <param name="environment"></param>
+        /// <param name="privateKey"></param>
+        /// <param name="appHandle"></param>
+        public UserApi(string environment, string privateKey, string appHandle)
         {
-            this.Configuration = new Configuration { BasePath = basePath, PrivateKey = privateKey, appHandle = appHandle };
+            this.Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, appHandle = appHandle };
         }
 
+        /// <summary>
+        /// UserApi constructor. This uses sandbox environment by default.
+        /// </summary>
+        /// <param name="privateKey"></param>
+        /// <param name="appHandle"></param>
         public UserApi(string privateKey, string appHandle)
         {
             this.Configuration = Configuration.Default;
@@ -25,13 +39,22 @@ namespace SilaAPI.silamoney.client.api
             this.Configuration.appHandle = appHandle;
         }
 
+        /// <summary>
+        /// Gets the base path used in the rest client.
+        /// </summary>
+        /// <returns></returns>
         public String GetBasePath()
         {
             return this.Configuration.ApiClient.RestClient.BaseUrl.ToString();
         }
 
-        public Configuration Configuration { get; set; }
+        internal Configuration Configuration { get; set; }
 
+        /// <summary>
+        /// Makes a call to the check_handle endpoint.
+        /// </summary>
+        /// <param name="handle"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> CheckHandle(string handle)
         {
             HeaderMsg body = new HeaderMsg(handle, this.Configuration.appHandle);
@@ -69,9 +92,15 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the check_kyc endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> CheckKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle,this.Configuration.appHandle);
+            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.appHandle);
             var path = "/check_kyc";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -105,6 +134,12 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the get_accounts endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> GetAccounts(string userHandle, string userPrivateKey)
         {
             GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.appHandle);
@@ -141,6 +176,13 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<GetAccountsResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the get_transactions endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
         {
             GetTransactionsMsg body = new GetTransactionsMsg(userHandle, this.Configuration.appHandle, searchFilters);
@@ -177,6 +219,14 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<GetTransactionsResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the issue_sila endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="amount"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
             IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.appHandle, accountName);
@@ -213,6 +263,14 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the link_account endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="publicToken"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> LinkAccount(string userHandle, string publicToken, string userPrivateKey, string accountName = "default")
         {
             LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, this.Configuration.appHandle, accountName);
@@ -249,6 +307,14 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the redeem_sila endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="amount"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
             RedeemMsg body = new RedeemMsg(userHandle, amount, accountName, this.Configuration.appHandle);
@@ -285,6 +351,11 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the register endpoint.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> Register(User user)
         {
             EntityMsg body = new EntityMsg(user, this.Configuration.appHandle);
@@ -320,6 +391,12 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
+        /// <summary>
+        /// Makes a call to the request_kyc endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> RequestKYC(string userHandle, string userPrivateKey)
         {
             HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.appHandle);
@@ -356,7 +433,13 @@ namespace SilaAPI.silamoney.client.api
                 JsonConvert.DeserializeObject<BaseResponse>(response.Content));
         }
 
-        public ApiResponse<Object> SilaBalance(string address)
+        /// <summary>
+        /// Makes a call to the host api to get the Sila Balance
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="address"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<Object> SilaBalance(string host, string address)
         {
             SilaBalanceRequest body = new SilaBalanceRequest(address);
             var path = "/silaBalance";
@@ -367,8 +450,13 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
+            string lastBasePath = this.Configuration.BasePath;
+            this.Configuration.BasePath = host;
+
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
+
+            this.Configuration.BasePath = lastBasePath;
 
             int statusCode = (int)response.StatusCode;
 
@@ -377,6 +465,14 @@ namespace SilaAPI.silamoney.client.api
                 response.Content);
         }
 
+        /// <summary>
+        /// Makes a call to the transfer_sila endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="amount"></param>
+        /// <param name="destinationHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
         {
             TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.appHandle);

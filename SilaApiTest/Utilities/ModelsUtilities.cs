@@ -1,4 +1,5 @@
-﻿using SilaAPI.silamoney.client.domain;
+﻿using Newtonsoft.Json;
+using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,36 @@ namespace SilaApiTest
             accounts.Add(account);
 
             return accounts;
+        }
+
+        internal static BaseResponse createResponse(string reference, string message, string status)
+        {
+            BaseResponse response = new BaseResponse();
+            response.message = message;
+            response.reference = reference;
+            response.status = status;
+
+            return response;
+        }
+
+        internal static GetAccountsResponse createResponse(string reference, List<Account> message, string status)
+        {
+            GetAccountsResponse response = new GetAccountsResponse();
+            response.message = message;
+            response.reference = reference;
+            response.status = status;
+
+            return response;
+        }
+
+        internal static GetTransactionsResponse createResponse(string reference, GetTransactionsResult message, string status)
+        {
+            GetTransactionsResponse response = new GetTransactionsResponse();
+            response.message = message;
+            response.reference = reference;
+            response.status = status;
+
+            return response;
         }
     }
 }

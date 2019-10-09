@@ -3,12 +3,12 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 
-namespace SilaApiTest.ApiTests
+namespace SilaApiTest
 {
     [TestClass]
     public class SilaBalanceTests
     {
-        UserApi api = new UserApi(DefaultConfig.basePath, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
         public void configuartion()
@@ -26,7 +26,7 @@ namespace SilaApiTest.ApiTests
         [TestMethod]
         public void Response200Success()
         {
-            ApiResponse<object> response = api.SilaBalance("0xabc123abc123abc123");
+            ApiResponse<object> response = api.SilaBalance(DefaultConfig.environment,"0xabc123abc123abc123");
 
             Assert.AreEqual(200, response.StatusCode);
         }

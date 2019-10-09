@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SilaAPI.silamoney.client.domain;
 using SilaApiTest;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -123,6 +121,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            GetTransactionsResponse responseObject = new GetTransactionsResponse();
 
             if (!getTransactionsMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -130,23 +129,23 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-
-                    responseString = "{\"reference\": \"ref\",\"message\": " + JsonConvert.SerializeObject(ModelsUtilities.createTransactionResult()) + ",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        ModelsUtilities.createTransactionResult(),
+                        "SUCCESS");
                 }
                 else if (getTransactionsMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
                 }
             }
             else
             {
                 response.StatusCode = 403;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"Bad or absent signature header.\",\"status\": \"FAILURE\"}";
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -163,6 +162,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!redeemMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -170,28 +170,31 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Redemption process started.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Redemption process started.",
+                        "SUCCESS");
                 }
                 else if (redeemMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Redemption process not started; see message attribute.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Redemption process not started; see message attribute.",
+                        "FAILURE");
                 }
                 else if (redeemMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -208,6 +211,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!transferMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -215,28 +219,31 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Transfer process started.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Transfer process started.",
+                        "SUCCESS");
                 }
                 else if (transferMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Transfer process not started; see message attribute.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Transfer process not started; see message attribute.",
+                        "FAILURE");
                 }
                 else if (transferMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -253,6 +260,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!issueMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -260,28 +268,31 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Issuance process started.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Issuance process started.",
+                        "SUCCESS");
                 }
                 else if (issueMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Issuance process not started; see message attribute.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Issuance process not started; see message attribute.",
+                        "FAILURE");
                 }
                 else if (issueMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -298,6 +309,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            GetAccountsResponse responseObject = new GetAccountsResponse();
 
             if (!getAccountsMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -305,22 +317,23 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": " + JsonConvert.SerializeObject(ModelsUtilities.createGetAccountsResult()) + ",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        ModelsUtilities.createGetAccountsResult(),
+                        "SUCCESS");
                 }
                 else if (getAccountsMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -337,6 +350,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!linkAccountMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -344,29 +358,37 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Bank account successfully linked.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Bank account successfully linked.",
+                        "SUCCESS");
                 }
                 else if (linkAccountMsg.header.userHandle.Equals("notlinked.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Bank account not successfully linked (public token may have expired. "
-                        + "Tokens expire in 30 minutes after creation).\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Bank account not successfully linked (public token may have expired. Tokens expire in 30 minutes after creation).",
+                        "FAILURE");
                 }
                 else if (linkAccountMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Invalid request body format.",
+                        "FAILURE");
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+                responseObject = ModelsUtilities.createResponse("ref",
+                        "authsignature or usersignature header was absent or incorrect.",
+                        "FAILURE");
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -383,6 +405,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -390,29 +413,37 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"The user handle has successfully passed KYC verification.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "The user handle has successfully passed KYC verification.",
+                        "SUCCESS");
                 }
                 else if (headerMsg.header.userHandle.Equals("notverified.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"The user handle has not successfully passed KYC verification (may be pending, not have been "
-                        + "registered, or have failed.).\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "The user handle has not successfully passed KYC verification (may be pending, not have been registered, or have failed.).",
+                        "FAILURE");
                 }
                 else if (headerMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Invalid request body format.",
+                        "FAILURE");
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+                responseObject = ModelsUtilities.createResponse("ref",
+                        "authsignature or usersignature header was absent or incorrect.",
+                        "FAILURE");
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -429,6 +460,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -436,22 +468,29 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"The verification process for the user registered under header.user_handle has been successfully started.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "The verification process for the user registered under header.user_handle has been successfully started.",
+                        "SUCCESS");
                 }
                 else if (headerMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Invalid request body format.",
+                        "FAILURE");
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature or usersignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+                responseObject = ModelsUtilities.createResponse("ref",
+                        "authsignature or usersignature header was absent or incorrect.",
+                        "FAILURE");
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -468,6 +507,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!entityMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -475,22 +515,29 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Handle successfully added to system with KYC data.\",\"status\": \"SUCCESS\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Handle successfully added to system with KYC data.",
+                        "SUCCESS");
                 }
                 else if (entityMsg.header.userHandle.Equals(""))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Invalid request body format, handle already in use, or blockchain address already in use.\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Invalid request body format, handle already in use, or blockchain address already in use.",
+                        "FAILURE");
                 }
             }
             else
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"authsignature header was absent or incorrect.\",\"status\": \"FAILURE\"}";
+                responseObject = ModelsUtilities.createResponse("ref",
+                        "authsignature header was absent or incorrect.",
+                        "FAILURE");
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -507,6 +554,7 @@ namespace WebServer
             string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
+            BaseResponse responseObject = new BaseResponse();
 
             if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -514,7 +562,10 @@ namespace WebServer
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseString = "{\"reference\": \"ref\",\"message\": \"Handle sent in header.user_handle is a reserved handle according to our JSON schema. (Or: request body otherwise does not conform to JSON schema.)\",\"status\": \"FAILURE\"}";
+                    responseObject = ModelsUtilities.createResponse("ref",
+                        "Handle sent in header.user_handle is a reserved handle according to our JSON schema. "
+                        + "(Or: request body otherwise does not conform to JSON schema.)",
+                        "FAILURE");
                 }
                 else
                 {
@@ -522,13 +573,13 @@ namespace WebServer
                     {
                         response.StatusCode = 200;
                         response.StatusDescription = "SUCCESS";
-                        responseString = "{\"reference\": \"ref\",\"message\": \"Handle sent in header.user_handle is available.\",\"status\": \"SUCCESS\"}";
+                        responseObject = ModelsUtilities.createResponse("ref", "Handle sent in header.user_handle is available.", "SUCCESS");
                     }
                     else if (headerMsg.header.userHandle.Equals("taken.silamoney.eth"))
                     {
                         response.StatusCode = 200;
                         response.StatusDescription = "FAILURE";
-                        responseString = "{\"reference\": \"ref\",\"message\": \"Handle sent in header.user_handle is taken.\",\"status\": \"FAILURE\"}";
+                        responseObject = ModelsUtilities.createResponse("ref", "Handle sent in header.user_handle is taken.", "FAILURE");
                     }
                 }
             }
@@ -536,9 +587,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseString = "{\"reference\": \"ref\",\"message\": \"Auth signature is absent or derived address does not belong to auth_handle.\",\"status\": \"FAILURE\"}";
+                responseObject = ModelsUtilities.createResponse("ref",
+                    "Auth signature is absent or derived address does not belong to auth_handle.",
+                    "FAILURE");
             }
 
+            responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;

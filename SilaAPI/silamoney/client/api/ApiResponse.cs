@@ -1,5 +1,4 @@
-﻿using SilaAPI.silamoney.client.domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SilaAPI.silamoney.client.api
 {

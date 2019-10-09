@@ -1,13 +1,13 @@
 ﻿using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 using System;
-using System.Collections.Generic;
 
 namespace SilaAPI.silamoney.client.configuration
 {
     /// <summary>
     /// Configuration object used to set the basepath, appHandle, privateKey, apiClient, timeout, and userAgent.
     /// </summary>
-    public class Configuration
+    internal class Configuration
     {
         #region Static Members
 
@@ -38,8 +38,7 @@ namespace SilaAPI.silamoney.client.configuration
         public Configuration()
         {
             UserAgent = "SilaSDK/1.0.0/csharp";
-            BasePath = "https://sandbox.silamoney.com/0.2";
-            appHandle = "handle.silamoney.eth";
+            BasePath = Environments.SANDBOX;
 
             Timeout = 100000;
         }

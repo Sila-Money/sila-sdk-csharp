@@ -5,8 +5,15 @@ using SilaAPI.silamoney.client.configuration;
 
 namespace SilaAPI.silamoney.client.api
 {
-    public partial class ApiClient
-    {        
+    /// <summary>
+    /// Class used to prepare requests and make calls to the api server.
+    /// </summary>
+    internal partial class ApiClient
+    {
+        /// <summary>
+        /// ApiClient constructor.
+        /// </summary>
+        /// <param name="basePath"></param>
         public ApiClient(String basePath = "https://sandbox.silamoney.com/0.2")
         {
             if (String.IsNullOrEmpty(basePath))
@@ -15,17 +22,32 @@ namespace SilaAPI.silamoney.client.api
             RestClient = new RestClient(basePath);
             Configuration = Configuration.Default;
         }
-        
-        public Configuration Configuration { get; set; }
 
+        /// <summary>
+        /// ApiClient configuration.
+        /// </summary>
+        internal Configuration Configuration { get; set; }
+
+        /// <summary>
+        /// Rest Client used in the ApiClient
+        /// </summary>
         public RestClient RestClient { get; set; }
 
+        /// <summary>
+        /// Creates a rest request adding the headers and parameters.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="method"></param>
+        /// <param name="postBody"></param>
+        /// <param name="headerParams"></param>
+        /// <param name="contentType"></param>
+        /// <returns>RestRequest with headers and parameters.</returns>
         private RestRequest PrepareRequest(
-            String path, RestSharp.Method method, Object postBody, Dictionary<String, String> headerParams, 
+            String path, RestSharp.Method method, Object postBody, Dictionary<String, String> headerParams,
             String contentType)
         {
             var request = new RestRequest(path, method);
-            
+
             foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
@@ -34,6 +56,15 @@ namespace SilaAPI.silamoney.client.api
             return request;
         }
 
+        /// <summary>
+        /// Executes a Rest call useing the prepared request.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="method"></param>
+        /// <param name="postBody"></param>
+        /// <param name="headerParams"></param>
+        /// <param name="contentType"></param>
+        /// <returns>The response from the server.</returns>
         public Object CallApi(
             String path, RestSharp.Method method, Object postBody, Dictionary<String, String> headerParams,
             String contentType)

@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SilaAPI.silamoney.client.util
 {
-    public class SerializationUtil
+    /// <summary>
+    /// Class used to convert from objects to string and vice versa.
+    /// </summary>
+    internal class SerializationUtil
     {
         public static String Serialize(object obj)
         {
