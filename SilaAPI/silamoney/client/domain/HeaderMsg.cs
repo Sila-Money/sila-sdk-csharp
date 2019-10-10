@@ -1,4 +1,3 @@
-using System.IO;
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -13,8 +12,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="authHandle"></param>
         public HeaderMsg(string handle, string authHandle)
         {
-            this.header = new Header(handle, authHandle);
-            this.message = MessageEnum.HeaderMsg;
+            this.Header = new Header(handle, authHandle);
+            this.MessageOption = Message.HeaderMsg;
         }
     }
 }

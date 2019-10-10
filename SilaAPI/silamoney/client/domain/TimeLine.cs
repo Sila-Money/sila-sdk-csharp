@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -13,25 +10,25 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the TimeLine object to save date
         /// </summary>
-        public string date { get; set; }
+        public string Date { get; set; }
         /// <summary>
         /// Long field used in the TimeLine object to save date epoch
         /// </summary>
         [JsonProperty("date_epoch")]
-        public long dateEpoch { get; set; }
+        public long DateEpoch { get; set; }
         /// <summary>
         /// String field used in the TimeLine object to save status
         /// </summary>
-        public string status { get; set; }
+        public string Status { get; set; }
         /// <summary>
         /// String field used in the TimeLine object to save usd status
         /// </summary>
         [JsonProperty("usd_status")]
-        public string usdStatus { get; set; }
+        public string UsdStatus { get; set; }
         /// <summary>
         /// String field used in the TimeLine to save token status
         /// </summary>
         [JsonProperty("token_status")]
-        public string tokenStatus { get; set; }
+        public string TokenStatus { get; set; }
     }
 }

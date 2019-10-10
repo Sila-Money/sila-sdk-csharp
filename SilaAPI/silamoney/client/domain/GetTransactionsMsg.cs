@@ -1,4 +1,3 @@
-using System.IO;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -23,9 +22,9 @@ namespace SilaAPI.silamoney.client.domain
         /// <returns></returns>
         public GetTransactionsMsg(string userHandle, string authHandle, SearchFilters searchFilters = default(SearchFilters))
         {
-            this.header = new Header(userHandle, authHandle);
+            this.Header = new Header(userHandle, authHandle);
             this.searchFilters = searchFilters;
-            this.message = MessageEnum.GetTransactionMsg;
+            this.MessageOption = Message.GetTransactionMsg;
         }
     }
 }

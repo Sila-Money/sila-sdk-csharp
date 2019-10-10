@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using SilaAPI.silamoney.client.configuration;
+using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.exceptions;
+using SilaAPI.silamoney.client.security;
+using SilaAPI.silamoney.client.util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using RestSharp;
-using SilaAPI.silamoney.client.exceptions;
-using SilaAPI.silamoney.client.domain;
-using SilaAPI.silamoney.client.util;
-using SilaAPI.silamoney.client.configuration;
-using SilaAPI.silamoney.client.security;
-using Newtonsoft.Json;
 
 namespace SilaAPI.silamoney.client.api
 {

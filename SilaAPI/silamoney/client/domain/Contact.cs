@@ -1,4 +1,3 @@
-using System.IO;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -33,8 +32,8 @@ namespace SilaAPI.silamoney.client.domain
             if (user != null)
             {
                 this.contactAlias = "";
-                this.email = user.email;
-                this.phone = user.phone;
+                this.email = user.Email;
+                this.phone = user.Phone;
             }
         }
     }

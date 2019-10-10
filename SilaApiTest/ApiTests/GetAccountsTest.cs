@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.exceptions;
+using System.Threading;
 
 namespace SilaApiTest
 {
@@ -32,7 +30,7 @@ namespace SilaApiTest
             ApiResponse<object> response = api.GetAccounts("user.silamoney.eth", DefaultConfig.userPrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((GetAccountsResponse)response.Data).status);
+            Assert.AreEqual("SUCCESS", ((GetAccountsResponse)response.Data).Status);
         }
         [TestMethod]
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]

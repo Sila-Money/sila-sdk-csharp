@@ -9,15 +9,15 @@ namespace SilaApiTest
     [TestClass]
     public class RegisterTest
     {
-        UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        readonly UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
         [TestInitialize]
-        public void configuartion()
+        public void Configuartion()
         {
-            Thread thread = new Thread(createWebServer);
+            Thread thread = new Thread(CreateWebServer);
             thread.Start();
         }
 
-        private void createWebServer()
+        private void CreateWebServer()
         {
             string[] prefixes = new string[1];
             prefixes[0] = "http://localhost:8080/register/";
@@ -26,28 +26,28 @@ namespace SilaApiTest
         [TestMethod]
         public void TestResponse200()
         {
-            User user = ModelsUtilities.createUser();
+            User user = ModelsUtilities.CreateUser();
             ApiResponse<object> response = api.Register(user);
 
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).status);
+            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status);
             Assert.AreEqual(200, response.StatusCode);
 
         }
         [TestMethod]
-        [ExpectedException(typeof(BadRequestException),"Bad request permited.")]
+        [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void TestResponse400()
         {
-            User user = ModelsUtilities.createUser();
-            user.userHandle = "";
-            ApiResponse<object> response = api.Register(user);
+            User user = ModelsUtilities.CreateUser();
+            user.UserHandle = "";
+            _ = api.Register(user);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid authsignature permited.")]
         public void TestResponse401()
         {
-            User user = ModelsUtilities.createUser();
-            user.userHandle= "wrongSignature.silamoney.eth";
-            ApiResponse<object> response = api.Register(user);
+            User user = ModelsUtilities.CreateUser();
+            user.UserHandle = "wrongSignature.silamoney.eth";
+            _ = api.Register(user);
         }
     }
 }

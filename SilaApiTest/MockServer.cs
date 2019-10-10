@@ -23,15 +23,13 @@ namespace WebServer
             HttpListenerContext context = listener.GetContext();
             HttpListenerRequest request = context.Request;
 
-            HttpListenerResponse response = buildResponse(context, request);
+            BuildResponse(context, request);
 
             listener.Close();
         }
 
-        private static HttpListenerResponse buildResponse(HttpListenerContext context, HttpListenerRequest request)
+        private static void BuildResponse(HttpListenerContext context, HttpListenerRequest request)
         {
-            HttpListenerResponse response = context.Response;
-
             #region Read Body
             Stream body = request.InputStream;
             Encoding encoding = request.ContentEncoding;
@@ -43,7 +41,7 @@ namespace WebServer
             reader.Close();
             #endregion
 
-            HeaderMsg headerMsg;
+            HeaderMsg HeaderMsg;
             EntityMsg entityMsg;
             LinkAccountMsg linkAccountMsg;
             GetAccountsMsg getAccountsMsg;
@@ -51,59 +49,65 @@ namespace WebServer
             TransferMsg transferMsg;
             RedeemMsg redeemMsg;
             GetTransactionsMsg getTransactionsMsg;
-            SilaBalanceRequest silaBalanceRequest;
 
             switch (request.RawUrl)
             {
                 case "/check_handle":
-                    headerMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
-                    return getCheckHandleResponse(context, headerMsg);
+                    HeaderMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
+                    GetCheckHandleResponse(context, HeaderMsg);
+                    break;
                 case "/register":
                     entityMsg = JsonConvert.DeserializeObject<EntityMsg>(s);
-                    return getRegisterResponse(context, entityMsg);
+                    GetRegisterResponse(context, entityMsg);
+                    break;
                 case "/request_kyc":
-                    headerMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
-                    return getRequestKYCResponse(context, headerMsg);
+                    HeaderMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
+                    GetRequestKYCResponse(context, HeaderMsg);
+                    break;
                 case "/check_kyc":
-                    headerMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
-                    return getCheckKYCResponse(context, headerMsg);
+                    HeaderMsg = JsonConvert.DeserializeObject<HeaderMsg>(s);
+                    GetCheckKYCResponse(context, HeaderMsg);
+                    break;
                 case "/link_account":
                     linkAccountMsg = JsonConvert.DeserializeObject<LinkAccountMsg>(s);
-                    return getLinkAccountResponse(context, linkAccountMsg);
+                    GetLinkAccountResponse(context, linkAccountMsg);
+                    break;
                 case "/get_accounts":
                     getAccountsMsg = JsonConvert.DeserializeObject<GetAccountsMsg>(s);
-                    return getGetAccountsResponse(context, getAccountsMsg);
+                    GetGetAccountsResponse(context, getAccountsMsg);
+                    break;
                 case "/issue_sila":
                     issueMsg = JsonConvert.DeserializeObject<IssueMsg>(s);
-                    return getIssueMsgResponse(context, issueMsg);
+                    GetIssueMsgResponse(context, issueMsg);
+                    break;
                 case "/transfer_sila":
                     transferMsg = JsonConvert.DeserializeObject<TransferMsg>(s);
-                    return getTransferMsgResponse(context, transferMsg);
+                    GetTransferMsgResponse(context, transferMsg);
+                    break;
                 case "/redeem_sila":
                     redeemMsg = JsonConvert.DeserializeObject<RedeemMsg>(s);
-                    return getRedeemMsgResponse(context, redeemMsg);
+                    GetRedeemMsgResponse(context, redeemMsg);
+                    break;
                 case "/get_transactions":
                     getTransactionsMsg = JsonConvert.DeserializeObject<GetTransactionsMsg>(s);
-                    return getGetTransactionsMsgResponse(context, getTransactionsMsg);
+                    GetGetTransactionsMsgResponse(context, getTransactionsMsg);
+                    break;
                 case "/silaBalance":
-                    silaBalanceRequest = JsonConvert.DeserializeObject<SilaBalanceRequest>(s);
-                    return getSilaBalanceResponse(context, silaBalanceRequest);
+                    GetSilaBalanceResponse(context);
+                    break;
                 default:
                     break;
             }
-
-            return null;
         }
 
-        private static HttpListenerResponse getSilaBalanceResponse(HttpListenerContext context, SilaBalanceRequest silaBalanceRequest)
+        private static void GetSilaBalanceResponse(HttpListenerContext context)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
 
             response.StatusCode = 200;
             response.StatusDescription = "OK";
-            responseString = "1000";
+            string responseString = "1000";
 
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
@@ -112,28 +116,25 @@ namespace WebServer
             output.Write(buffer, 0, buffer.Length);
 
             output.Close();
-
-            return response;
         }
 
-        private static HttpListenerResponse getGetTransactionsMsgResponse(HttpListenerContext context, GetTransactionsMsg getTransactionsMsg)
+        private static void GetGetTransactionsMsgResponse(HttpListenerContext context, GetTransactionsMsg getTransactionsMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             GetTransactionsResponse responseObject = new GetTransactionsResponse();
 
-            if (!getTransactionsMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!getTransactionsMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (getTransactionsMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (getTransactionsMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
-                        ModelsUtilities.createTransactionResult(),
+                    responseObject = ModelsUtilities.CreateResponse("ref",
+                        ModelsUtilities.CreateTransactionResult(),
                         "SUCCESS");
                 }
-                else if (getTransactionsMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(getTransactionsMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
@@ -145,7 +146,7 @@ namespace WebServer
                 response.StatusDescription = "FAILURE";
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -154,35 +155,34 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getRedeemMsgResponse(HttpListenerContext context, RedeemMsg redeemMsg)
+        private static void GetRedeemMsgResponse(HttpListenerContext context, RedeemMsg redeemMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!redeemMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!redeemMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (redeemMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (redeemMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Redemption process started.",
                         "SUCCESS");
                 }
-                else if (redeemMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
+                else if (redeemMsg.Header.UserHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Redemption process not started; see message attribute.",
                         "FAILURE");
                 }
-                else if (redeemMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(redeemMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
@@ -194,7 +194,7 @@ namespace WebServer
                 response.StatusDescription = "FAILURE";
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -203,35 +203,34 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getTransferMsgResponse(HttpListenerContext context, TransferMsg transferMsg)
+        private static void GetTransferMsgResponse(HttpListenerContext context, TransferMsg transferMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!transferMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!transferMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (transferMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (transferMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Transfer process started.",
                         "SUCCESS");
                 }
-                else if (transferMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
+                else if (transferMsg.Header.UserHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Transfer process not started; see message attribute.",
                         "FAILURE");
                 }
-                else if (transferMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(transferMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
@@ -243,7 +242,7 @@ namespace WebServer
                 response.StatusDescription = "FAILURE";
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -252,35 +251,34 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getIssueMsgResponse(HttpListenerContext context, IssueMsg issueMsg)
+        private static void GetIssueMsgResponse(HttpListenerContext context, IssueMsg issueMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!issueMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!issueMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (issueMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (issueMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Issuance process started.",
                         "SUCCESS");
                 }
-                else if (issueMsg.header.userHandle.Equals("notStarted.silamoney.eth"))
+                else if (issueMsg.Header.UserHandle.Equals("notStarted.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Issuance process not started; see message attribute.",
                         "FAILURE");
                 }
-                else if (issueMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(issueMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
@@ -292,7 +290,7 @@ namespace WebServer
                 response.StatusDescription = "FAILURE";
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -301,27 +299,26 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getGetAccountsResponse(HttpListenerContext context, GetAccountsMsg getAccountsMsg)
+        private static void GetGetAccountsResponse(HttpListenerContext context, GetAccountsMsg getAccountsMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             GetAccountsResponse responseObject = new GetAccountsResponse();
 
-            if (!getAccountsMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!getAccountsMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (getAccountsMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (getAccountsMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
-                        ModelsUtilities.createGetAccountsResult(),
+                    responseObject = ModelsUtilities.CreateResponse("ref",
+                        ModelsUtilities.CreateGetAccountsResult(),
                         "SUCCESS");
                 }
-                else if (getAccountsMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(getAccountsMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
@@ -333,7 +330,7 @@ namespace WebServer
                 response.StatusDescription = "FAILURE";
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -342,39 +339,38 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getLinkAccountResponse(HttpListenerContext context, LinkAccountMsg linkAccountMsg)
+        private static void GetLinkAccountResponse(HttpListenerContext context, LinkAccountMsg linkAccountMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!linkAccountMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!linkAccountMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (linkAccountMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (linkAccountMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Bank account successfully linked.",
                         "SUCCESS");
                 }
-                else if (linkAccountMsg.header.userHandle.Equals("notlinked.silamoney.eth"))
+                else if (linkAccountMsg.Header.UserHandle.Equals("notlinked.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Bank account not successfully linked (public token may have expired. Tokens expire in 30 minutes after creation).",
                         "FAILURE");
                 }
-                else if (linkAccountMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(linkAccountMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Invalid request body format.",
                         "FAILURE");
                 }
@@ -383,12 +379,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.createResponse("ref",
-                        "authsignature or usersignature header was absent or incorrect.",
+                responseObject = ModelsUtilities.CreateResponse("ref",
+                        "authsignature or usersignature Header was absent or incorrect.",
                         "FAILURE");
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -397,39 +393,38 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getCheckKYCResponse(HttpListenerContext context, HeaderMsg headerMsg)
+        private static void GetCheckKYCResponse(HttpListenerContext context, HeaderMsg HeaderMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!HeaderMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (headerMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (HeaderMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "The user handle has successfully passed KYC verification.",
                         "SUCCESS");
                 }
-                else if (headerMsg.header.userHandle.Equals("notverified.silamoney.eth"))
+                else if (HeaderMsg.Header.UserHandle.Equals("notverified.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "The user handle has not successfully passed KYC verification (may be pending, not have been registered, or have failed.).",
                         "FAILURE");
                 }
-                else if (headerMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(HeaderMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Invalid request body format.",
                         "FAILURE");
                 }
@@ -438,12 +433,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.createResponse("ref",
-                        "authsignature or usersignature header was absent or incorrect.",
+                responseObject = ModelsUtilities.CreateResponse("ref",
+                        "authsignature or usersignature Header was absent or incorrect.",
                         "FAILURE");
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -452,31 +447,30 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getRequestKYCResponse(HttpListenerContext context, HeaderMsg headerMsg)
+        private static void GetRequestKYCResponse(HttpListenerContext context, HeaderMsg HeaderMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!HeaderMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (headerMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (HeaderMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
-                        "The verification process for the user registered under header.user_handle has been successfully started.",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
+                        "The verification process for the user registered under Header.user_handle has been successfully started.",
                         "SUCCESS");
                 }
-                else if (headerMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(HeaderMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Invalid request body format.",
                         "FAILURE");
                 }
@@ -485,12 +479,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.createResponse("ref",
-                        "authsignature or usersignature header was absent or incorrect.",
+                responseObject = ModelsUtilities.CreateResponse("ref",
+                        "authsignature or usersignature Header was absent or incorrect.",
                         "FAILURE");
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -499,31 +493,30 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getRegisterResponse(HttpListenerContext context, EntityMsg entityMsg)
+        private static void GetRegisterResponse(HttpListenerContext context, EntityMsg entityMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!entityMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!entityMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (entityMsg.header.userHandle.Equals("user.silamoney.eth"))
+                if (entityMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Handle successfully added to system with KYC data.",
                         "SUCCESS");
                 }
-                else if (entityMsg.header.userHandle.Equals(""))
+                else if (string.IsNullOrEmpty(entityMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
+                    responseObject = ModelsUtilities.CreateResponse("ref",
                         "Invalid request body format, handle already in use, or blockchain address already in use.",
                         "FAILURE");
                 }
@@ -532,12 +525,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.createResponse("ref",
-                        "authsignature header was absent or incorrect.",
+                responseObject = ModelsUtilities.CreateResponse("ref",
+                        "authsignature Header was absent or incorrect.",
                         "FAILURE");
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -546,40 +539,39 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
 
-        private static HttpListenerResponse getCheckHandleResponse(HttpListenerContext context, HeaderMsg headerMsg)
+        private static void GetCheckHandleResponse(HttpListenerContext context, HeaderMsg HeaderMsg)
         {
-            string responseString = "";
             byte[] buffer;
             HttpListenerResponse response = context.Response;
             BaseResponse responseObject = new BaseResponse();
 
-            if (!headerMsg.header.userHandle.Equals("wrongSignature.silamoney.eth"))
+            if (!HeaderMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
-                if (headerMsg.header.userHandle.Equals(""))
+                if (string.IsNullOrEmpty(HeaderMsg.Header.UserHandle))
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.createResponse("ref",
-                        "Handle sent in header.user_handle is a reserved handle according to our JSON schema. "
+                    responseObject = ModelsUtilities.CreateResponse("ref",
+                        "Handle sent in Header.user_handle is a reserved handle according to our JSON schema. "
                         + "(Or: request body otherwise does not conform to JSON schema.)",
                         "FAILURE");
                 }
                 else
                 {
-                    if (headerMsg.header.userHandle.Equals("user.silamoney.eth"))
+                    if (HeaderMsg.Header.UserHandle.Equals("user.silamoney.eth"))
                     {
                         response.StatusCode = 200;
                         response.StatusDescription = "SUCCESS";
-                        responseObject = ModelsUtilities.createResponse("ref", "Handle sent in header.user_handle is available.", "SUCCESS");
+                        responseObject = ModelsUtilities.CreateResponse("ref", "Handle sent in Header.user_handle is available.", "SUCCESS");
                     }
-                    else if (headerMsg.header.userHandle.Equals("taken.silamoney.eth"))
+                    else if (HeaderMsg.Header.UserHandle.Equals("taken.silamoney.eth"))
                     {
                         response.StatusCode = 200;
                         response.StatusDescription = "FAILURE";
-                        responseObject = ModelsUtilities.createResponse("ref", "Handle sent in header.user_handle is taken.", "FAILURE");
+                        responseObject = ModelsUtilities.CreateResponse("ref", "Handle sent in Header.user_handle is taken.", "FAILURE");
                     }
                 }
             }
@@ -587,12 +579,12 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.createResponse("ref",
+                responseObject = ModelsUtilities.CreateResponse("ref",
                     "Auth signature is absent or derived address does not belong to auth_handle.",
                     "FAILURE");
             }
 
-            responseString = JsonConvert.SerializeObject(responseObject);
+            string responseString = JsonConvert.SerializeObject(responseObject);
             buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
@@ -601,7 +593,7 @@ namespace WebServer
 
             output.Close();
 
-            return response;
+            
         }
     }
 }

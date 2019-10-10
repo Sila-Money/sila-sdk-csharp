@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -9,64 +7,64 @@ namespace SilaAPI.silamoney.client.domain
     /// </summary>
     public class User
     {
-        
+
         /// <summary>
         /// String field used in the User object to save userHandle
         /// </summary>
-        public string userHandle { get; set; }
+        public string UserHandle { get; set; }
         /// <summary>
         /// String field used in the User object to save firstName
         /// </summary>
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
         /// <summary>
         /// String field used in the User object to save lastName
         /// </summary>
-        public string lastName { get; set; }
+        public string LastName { get; set; }
         /// <summary>
         /// String field used in the User object to save entityName
         /// </summary>
-        public string entityName { get; set; }
+        public string EntityName { get; set; }
         /// <summary>
         /// String field used in the User object to save identityValue
         /// </summary>
-        public string identityValue { get; set; }
+        public string IdentityValue { get; set; }
         /// <summary>
         /// String field used in the User object to save phone
         /// </summary>
-        public string phone { get; set; }
+        public string Phone { get; set; }
         /// <summary>
         /// String field used in the User object to save email
         /// </summary>
-        public string email { get; set; }
+        public string Email { get; set; }
         /// <summary>
         /// String field used in the User object to save streetAddress1
         /// </summary>
-        public string streetAddress1 { get; set; }
+        public string StreetAddress1 { get; set; }
         /// <summary>
         /// String field used in the User object to save streetAddress2
         /// </summary>
         /// <value></value>
-        public string streetAddress2 { get; set; }
+        public string StreetAddress2 { get; set; }
         /// <summary>
         /// String field used in the User object to save city
         /// </summary>
-        public string city { get; set; }
+        public string City { get; set; }
         /// <summary>
         /// String field used in the User object to save state
         /// </summary>
-        public string state { get; set; }
+        public string State { get; set; }
         /// <summary>
         /// String field used in the User object to save portalCode
         /// </summary>
-        public string portalCode { get; set; }
+        public string PortalCode { get; set; }
         /// <summary>
         /// String field used in the User object to save cryptopAddress
         /// </summary>
-        public string cryptopAddress { get; set; }
+        public string CryptopAddress { get; set; }
         /// <summary>
         /// DateTime field used in the User object to save birthdate
         /// </summary>
-        public DateTime birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
         /// <summary>
         /// User constructor
@@ -85,24 +83,24 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="portalCode"></param>
         /// <param name="cryptopAddress"></param>
         /// <param name="birthdate"></param>
-        public User(string userHandle, string firstName, string lastName, string entityName, string identityValue, string phone, 
-            string email, string streetAddress1, string streetAddress2, string city, string state, string portalCode, 
+        public User(string userHandle, string firstName, string lastName, string entityName, string identityValue, string phone,
+            string email, string streetAddress1, string streetAddress2, string city, string state, string portalCode,
             string cryptopAddress, DateTime birthdate)
         {
-            this.userHandle = userHandle;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.entityName = entityName;
-            this.identityValue = identityValue;
-            this.phone = phone;
-            this.email = email;
-            this.streetAddress1 = streetAddress1;
-            this.streetAddress2 = streetAddress2;
-            this.city = city;
-            this.state = state;
-            this.portalCode = portalCode;
-            this.cryptopAddress = cryptopAddress;
-            this.birthdate = birthdate;
+            this.UserHandle = userHandle;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.EntityName = entityName;
+            this.IdentityValue = identityValue;
+            this.Phone = phone;
+            this.Email = email;
+            this.StreetAddress1 = streetAddress1;
+            this.StreetAddress2 = streetAddress2;
+            this.City = city;
+            this.State = state;
+            this.PortalCode = portalCode;
+            this.CryptopAddress = cryptopAddress;
+            this.Birthdate = birthdate;
         }
     }
 }

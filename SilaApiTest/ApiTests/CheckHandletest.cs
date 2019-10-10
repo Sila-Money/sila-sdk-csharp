@@ -31,7 +31,7 @@ namespace SilaApiTest
             ApiResponse<object> response = api.CheckHandle("user.silamoney.eth");
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).status);
+            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status);
         }
         [TestMethod]
         public void Response200Failure()
@@ -39,7 +39,7 @@ namespace SilaApiTest
             ApiResponse<object> response = api.CheckHandle("taken.silamoney.eth");
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).status);
+            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
         [TestMethod]
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]

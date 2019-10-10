@@ -42,14 +42,14 @@ namespace SilaAPI.silamoney.client.configuration
 
             Timeout = 100000;
         }
-        
+
         #endregion Constructors
 
 
         #region Properties
 
         private ApiClient _apiClient = null;
-        
+
         public virtual ApiClient ApiClient
         {
             get
@@ -60,7 +60,7 @@ namespace SilaAPI.silamoney.client.configuration
         }
 
         private String _basePath = null;
-        
+
         public virtual string BasePath
         {
             get { return _basePath; }
@@ -103,7 +103,7 @@ namespace SilaAPI.silamoney.client.configuration
         #endregion Properties
 
         #region Methods
-        
+
         public ApiClient CreateApiClient()
         {
             return new ApiClient(BasePath) { Configuration = this };

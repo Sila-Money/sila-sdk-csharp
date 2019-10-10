@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using RestSharp;
+﻿using RestSharp;
 using SilaAPI.silamoney.client.configuration;
+using System;
+using System.Collections.Generic;
 
 namespace SilaAPI.silamoney.client.api
 {

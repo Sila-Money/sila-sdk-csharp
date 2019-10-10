@@ -1,4 +1,3 @@
-using System.IO;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -43,13 +42,13 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null && appHandle != null)
             {
-                this.header = new Header(user.userHandle, appHandle);
+                this.Header = new Header(user.UserHandle, appHandle);
                 this.address = new Address(user);
                 this.identity = new Identity(user);
                 this.contact = new Contact(user);
                 this.cryptoEntry = new CryptoEntry(user);
                 this.entity = new Entity(user);
-                this.message = MessageEnum.EntityMsg;
+                this.MessageOption = Message.EntityMsg;
             }
         }
     }

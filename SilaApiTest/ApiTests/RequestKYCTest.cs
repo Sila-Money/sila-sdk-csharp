@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.exceptions;
+using System.Threading;
 
 namespace SilaApiTest
 {
@@ -29,13 +28,13 @@ namespace SilaApiTest
         {
             ApiResponse<object> response = api.RequestKYC("user.silamoney.eth", DefaultConfig.userPrivateKey);
 
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).status);
+            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status);
             Assert.AreEqual(200, response.StatusCode);
         }
         [TestMethod]
-        [ExpectedException(typeof(BadRequestException),"Bad request permited.")]
+        [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
-        {   
+        {
             ApiResponse<object> response = api.RequestKYC("", DefaultConfig.userPrivateKey);
         }
         [TestMethod]

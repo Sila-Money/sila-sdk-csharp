@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -14,69 +12,79 @@ namespace SilaAPI.silamoney.client.domain
         /// String field value used in the Transaction objet to save user_handle
         /// </summary>
         [JsonProperty("user_handle")]
-        public string userHandle { get; set; }
+        public string UserHandle { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save reference_id
         /// </summary>
         [JsonProperty("reference_id")]
-        public string referenceId { get; set; }
+        public string ReferenceId { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save transaction_id
         /// </summary>
         [JsonProperty("transaction_id")]
-        public string transactionId { get; set; }
+        public string TransactionId { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save transaction_hash
         /// </summary>
         [JsonProperty("transaction_hash")]
-        public string transactionHash { get; set; }
+        public string TransactionHash { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save transaction_type
         /// </summary>
         [JsonProperty("transaction_type")]
-        public string transactionType { get; set; }
+        public string TransactionType { get; set; }
         /// <summary>
         /// Float field value used in the Transaction objet to save sila_amount
         /// </summary>
         [JsonProperty("sila_amount")]
-        public float silaAmount { get; set; }
+        public float SilaAmount { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save bank_account_name
         /// </summary>
         [JsonProperty("bank_account_name")]
-        public string bankAccountName { get; set; }
+        public string BankAccountName { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save handle_address
         /// </summary>
         [JsonProperty("handle_address")]
-        public string handleAddress { get; set; }
-        public string status { get; set; }
+        public string HandleAddress { get; set; }
+        /// <summary>
+        /// String field value used in the transaction object to save status
+        /// </summary>
+        [JsonProperty("status")]
+        public string Status { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save usd_status
         /// </summary>
         [JsonProperty("usd_status")]
-        public string usdStatus { get; set; }
+        public string UsdStatus { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save token_status
         /// </summary>
         [JsonProperty("token_status")]
-        public string tokenStatus { get; set; }
-        public string created { get; set; }
+        public string TokenStatus { get; set; }
+        /// <summary>
+        /// String field value used in the Transaction objet to save created
+        /// </summary>
+        public string Created { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save last_update
         /// </summary>
         [JsonProperty("last_update")]
-        public string lastUpdate { get; set; }
+        public string LastUpdate { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save created_epoch
         /// </summary>
         [JsonProperty("created_epoch")]
-        public long createdEpoch { get; set; }
+        public long CreatedEpoch { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save last_update_epoch
         /// </summary>
         [JsonProperty("last_update_epoch")]
-        public long lastUpdateEpoch { get; set; }
-        public List<TimeLine> timeLines { get; set; }
+        public long LastUpdateEpoch { get; set; }
+        /// <summary>
+        /// String field value used in the Transaction objet to save timelines
+        /// </summary>
+        public List<TimeLine> TimeLines { get; set; }
     }
 }

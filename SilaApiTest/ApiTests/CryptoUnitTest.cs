@@ -11,7 +11,7 @@ namespace SilaApiTest
         {
             string privateKey = "badba7368134dcd61c60f9b56979c09196d03f5891a20c1557b1afac0202a97c";
             string message = "Sila";
-            string signature = Signer.sign(message,privateKey);
+            string signature = Signer.sign(message, privateKey);
             string expected = "ea3706a8d2b4c627f847c0c6bfcd59f001021d790f06924ff395e9faecb510c53c09274b70cc1d29bde630d277096d570ee7983455344915d19085cc13288b421b";
             Assert.AreEqual(expected, signature);
         }

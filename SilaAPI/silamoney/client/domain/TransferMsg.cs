@@ -1,4 +1,3 @@
-using System.IO;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -26,10 +25,10 @@ namespace SilaAPI.silamoney.client.domain
             string destinationHandle,
             string authHandle)
         {
-            this.header = new Header(userHandle, authHandle);
+            this.Header = new Header(userHandle, authHandle);
             this.destination = destinationHandle;
             this.amount = amount;
-            this.message = MessageEnum.TransferMsg;
+            this.MessageOption = Message.TransferMsg;
         }
     }
 }

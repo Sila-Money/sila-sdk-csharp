@@ -1,10 +1,4 @@
 ﻿using SilaAPI.silamoney.client.domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SilaAPI.silamoney.client.api.UserApi;
 
 namespace SilaApiTest
 {

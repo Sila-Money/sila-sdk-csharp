@@ -1,112 +1,123 @@
-﻿using Newtonsoft.Json;
-using SilaAPI.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SilaApiTest
 {
-    public class ModelsUtilities
+    public static class ModelsUtilities
     {
-        public static User createUser()
+        public static User CreateUser()
         {
             return new User("user.silamoney.eth", "Example", "User", "Example User", "123452222", "1234567890", "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1", new DateTime(1990, 05, 19));
         }
-                    
-        public static GetTransactionsResult createTransactionResult() {
-            GetTransactionsResult responseMessage = new GetTransactionsResult();
-            responseMessage.success = true;
-            responseMessage.page = 1;
-            responseMessage.returnedCount = 1;
-            responseMessage.totalCount = 1;
-            responseMessage.transactions = createTransactions();
+
+        public static GetTransactionsResult CreateTransactionResult()
+        {
+            GetTransactionsResult responseMessage = new GetTransactionsResult
+            {
+                success = true,
+                page = 1,
+                returnedCount = 1,
+                totalCount = 1,
+                transactions = CreateTransactions()
+            };
 
             return responseMessage;
         }
 
-        private static List<Transaction> createTransactions()
+        private static List<Transaction> CreateTransactions()
         {
             List<Transaction> transactions = new List<Transaction>();
-            Transaction transaction = new Transaction();
-            transaction.userHandle = "user.silamoney.eth";
-            transaction.referenceId = "ref";
-            transaction.transactionHash = "0x1234567890abcdef1234567890abcdef";
-            transaction.transactionType = "issue";
-            transaction.silaAmount = 1000;
-            transaction.bankAccountName = "default";
-            transaction.handleAddress = "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1";
-            transaction.status = "success";
-            transaction.usdStatus = "success";
-            transaction.tokenStatus = "success";
-            transaction.created = "2019-04-03T00:00:00.000Z";
-            transaction.lastUpdate = "2019-04-03T00:00:00.003Z";
-            transaction.createdEpoch = 1234567890;
-            transaction.lastUpdateEpoch = 1234567899;
-            transaction.timeLines = createTimeLines();
+            Transaction transaction = new Transaction
+            {
+                UserHandle = "user.silamoney.eth",
+                ReferenceId = "ref",
+                TransactionHash = "0x1234567890abcdef1234567890abcdef",
+                TransactionType = "issue",
+                SilaAmount = 1000,
+                BankAccountName = "default",
+                HandleAddress = "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1",
+                Status = "success",
+                UsdStatus = "success",
+                TokenStatus = "success",
+                Created = "2019-04-03T00:00:00.000Z",
+                LastUpdate = "2019-04-03T00:00:00.003Z",
+                CreatedEpoch = 1234567890,
+                LastUpdateEpoch = 1234567899,
+                TimeLines = CreateTimeLines()
+            };
 
             transactions.Add(transaction);
 
             return transactions;
         }
 
-        private static List<TimeLine> createTimeLines()
+        private static List<TimeLine> CreateTimeLines()
         {
-            List<TimeLine> timeLines = new List<TimeLine>();
-            TimeLine timeLine = new TimeLine();
-            timeLine.date = "2019-04-03T00:00:00.000Z";
-            timeLine.dateEpoch = 1234567890;
-            timeLine.status = "queued";
-            timeLine.usdStatus = "not started";
-            timeLine.tokenStatus = "not started";
+            List<TimeLine> TimeLines = new List<TimeLine>();
+            TimeLine timeLine = new TimeLine
+            {
+                Date = "2019-04-03T00:00:00.000Z",
+                DateEpoch = 1234567890,
+                Status = "queued",
+                UsdStatus = "not started",
+                TokenStatus = "not started"
+            };
 
-            timeLines.Add(timeLine);
+            TimeLines.Add(timeLine);
 
-            return timeLines;
+            return TimeLines;
         }
 
-        internal static List<Account> createGetAccountsResult()
+        internal static List<Account> CreateGetAccountsResult()
         {
             List<Account> accounts = new List<Account>();
-            Account account = new Account();
-            account.accountName = "default";
-            account.accountNumber = "1234";
-            account.accountStatus = "active";
-            account.accountType = "CHEKING";
+            Account account = new Account
+            {
+                accountName = "default",
+                accountNumber = "1234",
+                accountStatus = "active",
+                accountType = "CHEKING"
+            };
 
             accounts.Add(account);
 
             return accounts;
         }
 
-        internal static BaseResponse createResponse(string reference, string message, string status)
+        internal static BaseResponse CreateResponse(string reference, string message, string Status)
         {
-            BaseResponse response = new BaseResponse();
-            response.message = message;
-            response.reference = reference;
-            response.status = status;
+            BaseResponse response = new BaseResponse
+            {
+                Message = message,
+                Reference = reference,
+                Status = Status
+            };
 
             return response;
         }
 
-        internal static GetAccountsResponse createResponse(string reference, List<Account> message, string status)
+        internal static GetAccountsResponse CreateResponse(string reference, List<Account> message, string Status)
         {
-            GetAccountsResponse response = new GetAccountsResponse();
-            response.message = message;
-            response.reference = reference;
-            response.status = status;
+            GetAccountsResponse response = new GetAccountsResponse
+            {
+                Message = message,
+                Reference = reference,
+                Status = Status
+            };
 
             return response;
         }
 
-        internal static GetTransactionsResponse createResponse(string reference, GetTransactionsResult message, string status)
+        internal static GetTransactionsResponse CreateResponse(string reference, GetTransactionsResult message, string Status)
         {
-            GetTransactionsResponse response = new GetTransactionsResponse();
-            response.message = message;
-            response.reference = reference;
-            response.status = status;
+            GetTransactionsResponse response = new GetTransactionsResponse
+            {
+                Message = message,
+                Reference = reference,
+                Status = Status
+            };
 
             return response;
         }

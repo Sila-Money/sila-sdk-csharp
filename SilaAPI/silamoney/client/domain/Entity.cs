@@ -1,9 +1,7 @@
+using Newtonsoft.Json;
+using SilaAPI.silamoney.client.util;
 using System;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.IO;
-using SilaAPI.silamoney.client.util;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -14,47 +12,32 @@ namespace SilaAPI.silamoney.client.domain
     public partial class Entity
     {
         /// <summary>
-        /// EnumMember values for Relationship field
-        /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum RelationshipEnum
-        {
-            [EnumMember(Value = "organization")]
-            Organization = 1,
-            [EnumMember(Value = "developer")]
-            Developer = 2,
-            [EnumMember(Value = "user")]
-            User = 3,
-            [EnumMember(Value = "vendor")]
-            Vendor = 4
-        }
-        /// <summary>
         /// Enum field used in the Entity object to select relationship
         /// </summary>
-        [DataMember(Name="relationship", EmitDefaultValue=false)]
-        public RelationshipEnum? relationship { get; set; }
+        [DataMember(Name = "relationship", EmitDefaultValue = false)]
+        public Relationship? RelationshipOption { get; set; }
         /// <summary>
         /// Datetime field used in the Entity object to save birthdate
         /// </summary>
         [DataMember(Name = "birthdate", EmitDefaultValue = false)]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime? birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
         /// <summary>
         /// String field used in the Entity object to save entity name
         /// </summary>
         [DataMember(Name = "entity_name", EmitDefaultValue = false)]
-        public string entityName { get; set; }
+        public string EntityName { get; set; }
         /// <summary>
         /// String field used in the Entity object to save last name
         /// </summary>
         [DataMember(Name = "last_name", EmitDefaultValue = false)]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
         /// <summary>
         /// String field used in the Entity object to save first name
         /// </summary>
         [DataMember(Name = "first_name", EmitDefaultValue = false)]
-        public string firstName { get; set; }
-        
+        public string FirstName { get; set; }
+
         /// <summary>
         /// If user is not null, set user values in the Entity object
         /// </summary>
@@ -63,11 +46,11 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.birthdate = user.birthdate;
-                this.entityName = user.entityName;
-                this.firstName = user.firstName;
-                this.lastName = user.lastName;
-                this.relationship = RelationshipEnum.User;
+                this.Birthdate = user.Birthdate;
+                this.EntityName = user.EntityName;
+                this.FirstName = user.FirstName;
+                this.LastName = user.LastName;
+                this.RelationshipOption = Relationship.User;
             }
         }
     }

@@ -1,18 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SilaAPI.silamoney.client.domain
+﻿namespace SilaAPI.silamoney.client.domain
 {
+    /// <summary>
+    /// Class used to get standard values for the Base Path.
+    /// </summary>
     public static class Environments
     {
-        private static string _sandbox = "https://sandbox.silamoney.com/0.2";
-        public static string SANDBOX { get => _sandbox;}
+        private const string _sandbox = "https://sandbox.silamoney.com/0.2";
+        /// <summary>
+        /// Property to get sandbox envirnoment.
+        /// </summary>
+        public static string SANDBOX { get => _sandbox; }
 
-        private static string _production = "https://sandbox.silamoney.com/0.2";
+        private const string _production = "https://sandbox.silamoney.com/0.2";
+        /// <summary>
+        /// Property to get production envirnoment.
+        /// </summary>
         public static string PRODUCTION { get => _production; }
 
-        private static string _local = "http://localhost:8080";
+        private const string _local = "http://localhost:8080";
+        /// <summary>
+        /// Property to get localhost envirnoment.
+        /// </summary>
         public static string LOCAL { get => _local; }
     }
 }

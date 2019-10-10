@@ -1,11 +1,4 @@
-using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -32,9 +25,9 @@ namespace SilaAPI.silamoney.client.domain
             string authHandle,
             string accountName)
         {
-            this.header = new Header(userHandle, authHandle);
+            this.Header = new Header(userHandle, authHandle);
             this.amount = amount;
-            this.message = MessageEnum.IssueMsg;
+            this.MessageOption = Message.IssueMsg;
             this.accountName = accountName;
         }
     }

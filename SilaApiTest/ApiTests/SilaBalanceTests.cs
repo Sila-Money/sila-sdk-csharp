@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
+using System.Threading;
 
 namespace SilaApiTest
 {
@@ -26,7 +25,7 @@ namespace SilaApiTest
         [TestMethod]
         public void Response200Success()
         {
-            ApiResponse<object> response = api.SilaBalance(DefaultConfig.environment,"0xabc123abc123abc123");
+            ApiResponse<object> response = api.SilaBalance(DefaultConfig.environment, "0xabc123abc123abc123");
 
             Assert.AreEqual(200, response.StatusCode);
         }
