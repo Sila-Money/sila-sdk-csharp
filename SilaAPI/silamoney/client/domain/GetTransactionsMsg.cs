@@ -11,7 +11,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Search filters object field used in the GetTransactionsMsg to save search filters
         /// </summary>
         [DataMember(Name = "search_filters", EmitDefaultValue = false)]
-        public SearchFilters searchFilters { get; set; }
+        public SearchFilters SearchFilters { get; set; }
 
         /// <summary>
         /// GetTransactionsMsg constructor
@@ -20,10 +20,10 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="authHandle"></param>
         /// <param name="searchFilters"></param>
         /// <returns></returns>
-        public GetTransactionsMsg(string userHandle, string authHandle, SearchFilters searchFilters = default(SearchFilters))
+        public GetTransactionsMsg(string userHandle, string authHandle, SearchFilters searchFilters = default)
         {
             this.Header = new Header(userHandle, authHandle);
-            this.searchFilters = searchFilters;
+            this.SearchFilters = searchFilters;
             this.MessageOption = Message.GetTransactionMsg;
         }
     }

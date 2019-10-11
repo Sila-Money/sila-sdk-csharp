@@ -9,16 +9,16 @@ namespace SilaApiTest
     [TestClass]
     public class CheckHandleTest
     {
-        UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        readonly UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
-        public void configuartion()
+        public void Configuartion()
         {
-            Thread thread = new Thread(createWebServer);
+            Thread thread = new Thread(CreateWebServer);
             thread.Start();
         }
 
-        private void createWebServer()
+        private void CreateWebServer()
         {
             string[] prefixes = new string[1];
             prefixes[0] = "http://localhost:8080/check_handle/";
@@ -45,13 +45,13 @@ namespace SilaApiTest
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
         {
-            ApiResponse<object> response = api.CheckHandle("");
+            api.CheckHandle("");
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid signature permited.")]
         public void Response401()
         {
-            ApiResponse<object> response = api.CheckHandle("wrongSignature.silamoney.eth");
+            api.CheckHandle("wrongSignature.silamoney.eth");
         }
     }
 }

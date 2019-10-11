@@ -11,7 +11,7 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the IssueMsg object to save account name
         /// </summary>
         [DataMember(Name = "account_name", EmitDefaultValue = false)]
-        public string accountName { get; set; }
+        public string AccountName { get; set; }
 
         /// <summary>
         /// IssueMsg constructor
@@ -26,9 +26,9 @@ namespace SilaAPI.silamoney.client.domain
             string accountName)
         {
             this.Header = new Header(userHandle, authHandle);
-            this.amount = amount;
+            this.Amount = amount;
             this.MessageOption = Message.IssueMsg;
-            this.accountName = accountName;
+            this.AccountName = accountName;
         }
     }
 }

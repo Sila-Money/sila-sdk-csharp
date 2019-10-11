@@ -8,7 +8,7 @@
         /// <summary>
         /// String field used in the SilaBalanceRequest object to save address
         /// </summary>
-        public string address { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// SilaBalanceRequest constructor
@@ -16,7 +16,7 @@
         /// <param name="address"></param>
         public SilaBalanceRequest(string address)
         {
-            this.address = address;
+            this.Address = address;
         }
     }
 }

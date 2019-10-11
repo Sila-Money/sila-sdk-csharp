@@ -66,6 +66,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field value used in the Transaction objet to save created
         /// </summary>
+        [JsonProperty("created")]
         public string Created { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save last_update
@@ -85,6 +86,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field value used in the Transaction objet to save timelines
         /// </summary>
+        [JsonProperty("timelines")]
         public List<TimeLine> TimeLines { get; set; }
     }
 }

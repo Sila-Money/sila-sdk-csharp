@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.util
     /// <summary>
     /// Class used to convert from objects to string and vice versa.
     /// </summary>
-    internal class SerializationUtil
+    internal static class SerializationUtil
     {
         public static String Serialize(object obj)
         {

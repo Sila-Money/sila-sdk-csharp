@@ -11,7 +11,7 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the TransferMsgTransferMsg object to save destination
         /// </summary>
         [DataMember(Name = "destination", EmitDefaultValue = false)]
-        public string destination { get; set; }
+        public string Destination { get; set; }
 
         /// <summary>
         /// TransferMsg constructor
@@ -26,8 +26,8 @@ namespace SilaAPI.silamoney.client.domain
             string authHandle)
         {
             this.Header = new Header(userHandle, authHandle);
-            this.destination = destinationHandle;
-            this.amount = amount;
+            this.Destination = destinationHandle;
+            this.Amount = amount;
             this.MessageOption = Message.TransferMsg;
         }
     }

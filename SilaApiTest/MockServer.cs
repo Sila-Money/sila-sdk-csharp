@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.util;
 using SilaApiTest;
 using System.IO;
 using System.Net;
@@ -37,8 +38,8 @@ namespace WebServer
 
             string s = reader.ReadToEnd();
 
-            body.Close();
             reader.Close();
+            body.Close();
             #endregion
 
             HeaderMsg HeaderMsg;
@@ -554,10 +555,6 @@ namespace WebServer
                 {
                     response.StatusCode = 400;
                     response.StatusDescription = "FAILURE";
-                    responseObject = ModelsUtilities.CreateResponse("ref",
-                        "Handle sent in Header.user_handle is a reserved handle according to our JSON schema. "
-                        + "(Or: request body otherwise does not conform to JSON schema.)",
-                        "FAILURE");
                 }
                 else
                 {
@@ -579,9 +576,6 @@ namespace WebServer
             {
                 response.StatusCode = 401;
                 response.StatusDescription = "FAILURE";
-                responseObject = ModelsUtilities.CreateResponse("ref",
-                    "Auth signature is absent or derived address does not belong to auth_handle.",
-                    "FAILURE");
             }
 
             string responseString = JsonConvert.SerializeObject(responseObject);
@@ -593,7 +587,7 @@ namespace WebServer
 
             output.Close();
 
-            
+
         }
     }
 }

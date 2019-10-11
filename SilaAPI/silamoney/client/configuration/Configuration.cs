@@ -12,7 +12,7 @@ namespace SilaAPI.silamoney.client.configuration
         #region Static Members
 
         private static readonly object GlobalConfigSync = new { };
-        private static Configuration _globalConfiguration;
+        private static Configuration _globalConfiguration = new Configuration();
 
         public static Configuration Default
         {
@@ -30,10 +30,6 @@ namespace SilaAPI.silamoney.client.configuration
 
         #region Constructors
 
-        static Configuration()
-        {
-            _globalConfiguration = new Configuration();
-        }
 
         public Configuration()
         {
@@ -75,21 +71,9 @@ namespace SilaAPI.silamoney.client.configuration
             }
         }
 
-        private String _privateKey = null;
+        public virtual string PrivateKey { get; set; }
 
-        public virtual string PrivateKey
-        {
-            get { return _privateKey; }
-            set { _privateKey = value; }
-        }
-
-        private String _appHandle = null;
-
-        public virtual string appHandle
-        {
-            get { return _appHandle; }
-            set { _appHandle = value; }
-        }
+        public virtual string AppHandle { get; set; }
 
         public virtual int Timeout
         {

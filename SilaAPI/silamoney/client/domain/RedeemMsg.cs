@@ -11,7 +11,7 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the RedeemMsg object to save account name
         /// </summary>
         [DataMember(Name = "account_name", EmitDefaultValue = false)]
-        public string accountName { get; set; }
+        public string AccountName { get; set; }
 
         /// <summary>
         /// RedeemMsg constructor
@@ -26,8 +26,8 @@ namespace SilaAPI.silamoney.client.domain
             string accountName)
         {
             this.Header = new Header(userHandle, authHandle);
-            this.amount = amount;
-            this.accountName = accountName;
+            this.Amount = amount;
+            this.AccountName = accountName;
             this.MessageOption = Message.RedeemMsg;
         }
     }

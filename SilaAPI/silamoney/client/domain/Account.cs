@@ -11,21 +11,21 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the Account object to save account number
         /// </summary>
         [JsonProperty("account_number")]
-        public string accountNumber { get; set; }
+        public string AccountNumber { get; set; }
         /// <summary>
         /// String field used in the Account object to save account name
         /// </summary>
         [JsonProperty("account_name")]
-        public string accountName { get; set; }
+        public string AccountName { get; set; }
         /// <summary>
         /// String field used in the Account object to save account type
         /// </summary>
         [JsonProperty("account_type")]
-        public string accountType { get; set; }
+        public string AccountType { get; set; }
         /// <summary>
         /// String field used in the Account object to save account status
         /// </summary>
         [JsonProperty("account_status")]
-        public string accountStatus { get; set; }
+        public string AccountStatus { get; set; }
     }
 }

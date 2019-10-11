@@ -24,7 +24,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="appHandle"></param>
         public UserApi(string environment, string privateKey, string appHandle)
         {
-            this.Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, appHandle = appHandle };
+            this.Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace SilaAPI.silamoney.client.api
         {
             this.Configuration = Configuration.Default;
             this.Configuration.PrivateKey = privateKey;
-            this.Configuration.appHandle = appHandle;
+            this.Configuration.AppHandle = appHandle;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> CheckHandle(string handle)
         {
-            HeaderMsg body = new HeaderMsg(handle, this.Configuration.appHandle);
+            HeaderMsg body = new HeaderMsg(handle, this.Configuration.AppHandle);
             var path = "/check_handle";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -66,7 +66,7 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -100,7 +100,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> CheckKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.appHandle);
+            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.AppHandle);
             var path = "/check_kyc";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -109,8 +109,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -142,7 +142,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> GetAccounts(string userHandle, string userPrivateKey)
         {
-            GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.appHandle);
+            GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.AppHandle);
             var path = "/get_accounts";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -151,8 +151,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -185,7 +185,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
         {
-            GetTransactionsMsg body = new GetTransactionsMsg(userHandle, this.Configuration.appHandle, searchFilters);
+            GetTransactionsMsg body = new GetTransactionsMsg(userHandle, this.Configuration.AppHandle, searchFilters);
             var path = "/get_transactions";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -194,8 +194,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -229,7 +229,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
-            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.appHandle, accountName);
+            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.AppHandle, accountName);
             var path = "/issue_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -238,8 +238,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -273,7 +273,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> LinkAccount(string userHandle, string publicToken, string userPrivateKey, string accountName = "default")
         {
-            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, this.Configuration.appHandle, accountName);
+            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, this.Configuration.AppHandle, accountName);
             var path = "/link_account";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -282,8 +282,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -317,7 +317,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, accountName, this.Configuration.appHandle);
+            RedeemMsg body = new RedeemMsg(userHandle, amount, accountName, this.Configuration.AppHandle);
             var path = "/redeem_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -326,8 +326,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -358,7 +358,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> Register(User user)
         {
-            EntityMsg body = new EntityMsg(user, this.Configuration.appHandle);
+            EntityMsg body = new EntityMsg(user, this.Configuration.AppHandle);
             var path = "/register";
             var headerParams = new Dictionary<String, String>();
             String _body = null;
@@ -367,7 +367,7 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -399,7 +399,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> RequestKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.appHandle);
+            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.AppHandle);
             var path = "/request_kyc";
             var headerParams = new Dictionary<String, String>();
             String _body = null;
@@ -408,8 +408,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);
@@ -475,7 +475,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.appHandle);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.AppHandle);
             var path = "/transfer_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -484,8 +484,8 @@ namespace SilaAPI.silamoney.client.api
 
             _body = SerializationUtil.Serialize(body);
 
-            headerParams.Add("authsignature", Signer.sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.sign(_body, userPrivateKey));
+            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
+            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
 
             IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
                 Method.POST, _body, headerParams, contentType);

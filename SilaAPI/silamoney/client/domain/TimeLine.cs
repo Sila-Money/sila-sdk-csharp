@@ -10,6 +10,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the TimeLine object to save date
         /// </summary>
+        [JsonProperty("date")]
         public string Date { get; set; }
         /// <summary>
         /// Long field used in the TimeLine object to save date epoch
@@ -19,6 +20,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the TimeLine object to save status
         /// </summary>
+        [JsonProperty("status")]
         public string Status { get; set; }
         /// <summary>
         /// String field used in the TimeLine object to save usd status

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Reflection;
+
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>

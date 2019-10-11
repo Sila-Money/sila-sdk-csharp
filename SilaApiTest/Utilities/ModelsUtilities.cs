@@ -16,11 +16,11 @@ namespace SilaApiTest
         {
             GetTransactionsResult responseMessage = new GetTransactionsResult
             {
-                success = true,
-                page = 1,
-                returnedCount = 1,
-                totalCount = 1,
-                transactions = CreateTransactions()
+                Success = true,
+                Page = 1,
+                ReturnedCount = 1,
+                TotalCount = 1,
+                Transactions = CreateTransactions()
             };
 
             return responseMessage;
@@ -75,10 +75,10 @@ namespace SilaApiTest
             List<Account> accounts = new List<Account>();
             Account account = new Account
             {
-                accountName = "default",
-                accountNumber = "1234",
-                accountStatus = "active",
-                accountType = "CHEKING"
+                AccountName = "default",
+                AccountNumber = "1234",
+                AccountStatus = "active",
+                AccountType = "CHEKING"
             };
 
             accounts.Add(account);

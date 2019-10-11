@@ -11,6 +11,6 @@ namespace SilaAPI.silamoney.client.domain
         /// Float field use in the TransactionMessage object to save amount
         /// </summary>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
-        public float? amount { get; set; }
+        public float? Amount { get; set; }
     }
 }

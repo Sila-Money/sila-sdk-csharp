@@ -7,10 +7,10 @@ namespace SilaAPI.silamoney.client.domain
     public partial class Header
     {
         /// <summary>
-        /// EnumMember values for Version field
+        /// EnumMember values for VersionOption field
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum VersionEnum
+        public enum Version
         {
             /// <summary>
             /// Value: 0.2

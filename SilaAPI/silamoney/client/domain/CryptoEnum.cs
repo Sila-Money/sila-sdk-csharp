@@ -7,10 +7,10 @@ namespace SilaAPI.silamoney.client.domain
     public partial class Header
     {
         /// <summary>
-        /// EnumMember values for Crypto field
+        /// EnumMember values for CryptoOption field
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum CryptoEnum
+        public enum Crypto
         {
             /// <summary>
             /// Value: ETH

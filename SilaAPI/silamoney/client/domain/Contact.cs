@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -12,17 +15,17 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the Contact object to save phone
         /// </summary>
         [DataMember(Name = "phone", EmitDefaultValue = false)]
-        public string phone { get; set; }
+        public string Phone { get; set; }
         /// <summary>
         /// String field used in the Contact object to save contact alias
         /// </summary>
         [DataMember(Name = "contact_alias", EmitDefaultValue = false)]
-        public string contactAlias { get; set; }
+        public string ContactAlias { get; set; }
         /// <summary>
         /// String field used in the Contact object to save email
         /// </summary>
         [DataMember(Name = "email", EmitDefaultValue = false)]
-        public string email { get; set; }
+        public string Email { get; set; }
         /// <summary>
         /// If user is not null, set user values in the Contact object
         /// </summary>
@@ -31,9 +34,9 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.contactAlias = "";
-                this.email = user.Email;
-                this.phone = user.Phone;
+                this.ContactAlias = "";
+                this.Email = user.Email;
+                this.Phone = user.Phone;
             }
         }
     }

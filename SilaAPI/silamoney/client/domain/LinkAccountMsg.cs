@@ -11,17 +11,17 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the LinkAccountMsg object to save public token
         /// </summary>
         [DataMember(Name = "public_token", EmitDefaultValue = false)]
-        public string publicToken { get; set; }
+        public string PublicToken { get; set; }
         /// <summary>
         /// String field used in the LinkAccountMsg object to save account name
         /// </summary>
         [DataMember(Name = "account_name", EmitDefaultValue = false)]
-        public string accountName { get; set; }
+        public string AccountName { get; set; }
         /// <summary>
         /// String field used in the LinkAccountMsg object to save selected account id
         /// </summary>
         [DataMember(Name = "selected_account_id", EmitDefaultValue = false)]
-        public string selectedAccountId { get; set; }
+        public string SelectedAccountId { get; set; }
 
         /// <summary>
         /// LinkAccountMsg constructor
@@ -36,9 +36,9 @@ namespace SilaAPI.silamoney.client.domain
             string accountName)
         {
             this.Header = new Header(userHandle, appHandle);
-            this.publicToken = publicToken;
+            this.PublicToken = publicToken;
             this.MessageOption = Message.LinkAccountMsg;
-            this.accountName = accountName;
+            this.AccountName = accountName;
         }
     }
 }

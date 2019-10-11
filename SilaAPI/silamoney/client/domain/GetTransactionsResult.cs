@@ -11,24 +11,26 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// Boolean field used in the GetTransactionsResult to save success value
         /// </summary>
-        public bool success { get; set; }
+        [JsonProperty("success")]
+        public bool Success { get; set; }
         /// <summary>
         /// Integer field used in the GetTransactionsResult to save page
         /// </summary>
-        public int page { get; set; }
+        [JsonProperty("page")]
+        public int Page { get; set; }
         /// <summary>
         /// Integer field used in the GetTransactionsResult to save returned count
         /// </summary>
         [JsonProperty("returned_count")]
-        public int returnedCount { get; set; }
+        public int ReturnedCount { get; set; }
         /// <summary>
         /// Integer field used in the GetTransactionsResult to save total count
         /// </summary>
         [JsonProperty("total_count")]
-        public int totalCount { get; set; }
+        public int TotalCount { get; set; }
         /// <summary>
         /// List of Transaction objects used in the GetTransactionsResult to save transactions
         /// </summary>
-        public List<Transaction> transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
     }
 }

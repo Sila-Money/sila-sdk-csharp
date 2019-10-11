@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -13,7 +15,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Enum field used in Header object to select version
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
-        public VersionEnum Version { get; set; }
+        public Version VersionOption { get; set; }
         /// <summary>
         /// String field used in Header object to save reference
         /// </summary>
@@ -38,7 +40,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Enum field used in the Header object to select crypto
         /// </summary>
         [DataMember(Name = "crypto", EmitDefaultValue = false)]
-        public CryptoEnum Crypto { get; set; }
+        public Crypto CryptoOption { get; set; }
 
         /// <summary>
         /// Header constructor
@@ -53,8 +55,8 @@ namespace SilaAPI.silamoney.client.domain
             this.UserHandle = userHandle;
             this.AuthHandle = authHandle;
 
-            this.Crypto = CryptoEnum.ETH;
-            this.Version = VersionEnum._02;
+            this.CryptoOption = Crypto.ETH;
+            this.VersionOption = Version._02;
             this.Created = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             this.Reference = (new Random()).Next(1, 999999).ToString();
         }
