@@ -9,7 +9,7 @@ namespace SilaAPI.silamoney.client.domain
     public partial class SearchFilters
     {
         [DataMember(Name = "transaction_types", EmitDefaultValue = false)]
-        private TransactionTypes[] transactionTypesOption;
+        public TransactionTypes[] transactionTypesOption;
 
         /// <summary>
         /// Enum used in the SearchFilters object to select transaction type
@@ -28,7 +28,7 @@ namespace SilaAPI.silamoney.client.domain
         }
 
         [DataMember(Name = "statuses", EmitDefaultValue = false)]
-        private Statuses[] statuses;
+        public Statuses[] statuses;
 
         /// <summary>
         /// Enum field used in the SearchFilters object to select statuses

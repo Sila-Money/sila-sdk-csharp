@@ -1,12 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
+    <Authors>Karlo Lorenzana</Authors>
+    <Company>DigitalGeko</Company>
+    <Product>SilaSDK</Product>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget></PlatformTarget>
     <DocumentationFile>C:\Users\loren\Source\Repos\sila-sdk-csharp\SilaAPI\SilaAPI.xml</DocumentationFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>

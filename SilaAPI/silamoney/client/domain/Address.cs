@@ -1,8 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -75,7 +72,7 @@ namespace SilaAPI.silamoney.client.domain
                 this.City = user.City;
                 this.State = user.State;
                 this.Country = Address.CountryE.US;
-                this.PostalCode = user.PortalCode;
+                this.PostalCode = user.PostalCode;
             }
         }
     }

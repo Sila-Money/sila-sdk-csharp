@@ -2,6 +2,7 @@
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.util;
 using SilaApiTest;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -307,7 +308,7 @@ namespace WebServer
         {
             byte[] buffer;
             HttpListenerResponse response = context.Response;
-            GetAccountsResponse responseObject = new GetAccountsResponse();
+            List<Account> responseObject = new List<Account>();
 
             if (!getAccountsMsg.Header.UserHandle.Equals("wrongSignature.silamoney.eth"))
             {
@@ -315,9 +316,6 @@ namespace WebServer
                 {
                     response.StatusCode = 200;
                     response.StatusDescription = "SUCCESS";
-                    responseObject = ModelsUtilities.CreateResponse("ref",
-                        ModelsUtilities.CreateGetAccountsResult(),
-                        "SUCCESS");
                 }
                 else if (string.IsNullOrEmpty(getAccountsMsg.Header.UserHandle))
                 {

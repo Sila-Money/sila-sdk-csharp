@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class RedeemSilaTests
     {
-        UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
         public void configuartion()

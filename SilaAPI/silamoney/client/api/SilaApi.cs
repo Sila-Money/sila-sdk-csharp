@@ -14,7 +14,7 @@ namespace SilaAPI.silamoney.client.api
     /// <summary>
     /// Class used to expose the api calls to the developer.
     /// </summary>
-    public partial class UserApi
+    public partial class SilaApi
     {
         /// <summary>
         /// UserApi constructor. SilaAPI.silamoney.client.domain.Environments class values can be used for this.
@@ -22,7 +22,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="environment"></param>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public UserApi(string environment, string privateKey, string appHandle)
+        public SilaApi(string environment, string privateKey, string appHandle)
         {
             this.Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
         }
@@ -32,7 +32,7 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public UserApi(string privateKey, string appHandle)
+        public SilaApi(string privateKey, string appHandle)
         {
             this.Configuration = Configuration.Default;
             this.Configuration.PrivateKey = privateKey;
@@ -76,11 +76,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Handle sent in header.user_handle is a reserved handle "
-                            + "according to our JSON schema. (Or: request body otherwise does not conform to JSON schema.)");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("Auth signature is absent or derived address does not "
-                        + "belong to auth_handle.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -120,9 +118,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -162,9 +160,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -173,7 +171,7 @@ namespace SilaAPI.silamoney.client.api
 
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<GetAccountsResponse>(response.Content));
+                JsonConvert.DeserializeObject<List<Account>>(response.Content));
         }
 
         /// <summary>
@@ -205,9 +203,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 403:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -216,7 +214,7 @@ namespace SilaAPI.silamoney.client.api
 
             return new ApiResponse<Object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<GetTransactionsResponse>(response.Content));
+                JsonConvert.DeserializeObject<GetTransactionsResult>(response.Content));
         }
 
         /// <summary>
@@ -249,9 +247,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -293,9 +291,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -317,7 +315,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<Object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, accountName, this.Configuration.AppHandle);
+            RedeemMsg body = new RedeemMsg(userHandle, amount, this.Configuration.AppHandle, accountName);
             var path = "/redeem_sila";
             var headerParams = new Dictionary<String, String>();
             string _body = null;
@@ -337,9 +335,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -377,9 +375,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format, handle already in use, or blockchain address already in use.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -419,9 +417,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:
@@ -495,9 +493,9 @@ namespace SilaAPI.silamoney.client.api
             switch (statusCode)
             {
                 case 400:
-                    throw new BadRequestException("Invalid request body format.");
+                    throw new BadRequestException(response.Content);
                 case 401:
-                    throw new InvalidSignatureException("authsignature or usersignature header was absent or incorrect.");
+                    throw new InvalidSignatureException(response.Content);
                 case 500:
                     throw new ServerSideException();
                 default:

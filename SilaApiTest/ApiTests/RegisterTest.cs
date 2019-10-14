@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class RegisterTest
     {
-        readonly UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        readonly SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
         [TestInitialize]
         public void Configuartion()
         {

@@ -54,9 +54,9 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         public string State { get; set; }
         /// <summary>
-        /// String field used in the User object to save portalCode
+        /// String field used in the User object to save postalCode
         /// </summary>
-        public string PortalCode { get; set; }
+        public string PostalCode { get; set; }
         /// <summary>
         /// String field used in the User object to save cryptopAddress
         /// </summary>
@@ -80,11 +80,11 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="streetAddress2"></param>
         /// <param name="city"></param>
         /// <param name="state"></param>
-        /// <param name="portalCode"></param>
+        /// <param name="postalCode"></param>
         /// <param name="cryptopAddress"></param>
         /// <param name="birthdate"></param>
         public User(string userHandle, string firstName, string lastName, string entityName, string identityValue, string phone,
-            string email, string streetAddress1, string streetAddress2, string city, string state, string portalCode,
+            string email, string streetAddress1, string streetAddress2, string city, string state, string postalCode,
             string cryptopAddress, DateTime birthdate)
         {
             this.UserHandle = userHandle;
@@ -98,7 +98,7 @@ namespace SilaAPI.silamoney.client.domain
             this.StreetAddress2 = streetAddress2;
             this.City = city;
             this.State = state;
-            this.PortalCode = portalCode;
+            this.PostalCode = postalCode;
             this.CryptopAddress = cryptopAddress;
             this.Birthdate = birthdate;
         }

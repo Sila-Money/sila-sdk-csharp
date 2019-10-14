@@ -10,7 +10,12 @@ namespace SilaAPI.silamoney.client.util
     {
         public static String Serialize(object obj)
         {
-            return obj != null ? JsonConvert.SerializeObject(obj) : null;
+            return obj != null ? JsonConvert.SerializeObject(obj, 
+                Newtonsoft.Json.Formatting.None,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                }) : null;
         }
 
         public static Object Deserialize(string obj)

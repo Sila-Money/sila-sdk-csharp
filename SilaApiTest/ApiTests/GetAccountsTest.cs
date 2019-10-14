@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class GetAccountsTest
     {
-        UserApi api = new UserApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        readonly SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
         public void configuartion()
@@ -30,19 +30,18 @@ namespace SilaApiTest
             ApiResponse<object> response = api.GetAccounts("user.silamoney.eth", DefaultConfig.userPrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((GetAccountsResponse)response.Data).Status);
         }
         [TestMethod]
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
         public void Response400()
         {
-            ApiResponse<object> response = api.GetAccounts("", DefaultConfig.userPrivateKey);
+            _ = api.GetAccounts("", DefaultConfig.userPrivateKey);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidSignatureException), "Invalid signature permited.")]
         public void Response401()
         {
-            ApiResponse<object> response = api.GetAccounts("wrongSignature.silamoney.eth", DefaultConfig.userPrivateKey);
+            _ = api.GetAccounts("wrongSignature.silamoney.eth", DefaultConfig.userPrivateKey);
         }
     }
 }

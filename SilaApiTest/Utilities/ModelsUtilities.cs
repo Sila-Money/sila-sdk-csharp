@@ -98,18 +98,6 @@ namespace SilaApiTest
             return response;
         }
 
-        internal static GetAccountsResponse CreateResponse(string reference, List<Account> message, string Status)
-        {
-            GetAccountsResponse response = new GetAccountsResponse
-            {
-                Message = message,
-                Reference = reference,
-                Status = Status
-            };
-
-            return response;
-        }
-
         internal static GetTransactionsResponse CreateResponse(string reference, GetTransactionsResult message, string Status)
         {
             GetTransactionsResponse response = new GetTransactionsResponse
