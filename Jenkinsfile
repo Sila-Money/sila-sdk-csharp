@@ -3,7 +3,7 @@ node {
 		checkout scm
 
 	stage 'Build'
-		./build.sh
+		dotnet build
 
 	stage 'Archive'
 		archive 'SilaAPI/bin/Release/**'
