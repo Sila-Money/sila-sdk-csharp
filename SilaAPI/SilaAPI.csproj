@@ -1,11 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>
+      net46;net461;net462;net47;net471;net472;net48
+    </TargetFrameworks>
     <Authors>Karlo Lorenzana</Authors>
     <Company>DigitalGeko</Company>
     <Product>SilaSDK</Product>
-    <Version>0.0.1</Version>
+    <Version>0.1.0-rc</Version>
+    <owners>Silamoney</owners>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>SDK for the Sila API version 0.2.</Description>
+    <PackageProjectUrl>https://docs.silamoney.com/#introduction</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <PackageId>Sila.SDK</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,11 +26,19 @@
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle" VersionOption="1.8.5" Version="1.8.5" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
     <PackageReference Include="Microsoft.CSharp" VersionOption="4.6.0" Version="4.6.0" />
     <PackageReference Include="Nethereum.Web3" VersionOption="3.4.0" Version="3.4.0" />
     <PackageReference Include="Newtonsoft.Json" VersionOption="12.0.2" Version="12.0.2" />
     <PackageReference Include="RestSharp" VersionOption="106.6.10" Version="106.6.10" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
