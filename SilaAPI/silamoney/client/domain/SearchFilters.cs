@@ -8,6 +8,9 @@ namespace SilaAPI.silamoney.client.domain
     /// </summary>
     public partial class SearchFilters
     {
+        /// <summary>
+        /// Array used to set the transaction types in the search filters.
+        /// </summary>
         [DataMember(Name = "transaction_types", EmitDefaultValue = false)]
         public TransactionTypes[] transactionTypesOption;
 
@@ -27,6 +30,9 @@ namespace SilaAPI.silamoney.client.domain
             transactionTypesOption = value;
         }
 
+        /// <summary>
+        /// /// Array used to set the statuses in the search filters.
+        /// </summary>
         [DataMember(Name = "statuses", EmitDefaultValue = false)]
         public Statuses[] statuses;
 
