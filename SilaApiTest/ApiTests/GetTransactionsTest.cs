@@ -30,7 +30,6 @@ namespace SilaApiTest
             ApiResponse<object> response = api.GetTransactions("user.silamoney.eth", DefaultConfig.userPrivateKey, null);
 
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((GetTransactionsResponse)response.Data).Status);
         }
         [TestMethod]
         [ExpectedException(typeof(BadRequestException), "Bad request permited.")]
