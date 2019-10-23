@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks Condition="'$(CoreOnly)' != 'True'">
-      netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;net46;net461;net462;net47;net471;net472;net48
-    </TargetFrameworks>-->
-    <TargetFrameworks>
-      netcoreapp2.0;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0
+    <TargetFrameworks Condition="'$(CoreOnly)' != 'True'">
+      netcoreapp2.1;netcoreapp3.0;net46;net461;net462;net47;net471;net472;net48
+    </TargetFrameworks>
+    <TargetFrameworks Condition="'$(CoreOnly)' == 'True'">
+      netcoreapp2.1;netcoreapp3.0
     </TargetFrameworks>
     <Authors>Karlo Lorenzana</Authors>
     <Company>DigitalGeko</Company>
@@ -28,6 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BouncyCastle" Version="1.8.5" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
     <PackageReference Include="Nethereum.Web3" VersionOption="3.4.0" Version="3.4.0" />
     <PackageReference Include="Microsoft.CSharp" VersionOption="4.6.0" Version="4.6.0" />
