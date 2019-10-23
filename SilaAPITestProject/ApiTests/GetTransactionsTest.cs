@@ -21,7 +21,7 @@ namespace SilaApiTest
         private void createWebServer()
         {
             string[] prefixes = new string[1];
-            prefixes[0] = "http://localhost:8080/get_transactions/";
+            prefixes[0] = "http://localhost:1080/get_transactions/";
             WebServer.TestHttpServer.Listener(prefixes);
         }
         [TestMethod]

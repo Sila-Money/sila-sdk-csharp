@@ -19,7 +19,7 @@ namespace SilaApiTest
         private void createWebServer()
         {
             string[] prefixes = new string[1];
-            prefixes[0] = "http://localhost:8080/check_kyc/";
+            prefixes[0] = "http://localhost:1080/check_kyc/";
             WebServer.TestHttpServer.Listener(prefixes);
         }
         [TestMethod]

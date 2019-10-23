@@ -19,7 +19,7 @@ namespace SilaApiTest
         private void createWebServer()
         {
             string[] prefixes = new string[1];
-            prefixes[0] = "http://localhost:8080/silaBalance/";
+            prefixes[0] = "http://localhost:1080/silaBalance/";
             WebServer.TestHttpServer.Listener(prefixes);
         }
         [TestMethod]
