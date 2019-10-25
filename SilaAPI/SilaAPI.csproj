@@ -19,6 +19,7 @@
     <PackageIconUrl></PackageIconUrl>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <PackageId>Sila.SDK</PackageId>
+    <ProjectGuid>{2d0b8ee7-b611-48de-9d61-333730002b61}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
