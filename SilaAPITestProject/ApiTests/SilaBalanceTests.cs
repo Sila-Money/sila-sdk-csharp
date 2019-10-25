@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using System.Threading;
 
@@ -8,12 +8,11 @@ namespace SilaApiTest
     public class SilaBalanceTests
     {
         readonly SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
-        Thread thread;
 
         [TestInitialize]
         public void configuartion()
         {
-            thread = new Thread(createWebServer);
+            Thread thread = new Thread(createWebServer);
             thread.Start();
         }
 
