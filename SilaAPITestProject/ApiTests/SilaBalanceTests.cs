@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class SilaBalanceTests
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        readonly SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestInitialize]
         public void configuartion()
