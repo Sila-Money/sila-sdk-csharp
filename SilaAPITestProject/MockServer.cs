@@ -26,9 +26,9 @@ namespace WebServer
 
             BuildResponse(context, request);
 
-            listener.Stop();
+            listener.Prefixes.Clear();
 
-            listener.Close();
+            listener.Stop();
         }
 
         private static void BuildResponse(HttpListenerContext context, HttpListenerRequest request)
