@@ -1,6 +1,8 @@
 # Sila C# & .Net SDK
 For this SDK you will need to use .Net framework 4.6.1 or later.
 
+This SDK is in Beta.
+
 ## Usage
 
 ### Installation
