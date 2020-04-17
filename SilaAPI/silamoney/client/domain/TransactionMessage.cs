@@ -5,6 +5,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// TransactionMessage object use in different endpoints
     /// </summary>
+    [DataContract]
     public class TransactionMessage : BaseMessage
     {
         /// <summary>

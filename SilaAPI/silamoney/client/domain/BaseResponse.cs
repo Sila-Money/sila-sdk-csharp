@@ -1,4 +1,6 @@
-﻿namespace SilaAPI.silamoney.client.domain
+﻿using Newtonsoft.Json;
+
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// Object used to store response message.
@@ -8,14 +10,17 @@
         /// <summary>
         /// String field used in the BaseResponse object to save reference
         /// </summary>
+        [JsonProperty("reference")]
         public string Reference { get; set; }
         /// <summary>
         /// String field used in the BaseResponse object to save message 
         /// </summary>
+        [JsonProperty("message")]
         public string Message { get; set; }
         /// <summary>
         /// String field used in the BaseResponse object to save status
         /// </summary>
+        [JsonProperty("status")]
         public string Status { get; set; }
     }
 }

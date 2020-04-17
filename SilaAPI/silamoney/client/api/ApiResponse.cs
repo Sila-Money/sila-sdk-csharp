@@ -20,6 +20,10 @@ namespace SilaAPI.silamoney.client.api
         /// Response data, this receive the message sent from the api server
         /// </summary>
         public T Data { get; private set; }
+        /// <summary>
+        /// Success value
+        /// </summary>
+        public bool success { get; private set; }        
 
         /// <summary>
         /// ApiResponse constructor
@@ -27,11 +31,13 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="statusCode"></param>
         /// <param name="headers"></param>
         /// <param name="data"></param>
-        public ApiResponse(int statusCode, IDictionary<string, string> headers, T data)
+        /// <param name="success"></param>
+        public ApiResponse(int statusCode, IDictionary<string, string> headers, T data, bool success)
         {
             this.StatusCode = statusCode;
             this.Headers = headers;
             this.Data = data;
+            this.success = success;
         }
 
     }

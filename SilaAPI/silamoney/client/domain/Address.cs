@@ -14,7 +14,7 @@ namespace SilaAPI.silamoney.client.domain
         /// EnumMember values for Country field
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum CountryE
+        public enum Countries
         {
             /// <summary>
             /// Value: US
@@ -26,7 +26,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Enum field used in the Address object to select Country
         /// </summary>
         [DataMember(Name = "country", EmitDefaultValue = false)]
-        public CountryE Country { get; set; }
+        public Countries Country { get; set; }
         /// <summary>
         /// String field used in the Address object to save city
         /// </summary>
@@ -71,7 +71,7 @@ namespace SilaAPI.silamoney.client.domain
                 this.StreetAddress2 = user.StreetAddress2;
                 this.City = user.City;
                 this.State = user.State;
-                this.Country = Address.CountryE.US;
+                this.Country = Address.Countries.US;
                 this.PostalCode = user.PostalCode;
             }
         }

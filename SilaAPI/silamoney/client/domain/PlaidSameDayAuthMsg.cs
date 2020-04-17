@@ -3,33 +3,29 @@ using System.Runtime.Serialization;
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
-    /// RedeemMsg object used in the redeem_sila endpoint
+    /// PlaidSameDayAuthMsg object used in the plaid same day auth endpoint
     /// </summary>
     [DataContract]
-    public partial class RedeemMsg : TransactionMessage
+    public partial class PlaidSameDayAuthMsg : BaseMessageNoMsg
     {
         /// <summary>
-        /// String field used in the RedeemMsg object to save account name
+        /// String field used in the PlaidSameDayAuthMsg object to save account name
         /// </summary>
         [DataMember(Name = "account_name", EmitDefaultValue = false)]
         public string AccountName { get; set; }
 
         /// <summary>
-        /// RedeemMsg constructor
+        /// PlaidSameDayAuthMsg constructor
         /// </summary>
         /// <param name="userHandle"></param>
-        /// <param name="amount"></param>
         /// <param name="authHandle"></param>
         /// <param name="accountName"></param>
-        public RedeemMsg(string userHandle,
-            float amount,
+        public PlaidSameDayAuthMsg(string userHandle,
             string authHandle,
             string accountName)
         {
             Header = new Header(userHandle, authHandle);
-            Amount = amount;
             AccountName = accountName;
-            MessageOption = Message.RedeemMsg;
         }
     }
 }
