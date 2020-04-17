@@ -7,7 +7,7 @@
     <TargetFrameworks Condition="'$(CoreOnly)' == 'True'">
       netcoreapp2.1;netcoreapp3.0
     </TargetFrameworks>
-    <Authors>Karlo Lorenzana</Authors>
+    <Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
     <Company>DigitalGeko</Company>
     <Product>SilaSDK</Product>
     <Version>0.2.7-rc</Version>
@@ -16,6 +16,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>SDK for the Sila API version 0.2.</Description>
     <PackageProjectUrl>https://docs.silamoney.com/#introduction</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Sila-Money/sila-sdk-csharp</RepositoryUrl>
     <PackageIconUrl></PackageIconUrl>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <PackageId>Sila.SDK</PackageId>
