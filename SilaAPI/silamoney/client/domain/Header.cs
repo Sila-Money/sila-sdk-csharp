@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -52,13 +50,12 @@ namespace SilaAPI.silamoney.client.domain
             string authHandle = default
             )
         {
-            this.UserHandle = userHandle;
-            this.AuthHandle = authHandle;
-
-            this.CryptoOption = Crypto.ETH;
-            this.VersionOption = Version._02;
-            this.Created = ((int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds) - 100;
-            this.Reference = (new Random()).Next(1, 999999).ToString();
+            UserHandle = userHandle;
+            AuthHandle = authHandle;
+            CryptoOption = Crypto.ETH;
+            VersionOption = Version._02;
+            Created = ((int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds) - 100;
+            Reference = Guid.NewGuid().ToString();
         }
     }
 }

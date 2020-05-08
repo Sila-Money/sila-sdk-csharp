@@ -6,10 +6,51 @@ namespace SilaApiTest
 {
     public static class ModelsUtilities
     {
-        public static User CreateUser()
+        public static User firstUser;
+        public static User FirstUser
         {
-            return new User("user.silamoney.eth", "Example", "User", "Example User", "123452222", "1234567890", "fake@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1", new DateTime(1990, 05, 19));
+            get
+            {
+                if (firstUser == null) firstUser = CreateUser(DefaultConfig.FirstUser.UserHandle, "First", "User", DefaultConfig.FirstUser.CryptoAddress);
+                return firstUser;
+            }
+        }
+
+        public static User secondUser;
+        public static User SecondUser
+        {
+            get
+            {
+                if (secondUser == null) secondUser = CreateUser(DefaultConfig.SecondUser.UserHandle, "Second", "User", DefaultConfig.SecondUser.CryptoAddress);
+                return secondUser;
+            }
+        }
+
+        public static User thirdUser;
+        public static User ThirdUser
+        {
+            get
+            {
+                if (thirdUser == null) thirdUser = CreateUser(DefaultConfig.ThirdUser.UserHandle, "Fail", "User", DefaultConfig.ThirdUser.CryptoAddress);
+                return thirdUser;
+            }
+        }
+
+        public static User fourthUser;
+
+        public static User FourthUser
+        {
+            get
+            {
+                if (fourthUser == null) fourthUser = CreateUser(DefaultConfig.FourthUser.UserHandle, "Fourth", "User", DefaultConfig.FourthUser.CryptoAddress);
+                return fourthUser;
+            }
+        }
+
+        public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
+        {
+            return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
+                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19));
         }
 
         public static GetTransactionsResult CreateTransactionResult()

@@ -2,7 +2,6 @@
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
-using SilaAPI.silamoney.client.exceptions;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
 using System;
@@ -24,7 +23,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="appHandle"></param>
         public SilaApi(string environment, string privateKey, string appHandle)
         {
-            this.Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
+            Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
         }
 
         /// <summary>
@@ -34,18 +33,18 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="appHandle"></param>
         public SilaApi(string privateKey, string appHandle)
         {
-            this.Configuration = Configuration.Default;
-            this.Configuration.PrivateKey = privateKey;
-            this.Configuration.AppHandle = appHandle;
+            Configuration = Configuration.Default;
+            Configuration.PrivateKey = privateKey;
+            Configuration.AppHandle = appHandle;
         }
 
         /// <summary>
         /// Gets the base path used in the rest client.
         /// </summary>
         /// <returns></returns>
-        public String GetBasePath()
+        public string GetBasePath()
         {
-            return this.Configuration.ApiClient.RestClient.BaseUrl.ToString();
+            return Configuration.ApiClient.RestClient.BaseUrl.ToString();
         }
 
         internal Configuration Configuration { get; set; }
@@ -53,41 +52,14 @@ namespace SilaAPI.silamoney.client.api
         /// <summary>
         /// Makes a call to the check_handle endpoint.
         /// </summary>
-        /// <param name="handle"></param>
+        /// <param name="handle">The user handle to validate if available</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> CheckHandle(string handle)
+        public ApiResponse<object> CheckHandle(string handle)
         {
-            HeaderMsg body = new HeaderMsg(handle, this.Configuration.AppHandle);
+            HeaderMsg body = new HeaderMsg(handle, Configuration.AppHandle);
             var path = "/check_handle";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body);
         }
 
         /// <summary>
@@ -96,40 +68,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> CheckKYC(string userHandle, string userPrivateKey)
+        public ApiResponse<object> CheckKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.AppHandle);
+            HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/check_kyc";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -138,40 +82,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> GetAccounts(string userHandle, string userPrivateKey)
+        public ApiResponse<object> GetAccounts(string userHandle, string userPrivateKey)
         {
-            GetAccountsMsg body = new GetAccountsMsg(userHandle, this.Configuration.AppHandle);
+            GetAccountsMsg body = new GetAccountsMsg(userHandle, Configuration.AppHandle);
             var path = "/get_accounts";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
-
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<List<Account>>(response.Content));
+            return MakeRequest<List<Account>>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -181,40 +96,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="searchFilters"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
+        public ApiResponse<object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
         {
-            GetTransactionsMsg body = new GetTransactionsMsg(userHandle, this.Configuration.AppHandle, searchFilters);
+            GetTransactionsMsg body = new GetTransactionsMsg(userHandle, Configuration.AppHandle, searchFilters);
             var path = "/get_transactions";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 403:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<GetTransactionsResult>(response.Content));
+            return MakeRequest<GetTransactionsResult>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -225,40 +112,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
+        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
             IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.AppHandle, accountName);
             var path = "/issue_sila";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -268,41 +127,35 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="publicToken"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
+        /// <param name="accountId"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> LinkAccount(string userHandle, string publicToken, string userPrivateKey, string accountName = "default")
+        public ApiResponse<object> LinkAccount(string userHandle, string publicToken, string userPrivateKey,
+            string accountName = null, string accountId = null)
         {
-            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, this.Configuration.AppHandle, accountName);
+            LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, Configuration.AppHandle, accountId, accountName);
             var path = "/link_account";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
 
-            _body = SerializationUtil.Serialize(body);
+        /// <summary>
+        /// Makes a call to the link_account endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountNumber"></param>
+        /// <param name="accountType"></param>
+        /// <param name="routingNumber"></param>
+        /// <param name="accountName"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> LinkAccountDirect(string userHandle, string userPrivateKey,
+            string accountNumber, string routingNumber, string accountType = null, string accountName = null)
+        {
+            LinkAccountMsg body = new LinkAccountMsg(userHandle, Configuration.AppHandle, accountNumber,
+                routingNumber, accountType, accountName);
+            var path = "/link_account";
 
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -313,40 +166,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
+        public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, this.Configuration.AppHandle, accountName);
+            RedeemMsg body = new RedeemMsg(userHandle, amount, Configuration.AppHandle, accountName);
             var path = "/redeem_sila";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -354,39 +179,12 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="user"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> Register(User user)
+        public ApiResponse<object> Register(User user)
         {
-            EntityMsg body = new EntityMsg(user, this.Configuration.AppHandle);
+            EntityMsg body = new EntityMsg(user, Configuration.AppHandle);
             var path = "/register";
-            var headerParams = new Dictionary<String, String>();
-            String _body = null;
 
-            String contentType = "application/json";
-
-            _body = SerializationUtil.Serialize(body);
-
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body);
         }
 
         /// <summary>
@@ -395,40 +193,27 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> RequestKYC(string userHandle, string userPrivateKey)
+        public ApiResponse<object> RequestKYC(string userHandle, string userPrivateKey)
         {
-            HeaderMsg body = new HeaderMsg(userHandle, this.Configuration.AppHandle);
+            HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/request_kyc";
-            var headerParams = new Dictionary<String, String>();
-            String _body = null;
 
-            String contentType = "application/json";
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
 
-            _body = SerializationUtil.Serialize(body);
+        /// <summary>
+        /// Makes a call to the request_kyc endpoint with KYC Level.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="kycLevel"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> RequestKYC(string userHandle, string userPrivateKey, string kycLevel)
+        {
+            HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle, kycLevel);
+            var path = "/request_kyc";
 
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
-
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            int statusCode = (int)response.StatusCode;
-
-            switch (statusCode)
-            {
-                case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
-                case 500:
-                    throw new ServerSideException();
-                default:
-                    break;
-            }
-
-            return new ApiResponse<Object>(statusCode,
-                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -437,30 +222,50 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="host"></param>
         /// <param name="address"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> SilaBalance(string host, string address)
+        [Obsolete("SilaBalance(address) is deprecated. Please use GetSilaBalance(address)")]
+        public ApiResponse<object> SilaBalance(string host, string address)
         {
             SilaBalanceRequest body = new SilaBalanceRequest(address);
             var path = "/silaBalance";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
+            var headerParams = new Dictionary<string, string>();
+            var requestBody = SerializationUtil.Serialize(body);
 
-            String contentType = "application/json";
+            string contentType = "application/json";
 
-            _body = SerializationUtil.Serialize(body);
+            string lastBasePath = Configuration.BasePath;
+            Configuration.BasePath = host;
+            Console.WriteLine(requestBody);
 
-            string lastBasePath = this.Configuration.BasePath;
-            this.Configuration.BasePath = host;
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path,
+                Method.POST, requestBody, headerParams, contentType);
 
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
-
-            this.Configuration.BasePath = lastBasePath;
+            Configuration.BasePath = lastBasePath;
 
             int statusCode = (int)response.StatusCode;
+            Console.WriteLine(response.Content);
 
-            return new ApiResponse<Object>(statusCode,
+            object responseBody;
+
+            if (statusCode == 200) responseBody = JsonConvert.DeserializeObject<SilaBalanceResponse>(response.Content);
+            else responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
+
+            return new ApiResponse<object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                response.Content);
+                responseBody,
+                GetSuccess(statusCode, responseBody));
+        }
+
+        /// <summary>
+        /// Makes a call to get the Sila Balance
+        /// </summary>
+        /// <param name="address">The wallet address to obtain the balance from</param>
+        /// <returns></returns>
+        public ApiResponse<object> GetSilaBalance(string address)
+        {
+            SilaBalanceRequest body = new SilaBalanceRequest(address);
+            var path = "/get_sila_balance";
+
+            return MakeRequest<GetSilaBalanceResponse>(path, body);
         }
 
         /// <summary>
@@ -470,41 +275,181 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="amount"></param>
         /// <param name="destinationHandle"></param>
         /// <param name="userPrivateKey"></param>
+        /// <param name="destinationAddress"></param>
+        /// <param name="destinationWallet"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<Object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey)
+        public ApiResponse<object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, this.Configuration.AppHandle);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet);
             var path = "/transfer_sila";
-            var headerParams = new Dictionary<String, String>();
-            string _body = null;
 
-            String contentType = "application/json";
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
 
-            _body = SerializationUtil.Serialize(body);
+        /// <summary>
+        /// Makes a call to the plaid_sameday_auth endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>        
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> PlaidSameDayAuth(string userHandle, string userPrivateKey, string accountName)
+        {
+            PlaidSameDayAuthMsg body = new PlaidSameDayAuthMsg(userHandle, Configuration.AppHandle, accountName);
+            var path = "/plaid_sameday_auth";
 
-            headerParams.Add("authsignature", Signer.Sign(_body, this.Configuration.PrivateKey));
-            headerParams.Add("usersignature", Signer.Sign(_body, userPrivateKey));
+            return MakeRequest<PlaidSameDayAuthResponse>(path, body, userPrivateKey);
+        }
 
-            IRestResponse response = (IRestResponse)this.Configuration.ApiClient.CallApi(path,
-                Method.POST, _body, headerParams, contentType);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetAccountBalance(string userHandle, string userPrivateKey, string accountName)
+        {
+            GetAccountBalanceMsg body = new GetAccountBalanceMsg(userHandle, Configuration.AppHandle, accountName);
+            string path = "/get_account_balance";
+
+            return MakeRequest<GetAccountBalanceResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Generates a new ETH wallet
+        /// </summary>
+        /// <returns></returns>
+        public UserWallet GenerateWallet()
+        {
+            return new UserWallet();
+        }
+
+        /// <summary>
+        /// Makes a call to the get_wallet endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>      
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetWallet(string userHandle, string userPrivateKey)
+        {
+            GetWalletMsg body = new GetWalletMsg(userHandle, Configuration.AppHandle);
+            var path = "/get_wallet";
+
+            return MakeRequest<SingleWalletResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to the register_wallet endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>   
+        /// <param name="wallet"></param>
+        /// <param name="nickname"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> RegisterWallet(string userHandle, string userPrivateKey, UserWallet wallet, string nickname)
+        {
+            RegisterWalletMsg body = new RegisterWalletMsg(userHandle, Configuration.AppHandle, wallet, nickname);
+            var path = "/register_wallet";
+
+            return MakeRequest<RegisterWalletResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to the update_wallet endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>   
+        /// <param name="nickname"></param>  
+        /// <param name="isDefault"></param>     
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> UpdateWallet(string userHandle, string userPrivateKey, string nickname = null, bool? isDefault = null)
+        {
+            UpdateWalletMsg body = new UpdateWalletMsg(userHandle, Configuration.AppHandle, nickname, isDefault);
+            var path = "/update_wallet";
+
+            return MakeRequest<UpdateWalletResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to the delete_wallet endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>     
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> DeleteWallet(string userHandle, string userPrivateKey)
+        {
+            DeleteWalletMsg body = new DeleteWalletMsg(userHandle, Configuration.AppHandle);
+            var path = "/delete_wallet";
+
+            return MakeRequest<DeleteWalletResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to the get_wallets endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetWallets(string userHandle, string userPrivateKey, WalletSearchFilters searchFilters = null)
+        {
+            GetWalletsMsg body = new GetWalletsMsg(userHandle, Configuration.AppHandle, searchFilters);
+            var path = "/get_wallets";
+
+            return MakeRequest<GetWalletsResponse>(path, body, userPrivateKey);
+        }
+
+        private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null)
+        {
+            var headerParams = new Dictionary<string, string>();
+            string requestBody = SerializationUtil.Serialize(body);
+            Console.WriteLine(requestBody);
+            string contentType = "application/json";
+
+            headerParams.Add("authsignature", Signer.Sign(requestBody, Configuration.PrivateKey));
+            if (userPrivateKey != null) headerParams.Add("usersignature", Signer.Sign(requestBody, userPrivateKey));
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
 
+            Console.WriteLine(response.Content);
+
+            object responseBody;
+
             switch (statusCode)
             {
+                case 200:
+                    responseBody = JsonConvert.DeserializeObject<T>(response.Content);
+                    break;
                 case 400:
-                    throw new BadRequestException(response.Content);
-                case 401:
-                    throw new InvalidSignatureException(response.Content);
+                    responseBody = JsonConvert.DeserializeObject<BadRequestResponse>(response.Content);
+                    break;
                 case 500:
-                    throw new ServerSideException();
+                    responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
+                    break;
                 default:
+                    responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
                     break;
             }
 
-            return new ApiResponse<Object>(statusCode,
+            Console.WriteLine(JsonConvert.SerializeObject(responseBody));
+
+            return new ApiResponse<object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                JsonConvert.DeserializeObject<BaseResponse>(response.Content));
+                responseBody,
+                GetSuccess(statusCode, responseBody));
+        }
+
+        private bool GetSuccess(int statusCode, object body)
+        {
+            if (statusCode != 200) return false;
+
+            if (body.GetType() == typeof(BaseResponse) && ((BaseResponse)body).Status != "SUCCESS")
+                return false;
+
+            return true;
         }
     }
 }
