@@ -185,16 +185,19 @@ Console.WriteLine(parsedData.AccountName); // Account name
 Debits a specified account and issues tokens to the wallet belonging to the requested handle's.
 
 ```csharp
-ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName); // Account Name is optional but defaults to 'default'.
+ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid); 
+// Account Name is optional but defaults to 'default'.
+// Descriptor and Business UUID are optional.
 ```
 
 #### Success Object Response
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransactionResponse)response.Data).Reference); // Random reference number
+Console.WriteLine(((TransactionResponse)response.Data).Status); // SUCCESS
+Console.WriteLine(((TransactionResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransactionResponse)response.Data).Descriptor); // Transaction descriptor.
 ```
 
 ### Transfer Sila
@@ -202,16 +205,19 @@ Console.WriteLine(((BaseResponse)response.Data).Message); // Transaction submitt
 Starts a transfer of the requested amount of SILA to the requested destination handle.
 
 ```csharp
-ApiResponse<object> response = api.TransferSila(userHandle, amount, destinationHandle, walletPrivateKey, destinationWallet, destinationAddress); // Destination Wallet and Destination Address are not required. Both must be owned by the Destination Handle
+ApiResponse<object> response = api.TransferSila(userHandle, amount, destinationHandle, walletPrivateKey, destinationWallet, destinationAddress, descriptor, businessUuid); 
+// Destination Wallet and Destination Address are not required. Both must be owned by the Destination Handle
+// Descriptor and Business UUID are optional.
 ```
 
 #### Success Object Response
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransferResponse)response.Data).Reference); // Random reference number
+Console.WriteLine(((TransferResponse)response.Data).Status); // SUCCESS
+Console.WriteLine(((TransferResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransferResponse)response.Data).Descriptor); // Transaction descriptor.
 ```
 
 ### Redeem Sila
@@ -219,16 +225,19 @@ Console.WriteLine(((BaseResponse)response.Data).Message); // Transaction submitt
 Burns given the amount of SILA at the handle's wallet address, and credits their named bank account in the equivalent monetary amount.
 
 ```csharp
-ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName); // Account Name is optional but defaults to 'default'.
+ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid); ); 
+// Account Name is optional but defaults to 'default'.
+// Descriptor and Business UUID are optional.
 ```
 
 #### Success Object Response
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransactionResponse)response.Data).Reference); // Random reference number
+Console.WriteLine(((TransactionResponse)response.Data).Status); // SUCCESS
+Console.WriteLine(((TransactionResponse)response.Data).Message); // Transaction submitted to processing queue.
+Console.WriteLine(((TransactionResponse)response.Data).Descriptor); // Transaction descriptor.
 ```
 
 ### Get Transactions
