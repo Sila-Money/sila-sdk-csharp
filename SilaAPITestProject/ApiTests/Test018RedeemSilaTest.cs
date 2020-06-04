@@ -13,16 +13,17 @@ namespace SilaApiTest
         public void T001Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: "test descriptor", businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.AreEqual("test descriptor", parsedResponse.Descriptor);
             DefaultConfig.RedeemReference = parsedResponse.Reference;
         }
 
         [TestMethod("2 - RedeemSila - Poll for successful redeem")]
-        [Timeout(300000)]
+        [Timeout(480000)]
         public void T002Response200Success()
         {
             var user = DefaultConfig.SecondUser;

@@ -10,6 +10,8 @@ namespace SilaApiTest
         public static string privateKey = Environment.GetEnvironmentVariable("SILA_PRIVATE_KEY");
         public static string appHandle = "digital_geko_e2e.silamoney.eth";
 
+        public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+
         private static UserConfiguration firstUser;
         private static UserConfiguration secondUser;
         private static UserConfiguration thirdUser;

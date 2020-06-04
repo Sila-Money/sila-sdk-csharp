@@ -24,12 +24,16 @@ namespace SilaAPI.silamoney.client.domain
         public RedeemMsg(string userHandle,
             float amount,
             string authHandle,
-            string accountName)
+            string accountName,
+            string descriptor,
+            string businessUuid)
         {
             Header = new Header(userHandle, authHandle);
             Amount = amount;
             AccountName = accountName;
             MessageOption = Message.RedeemMsg;
+            Descriptor = descriptor;
+            BusinessUuid = businessUuid;
         }
     }
 }

@@ -15,11 +15,12 @@ namespace SilaApiTest
         public void T001Response200EmptyWallet()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.FirstUser.UserHandle, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.FirstUser.UserHandle, user.PrivateKey, descriptor: "test descriptor", businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransferResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.AreEqual("test descriptor", parsedResponse.Descriptor);
             DefaultConfig.InvalidTransferReference = parsedResponse.Reference;
         }
         /*

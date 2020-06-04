@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilaAPI", "SilaAPI\SilaAPI.csproj", "{7DAF4CB1-DA15-48AE-B0D7-1258D5E7F99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilaAPITestProject", "SilaAPITestProject\SilaAPITestProject.csproj", "{020DE79B-5EDF-47CC-B2A7-AD648ED2FA28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilaAPITestProject", "SilaAPITestProject\SilaAPITestProject.csproj", "{020DE79B-5EDF-47CC-B2A7-AD648ED2FA28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2BFAFFB-689A-411D-999C-E5AD52AEEE1E}"
+	ProjectSection(SolutionItems) = preProject
+		TestSettings.testsettings = TestSettings.testsettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

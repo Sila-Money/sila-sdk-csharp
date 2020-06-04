@@ -13,11 +13,12 @@ namespace SilaApiTest
         public void Response200Success()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey, descriptor: "test descriptor", businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.AreEqual("test descriptor", parsedResponse.Descriptor);
             DefaultConfig.IssueReference = parsedResponse.Reference;
         }
 

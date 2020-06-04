@@ -111,13 +111,15 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="amount"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
+        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null)
         {
-            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.AppHandle, accountName);
+            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid);
             var path = "/issue_sila";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -165,13 +167,16 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="amount"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default")
+        public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default",
+            string descriptor = null, string businessUuid = null)
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, Configuration.AppHandle, accountName);
+            RedeemMsg body = new RedeemMsg(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid);
             var path = "/redeem_sila";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -277,13 +282,16 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="destinationAddress"></param>
         /// <param name="destinationWallet"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null)
+        public ApiResponse<object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null,
+            string descriptor = null, string businessUuid = null)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid);
             var path = "/transfer_sila";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<TransferResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace SilaApiTest
 
             while (statusCode == 200 && (transactionStatus == "pending" || transactionStatus == "queued"))
             {
-                Console.WriteLine($"{userHandle} KYC check waiting 30 seconds...");
+                Console.WriteLine("Transaction waiting 30 seconds...");
                 Thread.Sleep(30000);
                 response = api.GetTransactions(userHandle, userPrivateKey, filters);
                 statusCode = response.StatusCode;
