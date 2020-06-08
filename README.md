@@ -198,6 +198,7 @@ Console.WriteLine(((TransactionResponse)response.Data).Reference); // Random ref
 Console.WriteLine(((TransactionResponse)response.Data).Status); // SUCCESS
 Console.WriteLine(((TransactionResponse)response.Data).Message); // Transaction submitted to processing queue.
 Console.WriteLine(((TransactionResponse)response.Data).Descriptor); // Transaction descriptor.
+Console.WriteLine(((TransactionResponse)response.Data).TransactionId); // Transaction id.
 ```
 
 ### Transfer Sila
@@ -218,6 +219,9 @@ Console.WriteLine(((TransferResponse)response.Data).Reference); // Random refere
 Console.WriteLine(((TransferResponse)response.Data).Status); // SUCCESS
 Console.WriteLine(((TransferResponse)response.Data).Message); // Transaction submitted to processing queue.
 Console.WriteLine(((TransferResponse)response.Data).Descriptor); // Transaction descriptor.
+Console.WriteLine(((TransferResponse)response.Data).TransactionId); // Transaction id.
+Console.WriteLine(((TransferResponse)response.Data).DestinationAddress); // The destination wallet address.
+
 ```
 
 ### Redeem Sila
@@ -238,6 +242,7 @@ Console.WriteLine(((TransactionResponse)response.Data).Reference); // Random ref
 Console.WriteLine(((TransactionResponse)response.Data).Status); // SUCCESS
 Console.WriteLine(((TransactionResponse)response.Data).Message); // Transaction submitted to processing queue.
 Console.WriteLine(((TransactionResponse)response.Data).Descriptor); // Transaction descriptor.
+Console.WriteLine(((TransactionResponse)response.Data).TransactionId); // Transaction id.
 ```
 
 ### Get Transactions
