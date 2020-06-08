@@ -13,12 +13,13 @@ namespace SilaApiTest
         public void T001Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: "test descriptor", businessUuid: DefaultConfig.businessUuid);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.AreEqual("test descriptor", parsedResponse.Descriptor);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.RedeemReference = parsedResponse.Reference;
         }
 
@@ -35,8 +36,22 @@ namespace SilaApiTest
             GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
         }
 
-        [TestMethod("3 - RedeemSila - Unsuccessful redeem for empty wallet")]
-        public void T003Response200Failure()
+        [TestMethod("3 - RedeemSila - Successful redeem tokens with business uuid and descriptor")]
+        public void T003Response200Descriptor()
+        {
+            var user = DefaultConfig.SecondUser;
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransactionResponse)response.Data;
+
+            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.AreEqual(DefaultConfig.RedeemTrans, parsedResponse.Descriptor);
+        }
+
+        [TestMethod("4 - RedeemSila - Unsuccessful redeem for empty wallet")]
+        public void T004Response200Failure()
         {
             var user = DefaultConfig.FourthUser;
             var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
@@ -47,9 +62,9 @@ namespace SilaApiTest
             DefaultConfig.InvalidRedeemReference = parsedResponse.Reference;
         }
 
-        [TestMethod("4 - RedeemSila - Poll for unsuccessful redeem")]
+        [TestMethod("5 - RedeemSila - Poll for unsuccessful redeem")]
         [Timeout(300000)]
-        public void T004Response200Failure()
+        public void T005Response200Failure()
         {
             var user = DefaultConfig.FourthUser;
             var filters = new SearchFilters()
@@ -60,16 +75,28 @@ namespace SilaApiTest
             GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "failed");
         }
 
-        [TestMethod("5 - RedeemSila - Empty user handle failure")]
-        public void T005Response400()
+        [TestMethod("6 - RedeemSila - Empty user handle failure")]
+        public void T006Response400()
         {
             ApiResponse<object> response = api.RedeemSila("", 100, DefaultConfig.FirstUser.PrivateKey);
 
             Assert.AreEqual(400, response.StatusCode);
         }
 
-        [TestMethod("6 - RedeemSila - Bad user signature failure")]
-        public void T006Response401User()
+        [TestMethod("7 - RedeemSila - Fail redeem tokens with invalid business uuid and descriptor")]
+        public void T007Response400Descriptor()
+        {
+            var user = DefaultConfig.SecondUser;
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.InvalidBusinessUuid);
+            var parsedResponse = (BadRequestResponse)response.Data;
+
+            Assert.AreEqual(400, response.StatusCode);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
+        }
+
+        [TestMethod("8 - RedeemSila - Bad user signature failure")]
+        public void T008Response401User()
         {
             var response = api.RedeemSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.privateKey);
 
@@ -77,8 +104,8 @@ namespace SilaApiTest
             Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - IssueSila");
         }
 
-        [TestMethod("7 - RedeemSila - Bad app signature failure")]
-        public void T007Response401()
+        [TestMethod("9 - RedeemSila - Bad app signature failure")]
+        public void T009Response401()
         {
             var user = DefaultConfig.FirstUser;
             var failApi = new SilaApi(DefaultConfig.environment,
