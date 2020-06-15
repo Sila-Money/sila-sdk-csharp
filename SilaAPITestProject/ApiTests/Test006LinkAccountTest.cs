@@ -43,7 +43,7 @@ namespace SilaApiTest
         public void T004_Response400Failure()
         {
             var user = DefaultConfig.FirstUser;
-            var randomToken = $"public-sandbox-{System.Guid.NewGuid().ToString()}";
+            var randomToken = $"public-sandbox-{System.Guid.NewGuid()}";
             var response = api.LinkAccount(user.UserHandle, randomToken, user.PrivateKey);
 
             var baseResp = (BaseResponse)response.Data;
@@ -58,23 +58,29 @@ namespace SilaApiTest
             var user = DefaultConfig.FirstUser;
             var plaid = DefaultConfig.PlaidToken;
             var response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+            var parsedData = (LinkAccountResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
 
             user = DefaultConfig.SecondUser;
             plaid = DefaultConfig.PlaidToken;
             response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+            parsedData = (LinkAccountResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
 
             user = DefaultConfig.FourthUser;
             plaid = DefaultConfig.PlaidToken;
             response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+            parsedData = (LinkAccountResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
         }
 
         [TestMethod("6 - LinkAccount - Link through plaid token and account id")]

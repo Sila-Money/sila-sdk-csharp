@@ -13,6 +13,11 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("account_number")]
         public string AccountNumber { get; set; }
         /// <summary>
+        /// String field used in the Account object to save routing number
+        /// </summary>
+        [JsonProperty("routing_number")]
+        public string RoutingNumber { get; set; }
+        /// <summary>
         /// String field used in the Account object to save account name
         /// </summary>
         [JsonProperty("account_name")]
@@ -27,5 +32,15 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("account_status")]
         public string AccountStatus { get; set; }
+        /// <summary>
+        /// String field used in the Account object to save account status
+        /// </summary>
+        [JsonProperty("account_link_status")]
+        public string AccountLinkStatus { get; set; }
+        /// <summary>
+        /// String field used in the Account object to save account status
+        /// </summary>
+        [JsonProperty("active")]
+        public bool Active { get; set; }
     }
 }

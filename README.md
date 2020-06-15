@@ -136,9 +136,11 @@ The only permitted account type is "CHECKING"
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // Bank account successfully linked.
+Console.WriteLine(((LinkAccountResponse)response.Data).Reference); // Random reference number
+Console.WriteLine(((LinkAccountResponse)response.Data).Status); // SUCCESS
+Console.WriteLine(((LinkAccountResponse)response.Data).Message); // Bank account successfully linked.
+Console.WriteLine(((LinkAccountResponse)response.Data).AccountName); // Account Name.
+Console.WriteLine(((LinkAccountResponse)response.Data).MatchScore);
 ```
 
 ### Get Accounts
@@ -153,10 +155,13 @@ ApiResponse<object> response = api.GetAccounts(userHandle, walletPrivateKey);
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
+Console.WriteLine(((List<Account>)response.Data)[0].AccountLinkStatus); // Account Link Status
 Console.WriteLine(((List<Account>)response.Data)[0].AccountName); // Account Name
 Console.WriteLine(((List<Account>)response.Data)[0].AccountNumber); // Account Number
 Console.WriteLine(((List<Account>)response.Data)[0].AccountStatus); // Account Status
 Console.WriteLine(((List<Account>)response.Data)[0].AccountType); // Account Type
+Console.WriteLine(((List<Account>)response.Data)[0].Active); // Active
+Console.WriteLine(((List<Account>)response.Data)[0].RoutingNumber); // Routing Number
 ```
 
 ### Get Account Balance
@@ -172,7 +177,7 @@ ApiResponse<object> response = api.GetAccountBalance(userHandle, walletPrivateKe
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
 var parsedData = (GetAccountBalanceResponse)response.Data;
-Console.WriteLine(parsedData.Status); // SUCCESS
+Console.WriteLine(parsedData.Success); // TRUE
 Console.WriteLine(parsedData.AvailableBalance); // Available balance
 Console.WriteLine(parsedData.CurrentBalance); // Current balance
 Console.WriteLine(parsedData.MaskedAccountNumber); // Masked account number
@@ -229,7 +234,7 @@ Console.WriteLine(((TransferResponse)response.Data).DestinationAddress); // The 
 Burns given the amount of SILA at the handle's wallet address, and credits their named bank account in the equivalent monetary amount.
 
 ```csharp
-ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid); ); 
+ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid);
 // Account Name is optional but defaults to 'default'.
 // Descriptor and Business UUID are optional.
 ```

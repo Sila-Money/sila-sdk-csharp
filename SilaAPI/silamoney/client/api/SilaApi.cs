@@ -137,7 +137,7 @@ namespace SilaAPI.silamoney.client.api
             LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, Configuration.AppHandle, accountId, accountName);
             var path = "/link_account";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace SilaAPI.silamoney.client.api
                 routingNumber, accountType, accountName);
             var path = "/link_account";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -239,7 +239,6 @@ namespace SilaAPI.silamoney.client.api
 
             string lastBasePath = Configuration.BasePath;
             Configuration.BasePath = host;
-            Console.WriteLine(requestBody);
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path,
                 Method.POST, requestBody, headerParams, contentType);
@@ -247,7 +246,6 @@ namespace SilaAPI.silamoney.client.api
             Configuration.BasePath = lastBasePath;
 
             int statusCode = (int)response.StatusCode;
-            Console.WriteLine(response.Content);
 
             object responseBody;
 
@@ -412,7 +410,6 @@ namespace SilaAPI.silamoney.client.api
         {
             var headerParams = new Dictionary<string, string>();
             string requestBody = SerializationUtil.Serialize(body);
-            Console.WriteLine(requestBody);
             string contentType = "application/json";
 
             headerParams.Add("authsignature", Signer.Sign(requestBody, Configuration.PrivateKey));
@@ -421,8 +418,6 @@ namespace SilaAPI.silamoney.client.api
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
-
-            Console.WriteLine(response.Content);
 
             object responseBody;
 
@@ -441,8 +436,6 @@ namespace SilaAPI.silamoney.client.api
                     responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
                     break;
             }
-
-            Console.WriteLine(JsonConvert.SerializeObject(responseBody));
 
             return new ApiResponse<object>(statusCode,
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
