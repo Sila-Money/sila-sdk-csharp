@@ -35,6 +35,7 @@ jobs:
       organization: 'silamoney'
       scannerMode: 'MSBuild'
       projectKey: 'sila-sdk-csharp'
+      extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.$(frameworkVersion).opencover.xml'
     displayName: 'Prepare Sonar analysis'
     condition: and(succeeded(), eq(variables['executeSonar'], true))
 
