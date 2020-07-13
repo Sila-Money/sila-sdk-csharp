@@ -14,14 +14,29 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.IssueReference = parsedResponse.Reference;
         }
 
-        [TestMethod("2 - IssueSila - Poll until successful issue")]
+        [TestMethod("2 - IssueSila - Succesfully issue tokens with business uuid and descriptor")]
+        public void Response200SuccessDescriptor()
+        {
+            var user = DefaultConfig.FirstUser;
+            var response = api.IssueSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.IssueTrans, businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransactionResponse)response.Data;
+            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.AreEqual(DefaultConfig.IssueTrans, parsedResponse.Descriptor);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+        }
+
+        [TestMethod("3 - IssueSila - Poll until successful issue")]
         [Timeout(300000)]
         public void Response200Transaction()
         {
@@ -34,15 +49,25 @@ namespace SilaApiTest
             GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
         }
 
-        [TestMethod("3 - IssueSila - Empty user handle failure")]
+        [TestMethod("4 - IssueSila - Empty user handle failure")]
         public void Response400()
         {
             var response = api.IssueSila("", 1000, DefaultConfig.FirstUser.PrivateKey);
-
             Assert.AreEqual(400, response.StatusCode);
         }
 
-        [TestMethod("4 - IssueSila - Bad user signature failure")]
+        [TestMethod("5 - IssueSila - Fail issue tokens with invalid business uuid and descriptor")]
+        public void Response400Descriptor()
+        {
+            var user = DefaultConfig.FirstUser;
+            var response = api.IssueSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.IssueTrans, businessUuid: DefaultConfig.InvalidBusinessUuid);
+            var parsedResponse = (BadRequestResponse)response.Data;
+            Assert.AreEqual(400, response.StatusCode);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
+        }
+
+        [TestMethod("6 - IssueSila - Bad user signature failure")]
         public void Response401User()
         {
             var response = api.IssueSila(DefaultConfig.FirstUser.UserHandle, 1000, DefaultConfig.privateKey);
@@ -51,7 +76,7 @@ namespace SilaApiTest
             Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - IssueSila");
         }
 
-        [TestMethod("5 - IssueSila - Unsuccessfully issue tokens")]
+        [TestMethod("7 - IssueSila - Unsuccessfully issue tokens")]
         public void Response401NotVerified()
         {
             var user = DefaultConfig.ThirdUser;
@@ -61,7 +86,7 @@ namespace SilaApiTest
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
 
-        [TestMethod("6 - IssueSila - Bad app signature failure")]
+        [TestMethod("8 - IssueSila - Bad app signature failure")]
         public void Response401()
         {
             var user = DefaultConfig.FirstUser;

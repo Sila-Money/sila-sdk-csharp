@@ -16,12 +16,16 @@ namespace SilaApiTest
             var firstResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "default");
 
             Assert.AreEqual(200, firstResponse.StatusCode, $"{user.UserHandle} account 'default' should success get_accounts");
-            Assert.AreEqual("default", ((GetAccountBalanceResponse)firstResponse.Data).AccountName, $"{user.UserHandle} account 'default' should match account_name");
+            var parsedResponse = (GetAccountBalanceResponse)firstResponse.Data;
+            Assert.AreEqual("default", parsedResponse.AccountName, $"{user.UserHandle} account 'default' should match account_name");
+            Assert.IsTrue(parsedResponse.Success);
 
             var secondResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "sync_by_id");
 
             Assert.AreEqual(200, secondResponse.StatusCode, $"{user.UserHandle} account 'sync_by_id' should success get_accounts");
-            Assert.AreEqual("sync_by_id", ((GetAccountBalanceResponse)secondResponse.Data).AccountName, $"{user.UserHandle} account 'sync_by_id' should match account_name");
+            parsedResponse = (GetAccountBalanceResponse)secondResponse.Data;
+            Assert.AreEqual("sync_by_id", parsedResponse.AccountName, $"{user.UserHandle} account 'sync_by_id' should match account_name");
+            Assert.IsTrue(parsedResponse.Success);
         }
 
         [TestMethod("2 - GetAccountBalance - Unsuccessful direct link account balance")]

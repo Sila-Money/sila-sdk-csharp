@@ -20,15 +20,21 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="amount"></param>
         /// <param name="authHandle"></param>
         /// <param name="accountName"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         public IssueMsg(string userHandle,
             float amount,
             string authHandle,
-            string accountName)
+            string accountName,
+            string descriptor,
+            string businessUuid)
         {
             this.Header = new Header(userHandle, authHandle);
             this.Amount = amount;
             this.MessageOption = Message.IssueMsg;
             this.AccountName = accountName;
+            this.Descriptor = descriptor;
+            this.BusinessUuid = businessUuid;
         }
     }
 }

@@ -34,12 +34,16 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="authHandle"></param>
         /// <param name="destinationAddress"></param> 
         /// <param name="destinationWallet"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         public TransferMsg(string userHandle,
             float amount,
             string destinationHandle,
             string authHandle,
             string destinationAddress,
-            string destinationWallet)
+            string destinationWallet,
+            string descriptor,
+            string businessUuid)
         {
             Header = new Header(userHandle, authHandle);
             DestinationHandle = destinationHandle;
@@ -47,6 +51,8 @@ namespace SilaAPI.silamoney.client.domain
             MessageOption = Message.TransferMsg;
             DestinationAddress = destinationAddress;
             DestinationWallet = destinationWallet;
+            Descriptor = descriptor;
+            BusinessUuid = businessUuid;
         }
     }
 }

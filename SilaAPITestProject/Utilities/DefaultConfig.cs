@@ -9,6 +9,12 @@ namespace SilaApiTest
         public static string environment = Environments.SANDBOX;
         public static string privateKey = Environment.GetEnvironmentVariable("SILA_PRIVATE_KEY");
         public static string appHandle = "digital_geko_e2e.silamoney.eth";
+        public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+        public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
+        public static string IssueTrans { get { return "Issue Trans"; } }
+        public static string TransferTrans { get { return "Transfer Trans"; } }
+        public static string RedeemTrans { get { return "Redeem Trans"; } }
+        public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
 
         private static UserConfiguration firstUser;
         private static UserConfiguration secondUser;

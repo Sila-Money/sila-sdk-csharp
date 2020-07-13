@@ -16,10 +16,13 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.SecondUser;
             var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.FirstUser.UserHandle, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var parsedResponse = (TransferResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
             DefaultConfig.InvalidTransferReference = parsedResponse.Reference;
         }
         /*
@@ -42,9 +45,12 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey);
-
+            var parsedResponse = (TransferResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
         }
 
         [TestMethod("4 - TransferSila - Unsuccessful transfor to app handle")]
@@ -106,9 +112,23 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Message.Contains("same address as sender is prohibited"));
         }
 
-        [TestMethod("9 - TransferSila - Successful transfer received by wallet")]
+        [TestMethod("9 - TransferSila - Successful transfer tokens with business uuid and descriptor")]
+        public void T009Response200Descriptor()
+        {
+            var user = DefaultConfig.FirstUser;
+            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey, descriptor: DefaultConfig.TransferTrans, businessUuid: DefaultConfig.businessUuid);
+            var parsedResponse = (TransferResponse)response.Data;
+            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
+            Assert.AreEqual(DefaultConfig.TransferTrans, parsedResponse.Descriptor);
+        }
+
+        [TestMethod("10 - TransferSila - Successful transfer received by wallet")]
         [Timeout(300000)]
-        public void T009Response200Wallet()
+        public void T010Response200Wallet()
         {
             var user = DefaultConfig.FirstUser;
             var filters = new SearchFilters()
@@ -119,16 +139,27 @@ namespace SilaApiTest
             GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
         }
 
-        [TestMethod("10 - TransferSila - Empty user handle failure")]
-        public void T010Response400()
+        [TestMethod("11 - TransferSila - Empty user handle failure")]
+        public void T011Response400()
         {
             var response = api.TransferSila("", 100, DefaultConfig.SecondUser.UserHandle, DefaultConfig.FirstUser.PrivateKey);
 
             Assert.AreEqual(400, response.StatusCode);
         }
 
-        [TestMethod("11 - TransferSila - Bad user signature failure")]
-        public void T011Response401User()
+        [TestMethod("12 - TransferSila - Fail transfer tokens with invalid business uuid and descriptor")]
+        public void T012Response400Descriptor()
+        {
+            var user = DefaultConfig.FirstUser;
+            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey, descriptor: DefaultConfig.TransferTrans, businessUuid: DefaultConfig.InvalidBusinessUuid);
+            var parsedResponse = (BadRequestResponse)response.Data;
+            Assert.AreEqual(400, response.StatusCode);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
+        }
+
+        [TestMethod("13 - TransferSila - Bad user signature failure")]
+        public void T013Response401User()
         {
             var response = api.TransferSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, DefaultConfig.privateKey);
 
@@ -136,8 +167,8 @@ namespace SilaApiTest
             Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - TransferSila");
         }
 
-        [TestMethod("12 - TransferSila - Bad app signature failure")]
-        public void T012Response401()
+        [TestMethod("14 - TransferSila - Bad app signature failure")]
+        public void T014Response401()
         {
             var user = DefaultConfig.FirstUser;
             var failApi = new SilaApi(DefaultConfig.environment,

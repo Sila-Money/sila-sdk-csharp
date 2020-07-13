@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks Condition="'$(CoreOnly)' != 'True'">
-      netcoreapp2.1;netcoreapp3.0;net46;net461;net462;net47;net471;net472;net48
+      netcoreapp2.1;netcoreapp3.1;net46;net461;net462;net47;net471;net472;net48
     </TargetFrameworks>
     <TargetFrameworks Condition="'$(CoreOnly)' == 'True'">
-      netcoreapp2.1;netcoreapp3.0
+      netcoreapp2.1;netcoreapp3.1
     </TargetFrameworks>
     <Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
     <Company>DigitalGeko</Company>
     <Product>SilaSDK</Product>
-    <Version>0.2.7-rc</Version>
+    <Version>0.2.8-rc</Version>
     <owners>Silamoney</owners>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
