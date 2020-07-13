@@ -1,0 +1,104 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+variables:
+  buildConfiguration: 'Release'
+
+jobs:
+- job: Core
+  pool:
+    vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      netCore21:
+        sdkVersion: '2.1.x'
+        frameworkVersion: 'netcoreapp2.1'
+        executeSonar: true
+      netcore31:
+        sdkVersion: '3.1.x'
+        frameworkVersion: 'netcoreapp3.1'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(sdkVersion)
+    displayName: 'use dotnet $(sdkVersion)'
+
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'SonarCloud'
+      organization: 'silamoney'
+      scannerMode: 'MSBuild'
+      projectKey: 'sila-sdk-csharp'
+      extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.$(frameworkVersion).opencover.xml'
+    displayName: 'Prepare Sonar analysis'
+    condition: and(succeeded(), eq(variables['executeSonar'], true))
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration) /p:TargetFrameworks=$(frameworkVersion)'
+    displayName: 'dotnet build $(buildConfiguration) $(frameworkVersion)'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      publishTestResults: true
+      arguments: '--no-build -v n --configuration $(buildConfiguration) /p:TargetFrameworks=$(frameworkVersion) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/'
+    env:
+      SILA_PRIVATE_KEY: $(silaPrivateKey)
+    displayName: 'dotnet test $(buildConfiguration) $(frameworkVersion)'
+
+  - task: SonarCloudAnalyze@1
+    displayName: 'Sonar analysis'
+    condition: and(succeededOrFailed(), eq(variables['executeSonar'], true))
+
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
+    condition: and(succeeded(), eq(variables['executeSonar'], true))
+
+
+- job: Framework
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    solution: '**/*.sln'
+    buildPlatform: 'Any CPU'
+    frameworkVersion: 'net46'
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Nuget Installer'
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
+    displayName: 'Nuget restore'
+
+  - task: VSBuild@1
+    inputs:
+      solution: '$(solution)'
+      msbuildArgs: '/p:TargetFrameworks=$(frameworkVersion)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+    displayName: 'Build'
+
+  - task: VSTest@2
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: |
+        **\*Test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      codeCoverageEnabled: true
+    displayName: 'Test Assemblies'
+    env:
+      SILA_PRIVATE_KEY: $(silaPrivateKey)
