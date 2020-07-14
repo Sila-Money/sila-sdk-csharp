@@ -13,7 +13,7 @@ namespace SilaApiTest
         public void Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.SilaBalance("https://sandbox.silatokenapi.silamoney.com", user.CryptoAddress);
+            var response = api.GetSilaBalance(user.CryptoAddress);
             var parsedResponse = (SilaBalanceResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -23,7 +23,7 @@ namespace SilaApiTest
         [TestMethod("2 - SilaBalance - Unsuccessful balance retrieval")]
         public void Response500()
         {
-            var response = api.SilaBalance("https://sandbox.silatokenapi.silamoney.com", "");
+            var response = api.GetSilaBalance("");
 
             Assert.AreEqual(500, response.StatusCode);
         }
