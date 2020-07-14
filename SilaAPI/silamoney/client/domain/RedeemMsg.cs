@@ -21,6 +21,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="amount"></param>
         /// <param name="authHandle"></param>
         /// <param name="accountName"></param>
+        /// <param name="descriptor"></param>
+        /// <param name="businessUuid"></param>
         public RedeemMsg(string userHandle,
             float amount,
             string authHandle,
