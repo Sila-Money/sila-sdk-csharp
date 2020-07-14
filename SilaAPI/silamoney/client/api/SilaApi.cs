@@ -406,6 +406,23 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<GetWalletsResponse>(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// Makes a call to /get_business_types.
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetBusinessTypes()
+        {
+            var path = "/get_business_types";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+
+            return MakeRequest<BusinessTypesResponse>(path, body);
+        }
+
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();
