@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -9,16 +11,19 @@ namespace SilaAPI.silamoney.client.domain
         /// Uuid of business information
         /// </summary>
         /// <value>uuid</value>
-        public string uuid { get; }
+        [JsonProperty("uuid")]
+        public string Uuid { get; }
         /// <summary>
         /// Name of business information
         /// </summary>
         /// <value>name</value>
-        public string name { get; }
+        [JsonProperty("name")]
+        public string Name { get; }
         /// <summary>
         /// Label of business information
         /// </summary>
         /// <value>label</value>
-        public string label { get; }
+        [JsonProperty("label")]
+        public string Label { get; }
     }
 }
