@@ -528,6 +528,53 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<LinkOperationResponse>(path, body, userPrivateKey, businessPrivateKey);
         }
 
+        /// <summary>
+        /// Makes a call to /link_business_member.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="businessHandle"></param>
+        /// <param name="businessPrivateKey"></param>
+        /// <param name="memberHandle"></param>
+        /// <param name="certificationToken"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> UnlinkBusinessMember(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, string memberHandle, string certificationToken)
+        {
+            var path = "/certify_beneficial_owner";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+            header.Add("business_handle", businessHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+            body.Add("member_handle", memberHandle);
+            body.Add("certification_token", certificationToken);
+
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey, businessPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to /link_business_member.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey)
+        {
+            var path = "/get_entity";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+
+            return MakeRequest<GetEntityResponse>(path, body, userPrivateKey);
+        }
+
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();

@@ -8,7 +8,7 @@ namespace SilaAPI.silamoney.client.domain
     /// Address object used in the entity_msg object
     /// </summary>
     [DataContract]
-    public partial class Address
+    public partial class Address : EntityAudit
     {
         /// <summary>
         /// EnumMember values for Country field
@@ -57,6 +57,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "postal_code", EmitDefaultValue = false)]
         public string PostalCode { get; set; }
+        /// <summary>
+        /// String field used in the Address object to save nickname
+        /// </summary>
+        [DataMember(Name = "nickname", EmitDefaultValue = false)]
+        public string Nickname { get; set; }
 
         /// <summary>
         /// If user is not null, set user values in the Address object
@@ -93,5 +98,10 @@ namespace SilaAPI.silamoney.client.domain
                 this.PostalCode = user.PostalCode;
             }
         }
+
+        /// <summary>
+        /// Address constructor.
+        /// </summary>
+        public Address(){}
     }
 }
