@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 
@@ -17,6 +18,9 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.IsTrue(parsedResponse.BusinessTypes.Count > 0);
+            Assert.IsNotNull(parsedResponse.BusinessTypes.First().Label);
+            Assert.IsNotNull(parsedResponse.BusinessTypes.First().Name);
+            Assert.IsNotNull(parsedResponse.BusinessTypes.First().Uuid);
         }
     }
 }

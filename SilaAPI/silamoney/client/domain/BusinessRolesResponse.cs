@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.api
     /// <summary>
     /// Object used in the GetBusinessTypes method
     /// </summary>
-    public class BusinessTypesResponse
+    public class BusinessRolesResponse
     {
         /// <summary>
         /// Get the success value of the method.
@@ -15,10 +15,10 @@ namespace SilaAPI.silamoney.client.api
         [JsonProperty("success")]
         public bool Success { get; set; }
         /// <summary>
-        /// List of business types.
+        /// List of business roles.
         /// </summary>
-        /// <value>BusinessTypes</value>
-        [JsonProperty("business_types")]
-        public List<BusinessType> BusinessTypes { get; set; }
+        /// <value>BusinessRoles</value>
+        [JsonProperty("business_roles")]
+        public List<BusinessRole> BusinessRoles { get; set; }
     }
 }
