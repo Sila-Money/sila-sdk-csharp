@@ -502,6 +502,32 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<LinkOperationResponse>(path, body, userPrivateKey, businessPrivateKey);
         }
 
+        /// <summary>
+        /// Makes a call to /link_business_member.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="businessHandle"></param>
+        /// <param name="businessPrivateKey"></param>
+        /// <param name="businessRole"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> UnlinkBusinessMember(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, BusinessRole businessRole)
+        {
+            var path = "/unlink_business_member";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+            header.Add("business_handle", businessHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+            body.Add("role", businessRole.Label);
+            body.Add("role_uuid", businessRole.Uuid);
+
+            return MakeRequest<LinkOperationResponse>(path, body, userPrivateKey, businessPrivateKey);
+        }
+
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();
