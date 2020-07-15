@@ -424,7 +424,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /get_business_types.
+        /// Makes a call to /get_business_roles.
         /// </summary>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> GetBusinessRoles()
@@ -441,7 +441,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /get_business_types.
+        /// Makes a call to /get_naics_categories.
         /// </summary>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> GetNaicsCategories()
@@ -457,7 +457,39 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<NaicsCategoriesResponse>(path, body);
         }
 
-        private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null)
+        /// <summary>
+        /// Makes a call to /link_business_member.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="businessHandle"></param>
+        /// <param name="businessPrivateKey"></param>
+        /// <param name="businessRole"></param>
+        /// <param name="details"></param>
+        /// <param name="memberHandle"></param>
+        /// <param name="ownershipStake"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> LinkBusinessMember(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, BusinessRole businessRole, string details = null, string memberHandle = null, float ownershipStake = -1)
+        {
+            var path = "/link_business_member";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+            header.Add("business_handle", businessHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+            body.Add("role", businessRole.Label);
+            body.Add("role_uuid", businessRole.Uuid);
+            if (details != null) body.Add("details", details);
+            if (memberHandle != null) body.Add("member_handle", memberHandle);
+            if (ownershipStake != -1) body.Add("ownership_stake", ownershipStake);
+
+            return MakeRequest<LinkOperationResponse>(path, body, userPrivateKey, businessPrivateKey);
+        }
+
+        private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();
             string requestBody = SerializationUtil.Serialize(body);
@@ -465,12 +497,15 @@ namespace SilaAPI.silamoney.client.api
 
             headerParams.Add("authsignature", Signer.Sign(requestBody, Configuration.PrivateKey));
             if (userPrivateKey != null) headerParams.Add("usersignature", Signer.Sign(requestBody, userPrivateKey));
+            if (businessPrivateKey != null) headerParams.Add("businesssignature", Signer.Sign(requestBody, businessPrivateKey));
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
 
             int statusCode = (int)response.StatusCode;
 
             object responseBody;
+
+            Console.WriteLine(response.Content);
 
             switch (statusCode)
             {

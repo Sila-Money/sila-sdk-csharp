@@ -1,5 +1,7 @@
-﻿﻿using SilaAPI.silamoney.client.domain;
+﻿﻿using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 using System;
+using System.Collections.Generic;
 using static SilaAPITestProject.Utilities.PlaidTokenHelper;
 
 namespace SilaApiTest
@@ -15,11 +17,13 @@ namespace SilaApiTest
         public static string TransferTrans { get { return "Transfer Trans"; } }
         public static string RedeemTrans { get { return "Redeem Trans"; } }
         public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
+        public static List<BusinessRole> BusinessRoles { get; set; }
 
         private static UserConfiguration firstUser;
         private static UserConfiguration secondUser;
         private static UserConfiguration thirdUser;
         private static UserConfiguration fourthUser;
+        private static UserConfiguration businessUser;
 
         public static UserConfiguration FirstUser
         {
@@ -54,6 +58,15 @@ namespace SilaApiTest
             {
                 if (fourthUser == null) fourthUser = new UserConfiguration();
                 return fourthUser;
+            }
+        }
+
+        public static UserConfiguration BusinessUser
+        {
+            get
+            {
+                if (businessUser == null) businessUser = new UserConfiguration();
+                return businessUser;
             }
         }
 
@@ -102,6 +115,17 @@ namespace SilaApiTest
             {
                 _randomCryptoAddress = value;
             }
+        }
+
+        public static BusinessRole BusinessRole(string name){
+            foreach (var businessRole in BusinessRoles)
+            {
+                if (businessRole.Name.Equals(name))
+                {
+                    return businessRole;
+                }
+            }
+            return null;
         }
     }
 }

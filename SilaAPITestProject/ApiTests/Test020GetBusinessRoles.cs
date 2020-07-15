@@ -21,6 +21,8 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.BusinessRoles.First().Label);
             Assert.IsNotNull(parsedResponse.BusinessRoles.First().Name);
             Assert.IsNotNull(parsedResponse.BusinessRoles.First().Uuid);
+
+            DefaultConfig.BusinessRoles = parsedResponse.BusinessRoles;
         }
     }
 }
