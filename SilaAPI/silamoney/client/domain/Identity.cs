@@ -33,5 +33,18 @@ namespace SilaAPI.silamoney.client.domain
                 this.IdentityValue = user.IdentityValue;
             }
         }
+
+        /// <summary>
+        /// Identity constructor
+        /// </summary>
+        /// <param name="user"></param>
+        public Identity(BusinessUser user)
+        {
+            if (user != null)
+            {
+                this.IdentityAliasOption = IdentityAlias.EIN;
+                this.IdentityValue = user.IdentityValue;
+            }
+        }
     }
 }

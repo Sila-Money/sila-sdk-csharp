@@ -6,7 +6,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test021GetNaicsCategories
+    public class Test000GetNaicsCategories
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
@@ -20,6 +20,8 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.NaicsCategories.Count > 0);
             Assert.IsNotNull(parsedResponse.NaicsCategories.First().Key);
             Assert.IsNotNull(parsedResponse.NaicsCategories.First().Value);
+
+            DefaultConfig.NaicsCategories = parsedResponse.NaicsCategories;
         }
     }
 }

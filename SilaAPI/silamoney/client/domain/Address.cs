@@ -75,5 +75,23 @@ namespace SilaAPI.silamoney.client.domain
                 this.PostalCode = user.PostalCode;
             }
         }
+
+        /// <summary>
+        /// If user is not null, set user values in the Address object
+        /// </summary>
+        /// <param name="user"></param>
+        public Address(BusinessUser user)
+        {
+            if (user != null)
+            {
+                this.AddressAlias = "";
+                this.StreetAddress1 = user.StreetAddress1;
+                this.StreetAddress2 = user.StreetAddress2;
+                this.City = user.City;
+                this.State = user.State;
+                this.Country = Address.Countries.US;
+                this.PostalCode = user.PostalCode;
+            }
+        }
     }
 }

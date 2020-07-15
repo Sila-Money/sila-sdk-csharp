@@ -193,6 +193,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// Makes a call to the register endpoint.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> Register(BusinessUser user)
+        {
+            EntityMsg body = new EntityMsg(user, Configuration.AppHandle);
+            var path = "/register";
+
+            return MakeRequest<BaseResponse>(path, body);
+        }
+
+        /// <summary>
         /// Makes a call to the request_kyc endpoint.
         /// </summary>
         /// <param name="userHandle"></param>

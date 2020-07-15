@@ -40,5 +40,19 @@ namespace SilaAPI.silamoney.client.domain
                 this.CryptoAddress = user.CryptopAddress;
             }
         }
+
+        /// <summary>
+        /// If user is not null, set user values in the CryptoEntry object
+        /// </summary>
+        /// <param name="user"></param>
+        public CryptoEntry(BusinessUser user)
+        {
+            if (user != null)
+            {
+                this.CryptoAlias = "";
+                this.CryptoCodeOption = CryptoCode.ETH;
+                this.CryptoAddress = user.CryptopAddress;
+            }
+        }
     }
 }

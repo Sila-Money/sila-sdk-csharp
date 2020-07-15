@@ -1,6 +1,7 @@
 ﻿using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SilaApiTest
 {
@@ -47,10 +48,27 @@ namespace SilaApiTest
             }
         }
 
+        public static BusinessUser businessUser;
+
+        public static BusinessUser BusinessUser
+        {
+            get
+            {
+                if (businessUser == null) businessUser = CreateBusinessUser(DefaultConfig.BusinessUser.UserHandle, "Business User", DefaultConfig.BusinessUser.CryptoAddress, DefaultConfig.BusinessTypes.First(), DefaultConfig.NaicsCategories.First().Value.First());
+                return businessUser;
+            }
+        }
+
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19));
+        }
+
+        public static BusinessUser CreateBusinessUser(string handle, string entityName, string cryptoAddress, BusinessType businessType, NaicsSubcategory naicsSubcategory)
+        {
+            return new BusinessUser(handle, entityName, "123452222", "1234567890", "fake@email.com", "123 Main Street",
+                "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code);
         }
 
         public static GetTransactionsResult CreateTransactionResult()

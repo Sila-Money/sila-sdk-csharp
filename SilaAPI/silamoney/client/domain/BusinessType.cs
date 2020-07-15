@@ -1,6 +1,4 @@
-using SilaAPI.silamoney.client.domain;
-
-namespace SilaAPI.silamoney.client.api
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// Object used in GetBusinessTypesResponse

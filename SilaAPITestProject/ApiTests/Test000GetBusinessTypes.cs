@@ -6,7 +6,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test019GetBusinessTypes
+    public class Test000GetBusinessTypes
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
@@ -21,6 +21,8 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.BusinessTypes.First().Label);
             Assert.IsNotNull(parsedResponse.BusinessTypes.First().Name);
             Assert.IsNotNull(parsedResponse.BusinessTypes.First().Uuid);
+
+            DefaultConfig.BusinessTypes = parsedResponse.BusinessTypes;
         }
     }
 }

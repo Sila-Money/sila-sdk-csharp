@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 
@@ -13,6 +14,7 @@ namespace SilaApiTest
         public void TestResponse200()
         {
             var firstUser = ModelsUtilities.FirstUser;
+            Console.WriteLine(firstUser.UserHandle);
             var firstResponse = api.Register(firstUser);
 
             Assert.AreEqual(200, firstResponse.StatusCode);
@@ -35,6 +37,12 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, fourthResponse.StatusCode);
             Assert.AreEqual("SUCCESS", ((BaseResponse)fourthResponse.Data).Status, $"{fourthUser.UserHandle} should register");
+
+            var businessUser = ModelsUtilities.BusinessUser;
+            var businessResponse = api.Register(businessUser);
+
+            Assert.AreEqual(200, fourthResponse.StatusCode);
+            Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
 
         }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.api
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// Object used in the GetBusinessTypes method

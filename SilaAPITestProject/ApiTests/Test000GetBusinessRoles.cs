@@ -6,7 +6,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test020GetBusinessRoles
+    public class Test000GetBusinessRoles
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 

@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
-using SilaAPI.silamoney.client.domain;
 
-namespace SilaAPI.silamoney.client.api
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// Object used in Link and Unlink business member.

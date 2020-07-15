@@ -39,6 +39,31 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "first_name", EmitDefaultValue = false)]
         public string FirstName { get; set; }
+        /// <summary>
+        /// String field used in the Entity object to save type
+        /// </summary>
+        [DataMember(Name = "type", EmitDefaultValue = false)]
+        public string Type { get; set; }
+        /// <summary>
+        /// String field used in the Entity object to save business type
+        /// </summary>
+        [DataMember(Name = "business_type", EmitDefaultValue = false)]
+        public string BusinessType { get; set; }
+        /// <summary>
+        /// String field used in the Entity object to save business website
+        /// </summary>
+        [DataMember(Name = "business_website", EmitDefaultValue = false)]
+        public string BusinessWebsite { get; set; }
+        /// <summary>
+        /// String field used in the Entity object to save doing business as
+        /// </summary>
+        [DataMember(Name = "doing_business_as", EmitDefaultValue = false)]
+        public string DoingBusinessAs { get; set; }
+        /// <summary>
+        /// String field used in the Entity object to save naics code
+        /// </summary>
+        [DataMember(Name = "naics_code", EmitDefaultValue = false)]
+        public int NaicsCode { get; set; }
 
         /// <summary>
         /// If user is not null, set user values in the Entity object
@@ -53,6 +78,23 @@ namespace SilaAPI.silamoney.client.domain
                 this.FirstName = user.FirstName;
                 this.LastName = user.LastName;
                 this.RelationshipOption = Relationship.User;
+                this.Type = "individual";
+            }
+        }
+
+        /// <summary>
+        /// If user is not null, set user values in the Entity object
+        /// </summary>
+        /// <param name="user"></param>
+        public Entity(BusinessUser user)
+        {
+            if (user != null)
+            {
+                this.EntityName = user.EntityName;
+                this.BusinessType = user.BusinessType;
+                this.BusinessWebsite = user.BusinessWebsite;
+                this.NaicsCode = user.NaicsCode;
+                this.Type = "business";
             }
         }
     }
