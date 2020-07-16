@@ -66,7 +66,7 @@ namespace SilaApiTest
 
             user = DefaultConfig.SecondUser;
             plaid = DefaultConfig.PlaidToken;
-            response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+            response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey, accountName: "default");
             parsedData = (LinkAccountResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");

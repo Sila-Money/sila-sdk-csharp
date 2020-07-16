@@ -71,11 +71,11 @@ namespace SilaApiTest
         {
             var businessRole = DefaultConfig.BusinessRole("beneficial_owner");
             var response = api.LinkBusinessMember(
-                DefaultConfig.ThirdUser.UserHandle,
-                DefaultConfig.ThirdUser.PrivateKey,
+                DefaultConfig.FirstUser.UserHandle,
+                DefaultConfig.FirstUser.PrivateKey,
                 DefaultConfig.BusinessUser.UserHandle,
                 DefaultConfig.BusinessUser.PrivateKey,
-                businessRole, "test details",ownershipStake: (float)0.33
+                businessRole, "test details", DefaultConfig.SecondUser.UserHandle, (float)0.33
             );
 
             var parsedResponse = (LinkOperationResponse)response.Data;

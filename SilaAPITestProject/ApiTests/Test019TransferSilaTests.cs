@@ -69,7 +69,7 @@ namespace SilaApiTest
         public void T005Response200Wallet()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey, destinationWallet: "default");
+            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey);
             var parsedResponse = (BaseResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);

@@ -77,7 +77,7 @@ namespace SilaApiTest
             var message = baseRep.Message;
             int statusCode = response.StatusCode;
 
-            while (statusCode == 200 && status == "FAILURE" && message.Contains("pending"))
+            while (statusCode == 200 && status == "FAILURE" && message.Contains("pending") && !message.Contains("Business has passed verification"))
             {
                 Console.WriteLine($"{handle} KYC check waiting 30 seconds...");
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");

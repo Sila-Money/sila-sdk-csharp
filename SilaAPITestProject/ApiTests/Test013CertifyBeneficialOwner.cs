@@ -15,18 +15,16 @@ namespace SilaApiTest
         public void T026Response200()
         {
             var entity = api.GetEntity(
-                DefaultConfig.ThirdUser.UserHandle,
-                DefaultConfig.ThirdUser.PrivateKey
+                DefaultConfig.SecondUser.UserHandle,
+                DefaultConfig.SecondUser.PrivateKey
             );
 
             var parsedEntityResponse = (GetEntityResponse)entity.Data;
 
             foreach (var membership in parsedEntityResponse.Memberships)
             {
-                Console.WriteLine(membership.Role);
                 if (membership.Role.Equals("beneficial_owner"))
                 {
-                    Console.WriteLine(membership.Role);
                     DefaultConfig.CertificationToken = membership.CertificationToken;
                     break;
                 }
@@ -37,7 +35,7 @@ namespace SilaApiTest
                 DefaultConfig.FirstUser.PrivateKey,
                 DefaultConfig.BusinessUser.UserHandle,
                 DefaultConfig.BusinessUser.PrivateKey,
-                DefaultConfig.ThirdUser.UserHandle,
+                DefaultConfig.SecondUser.UserHandle,
                 DefaultConfig.CertificationToken
             );
 

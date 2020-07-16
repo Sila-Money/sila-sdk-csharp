@@ -12,11 +12,12 @@ namespace SilaApiTest
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestMethod("1 - GetEntity - Successful GetEntity")]
+        [Timeout(300000)]
         public void T024Response200()
         {
             var response = api.GetEntity(
-                DefaultConfig.ThirdUser.UserHandle,
-                DefaultConfig.ThirdUser.PrivateKey
+                DefaultConfig.SecondUser.UserHandle,
+                DefaultConfig.SecondUser.PrivateKey
             );
 
             var parsedResponse = (GetEntityResponse)response.Data;
