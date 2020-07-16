@@ -5,7 +5,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test003CheckHandleFailTest
+    public class Test007CheckHandleFailTest
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 

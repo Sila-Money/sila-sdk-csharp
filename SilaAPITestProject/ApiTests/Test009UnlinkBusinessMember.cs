@@ -6,7 +6,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test023UnlinkBusinessMember
+    public class Test009UnlinkBusinessMember
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 

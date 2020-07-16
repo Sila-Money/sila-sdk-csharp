@@ -7,7 +7,7 @@ using System.Threading;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test015_TransferSilaTests
+    public class Test019_TransferSilaTests
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 

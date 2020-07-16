@@ -7,17 +7,16 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test024GetEntity
+    public class Test012GetEntity
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
         [TestMethod("1 - GetEntity - Successful GetEntity")]
-        public void T022Response200()
+        public void T024Response200()
         {
-            var businessRole = DefaultConfig.BusinessRole("administrator");
             var response = api.GetEntity(
-                DefaultConfig.FirstUser.UserHandle,
-                DefaultConfig.FirstUser.PrivateKey
+                DefaultConfig.ThirdUser.UserHandle,
+                DefaultConfig.ThirdUser.PrivateKey
             );
 
             var parsedResponse = (GetEntityResponse)response.Data;

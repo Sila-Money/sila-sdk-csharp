@@ -7,7 +7,7 @@ using System.Threading;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test005_CheckKYCTest
+    public class Test011_CheckKYCTest
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
@@ -52,10 +52,12 @@ namespace SilaApiTest
             var firstUser = DefaultConfig.FirstUser;
             var secondUser = DefaultConfig.SecondUser;
             var fourthUser = DefaultConfig.FourthUser;
+            var businessUser = DefaultConfig.BusinessUser;
 
             SuccessCheck(firstUser.UserHandle, firstUser.PrivateKey);
             SuccessCheck(secondUser.UserHandle, secondUser.PrivateKey);
             SuccessCheck(fourthUser.UserHandle, fourthUser.PrivateKey);
+            SuccessCheck(businessUser.UserHandle, businessUser.PrivateKey);
         }
 
         [TestMethod("5 - CheckKYC - Random users KYC failed")]
@@ -87,7 +89,7 @@ namespace SilaApiTest
                 message = baseRep.Message;
             }
 
-            Assert.AreEqual("SUCCESS", status, $"{handle} should pass KYC verification");
+            Assert.IsTrue("SUCCESS" == status || message.Contains("Business has passed verification"));
         }
 
         private void FailedCheck(string handle, string privateKey)

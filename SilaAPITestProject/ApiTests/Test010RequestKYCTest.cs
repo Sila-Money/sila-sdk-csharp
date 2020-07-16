@@ -5,7 +5,7 @@ using SilaAPI.silamoney.client.domain;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test004_RequestKYCTest
+    public class Test010_RequestKYCTest
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
@@ -67,6 +67,12 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, fourthResponse.StatusCode, $"{fourthUser.UserHandle} should be sent to KYC verification");
             Assert.AreEqual("SUCCESS", ((BaseResponse)fourthResponse.Data).Status, $"{fourthUser.UserHandle} should be sent to KYC verification");
+
+            var businessUser = DefaultConfig.BusinessUser;
+            var businessResponse = api.RequestKYC(businessUser.UserHandle, businessUser.PrivateKey);
+
+            Assert.AreEqual(200, businessResponse.StatusCode, $"{businessUser.UserHandle} should be sent to KYC verification");
+            Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should be sent to KYC verification");
         }
 
         [TestMethod("5 - RequestKYC - Empty user handle failure")]
