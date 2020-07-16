@@ -503,7 +503,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /link_business_member.
+        /// Makes a call to /unlink_business_member.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="businessHandle"></param>
@@ -529,7 +529,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /link_business_member.
+        /// Makes a call to /certify_beneficial_owner.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="businessHandle"></param>
@@ -538,7 +538,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="certificationToken"></param>
         /// </summary>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> UnlinkBusinessMember(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, string memberHandle, string certificationToken)
+        public ApiResponse<object> CertifyBeneficialOwner(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, string memberHandle, string certificationToken)
         {
             var path = "/certify_beneficial_owner";
             Dictionary<String, String> header = new Dictionary<string, string>();
@@ -556,7 +556,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /link_business_member.
+        /// Makes a call to /get_entity.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// </summary>
@@ -573,6 +573,24 @@ namespace SilaAPI.silamoney.client.api
             body.Add("header", header);
 
             return MakeRequest<GetEntityResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to /get_entities.
+        /// <param name="entityTypeFilter"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetEntities(string entityTypeFilter = null)
+        {
+            var path = "/get_entities";
+            var header = new Header(null, Configuration.AppHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+            body.Add("message", "header_msg");
+            if (entityTypeFilter != null) body.Add("entity_type", entityTypeFilter);
+
+            return MakeRequest<GetEntitiesResponse>(path, body);
         }
 
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
