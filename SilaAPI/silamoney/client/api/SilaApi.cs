@@ -529,33 +529,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to /certify_beneficial_owner.
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="businessHandle"></param>
-        /// <param name="businessPrivateKey"></param>
-        /// <param name="memberHandle"></param>
-        /// <param name="certificationToken"></param>
-        /// </summary>
-        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> CertifyBeneficialOwner(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, string memberHandle, string certificationToken)
-        {
-            var path = "/certify_beneficial_owner";
-            Dictionary<String, String> header = new Dictionary<string, string>();
-            header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
-            header.Add("user_handle", userHandle);
-            header.Add("business_handle", businessHandle);
-
-            Dictionary<String, object> body = new Dictionary<string, object>();
-            body.Add("header", header);
-            body.Add("member_handle", memberHandle);
-            body.Add("certification_token", certificationToken);
-
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey, businessPrivateKey);
-        }
-
-        /// <summary>
         /// Makes a call to /get_entity.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
@@ -591,6 +564,56 @@ namespace SilaAPI.silamoney.client.api
             if (entityTypeFilter != null) body.Add("entity_type", entityTypeFilter);
 
             return MakeRequest<GetEntitiesResponse>(path, body);
+        }
+
+        /// <summary>
+        /// Makes a call to /certify_beneficial_owner.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="businessHandle"></param>
+        /// <param name="businessPrivateKey"></param>
+        /// <param name="memberHandle"></param>
+        /// <param name="certificationToken"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> CertifyBeneficialOwner(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey, string memberHandle, string certificationToken)
+        {
+            var path = "/certify_beneficial_owner";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+            header.Add("business_handle", businessHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+            body.Add("member_handle", memberHandle);
+            body.Add("certification_token", certificationToken);
+
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey, businessPrivateKey);
+        }
+
+        /// <summary>
+        /// Makes a call to /certify_business.
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="businessHandle"></param>
+        /// <param name="businessPrivateKey"></param>
+        /// </summary>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> CertifyBusiness(string userHandle, string userPrivateKey, string businessHandle, string businessPrivateKey)
+        {
+            var path = "/certify_business";
+            Dictionary<String, String> header = new Dictionary<string, string>();
+            header.Add("created", EpochUtils.getEpoch().ToString());
+            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("user_handle", userHandle);
+            header.Add("business_handle", businessHandle);
+
+            Dictionary<String, object> body = new Dictionary<string, object>();
+            body.Add("header", header);
+
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey, businessPrivateKey);
         }
 
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
@@ -637,7 +660,7 @@ namespace SilaAPI.silamoney.client.api
         {
             if (statusCode != 200) return false;
 
-            if (body.GetType() == typeof(BaseResponse) && ((BaseResponse)body).Status != "SUCCESS")
+            if (body.GetType() == typeof(BaseResponse) && (((BaseResponse)body).Status != "SUCCESS" && ((BaseResponse)body).Status != null))
                 return false;
 
             return true;
