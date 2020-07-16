@@ -71,6 +71,24 @@ Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
 Console.WriteLine(((BaseResponse)response.Data).Message); // user was successfully registered.
 ```
 
+### Register Business
+
+Attaches KYC data and specified blockchain address to an assigned handle.
+
+```csharp
+BusinessUser user = new BusinessUser(userHandle, entityName, identityValue, phone, email, streetAddress1, streetAddress2, city, state, postalCode, cryptoAddress, businessType, businessWebsite, doingBusinessAs, naicsSubcategoryCode);
+ApiResponse<object> response = api.Register(user);
+```
+
+#### Success Response Object
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
+Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
+Console.WriteLine(((BaseResponse)response.Data).Message); // user was successfully registered.
+```
+
 ### Request KYC
 
 Starts KYC verification process on a registered user handle.
@@ -435,4 +453,123 @@ ApiResponse<object> response = api.SilaBalance("https://sandbox.silatokenapi.sil
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
 Console.WriteLine(((SilaBalanceResponse)response.Data).SilaBalance); // Sila tokens
+```
+
+### Get Business Types
+
+Gets a list of valid business types that can be registered.
+
+```csharp
+ApiResponse<object> response = api.GetBusinessTypes();
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (BusinessTypesResponse)response.Data;
+parsedData.BusinessTypes; // Business types list
+```
+
+### Get Business Roles
+
+Retrieves the list of pre-defined business roles.
+
+```csharp
+ApiResponse<object> response = api.GetBusinessRoles();
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (BusinessRolesResponse)response.Data;
+parsedData.BusinessRoles; // Business roles list
+```
+
+### Get Naics Categories
+
+```csharp
+ApiResponse<object> response = api.GetNaicsCategories();
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (NaicsCategoriesResponse)response.Data;
+parsedData.NaicsCategories; // Naics categories list
+parsedData.NaicsCategories.First().Value; // First Naic category object
+```
+
+### Link Business Member
+
+```csharp
+ApiResponse<object> response = api.LinkBusinessMember(userHandle, userPrivateKey, businessHandle, businessPrivateKey, businessRole, details, memberHandle, ownershipStake);
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (LinkOperationResponse)response.Data;
+Console.WriteLine(response.Details); // details
+Console.WriteLine(response.Role); // Linkekd business member role
+```
+
+### Unlink Business Member
+
+```csharp
+ApiResponse<object> response = api.UnlinkBusinessMember(userHandle, userPrivateKey, businessHandle, businessPrivateKey, businessRole);
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (LinkOperationResponse)response.Data;
+Console.WriteLine(response.Message); // Response message
+```
+
+### Certify Beneficial Owner
+
+```csharp
+ApiResponse<object> response = api.CertifyBeneficialOwner(userHandle, userPrivateKey, businessHandle, businessPrivateKey, member_handle, certificationToken);
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (BaseResponse)response.Data;
+Console.WriteLine(response.Message); // Beneficial owner successfully certified
+```
+
+### Certify Business
+
+```csharp
+ApiResponse<object> response = api.CertifyBusiness(userHandle, privateKey, businessHandle, businessPrivateKey);
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (BaseResponse)response.Data;
+Console.WriteLine(response.Message); // Business successfully certified
+```
+
+### Get Entities
+
+```csharp
+ApiResponse<object> response = api.GetEntities();
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedData = (GetEntitiesResponse)response.Data;
+response.Entities.Individuals; // Individual entities list
+response.Entities.Businesses; // Business entities list
 ```
