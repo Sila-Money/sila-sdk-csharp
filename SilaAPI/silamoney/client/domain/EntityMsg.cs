@@ -52,5 +52,24 @@ namespace SilaAPI.silamoney.client.domain
                 this.MessageOption = Message.EntityMsg;
             }
         }
+
+        /// <summary>
+        /// If user and appHandle are not null, set user values in the differents object
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="appHandle"></param>
+        public EntityMsg(BusinessUser user, string appHandle)
+        {
+            if (user != null && appHandle != null)
+            {
+                this.Header = new Header(user.UserHandle, appHandle);
+                this.Address = new Address(user);
+                this.Identity = new Identity(user);
+                this.Contact = new Contact(user);
+                this.CryptoEntry = new CryptoEntry(user);
+                this.Entity = new Entity(user);
+                this.MessageOption = Message.EntityMsg;
+            }
+        }
     }
 }
