@@ -102,17 +102,12 @@ jobs:
     displayName: 'Test Assemblies'
     env:
       SILA_PRIVATE_KEY: $(silaPrivateKey)
-
-  - task: Bash@3
-    inputs:
-      targetType: 'inline'
-      script: cd SilaAPI
-    displayName: go to sdk folder
-  
+ 
   - task: DotNetCoreCLI@2
     inputs:
       command: pack
       arguments: '--configuration $(buildConfiguration)'
+      workingDirectory: 'SilaAPI'
     displayName: dotnet pack
 
   - task: CopyFiles@2
