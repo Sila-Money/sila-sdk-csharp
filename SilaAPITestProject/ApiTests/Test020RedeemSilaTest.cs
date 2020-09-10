@@ -57,23 +57,23 @@ namespace SilaApiTest
             var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
             var parsedResponse = (BaseResponse)response.Data;
 
-            Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.AreEqual(400, response.StatusCode);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
             DefaultConfig.InvalidRedeemReference = parsedResponse.Reference;
         }
 
-        [TestMethod("5 - RedeemSila - Poll for unsuccessful redeem")]
-        [Timeout(300000)]
-        public void T005Response200Failure()
-        {
-            var user = DefaultConfig.FourthUser;
-            var filters = new SearchFilters()
-            {
-                ReferenceId = DefaultConfig.InvalidRedeemReference
-            };
+        // [TestMethod("5 - RedeemSila - Poll for unsuccessful redeem")]
+        // [Timeout(300000)]
+        // public void T005Response200Failure()
+        // {
+        //     var user = DefaultConfig.FourthUser;
+        //     var filters = new SearchFilters()
+        //     {
+        //         ReferenceId = DefaultConfig.InvalidRedeemReference
+        //     };
 
-            GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "failed");
-        }
+        //     GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "failed");
+        // }
 
         [TestMethod("6 - RedeemSila - Empty user handle failure")]
         public void T006Response400()
