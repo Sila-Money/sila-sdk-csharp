@@ -573,3 +573,15 @@ var parsedData = (GetEntitiesResponse)response.Data;
 response.Entities.Individuals; // Individual entities list
 response.Entities.Businesses; // Business entities list
 ```
+
+### Get Entity
+```csharp
+ApiResponse<object> response = api.GetEntity(userhandle, privateKey);
+```
+
+#### Success Object Response
+
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (GetEntityResponse)response.Data;// Access to entity properties
+```
