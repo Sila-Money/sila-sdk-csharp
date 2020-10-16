@@ -170,11 +170,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="accountName"></param>
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
+        /// <param name="processingType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default",
-            string descriptor = null, string businessUuid = null)
+            string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);

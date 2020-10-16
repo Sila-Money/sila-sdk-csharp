@@ -258,7 +258,8 @@ Console.WriteLine(((TransferResponse)response.Data).DestinationAddress); // The 
 Burns given the amount of SILA at the handle's wallet address, and credits their named bank account in the equivalent monetary amount.
 
 ```csharp
-ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid);
+ProcessingType processingType = ProcessingType.Sameday; // Optional
+ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid, processingType);
 // Account Name is optional but defaults to 'default'.
 // Descriptor and Business UUID are optional.
 ```
