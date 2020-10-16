@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SilaAPI.silamoney.client.api
 {
@@ -73,7 +73,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/check_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<CheckKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>

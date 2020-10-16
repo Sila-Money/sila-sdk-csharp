@@ -72,9 +72,9 @@ namespace SilaApiTest
         private void SuccessCheck(string handle, string privateKey)
         {
             var response = api.CheckKYC(handle, privateKey);
-            var baseRep = (BaseResponse)response.Data;
-            var status = baseRep.Status;
-            var message = baseRep.Message;
+            var parsedResponse = (CheckKYCResponse)response.Data;
+            var status = parsedResponse.Status;
+            var message = parsedResponse.Message;
             int statusCode = response.StatusCode;
 
             while (statusCode == 200 && status == "FAILURE" && message.Contains("pending") && !message.Contains("Business has passed verification"))
@@ -83,10 +83,10 @@ namespace SilaApiTest
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
                 Thread.Sleep(30000);
                 response = api.CheckKYC(handle, privateKey);
-                baseRep = (BaseResponse)response.Data;
+                parsedResponse = (CheckKYCResponse)response.Data;
                 statusCode = response.StatusCode;
-                status = baseRep.Status;
-                message = baseRep.Message;
+                status = parsedResponse.Status;
+                message = parsedResponse.Message;
             }
 
             Assert.IsTrue("SUCCESS" == status || message.Contains("Business has passed verification"));
@@ -95,9 +95,9 @@ namespace SilaApiTest
         private void FailedCheck(string handle, string privateKey)
         {
             var response = api.CheckKYC(handle, privateKey);
-            var baseRep = (BaseResponse)response.Data;
-            var status = baseRep.Status;
-            var message = baseRep.Message;
+            var parsedResponse = (CheckKYCResponse)response.Data;
+            var status = parsedResponse.Status;
+            var message = parsedResponse.Message;
             int statusCode = response.StatusCode;
 
             while (statusCode == 200 && status == "FAILURE" && !message.Contains("failed") && message.Contains("pending"))
@@ -106,10 +106,10 @@ namespace SilaApiTest
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
                 Thread.Sleep(30000);
                 response = api.CheckKYC(handle, privateKey);
-                baseRep = (BaseResponse)response.Data;
+                parsedResponse = (CheckKYCResponse)response.Data;
                 statusCode = response.StatusCode;
-                status = baseRep.Status;
-                message = baseRep.Message;
+                status = parsedResponse.Status;
+                message = parsedResponse.Message;
             }
 
             Assert.AreEqual("FAILURE", status, $"{handle} should fail KYC verification");

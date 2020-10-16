@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -22,5 +23,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
+        /// <summary>
+        /// Boolean field used to indicate if the response was successful or not
+        /// </summary>
+        [JsonProperty("success")]
+        public Boolean Success { get; set; }
     }
 }

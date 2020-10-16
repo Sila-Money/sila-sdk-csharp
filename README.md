@@ -125,9 +125,14 @@ ApiResponse<object> response = api.CheckKYC(userHandle, walletPrivateKey);
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // user has passed ID verification!
+var parsedResponse = (CheckKYCResponse)response.Data;
+Console.WriteLine(parsedResponse.Reference); // Random reference number
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // user has passed ID verification!
+Console.WriteLine(parsedResponse.EntityType); // individual|business
+Console.WriteLine(parsedResponse.VerificationStatus); // passed
+Console.WriteLine(parsedResponse.VerificationHistory); // A list of verification results
+Console.WriteLine(parsedResponse.ValidKycLevels); // List of kyc levels [DEFAULT, ...]
 ```
 
 ### Link Account
