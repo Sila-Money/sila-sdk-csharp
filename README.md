@@ -213,7 +213,8 @@ Console.WriteLine(parsedData.AccountName); // Account name
 Debits a specified account and issues tokens to the wallet belonging to the requested handle's.
 
 ```csharp
-ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid); 
+ProcessingType processingType = ProcessingType.Sameday; // Optional
+ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid, processingType); 
 // Account Name is optional but defaults to 'default'.
 // Descriptor and Business UUID are optional.
 ```

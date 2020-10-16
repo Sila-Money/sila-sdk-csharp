@@ -5,7 +5,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used to store response message.
     /// </summary>
-    public class TransactionResponse:BaseResponse
+    public class TransactionResponse : BaseResponse
     {
         /// <summary>
         /// String field used in the TransactionResponse object to save transaction id
