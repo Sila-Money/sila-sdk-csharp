@@ -102,3 +102,26 @@ jobs:
     displayName: 'Test Assemblies'
     env:
       SILA_PRIVATE_KEY: $(silaPrivateKey)
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: cd SilaAPI
+    displayName: go to sdk folder
+ 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: pack
+      arguments: '--configuration $(buildConfiguration)'
+    displayName: dotnet pack
+
+  - task: CopyFiles@2
+    inputs:
+      Contents: '**/*.nupkg'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

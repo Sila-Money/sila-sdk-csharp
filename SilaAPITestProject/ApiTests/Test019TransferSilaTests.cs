@@ -11,11 +11,11 @@ namespace SilaApiTest
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 
-        [TestMethod("1 - TransferSila - Successful transfer from wallet with 0 balance")]
+        [TestMethod("1 - TransferSila - Successful transfer")]
         public void T001Response200EmptyWallet()
         {
-            var user = DefaultConfig.SecondUser;
-            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.FirstUser.UserHandle, user.PrivateKey);
+            var user = DefaultConfig.FirstUser;
+            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey);
             var parsedResponse = (TransferResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
