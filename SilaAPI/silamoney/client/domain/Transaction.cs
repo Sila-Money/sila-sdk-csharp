@@ -84,6 +84,36 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("last_update_epoch")]
         public long LastUpdateEpoch { get; set; }
         /// <summary>
+        /// The transactipon descriptor (if any)
+        /// </summary>
+        [JsonProperty("descriptor")]
+        public string Descriptor { get; set; }
+        /// <summary>
+        /// The transaction descriptor seen by the end user (if any)
+        /// </summary>
+        [JsonProperty("descriptor_ach")]
+        public string DescriptorAch { get; set; }
+        /// <summary>
+        /// The company name seen by the end user (if any)
+        /// </summary>
+        [JsonProperty("ach_name")]
+        public string AchName { get; set; }
+        /// <summary>
+        /// The processing type of the transaction (not available on transfer transaction type)
+        /// </summary>
+        [JsonProperty("processing_type")]
+        public string ProcessingType { get; set; }
+        /// <summary>
+        /// The destination addrees of the transaction (only available on transfer transaction type)
+        /// </summary>
+        [JsonProperty("destination_address")]
+        public string DestinationAddress { get; set; }
+        /// <summary>
+        /// The destination handle of the transaction (only available on transfer transaction type)
+        /// </summary>
+        [JsonProperty("destination_handle")]
+        public string DestinationHandle { get; set; }
+        /// <summary>
         /// String field value used in the Transaction objet to save timelines
         /// </summary>
         [JsonProperty("timelines")]

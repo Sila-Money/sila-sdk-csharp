@@ -125,9 +125,14 @@ ApiResponse<object> response = api.CheckKYC(userHandle, walletPrivateKey);
 
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
-Console.WriteLine(((BaseResponse)response.Data).Reference); // Random reference number
-Console.WriteLine(((BaseResponse)response.Data).Status); // SUCCESS
-Console.WriteLine(((BaseResponse)response.Data).Message); // user has passed ID verification!
+var parsedResponse = (CheckKYCResponse)response.Data;
+Console.WriteLine(parsedResponse.Reference); // Random reference number
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // user has passed ID verification!
+Console.WriteLine(parsedResponse.EntityType); // individual|business
+Console.WriteLine(parsedResponse.VerificationStatus); // passed
+Console.WriteLine(parsedResponse.VerificationHistory); // A list of verification results
+Console.WriteLine(parsedResponse.ValidKycLevels); // List of kyc levels [DEFAULT, ...]
 ```
 
 ### Link Account
@@ -208,7 +213,8 @@ Console.WriteLine(parsedData.AccountName); // Account name
 Debits a specified account and issues tokens to the wallet belonging to the requested handle's.
 
 ```csharp
-ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid); 
+ProcessingType processingType = ProcessingType.Sameday; // Optional
+ApiResponse<object> response = api.IssueSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid, processingType); 
 // Account Name is optional but defaults to 'default'.
 // Descriptor and Business UUID are optional.
 ```
@@ -252,7 +258,8 @@ Console.WriteLine(((TransferResponse)response.Data).DestinationAddress); // The 
 Burns given the amount of SILA at the handle's wallet address, and credits their named bank account in the equivalent monetary amount.
 
 ```csharp
-ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid);
+ProcessingType processingType = ProcessingType.Sameday; // Optional
+ApiResponse<object> response = api.RedeemSila(userHandle, amount, walletPrivateKey, accountName, descriptor, businessUuid, processingType);
 // Account Name is optional but defaults to 'default'.
 // Descriptor and Business UUID are optional.
 ```

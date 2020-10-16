@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SilaAPI.silamoney.client.api
 {
@@ -73,7 +73,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/check_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<CheckKycResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -105,18 +105,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to the issue_sila endpoint.
+        /// Initiates and ACH Debit transaction on a specified bank account and issues SILAUSD tokens to the address belonging to the requested handle.
         /// </summary>
         /// <param name="userHandle"></param>
-        /// <param name="amount"></param>
+        /// <param name="amount">Min Length 1, Max digits 35</param>
         /// <param name="userPrivateKey"></param>
-        /// <param name="accountName"></param>
-        /// <param name="descriptor"></param>
-        /// <param name="businessUuid"></param>
+        /// <param name="accountName">Required. Max Length 40</param>
+        /// <param name="descriptor">Optional. Max Length 100</param>
+        /// <param name="businessUuid">Optional. UUID of a business with an approved ACH name.</param>
+        /// <param name="processingType">Optional.</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null)
+        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
         {
-            IssueMsg body = new IssueMsg(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -169,11 +170,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="accountName"></param>
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
+        /// <param name="processingType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default",
-            string descriptor = null, string businessUuid = null)
+            string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
         {
-            RedeemMsg body = new RedeemMsg(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);

@@ -5,7 +5,7 @@ namespace SilaAPI.silamoney.client.util
     /// <summary>
     /// Epoch utils class
     /// </summary>
-    public class EpochUtils
+    public static class EpochUtils
     {
         /// <summary>
         /// Generates the actual time in epoch format.

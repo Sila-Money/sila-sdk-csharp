@@ -50,8 +50,21 @@ namespace SilaApiTest
             Assert.AreEqual(DefaultConfig.RedeemTrans, parsedResponse.Descriptor);
         }
 
-        [TestMethod("4 - RedeemSila - Unsuccessful redeem for empty wallet")]
-        public void T004Response200Failure()
+        [TestMethod("4 - RedeemSila - Successful redeem tokens with same day ACH")]
+        public void T004Response200SameDay()
+        {
+            var user = DefaultConfig.SecondUser;
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday);
+            var parsedResponse = (TransactionResponse)response.Data;
+
+            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+        }
+
+        [TestMethod("5 - RedeemSila - Unsuccessful redeem for empty wallet")]
+        public void T005Response200Failure()
         {
             var user = DefaultConfig.FourthUser;
             var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
@@ -61,19 +74,6 @@ namespace SilaApiTest
             Assert.AreEqual("FAILURE", parsedResponse.Status);
             DefaultConfig.InvalidRedeemReference = parsedResponse.Reference;
         }
-
-        // [TestMethod("5 - RedeemSila - Poll for unsuccessful redeem")]
-        // [Timeout(300000)]
-        // public void T005Response200Failure()
-        // {
-        //     var user = DefaultConfig.FourthUser;
-        //     var filters = new SearchFilters()
-        //     {
-        //         ReferenceId = DefaultConfig.InvalidRedeemReference
-        //     };
-
-        //     GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "failed");
-        // }
 
         [TestMethod("6 - RedeemSila - Empty user handle failure")]
         public void T006Response400()
