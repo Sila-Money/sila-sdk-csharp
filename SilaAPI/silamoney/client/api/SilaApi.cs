@@ -73,7 +73,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/check_kyc";
 
-            return MakeRequest<CheckKYCResponse>(path, body, userPrivateKey);
+            return MakeRequest<CheckKycResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>

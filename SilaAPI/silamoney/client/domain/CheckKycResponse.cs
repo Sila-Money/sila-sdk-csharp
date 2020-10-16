@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used to store the check_kyc response message.
     /// </summary>
-    public class CheckKYCResponse : BaseResponse
+    public class CheckKycResponse : BaseResponse
     {
         /// <summary>
         /// Indicates the type of entity being verified

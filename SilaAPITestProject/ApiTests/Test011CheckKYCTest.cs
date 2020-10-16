@@ -72,7 +72,7 @@ namespace SilaApiTest
         private void SuccessCheck(string handle, string privateKey)
         {
             var response = api.CheckKYC(handle, privateKey);
-            var parsedResponse = (CheckKYCResponse)response.Data;
+            var parsedResponse = (CheckKycResponse)response.Data;
             var status = parsedResponse.Status;
             var message = parsedResponse.Message;
             int statusCode = response.StatusCode;
@@ -83,7 +83,7 @@ namespace SilaApiTest
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
                 Thread.Sleep(30000);
                 response = api.CheckKYC(handle, privateKey);
-                parsedResponse = (CheckKYCResponse)response.Data;
+                parsedResponse = (CheckKycResponse)response.Data;
                 statusCode = response.StatusCode;
                 status = parsedResponse.Status;
                 message = parsedResponse.Message;
@@ -95,7 +95,7 @@ namespace SilaApiTest
         private void FailedCheck(string handle, string privateKey)
         {
             var response = api.CheckKYC(handle, privateKey);
-            var parsedResponse = (CheckKYCResponse)response.Data;
+            var parsedResponse = (CheckKycResponse)response.Data;
             var status = parsedResponse.Status;
             var message = parsedResponse.Message;
             int statusCode = response.StatusCode;
@@ -106,7 +106,7 @@ namespace SilaApiTest
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
                 Thread.Sleep(30000);
                 response = api.CheckKYC(handle, privateKey);
-                parsedResponse = (CheckKYCResponse)response.Data;
+                parsedResponse = (CheckKycResponse)response.Data;
                 statusCode = response.StatusCode;
                 status = parsedResponse.Status;
                 message = parsedResponse.Message;
