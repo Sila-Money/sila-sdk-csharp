@@ -137,7 +137,7 @@ Console.WriteLine(parsedResponse.ValidKycLevels); // List of kyc levels [DEFAULT
 
 ### Link Account
 
-Uses a provided Plaid public token to link a bank account to a verified entity.
+Uses a provided Plaid public token to link a bank account to a verified entity. Public token received in the /link/item/create [Plaid](https://plaid.com/docs/link/maintain-legacy-integration/) endpoint.
 
 #### Plaid verification flow (recomended)
 
