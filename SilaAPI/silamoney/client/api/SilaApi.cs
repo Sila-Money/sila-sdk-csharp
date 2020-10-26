@@ -618,6 +618,19 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<BaseResponse>(path, body, userPrivateKey, businessPrivateKey);
         }
 
+        /// <sumary>
+        /// Cancel a pending transaction under certain circumstances
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="transactionId">The transaction id to cancel</param>
+        /// </sumary>
+        public ApiResponse<object> CancelTransaction(string userHandle, string userPrivateKey, string transactionId)
+        {
+            var path = "/cancel_transaction";
+            CancelTransactionMsg body = new CancelTransactionMsg(Configuration.AppHandle, userHandle, transactionId);
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
+
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();
