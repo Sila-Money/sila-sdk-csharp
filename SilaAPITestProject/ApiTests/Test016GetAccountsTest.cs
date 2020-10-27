@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace SilaApiTest
 {
     [TestClass]
-    public class Test0016_GetAccountsTest
+    public class Test016_GetAccountsTest
     {
         SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
 

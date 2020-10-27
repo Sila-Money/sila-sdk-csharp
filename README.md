@@ -592,3 +592,18 @@ ApiResponse<object> response = api.GetEntity(userhandle, privateKey);
 Console.WriteLine(response.StatusCode); // 200
 var parsedResponse = (GetEntityResponse)response.Data;// Access to entity properties
 ```
+
+### Cancel Transaction
+```csharp
+ApiResponse<object> response = api.CancelTransaction(userHandle, privateKey, transactionId);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponse)response.Data;
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Message); // Transaction has been canceled
+Console.WriteLine(parsedResponse.Reference); // some-uuid-code
+```
