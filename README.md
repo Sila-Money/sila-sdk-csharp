@@ -779,3 +779,27 @@ Console.WriteLine(parsedResponse.Phone.ModifiedEpoch);
 Console.WriteLine(parsedResponse.Phone.Uuid);
 Console.WriteLine(parsedResponse.Phone.Phone);
 ```
+
+### Add Identity
+```csharp
+var identity = new IdentityMessage
+{
+    IdentityAlias = "SSN",
+    IdentityValue = "543212222"
+};
+var response = api.AddIdentity(user.UserHandle, user.PrivateKey, identity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IdentityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added identity
+Console.WriteLine(parsedResponse.Identity.AddedEpoch);
+Console.WriteLine(parsedResponse.Identity.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Identity.Uuid);
+Console.WriteLine(parsedResponse.Identity.IdentityType);
+Console.WriteLine(parsedResponse.Identity.Identity);
+```

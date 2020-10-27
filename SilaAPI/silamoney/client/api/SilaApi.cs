@@ -744,6 +744,19 @@ namespace SilaAPI.silamoney.client.api
             return AddRegistrationData<PhoneResponse>(RegistrationData.Phone, userPrivateKey, body);
         }
 
+        /// <summary>
+        /// Add a new identity to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="identity">The new identity</param>
+        /// <returns></returns>
+        public ApiResponse<object> AddIdentity(string userHandle, string userPrivateKey, IdentityMessage identity)
+        {
+            var body = new IdentityMsg(Configuration.AppHandle, userHandle, identity);
+            return AddRegistrationData<IdentityResponse>(RegistrationData.Identity, userPrivateKey, body);
+        }
+
         private ApiResponse<object> AddRegistrationData<T>(RegistrationData dataType, string userPrivateKey, object body)
         {
             var path = $"/add/{dataType.Url}";
