@@ -13,7 +13,37 @@ namespace SilaApiTest
         [TestMethod("1 - AddAddress - Success Response")]
         public void Response200Address()
         {
-            throw new NotImplementedException();
+            var user = DefaultConfig.FirstUser;
+            var address = new AddressMessage
+            {
+                AddressAlias = "new_address",
+                StreetAddress1 = "324 Songbird Avenue",
+                StreetAddress2 = "Apt. 132",
+                City = "Portland",
+                State = "VA",
+                PostalCode = "12345",
+                Country = "US"
+            };
+            var response = api.AddAddress(user.UserHandle, user.PrivateKey, address);
+
+            Assert.AreEqual(200, response.StatusCode);
+            var parsedResponse = (AddressResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added address"));
+            Assert.IsNotNull(parsedResponse.Address);
+            Assert.IsNotNull(parsedResponse.Address.AddedEpoch);
+            Assert.IsNotNull(parsedResponse.Address.ModifiedEpoch);
+            Assert.IsNotNull(parsedResponse.Address.Uuid);
+            Assert.AreEqual(address.AddressAlias, parsedResponse.Address.Nickname);
+            Assert.AreEqual(address.StreetAddress1, parsedResponse.Address.StreetAddress1);
+            Assert.AreEqual(address.StreetAddress2, parsedResponse.Address.StreetAddress2);
+            Assert.AreEqual(address.City, parsedResponse.Address.City);
+            Assert.AreEqual(address.State, parsedResponse.Address.State);
+            Assert.AreEqual(address.Country, parsedResponse.Address.Country);
+            Assert.AreEqual(address.PostalCode, parsedResponse.Address.PostalCode);
+
+            DefaultConfig.AddressUuid = parsedResponse.Address.Uuid;
         }
 
         [TestMethod("2 - AddEmail - Success Response")]

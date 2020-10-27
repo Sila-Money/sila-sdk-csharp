@@ -12,7 +12,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "identity_value")]
         public string IdentityValue { get; }
-        public IdentityMsg(string authHandle, string userHandle, IdentityMessage identity, string uuid = null) : base(authHandle, userHandle, uuid)
+        public IdentityMsg(string authHandle, string userHandle, IdentityMessage identity) : base(authHandle, userHandle, identity.Uuid)
         {
             IdentityAlias = identity.IdentityAlias;
             IdentityValue = identity.IdentityValue;

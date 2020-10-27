@@ -803,3 +803,37 @@ Console.WriteLine(parsedResponse.Identity.Uuid);
 Console.WriteLine(parsedResponse.Identity.IdentityType);
 Console.WriteLine(parsedResponse.Identity.Identity);
 ```
+
+### Add Address
+```csharp
+var address = new AddressMessage
+{
+    AddressAlias = "new_address",
+    StreetAddress1 = "324 Songbird Avenue",
+    StreetAddress2 = "Apt. 132", // Optional
+    City = "Portland",
+    State = "VA",
+    PostalCode = "12345",
+    Country = "US"
+};
+var response = api.AddAddress(user.UserHandle, user.PrivateKey, address);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (AddressResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added address
+Console.WriteLine(parsedResponse.Address.AddedEpoch);
+Console.WriteLine(parsedResponse.Address.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Address.Uuid);
+Console.WriteLine(parsedResponse.Address.Nickname);
+Console.WriteLine(parsedResponse.Address.StreetAddress1);
+Console.WriteLine(parsedResponse.Address.StreetAddress2);
+Console.WriteLine(parsedResponse.Address.City);
+Console.WriteLine(parsedResponse.Address.State);
+Console.WriteLine(parsedResponse.Address.Country);
+Console.WriteLine(parsedResponse.Address.PostalCode);
+```
