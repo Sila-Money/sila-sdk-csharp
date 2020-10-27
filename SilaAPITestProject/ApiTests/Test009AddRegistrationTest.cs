@@ -40,7 +40,27 @@ namespace SilaApiTest
         [TestMethod("3 - AddIdentity - Success Response")]
         public void Response200Identity()
         {
-            throw new NotImplementedException();
+            var user = DefaultConfig.FirstUser;
+            var identity = new IdentityMessage
+            {
+                IdentityAlias = "SSN",
+                IdentityValue = "543212222"
+            };
+            var response = api.AddIdentity(user.UserHandle, user.PrivateKey, identity);
+
+            Assert.AreEqual(200, response.StatusCode);
+            var parsedResponse = (IdentityResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added identity"));
+            Assert.IsNotNull(parsedResponse.Identity);
+            Assert.IsNotNull(parsedResponse.Identity.AddedEpoch);
+            Assert.IsNotNull(parsedResponse.Identity.ModifiedEpoch);
+            Assert.IsNotNull(parsedResponse.Identity.Uuid);
+            Assert.AreEqual(identity.IdentityAlias, parsedResponse.Identity.IdentityType);
+            Assert.IsNotNull(parsedResponse.Identity.Identity);
+
+            DefaultConfig.IdentityUuid = parsedResponse.Identity.Uuid;
         }
 
         [TestMethod("4 - AddPhone - Success Response")]
