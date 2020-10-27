@@ -12,7 +12,16 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the HeaderMsg object to save kyc_level
         /// </summary>
         [DataMember(Name = "kyc_level", EmitDefaultValue = false)]
-        public string kycLevel { get; set; }  
+        public string kycLevel { get; set; }
+
+        /// <summary>
+        /// HeaderMsg constructor
+        /// </summary>
+        /// <param name="authHandle"></param>
+        public HeaderMsg(string authHandle)
+        {
+            this.Header = new Header(authHandle: authHandle);
+        }
 
         /// <summary>
         /// HeaderMsg constructor
@@ -34,6 +43,6 @@ namespace SilaAPI.silamoney.client.domain
         {
             this.kycLevel = kycLevel;
             Header = new Header(handle, authHandle);
-        }        
+        }
     }
 }
