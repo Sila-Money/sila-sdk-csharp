@@ -19,6 +19,7 @@ namespace SilaApiTest
         public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
         public static List<BusinessRole> BusinessRoles { get; set; }
         public static List<BusinessType> BusinessTypes { get; set; }
+        public static List<DocumentType> DocumentTypes { get; set; }
         public static Dictionary<string, List<NaicsSubcategory>> NaicsCategories { get; set; }
         public static string CertificationToken {get;set;}
 

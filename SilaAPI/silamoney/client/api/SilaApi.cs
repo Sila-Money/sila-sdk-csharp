@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
@@ -629,6 +630,41 @@ namespace SilaAPI.silamoney.client.api
             var path = "/cancel_transaction";
             CancelTransactionMsg body = new CancelTransactionMsg(Configuration.AppHandle, userHandle, transactionId);
             return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// List the document types for KYC supporting documentation
+        /// </summary>
+        /// <param name="page">Page number to retrieve. default: 1</param>
+        /// <param name="perPage">Number of items per page. default: 20, max: 100</param>
+        /// <returns></returns>
+        public ApiResponse<object> GetDocumentTypes(int? page = null, int? perPage = null)
+        {
+            var path = $"/document_types{GetRequestParams(page, perPage)}";
+            var body = new HeaderMsg(Configuration.AppHandle);
+            return MakeRequest<DocumentTypesResponse>(path, body);
+        }
+
+        private string GetRequestParams(int? page, int? perPage)
+        {
+            string requestParams = "";
+            if (page.HasValue)
+            {
+                requestParams += $"?page={page.Value}";
+            }
+            if (perPage.HasValue)
+            {
+                if (string.IsNullOrWhiteSpace(requestParams))
+                {
+                    requestParams += "?";
+                }
+                else
+                {
+                    requestParams += "&";
+                }
+                requestParams += $"per_page={perPage.Value}";
+            }
+            return requestParams;
         }
 
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)

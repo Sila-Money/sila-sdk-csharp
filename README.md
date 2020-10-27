@@ -607,3 +607,22 @@ Console.WriteLine(parsedResponse.Success); // true
 Console.WriteLine(parsedResponse.Message); // Transaction has been canceled
 Console.WriteLine(parsedResponse.Reference); // some-uuid-code
 ```
+
+### Document Types
+```csharp
+var response = api.GetDocumentTypes();
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (DocumentTypesResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.DocumentTypes); // A list of DocumentType
+Console.WriteLine(parsedResponse.DocumentTypes[0].Name);
+Console.WriteLine(parsedResponse.DocumentTypes[0].Label);
+Console.WriteLine(parsedResponse.DocumentTypes[0].IdentityType);
+Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
+Console.WriteLine(parsedResponse.Message); // Document type details returned.
+```
