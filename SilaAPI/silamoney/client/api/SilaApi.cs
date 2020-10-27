@@ -689,6 +689,20 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<ListDocumentsResponse>(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// Retrieve a previously uploaded supporting documentation for KYC
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="documentId">The document if to retrieve</param>
+        /// <returns></returns>
+        public ApiResponse<object> GetDocument(string userHandle, string userPrivateKey, string documentId)
+        {
+            var path = "/get_document";
+            var body = new GetDocumentMsg(Configuration.AppHandle, userHandle, documentId);
+            return MakeFileRequest(path, body, userPrivateKey);
+        }
+
         private string GetRequestParams(int? page, int? perPage, string order = null)
         {
             string requestParams = "";
@@ -744,6 +758,17 @@ namespace SilaAPI.silamoney.client.api
             return GenerateResponseFromJson<T>(response);
         }
 
+        private ApiResponse<object> MakeFileRequest(string path, object body, string userPrivateKey)
+        {
+            string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey);
+            string contentType = "application/json";
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
+
+            return GenerateResponseFromBinary(response);
+        }
+
         private Dictionary<string, string> PrepareHeaders(string requestBody, string userPrivateKey, string businessPrivateKey = null)
         {
             var headerParams = new Dictionary<string, string>();
@@ -783,6 +808,22 @@ namespace SilaAPI.silamoney.client.api
                 response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 responseBody,
                 GetSuccess(statusCode, responseBody));
+        }
+
+        private ApiResponse<object> GenerateResponseFromBinary(IRestResponse response)
+        {
+            int statusCode = (int)response.StatusCode;
+
+            Console.WriteLine(response.Content);
+
+            if (statusCode == 200)
+            {
+                return new ApiResponse<object>(statusCode,
+                response.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                response.Content,
+                true);
+            }
+            return GenerateResponseFromJson<string>(response);
         }
 
         private bool GetSuccess(int statusCode, object body)
