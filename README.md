@@ -1,6 +1,7 @@
 # .Net SDK
 
-For using this SDK you will need to use .Net framework 4.6.1 or later.
+For using this SDK you will need to use .NET Framework 4.6.1 or later.
+You can also use .NET Core 2.1 or 3.1
 
 # Usage
 
