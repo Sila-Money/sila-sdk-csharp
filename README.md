@@ -673,3 +673,17 @@ Console.WriteLine(parsedResponse.Documents[0].Size);
 Console.WriteLine(parsedResponse.Documents[0].Created);
 Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
 ```
+
+### Get Document
+```csharp
+var response = api.GetDocument(userHandle, privateKey, documentId);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (string)response.Data;
+Console.WriteLine(parsedResponse); // File binary data
+response.Headers.TryGetValue("Content-Type", out string contentType);
+Console.WriteLine(contentType); // image/png
+```

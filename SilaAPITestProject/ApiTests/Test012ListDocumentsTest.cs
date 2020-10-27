@@ -9,11 +9,12 @@ namespace SilaApiTest
     [TestClass]
     public class Test012ListDocumentsTest
     {
-        [TestMethod]
+        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+
+        [TestMethod("1 - ListDocuments - No filters")]
         public void Response200()
         {
             var user = DefaultConfig.FirstUser;
-            SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
             var response = api.ListDocuments(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(200, response.StatusCode);
@@ -32,12 +33,11 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Pagination);
         }
 
-        [TestMethod]
+        [TestMethod("1 - ListDocuments - All filters")]
         public void Response200AllParameters()
         {
             var user = DefaultConfig.FirstUser;
             var docTypes = new List<string> { DefaultConfig.DocumentTypes[0].Name };
-            SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
             var response = api.ListDocuments(user.UserHandle, user.PrivateKey, DateTime.Today, DateTime.Today.AddDays(1), docTypes, "logo", "name", 1, 1, "asc");
 
             Assert.AreEqual(200, response.StatusCode);
