@@ -728,7 +728,7 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> AddEmail(string userHandle, string userPrivateKey, string email)
         {
             var body = new EmailMsg(Configuration.AppHandle, userHandle, email);
-            return AddRegistrationData<EmailResponse>(RegistrationData.Email, userPrivateKey, body);
+            return CallRegistrationData<EmailResponse>("add", RegistrationData.Email, userPrivateKey, body);
         }
 
         /// <summary>
@@ -741,7 +741,7 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> AddPhone(string userHandle, string userPrivateKey, string phone)
         {
             var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone);
-            return AddRegistrationData<PhoneResponse>(RegistrationData.Phone, userPrivateKey, body);
+            return CallRegistrationData<PhoneResponse>("add", RegistrationData.Phone, userPrivateKey, body);
         }
 
         /// <summary>
@@ -754,7 +754,7 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> AddIdentity(string userHandle, string userPrivateKey, IdentityMessage identity)
         {
             var body = new IdentityMsg(Configuration.AppHandle, userHandle, identity);
-            return AddRegistrationData<IdentityResponse>(RegistrationData.Identity, userPrivateKey, body);
+            return CallRegistrationData<IdentityResponse>("add", RegistrationData.Identity, userPrivateKey, body);
         }
 
         /// <summary>
@@ -767,12 +767,92 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> AddAddress(string userHandle, string userPrivateKey, AddressMessage address)
         {
             var body = new AddressMsg(Configuration.AppHandle, userHandle, address);
-            return AddRegistrationData<AddressResponse>(RegistrationData.Address, userPrivateKey, body);
+            return CallRegistrationData<AddressResponse>("add", RegistrationData.Address, userPrivateKey, body);
         }
 
-        private ApiResponse<object> AddRegistrationData<T>(RegistrationData dataType, string userPrivateKey, object body)
+        /// <summary>
+        /// Update an existing email of a registered entity
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="uuid">The email uuid</param>
+        /// <param name="email">The updated email</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateEmail(string userHandle, string userPrivateKey, string uuid, string email)
         {
-            var path = $"/add/{dataType.Url}";
+            var body = new EmailMsg(Configuration.AppHandle, userHandle, email, uuid);
+            return CallRegistrationData<EmailResponse>("update", RegistrationData.Email, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Update an existing phone of a registered entity
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="uuid">The phone uuid</param>
+        /// <param name="phone">The updated phone</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone)
+        {
+            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid);
+            return CallRegistrationData<PhoneResponse>("update", RegistrationData.Phone, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Update an existing identity of a registered entity
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="identity">The updated identity</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateIdentity(string userHandle, string userPrivateKey, IdentityMessage identity)
+        {
+            var body = new IdentityMsg(Configuration.AppHandle, userHandle, identity);
+            return CallRegistrationData<IdentityResponse>("update", RegistrationData.Identity, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Update an existing address to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="address">The updated address</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateAddress(string userHandle, string userPrivateKey, AddressMessage address)
+        {
+            var body = new AddressMsg(Configuration.AppHandle, userHandle, address);
+            return CallRegistrationData<AddressResponse>("update", RegistrationData.Address, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Update an existing individual entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="entity">The updated entity information</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateEntity(string userHandle, string userPrivateKey, IndividualEntityMessage entity)
+        {
+            var body = new IndividualEntityMsg(Configuration.AppHandle, userHandle, entity);
+            return CallRegistrationData<IndividualEntityResponse>("update", RegistrationData.Entity, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Update an existing business entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="entity">The updated entity information</param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateEntity(string userHandle, string userPrivateKey, BusinessEntityMessage entity)
+        {
+            var body = new BusinessEntityMsg(Configuration.AppHandle, userHandle, entity);
+            return CallRegistrationData<BusinessEntityResponse>("update", RegistrationData.Entity, userPrivateKey, body);
+        }
+
+        private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
+        {
+            var path = $"/{rootPath}/{dataType.Url}";
             return MakeRequest<T>(path, body, userPrivateKey);
         }
 

@@ -22,6 +22,10 @@
         /// 
         /// </summary>
         public static readonly RegistrationData Address = new RegistrationData("address");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly RegistrationData Entity = new RegistrationData("entity");
 
         private RegistrationData(string url)
         {
