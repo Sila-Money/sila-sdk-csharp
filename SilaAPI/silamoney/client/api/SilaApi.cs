@@ -703,6 +703,21 @@ namespace SilaAPI.silamoney.client.api
             return MakeFileRequest(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// Delete an existing email, phone number, street address, or identity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="dataType">The type of registration data to delete</param>
+        /// <param name="uuid">The uuid of the registration data</param>
+        /// <returns></returns>
+        public ApiResponse<object> DeleteRegistrationData(string userHandle, string userPrivateKey, RegistrationData dataType, string uuid)
+        {
+            var path = $"/delete/{dataType.Url}";
+            var body = new DeleteRegistrationMsg(Configuration.AppHandle, userHandle, uuid);
+            return MakeRequest<BaseResponseWithoutReference>(path, body, userPrivateKey);
+        }
+
         private string GetRequestParams(int? page, int? perPage, string order = null)
         {
             string requestParams = "";

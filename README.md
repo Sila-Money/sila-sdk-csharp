@@ -687,3 +687,59 @@ Console.WriteLine(parsedResponse); // File binary data
 response.Headers.TryGetValue("Content-Type", out string contentType);
 Console.WriteLine(contentType); // image/png
 ```
+
+### Delete Email
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Email, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted email with UUID some-uuid-code
+```
+
+### Delete Phone
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Phone, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted phone with UUID some-uuid-code
+```
+
+### Delete Identity
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Identity, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted identity with UUID some-uuid-code
+```
+
+### Delete Address
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Address, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted address with UUID some-uuid-code
+```

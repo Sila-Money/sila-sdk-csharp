@@ -122,6 +122,7 @@ namespace SilaApiTest
     }
 
         public static string DocumentId { get; internal set; }
+        public static string IdentityUuid { get; internal set; }
 
         public static BusinessRole BusinessRole(string name)
     {
