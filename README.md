@@ -761,3 +761,21 @@ Console.WriteLine(parsedResponse.Email.ModifiedEpoch);
 Console.WriteLine(parsedResponse.Email.Uuid);
 Console.WriteLine(parsedResponse.Email.Email);
 ```
+
+### Add Phone
+```csharp
+var response = api.AddPhone(userHandle, privateKey, phone);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (PhoneResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added phone
+Console.WriteLine(parsedResponse.Phone.AddedEpoch);
+Console.WriteLine(parsedResponse.Phone.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Phone.Uuid);
+Console.WriteLine(parsedResponse.Phone.Phone);
+```

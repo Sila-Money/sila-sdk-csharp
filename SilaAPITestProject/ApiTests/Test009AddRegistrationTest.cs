@@ -33,6 +33,8 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Email.ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Email.Uuid);
             Assert.AreEqual(email, parsedResponse.Email.Email);
+
+            DefaultConfig.EmailUuid = parsedResponse.Email.Uuid;
         }
 
         [TestMethod("3 - AddIdentity - Success Response")]
@@ -44,7 +46,22 @@ namespace SilaApiTest
         [TestMethod("4 - AddPhone - Success Response")]
         public void Response200Phone()
         {
-            throw new NotImplementedException();
+            var user = DefaultConfig.FirstUser;
+            var phone = "9087654321";
+            var response = api.AddPhone(user.UserHandle, user.PrivateKey, phone);
+
+            Assert.AreEqual(200, response.StatusCode);
+            var parsedResponse = (PhoneResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added phone"));
+            Assert.IsNotNull(parsedResponse.Phone);
+            Assert.IsNotNull(parsedResponse.Phone.AddedEpoch);
+            Assert.IsNotNull(parsedResponse.Phone.ModifiedEpoch);
+            Assert.IsNotNull(parsedResponse.Phone.Uuid);
+            Assert.AreEqual(phone, parsedResponse.Phone.Phone);
+
+            DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
         }
     }
 }
