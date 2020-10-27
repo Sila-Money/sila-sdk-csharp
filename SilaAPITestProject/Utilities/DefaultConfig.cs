@@ -121,7 +121,9 @@ namespace SilaApiTest
         }
     }
 
-    public static BusinessRole BusinessRole(string name)
+        public static string DocumentId { get; internal set; }
+
+        public static BusinessRole BusinessRole(string name)
     {
         foreach (var businessRole in BusinessRoles)
         {

@@ -25,6 +25,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Message.Contains("File uploaded successfully"));
             Assert.IsNotNull(parsedResponse.ReferenceId);
             Assert.IsNotNull(parsedResponse.DocumentId);
+            DefaultConfig.DocumentId = parsedResponse.DocumentId;
         }
 
         [TestMethod("2 - UploadDocument - Bad request")]
