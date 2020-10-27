@@ -2,6 +2,7 @@
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 using System;
+using System.IO;
 
 namespace SilaApiTest
 {
@@ -13,7 +14,7 @@ namespace SilaApiTest
         [TestMethod("1 - UploadDocument - Successfully upload file")]
         public void Response200()
         {
-            string filepath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Resources\\logo-geko.png";
+            string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"Resources{Path.DirectorySeparatorChar}logo-geko.png");
             var user = DefaultConfig.FirstUser;
             var documentType = DefaultConfig.DocumentTypes[0];
             var response = api.UploadDocument(user.UserHandle, user.PrivateKey, filepath, "logo-geko", "image/png", documentType.Name, documentType.IdentityType);
@@ -31,7 +32,7 @@ namespace SilaApiTest
         [TestMethod("2 - UploadDocument - Bad request")]
         public void Response400()
         {
-            string filepath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Resources\\logo-geko.png";
+            string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"Resources{Path.DirectorySeparatorChar}logo-geko.png");
             var user = DefaultConfig.FirstUser;
             var documentType = DefaultConfig.DocumentTypes[0];
             var response = api.UploadDocument("", user.PrivateKey, filepath, "logo-geko", "image/png", documentType.Name, documentType.IdentityType);
@@ -46,7 +47,7 @@ namespace SilaApiTest
         [TestMethod("3 - UploadDocument - App signature failure")]
         public void Response403()
         {
-            string filepath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Resources\\logo-geko.png";
+            string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"Resources{Path.DirectorySeparatorChar}logo-geko.png");
             var user = DefaultConfig.FirstUser;
             var documentType = DefaultConfig.DocumentTypes[0];
             var failApi = new SilaApi(DefaultConfig.environment,
