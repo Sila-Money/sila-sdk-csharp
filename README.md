@@ -610,7 +610,9 @@ Console.WriteLine(parsedResponse.Reference); // some-uuid-code
 
 ### Document Types
 ```csharp
-var response = api.GetDocumentTypes();
+// page is optional
+// perPage is optional
+var response = api.GetDocumentTypes(page, perPage);
 ```
 
 #### Success Object Response
@@ -625,4 +627,22 @@ Console.WriteLine(parsedResponse.DocumentTypes[0].Label);
 Console.WriteLine(parsedResponse.DocumentTypes[0].IdentityType);
 Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
 Console.WriteLine(parsedResponse.Message); // Document type details returned.
+```
+
+### Upload Document
+```csharp
+// Name is optional
+// Description is optional
+var response = api.UploadDocument(userHandle, privateKey, filepath, filename, mimeType, documentType, identityType, name, description);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(200, response.StatusCode);
+var parsedResponse = (DocumentResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // File uploaded successfully
+Console.WriteLine(parsedResponse.ReferenceId); // some-uuid-code
+Console.WriteLine(parsedResponse.DocumentId); // other-uuid-code
 ```

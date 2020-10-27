@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.Ocsp;
+﻿using Newtonsoft.Json;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace SilaAPI.silamoney.client.api
 {
@@ -645,6 +645,29 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<DocumentTypesResponse>(path, body);
         }
 
+        /// <summary>
+        /// Upload supporting documentation for KYC
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="filePath">Full path to the file</param>
+        /// <param name="filename">Do not include the file extension</param>
+        /// <param name="mimeType">MIME type for one of Supported Image Formats</param>
+        /// <param name="documentType">One of Supported Document Types</param>
+        /// <param name="identityType">Matching Identity Type for Document Type</param>
+        /// <param name="name">Descriptive name of the document</param>
+        /// <param name="description">General description of the document</param>
+        /// <returns></returns>
+        public ApiResponse<object> UploadDocument(string userHandle, string userPrivateKey, string filePath, string filename, string mimeType, string documentType, string identityType, string name = null, string description = null)
+        {
+            var path = "/documents";
+            FileStream file = new FileStream(filePath, FileMode.Open);
+            string hash = Signer.HashFile(file);
+            file.Close();
+            DocumentMsg body = new DocumentMsg(Configuration.AppHandle, userHandle, filename, hash, mimeType, documentType, identityType, name, description);
+            return MakeFileRequest<DocumentResponse>(path, body, filePath, body.MimeType, userPrivateKey);
+        }
+
         private string GetRequestParams(int? page, int? perPage)
         {
             string requestParams = "";
@@ -667,18 +690,40 @@ namespace SilaAPI.silamoney.client.api
             return requestParams;
         }
 
+        private ApiResponse<object> MakeFileRequest<T>(string path, object body, string filePath, string contentType, string userPrivateKey)
+        {
+            string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey);
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, filePath, contentType);
+
+            return GenerateResponseFromJson<T>(response);
+        }
+
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
         {
-            var headerParams = new Dictionary<string, string>();
             string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey, businessPrivateKey);
             string contentType = "application/json";
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
+
+            return GenerateResponseFromJson<T>(response);
+        }
+
+        private Dictionary<string, string> PrepareHeaders(string requestBody, string userPrivateKey, string businessPrivateKey = null)
+        {
+            var headerParams = new Dictionary<string, string>();
 
             headerParams.Add("authsignature", Signer.Sign(requestBody, Configuration.PrivateKey));
             if (userPrivateKey != null) headerParams.Add("usersignature", Signer.Sign(requestBody, userPrivateKey));
             if (businessPrivateKey != null) headerParams.Add("businesssignature", Signer.Sign(requestBody, businessPrivateKey));
 
-            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
+            return headerParams;
+        }
 
+        private ApiResponse<object> GenerateResponseFromJson<T>(IRestResponse response)
+        {
             int statusCode = (int)response.StatusCode;
 
             object responseBody;
