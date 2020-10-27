@@ -665,10 +665,31 @@ namespace SilaAPI.silamoney.client.api
             string hash = Signer.HashFile(file);
             file.Close();
             DocumentMsg body = new DocumentMsg(Configuration.AppHandle, userHandle, filename, hash, mimeType, documentType, identityType, name, description);
-            return MakeFileRequest<DocumentResponse>(path, body, filePath, body.MimeType, userPrivateKey);
+            return MakeRequest<DocumentResponse>(path, body, filePath, body.MimeType, userPrivateKey);
         }
 
-        private string GetRequestParams(int? page, int? perPage)
+        /// <summary>
+        /// List previously uploaded supporting documentation for KYC
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="startDate">Only return documents created on or after this date.</param>
+        /// <param name="endDate">Only return documents created before or on this date.</param>
+        /// <param name="docTypes">See Supported Document Types. Use the short form ("name"), not the long form ("label").</param>
+        /// <param name="search">Only return documents whose name or filename contains the search value. Partial matches allowed, no wildcards.</param>
+        /// <param name="sortBy">One of: name or date</param>
+        /// <param name="page">Page number to retrieve. default: 1</param>
+        /// <param name="perPage">Number of items per page. default: 20, max: 100</param>
+        /// <param name="order">Sort returned items (usually by creation date). Allowed values: asc (default), desc</param>
+        /// <returns></returns>
+        public ApiResponse<object> ListDocuments(string userHandle, string userPrivateKey, DateTime? startDate = null, DateTime? endDate = null, List<string> docTypes = null, string search = null, string sortBy = null, int? page = null, int? perPage = null, string order = null)
+        {
+            var path = $"/list_documents{GetRequestParams(page, perPage, order)}";
+            ListDocumentsMsg body = new ListDocumentsMsg(Configuration.AppHandle, userHandle, startDate, endDate, docTypes, search, sortBy);
+            return MakeRequest<ListDocumentsResponse>(path, body, userPrivateKey);
+        }
+
+        private string GetRequestParams(int? page, int? perPage, string order = null)
         {
             string requestParams = "";
             if (page.HasValue)
@@ -687,10 +708,22 @@ namespace SilaAPI.silamoney.client.api
                 }
                 requestParams += $"per_page={perPage.Value}";
             }
+            if (!string.IsNullOrWhiteSpace(order))
+            {
+                if (string.IsNullOrWhiteSpace(requestParams))
+                {
+                    requestParams += "?";
+                }
+                else
+                {
+                    requestParams += "&";
+                }
+                requestParams += $"order={order}";
+            }
             return requestParams;
         }
 
-        private ApiResponse<object> MakeFileRequest<T>(string path, object body, string filePath, string contentType, string userPrivateKey)
+        private ApiResponse<object> MakeRequest<T>(string path, object body, string filePath, string contentType, string userPrivateKey)
         {
             string requestBody = SerializationUtil.Serialize(body);
             var headerParams = PrepareHeaders(requestBody, userPrivateKey);

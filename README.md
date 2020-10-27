@@ -646,3 +646,30 @@ Console.WriteLine(parsedResponse.Message); // File uploaded successfully
 Console.WriteLine(parsedResponse.ReferenceId); // some-uuid-code
 Console.WriteLine(parsedResponse.DocumentId); // other-uuid-code
 ```
+
+### List Documents
+```csharp
+// userHandle is required
+// privateKey is required
+// All other parameters are optional
+List<string> docTypes = new List<string> { "" };
+var response = api.ListDocuments(userHandle, privateKey, DateTime.Today, DateTime.Today.AddDays(1), docTypes, search, sortBy, page, perPage, order);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (ListDocumentsResponse)response.Data;
+Console.WriteLine(parsedResponse.Success);
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Documents); // A list of documents
+Console.WriteLine(parsedResponse.Documents[0].DocumentId);
+Console.WriteLine(parsedResponse.Documents[0].UserHandle);
+Console.WriteLine(parsedResponse.Documents[0].Name);
+Console.WriteLine(parsedResponse.Documents[0].Filename);
+Console.WriteLine(parsedResponse.Documents[0].Hash);
+Console.WriteLine(parsedResponse.Documents[0].Type);
+Console.WriteLine(parsedResponse.Documents[0].Size);
+Console.WriteLine(parsedResponse.Documents[0].Created);
+Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
+```
