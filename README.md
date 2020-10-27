@@ -837,3 +837,160 @@ Console.WriteLine(parsedResponse.Address.State);
 Console.WriteLine(parsedResponse.Address.Country);
 Console.WriteLine(parsedResponse.Address.PostalCode);
 ```
+
+### Update Email
+```csharp
+var response = api.UpdateEmail(userHandle, privateKey, uuid, email);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (EmailResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated email
+Console.WriteLine(parsedResponse.Email.AddedEpoch);
+Console.WriteLine(parsedResponse.Email.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Email.Uuid);
+Console.WriteLine(parsedResponse.Email.Email);
+```
+
+### Update Phone
+```csharp
+var response = api.UpdatePhone(userHandle, privateKey, uuid, phone);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (PhoneResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated phone
+Console.WriteLine(parsedResponse.Phone.AddedEpoch);
+Console.WriteLine(parsedResponse.Phone.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Phone.Uuid);
+Console.WriteLine(parsedResponse.Phone.Phone);
+```
+
+### Update Identity
+```csharp
+var identity = new IdentityMessage
+{
+    Uuid = "some-uuid-code",
+    IdentityAlias = "SSN",
+    IdentityValue = "543212222"
+};
+var response = api.UpdateIdentity(user.UserHandle, user.PrivateKey, identity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IdentityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated identity
+Console.WriteLine(parsedResponse.Identity.AddedEpoch);
+Console.WriteLine(parsedResponse.Identity.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Identity.Uuid);
+Console.WriteLine(parsedResponse.Identity.IdentityType);
+Console.WriteLine(parsedResponse.Identity.Identity);
+```
+
+### Update Address
+```csharp
+var address = new AddressMessage
+{
+    Uuid = "some-uuid-code", // Required
+    AddressAlias = "new_address",
+    StreetAddress1 = "324 Songbird Avenue",
+    StreetAddress2 = "Apt. 132",
+    City = "Portland",
+    State = "VA",
+    PostalCode = "12345",
+    Country = "US"
+};
+var response = api.UpdateAddress(user.UserHandle, user.PrivateKey, address);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (AddressResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated address
+Console.WriteLine(parsedResponse.Address.AddedEpoch);
+Console.WriteLine(parsedResponse.Address.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Address.Uuid);
+Console.WriteLine(parsedResponse.Address.Nickname);
+Console.WriteLine(parsedResponse.Address.StreetAddress1);
+Console.WriteLine(parsedResponse.Address.StreetAddress2);
+Console.WriteLine(parsedResponse.Address.City);
+Console.WriteLine(parsedResponse.Address.State);
+Console.WriteLine(parsedResponse.Address.Country);
+Console.WriteLine(parsedResponse.Address.PostalCode);
+```
+
+### Update Entity (Individual)
+```csharp
+var entity = new IndividualEntityMessage
+{
+    FirstName = "NewFirst",
+    LastName = "NewLast",
+    EntityName = "NewFirst NewLast",
+    BirthDate = new DateTime(1994, 1, 8)
+};
+var response = api.UpdateEntity(user.UserHandle, user.PrivateKey, entity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IndividualEntityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated entity
+Console.WriteLine(parsedResponse.UserHandle); // youruserhandle
+Console.WriteLine(parsedResponse.EntityType); // individual
+Console.WriteLine(parsedResponse.Entity.CreatedEpoch);
+Console.WriteLine(parsedResponse.Entity.EntityName);
+Console.WriteLine(parsedResponse.Entity.Birthdate);
+Console.WriteLine(parsedResponse.Entity.FirstName);
+Console.WriteLine(parsedResponse.Entity.LastName);
+```
+
+### Update Entity (Business)
+```csharp
+var entity = new BusinessEntityMessage
+{
+    EntityName = "New Company",
+    BusinessType = "type",
+    NaicsCode = 123,
+    DoingBusinessAs = "NC Ltd.",
+    BusinessWebsite = "https://domain.go"
+};
+var response = api.UpdateEntity(user.UserHandle, user.PrivateKey, entity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BusinessEntityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated entity
+Console.WriteLine(parsedResponse.UserHandle); // youruserhandle
+Console.WriteLine(parsedResponse.EntityType); // business
+Console.WriteLine(parsedResponse.Entity.CreatedEpoch);
+Console.WriteLine(parsedResponse.Entity.EntityName);
+Console.WriteLine(parsedResponse.Entity.BusinessType);
+Console.WriteLine(parsedResponse.Entity.NaicsCode);
+Console.WriteLine(parsedResponse.Entity.BusinessUuid);
+Console.WriteLine(parsedResponse.Entity.NaicsCategory);
+Console.WriteLine(parsedResponse.Entity.NaicsSubcategory);
+Console.WriteLine(parsedResponse.Entity.DoingBusinessAs);
+Console.WriteLine(parsedResponse.Entity.BusinessWebsite);
+```
