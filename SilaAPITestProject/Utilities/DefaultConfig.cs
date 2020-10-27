@@ -1,5 +1,4 @@
-﻿﻿using SilaAPI.silamoney.client.api;
-using SilaAPI.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using static SilaAPITestProject.Utilities.PlaidTokenHelper;
@@ -125,6 +124,7 @@ namespace SilaApiTest
         public static string IdentityUuid { get; internal set; }
         public static string EmailUuid { get; internal set; }
         public static string PhoneUuid { get; internal set; }
+        public static string AddressUuid { get; internal set; }
 
         public static BusinessRole BusinessRole(string name)
     {

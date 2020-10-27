@@ -15,5 +15,9 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public string IdentityValue { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Uuid { get; set; }
     }
 }
