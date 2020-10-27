@@ -723,12 +723,25 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="userHandle">The user handle</param>
         /// <param name="userPrivateKey">The user's private key</param>
-        /// <param name="email">The email</param>
+        /// <param name="email">The new email</param>
         /// <returns></returns>
         public ApiResponse<object> AddEmail(string userHandle, string userPrivateKey, string email)
         {
             var body = new EmailMsg(Configuration.AppHandle, userHandle, email);
             return AddRegistrationData<EmailResponse>(RegistrationData.Email, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// Add a new phone to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="phone">The new phone</param>
+        /// <returns></returns>
+        public ApiResponse<object> AddPhone(string userHandle, string userPrivateKey, string phone)
+        {
+            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone);
+            return AddRegistrationData<PhoneResponse>(RegistrationData.Phone, userPrivateKey, body);
         }
 
         private ApiResponse<object> AddRegistrationData<T>(RegistrationData dataType, string userPrivateKey, object body)
