@@ -718,6 +718,25 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<BaseResponseWithoutReference>(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// Add a new email to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="email">The email</param>
+        /// <returns></returns>
+        public ApiResponse<object> AddEmail(string userHandle, string userPrivateKey, string email)
+        {
+            var body = new EmailMsg(Configuration.AppHandle, userHandle, email);
+            return AddRegistrationData<EmailResponse>(RegistrationData.Email, userPrivateKey, body);
+        }
+
+        private ApiResponse<object> AddRegistrationData<T>(RegistrationData dataType, string userPrivateKey, object body)
+        {
+            var path = $"/add/{dataType.Url}";
+            return MakeRequest<T>(path, body, userPrivateKey);
+        }
+
         private string GetRequestParams(int? page, int? perPage, string order = null)
         {
             string requestParams = "";

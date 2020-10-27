@@ -743,3 +743,21 @@ Console.WriteLine(parsedResponse.Success); // true
 Console.WriteLine(parsedResponse.Status); // SUCCESS
 Console.WriteLine(parsedResponse.Message); // Successfully deleted address with UUID some-uuid-code
 ```
+
+### Add Email
+```csharp
+var response = api.AddEmail(userHandle, privateKey, email);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (EmailResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added email
+Console.WriteLine(parsedResponse.Email.AddedEpoch);
+Console.WriteLine(parsedResponse.Email.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Email.Uuid);
+Console.WriteLine(parsedResponse.Email.Email);
+```
