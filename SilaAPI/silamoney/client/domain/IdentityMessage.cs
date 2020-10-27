@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace SilaAPI.silamoney.client.domain
+﻿namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// 

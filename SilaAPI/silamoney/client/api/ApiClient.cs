@@ -2,7 +2,6 @@
 using SilaAPI.silamoney.client.configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace SilaAPI.silamoney.client.api
 {
