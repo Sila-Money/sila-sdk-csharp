@@ -14,9 +14,9 @@ namespace SilaAPI.silamoney.client.api
         /// ApiClient constructor.
         /// </summary>
         /// <param name="basePath"></param>
-        public ApiClient(String basePath = "https://sandbox.silamoney.com/0.2")
+        public ApiClient(string basePath = "https://sandbox.silamoney.com/0.2")
         {
-            if (String.IsNullOrEmpty(basePath))
+            if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
 
             RestClient = new RestClient(basePath);
@@ -43,8 +43,8 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="contentType"></param>
         /// <returns>RestRequest with headers and parameters.</returns>
         private RestRequest PrepareRequest(
-            String path, RestSharp.Method method, Object postBody, Dictionary<String, String> headerParams,
-            String contentType)
+            string path, Method method, object postBody, Dictionary<string, string> headerParams,
+            string contentType)
         {
             var request = new RestRequest(path, method);
 
@@ -65,9 +65,9 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="headerParams"></param>
         /// <param name="contentType"></param>
         /// <returns>The response from the server.</returns>
-        public Object CallApi(
-            String path, RestSharp.Method method, Object postBody, Dictionary<String, String> headerParams,
-            String contentType)
+        public object CallApi(
+            string path, Method method, object postBody, Dictionary<string, string> headerParams,
+            string contentType)
         {
             var request = PrepareRequest(
                 path, method, postBody, headerParams, contentType);
@@ -77,7 +77,23 @@ namespace SilaAPI.silamoney.client.api
 
             var response = RestClient.Execute(request);
 
-            return (Object)response;
+            return response;
+        }
+
+        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string filePath, string contentType)
+        {
+            var request = new RestRequest(path, method, DataFormat.None);
+            foreach (var param in headerParams)
+                request.AddHeader(param.Key, param.Value);
+
+            request.AddFile("file", filePath, contentType);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("data", postBody, ParameterType.GetOrPost);
+
+            RestClient.Timeout = Configuration.Timeout;
+            RestClient.UserAgent = Configuration.UserAgent;
+
+            return RestClient.Execute(request);
         }
     }
 }

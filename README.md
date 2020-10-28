@@ -1,6 +1,7 @@
 # .Net SDK
 
-For using this SDK you will need to use .Net framework 4.6.1 or later.
+For using this SDK you will need to use .NET Framework 4.6.1 or later.
+You can also use .NET Core 2.1 or 3.1
 
 # Usage
 
@@ -591,4 +592,406 @@ ApiResponse<object> response = api.GetEntity(userhandle, privateKey);
 ```csharp
 Console.WriteLine(response.StatusCode); // 200
 var parsedResponse = (GetEntityResponse)response.Data;// Access to entity properties
+```
+
+### Cancel Transaction
+```csharp
+ApiResponse<object> response = api.CancelTransaction(userHandle, privateKey, transactionId);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponse)response.Data;
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Message); // Transaction has been canceled
+Console.WriteLine(parsedResponse.Reference); // some-uuid-code
+```
+
+### Document Types
+```csharp
+// page is optional
+// perPage is optional
+var response = api.GetDocumentTypes(page, perPage);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (DocumentTypesResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.DocumentTypes); // A list of DocumentType
+Console.WriteLine(parsedResponse.DocumentTypes[0].Name);
+Console.WriteLine(parsedResponse.DocumentTypes[0].Label);
+Console.WriteLine(parsedResponse.DocumentTypes[0].IdentityType);
+Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
+Console.WriteLine(parsedResponse.Message); // Document type details returned.
+```
+
+### Upload Document
+```csharp
+// Name is optional
+// Description is optional
+var response = api.UploadDocument(userHandle, privateKey, filepath, filename, mimeType, documentType, identityType, name, description);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(200, response.StatusCode);
+var parsedResponse = (DocumentResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // File uploaded successfully
+Console.WriteLine(parsedResponse.ReferenceId); // some-uuid-code
+Console.WriteLine(parsedResponse.DocumentId); // other-uuid-code
+```
+
+### List Documents
+```csharp
+// userHandle is required
+// privateKey is required
+// All other parameters are optional
+List<string> docTypes = new List<string> { "" };
+var response = api.ListDocuments(userHandle, privateKey, DateTime.Today, DateTime.Today.AddDays(1), docTypes, search, sortBy, page, perPage, order);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (ListDocumentsResponse)response.Data;
+Console.WriteLine(parsedResponse.Success);
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Documents); // A list of documents
+Console.WriteLine(parsedResponse.Documents[0].DocumentId);
+Console.WriteLine(parsedResponse.Documents[0].UserHandle);
+Console.WriteLine(parsedResponse.Documents[0].Name);
+Console.WriteLine(parsedResponse.Documents[0].Filename);
+Console.WriteLine(parsedResponse.Documents[0].Hash);
+Console.WriteLine(parsedResponse.Documents[0].Type);
+Console.WriteLine(parsedResponse.Documents[0].Size);
+Console.WriteLine(parsedResponse.Documents[0].Created);
+Console.WriteLine(parsedResponse.Pagination); // Pagination information (CurrentPage, ReturnedCount, TotalPages, TotalCount)
+```
+
+### Get Document
+```csharp
+var response = api.GetDocument(userHandle, privateKey, documentId);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (string)response.Data;
+Console.WriteLine(parsedResponse); // File binary data
+response.Headers.TryGetValue("Content-Type", out string contentType);
+Console.WriteLine(contentType); // image/png
+```
+
+### Delete Email
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Email, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted email with UUID some-uuid-code
+```
+
+### Delete Phone
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Phone, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted phone with UUID some-uuid-code
+```
+
+### Delete Identity
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Identity, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted identity with UUID some-uuid-code
+```
+
+### Delete Address
+```csharp
+var response = api.DeleteRegistrationData(userHandle, privateKey, RegistrationData.Address, uuid);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BaseResponseWithoutReference)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully deleted address with UUID some-uuid-code
+```
+
+### Add Email
+```csharp
+var response = api.AddEmail(userHandle, privateKey, email);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (EmailResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added email
+Console.WriteLine(parsedResponse.Email.AddedEpoch);
+Console.WriteLine(parsedResponse.Email.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Email.Uuid);
+Console.WriteLine(parsedResponse.Email.Email);
+```
+
+### Add Phone
+```csharp
+var response = api.AddPhone(userHandle, privateKey, phone);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (PhoneResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added phone
+Console.WriteLine(parsedResponse.Phone.AddedEpoch);
+Console.WriteLine(parsedResponse.Phone.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Phone.Uuid);
+Console.WriteLine(parsedResponse.Phone.Phone);
+```
+
+### Add Identity
+```csharp
+var identity = new IdentityMessage
+{
+    IdentityAlias = "SSN",
+    IdentityValue = "543212222"
+};
+var response = api.AddIdentity(user.UserHandle, user.PrivateKey, identity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IdentityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added identity
+Console.WriteLine(parsedResponse.Identity.AddedEpoch);
+Console.WriteLine(parsedResponse.Identity.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Identity.Uuid);
+Console.WriteLine(parsedResponse.Identity.IdentityType);
+Console.WriteLine(parsedResponse.Identity.Identity);
+```
+
+### Add Address
+```csharp
+var address = new AddressMessage
+{
+    AddressAlias = "new_address",
+    StreetAddress1 = "324 Songbird Avenue",
+    StreetAddress2 = "Apt. 132", // Optional
+    City = "Portland",
+    State = "VA",
+    PostalCode = "12345",
+    Country = "US"
+};
+var response = api.AddAddress(user.UserHandle, user.PrivateKey, address);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (AddressResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully added address
+Console.WriteLine(parsedResponse.Address.AddedEpoch);
+Console.WriteLine(parsedResponse.Address.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Address.Uuid);
+Console.WriteLine(parsedResponse.Address.Nickname);
+Console.WriteLine(parsedResponse.Address.StreetAddress1);
+Console.WriteLine(parsedResponse.Address.StreetAddress2);
+Console.WriteLine(parsedResponse.Address.City);
+Console.WriteLine(parsedResponse.Address.State);
+Console.WriteLine(parsedResponse.Address.Country);
+Console.WriteLine(parsedResponse.Address.PostalCode);
+```
+
+### Update Email
+```csharp
+var response = api.UpdateEmail(userHandle, privateKey, uuid, email);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (EmailResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated email
+Console.WriteLine(parsedResponse.Email.AddedEpoch);
+Console.WriteLine(parsedResponse.Email.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Email.Uuid);
+Console.WriteLine(parsedResponse.Email.Email);
+```
+
+### Update Phone
+```csharp
+var response = api.UpdatePhone(userHandle, privateKey, uuid, phone);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (PhoneResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated phone
+Console.WriteLine(parsedResponse.Phone.AddedEpoch);
+Console.WriteLine(parsedResponse.Phone.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Phone.Uuid);
+Console.WriteLine(parsedResponse.Phone.Phone);
+```
+
+### Update Identity
+```csharp
+var identity = new IdentityMessage
+{
+    Uuid = "some-uuid-code",
+    IdentityAlias = "SSN",
+    IdentityValue = "543212222"
+};
+var response = api.UpdateIdentity(user.UserHandle, user.PrivateKey, identity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IdentityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated identity
+Console.WriteLine(parsedResponse.Identity.AddedEpoch);
+Console.WriteLine(parsedResponse.Identity.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Identity.Uuid);
+Console.WriteLine(parsedResponse.Identity.IdentityType);
+Console.WriteLine(parsedResponse.Identity.Identity);
+```
+
+### Update Address
+```csharp
+var address = new AddressMessage
+{
+    Uuid = "some-uuid-code", // Required
+    AddressAlias = "new_address",
+    StreetAddress1 = "324 Songbird Avenue",
+    StreetAddress2 = "Apt. 132",
+    City = "Portland",
+    State = "VA",
+    PostalCode = "12345",
+    Country = "US"
+};
+var response = api.UpdateAddress(user.UserHandle, user.PrivateKey, address);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (AddressResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated address
+Console.WriteLine(parsedResponse.Address.AddedEpoch);
+Console.WriteLine(parsedResponse.Address.ModifiedEpoch);
+Console.WriteLine(parsedResponse.Address.Uuid);
+Console.WriteLine(parsedResponse.Address.Nickname);
+Console.WriteLine(parsedResponse.Address.StreetAddress1);
+Console.WriteLine(parsedResponse.Address.StreetAddress2);
+Console.WriteLine(parsedResponse.Address.City);
+Console.WriteLine(parsedResponse.Address.State);
+Console.WriteLine(parsedResponse.Address.Country);
+Console.WriteLine(parsedResponse.Address.PostalCode);
+```
+
+### Update Entity (Individual)
+```csharp
+var entity = new IndividualEntityMessage
+{
+    FirstName = "NewFirst",
+    LastName = "NewLast",
+    EntityName = "NewFirst NewLast",
+    BirthDate = new DateTime(1994, 1, 8)
+};
+var response = api.UpdateEntity(user.UserHandle, user.PrivateKey, entity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (IndividualEntityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated entity
+Console.WriteLine(parsedResponse.UserHandle); // youruserhandle
+Console.WriteLine(parsedResponse.EntityType); // individual
+Console.WriteLine(parsedResponse.Entity.CreatedEpoch);
+Console.WriteLine(parsedResponse.Entity.EntityName);
+Console.WriteLine(parsedResponse.Entity.Birthdate);
+Console.WriteLine(parsedResponse.Entity.FirstName);
+Console.WriteLine(parsedResponse.Entity.LastName);
+```
+
+### Update Entity (Business)
+```csharp
+var entity = new BusinessEntityMessage
+{
+    EntityName = "New Company",
+    BusinessType = "type",
+    NaicsCode = 123,
+    DoingBusinessAs = "NC Ltd.",
+    BusinessWebsite = "https://domain.go"
+};
+var response = api.UpdateEntity(user.UserHandle, user.PrivateKey, entity);
+```
+
+#### Success Object Response
+```csharp
+Console.WriteLine(response.StatusCode); // 200
+var parsedResponse = (BusinessEntityResponse)response.Data;
+Console.WriteLine(parsedResponse.Success); // true
+Console.WriteLine(parsedResponse.Status); // SUCCESS
+Console.WriteLine(parsedResponse.Message); // Successfully updated entity
+Console.WriteLine(parsedResponse.UserHandle); // youruserhandle
+Console.WriteLine(parsedResponse.EntityType); // business
+Console.WriteLine(parsedResponse.Entity.CreatedEpoch);
+Console.WriteLine(parsedResponse.Entity.EntityName);
+Console.WriteLine(parsedResponse.Entity.BusinessType);
+Console.WriteLine(parsedResponse.Entity.NaicsCode);
+Console.WriteLine(parsedResponse.Entity.BusinessUuid);
+Console.WriteLine(parsedResponse.Entity.NaicsCategory);
+Console.WriteLine(parsedResponse.Entity.NaicsSubcategory);
+Console.WriteLine(parsedResponse.Entity.DoingBusinessAs);
+Console.WriteLine(parsedResponse.Entity.BusinessWebsite);
 ```

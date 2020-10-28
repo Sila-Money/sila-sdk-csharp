@@ -1,5 +1,4 @@
-﻿﻿using SilaAPI.silamoney.client.api;
-using SilaAPI.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using static SilaAPITestProject.Utilities.PlaidTokenHelper;
@@ -19,6 +18,7 @@ namespace SilaApiTest
         public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
         public static List<BusinessRole> BusinessRoles { get; set; }
         public static List<BusinessType> BusinessTypes { get; set; }
+        public static List<DocumentType> DocumentTypes { get; set; }
         public static Dictionary<string, List<NaicsSubcategory>> NaicsCategories { get; set; }
         public static string CertificationToken {get;set;}
 
@@ -120,7 +120,13 @@ namespace SilaApiTest
         }
     }
 
-    public static BusinessRole BusinessRole(string name)
+        public static string DocumentId { get; internal set; }
+        public static string IdentityUuid { get; internal set; }
+        public static string EmailUuid { get; internal set; }
+        public static string PhoneUuid { get; internal set; }
+        public static string AddressUuid { get; internal set; }
+
+        public static BusinessRole BusinessRole(string name)
     {
         foreach (var businessRole in BusinessRoles)
         {
