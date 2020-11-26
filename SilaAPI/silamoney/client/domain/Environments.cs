@@ -11,7 +11,7 @@
         /// </summary>
         public static string SANDBOX { get => _sandbox; }
 
-        private const string _production = "https://sandbox.silamoney.com/0.2";
+        private const string _production = "https://api.silamoney.com/0.2";
         /// <summary>
         /// Property to get production envirnoment.
         /// </summary>
