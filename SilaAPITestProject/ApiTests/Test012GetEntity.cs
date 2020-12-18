@@ -59,5 +59,20 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Phones.First().Uuid);
             Assert.IsNotNull(parsedResponse.UserHandle);
         }
+
+        [TestMethod("2 - GetEntity - Failure when private key is blank")]
+        public void Response200()
+        {
+            var response = api.GetEntity(
+                DefaultConfig.SecondUser.UserHandle,
+                ""
+            );
+
+
+            Assert.AreEqual(403, response.StatusCode);
+            var parsedResponse = (BaseResponse)response.Data;
+            Assert.IsFalse(parsedResponse.Success);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
+        }
     }
 }

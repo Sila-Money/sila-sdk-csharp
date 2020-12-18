@@ -927,8 +927,8 @@ namespace SilaAPI.silamoney.client.api
             var headerParams = new Dictionary<string, string>();
 
             headerParams.Add("authsignature", Signer.Sign(requestBody, Configuration.PrivateKey));
-            if (userPrivateKey != null) headerParams.Add("usersignature", Signer.Sign(requestBody, userPrivateKey));
-            if (businessPrivateKey != null) headerParams.Add("businesssignature", Signer.Sign(requestBody, businessPrivateKey));
+            if (!string.IsNullOrWhiteSpace(userPrivateKey)) headerParams.Add("usersignature", Signer.Sign(requestBody, userPrivateKey));
+            if (!string.IsNullOrWhiteSpace(businessPrivateKey)) headerParams.Add("businesssignature", Signer.Sign(requestBody, businessPrivateKey));
 
             return headerParams;
         }
