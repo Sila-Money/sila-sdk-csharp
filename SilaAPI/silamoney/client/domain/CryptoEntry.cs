@@ -32,9 +32,9 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.CryptoAlias = "";
-                this.CryptoCodeOption = CryptoCode.ETH;
-                this.CryptoAddress = user.CryptopAddress;
+                CryptoAlias = user.CryptoAlias ?? "";
+                CryptoAddress = user.CryptoAddress;
+                CryptoCodeOption = CryptoCode.ETH;
             }
         }
 

@@ -59,6 +59,23 @@ namespace SilaApiTest
             }
         }
 
+        private static User basicUser;
+
+        public static User BasicUser
+        {
+            get
+            {
+                if (basicUser == null) basicUser = new User
+                {
+                    UserHandle = DefaultConfig.BasicUser.UserHandle,
+                    FirstName = "Basic",
+                    LastName = "Last",
+                    CryptoAddress = DefaultConfig.BasicUser.CryptoAddress
+                };
+                return basicUser;
+            }
+        }
+
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",

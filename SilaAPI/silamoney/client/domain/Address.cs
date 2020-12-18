@@ -26,7 +26,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Enum field used in the Address object to select Country
         /// </summary>
         [DataMember(Name = "country", EmitDefaultValue = false)]
-        public Countries Country { get; set; }
+        public string Country { get; set; }
         /// <summary>
         /// String field used in the Address object to save city
         /// </summary>
@@ -71,13 +71,13 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.AddressAlias = "";
-                this.StreetAddress1 = user.StreetAddress1;
-                this.StreetAddress2 = user.StreetAddress2;
-                this.City = user.City;
-                this.State = user.State;
-                this.Country = Address.Countries.US;
-                this.PostalCode = user.PostalCode;
+                AddressAlias = user.AddressAlias ?? "";
+                StreetAddress1 = user.StreetAddress1;
+                StreetAddress2 = user.StreetAddress2;
+                City = user.City;
+                State = user.State;
+                Country = user.Country ?? Countries.US.ToString();
+                PostalCode = user.PostalCode;
             }
         }
 
@@ -94,7 +94,7 @@ namespace SilaAPI.silamoney.client.domain
                 this.StreetAddress2 = user.StreetAddress2;
                 this.City = user.City;
                 this.State = user.State;
-                this.Country = Address.Countries.US;
+                this.Country = Countries.US.ToString();
                 this.PostalCode = user.PostalCode;
             }
         }

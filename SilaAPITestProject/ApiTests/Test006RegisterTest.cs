@@ -44,6 +44,14 @@ namespace SilaApiTest
             Assert.AreEqual(200, fourthResponse.StatusCode);
             Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
 
+            var basicUser = ModelsUtilities.BasicUser;
+            var basicResponse = api.Register(basicUser);
+
+            Assert.AreEqual(200, basicResponse.StatusCode);
+            var parsedBasicResponse = (BaseResponse)basicResponse.Data;
+            Assert.IsTrue(parsedBasicResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedBasicResponse.Status);
+
         }
 
         [TestMethod("2 - Register - Random user second registration failure")]
