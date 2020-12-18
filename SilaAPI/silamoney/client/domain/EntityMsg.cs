@@ -42,13 +42,18 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null && appHandle != null)
             {
-                this.Header = new Header(user.UserHandle, appHandle);
-                this.Address = new Address(user);
-                this.Identity = new Identity(user);
-                this.Contact = new Contact(user);
-                this.CryptoEntry = new CryptoEntry(user);
-                this.Entity = new Entity(user);
-                this.MessageOption = Message.EntityMsg;
+                Header = new Header(user.UserHandle, appHandle);
+                if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
+                    Address = new Address(user);
+                if (user.IdentityValue != null)
+                    Identity = new Identity(user);
+                if (user.Phone != null || user.Email != null || user.ContactAlias != null)
+                    Contact = new Contact(user);
+                if (user.CryptoAddress != null || user.CryptoAlias != null)
+                    CryptoEntry = new CryptoEntry(user);
+                if (user.FirstName != null || user.LastName != null || user.EntityName != null || user.Birthdate.HasValue)
+                    Entity = new Entity(user);
+                MessageOption = Message.EntityMsg;
             }
         }
 

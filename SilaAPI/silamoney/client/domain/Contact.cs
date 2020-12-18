@@ -31,9 +31,9 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.ContactAlias = "";
-                this.Email = user.Email;
-                this.Phone = user.Phone;
+                ContactAlias = user.ContactAlias ?? "";
+                Email = user.Email;
+                Phone = user.Phone;
             }
         }
 
