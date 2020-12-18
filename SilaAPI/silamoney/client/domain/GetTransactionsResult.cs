@@ -14,6 +14,11 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("success")]
         public bool Success { get; set; }
         /// <summary>
+        /// String field used to indicate if the api call was successful
+        /// </summary>
+        [JsonProperty("status")]
+        public string Status { get; set; }
+        /// <summary>
         /// Integer field used in the GetTransactionsResult to save page
         /// </summary>
         [JsonProperty("page")]
