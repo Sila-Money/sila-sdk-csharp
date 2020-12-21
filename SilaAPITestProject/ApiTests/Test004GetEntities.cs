@@ -21,7 +21,6 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             Assert.IsTrue(parsedResponse.Entities.Individuals.Count > 0);
             Assert.IsNotNull(parsedResponse.Entities.Individuals.First().Created);
-            Assert.IsNotNull(parsedResponse.Entities.Individuals.First().FullName);
             Assert.IsNotNull(parsedResponse.Entities.Individuals.First().Handle);
             Assert.IsNotNull(parsedResponse.Entities.Individuals.First().Status);
             Assert.IsTrue(parsedResponse.Entities.Individuals.First().BlockchainAddresses.Count > 0);
