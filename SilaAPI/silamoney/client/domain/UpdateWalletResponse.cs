@@ -16,6 +16,10 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public bool Success { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Status { get; set; }
 
         /// <summary>
         /// 
