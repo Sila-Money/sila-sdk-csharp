@@ -67,7 +67,7 @@ namespace SilaAPI.silamoney.client.domain
         /// If user is not null, set user values in the Address object
         /// </summary>
         /// <param name="user"></param>
-        public Address(User user)
+        public Address(BaseUser user)
         {
             if (user != null)
             {
@@ -78,24 +78,6 @@ namespace SilaAPI.silamoney.client.domain
                 State = user.State;
                 Country = user.Country ?? Countries.US.ToString();
                 PostalCode = user.PostalCode;
-            }
-        }
-
-        /// <summary>
-        /// If user is not null, set user values in the Address object
-        /// </summary>
-        /// <param name="user"></param>
-        public Address(BusinessUser user)
-        {
-            if (user != null)
-            {
-                this.AddressAlias = "";
-                this.StreetAddress1 = user.StreetAddress1;
-                this.StreetAddress2 = user.StreetAddress2;
-                this.City = user.City;
-                this.State = user.State;
-                this.Country = Countries.US.ToString();
-                this.PostalCode = user.PostalCode;
             }
         }
 

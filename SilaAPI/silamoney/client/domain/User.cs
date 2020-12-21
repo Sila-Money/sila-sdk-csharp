@@ -5,12 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// User object in Address, Contact, CryptoEntry, Entity, EntityMsg, Header, Identity, User objects
     /// </summary>
-    public class User
+    public class User : BaseUser
     {
-        /// <summary>
-        /// String field used in the User object to save userHandle
-        /// </summary>
-        public string UserHandle { get; set; }
         /// <summary>
         /// String field used in the User object to save firstName
         /// </summary>
@@ -20,66 +16,9 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         public string LastName { get; set; }
         /// <summary>
-        /// String field used in the User object to save entityName
-        /// </summary>
-        public string EntityName { get; set; }
-        /// <summary>
-        /// String field used in the User object to save identityValue
-        /// </summary>
-        public string IdentityValue { get; set; }
-        /// <summary>
-        /// String field used in the User object to save phone
-        /// </summary>
-        public string Phone { get; set; }
-        /// <summary>
-        /// String field used in the User object to save email
-        /// </summary>
-        public string Email { get; set; }
-        /// <summary>
-        /// String field used in the User object to save streetAddress1
-        /// </summary>
-        public string StreetAddress1 { get; set; }
-        /// <summary>
-        /// String field used in the User object to save streetAddress2
-        /// </summary>
-        /// <value></value>
-        public string StreetAddress2 { get; set; }
-        /// <summary>
-        /// String field used in the User object to save city
-        /// </summary>
-        public string City { get; set; }
-        /// <summary>
-        /// String field used in the User object to save state
-        /// </summary>
-        public string State { get; set; }
-        /// <summary>
-        /// String field used in the User object to save postalCode
-        /// </summary>
-        public string PostalCode { get; set; }
-        /// <summary>
-        /// String field used in the User object to save cryptopAddress
-        /// </summary>
-        public string CryptoAddress { get; set; }
-        /// <summary>
         /// DateTime field used in the User object to save birthdate
         /// </summary>
         public DateTime? Birthdate { get; set; }
-        /// <summary>
-        /// String field used to register the country of the user
-        /// </summary>
-        public string Country { get; set; }
-        /// <summary>
-        /// String field used to register an alias for the user contact information
-        /// </summary>
-        public string ContactAlias { get; set; }
-        /// <summary>
-        /// String field used to register an alias for the user crypto address
-        /// </summary>
-        public string CryptoAlias { get; set; }
-        /// <summary>
-        /// String field used to register an alias for the user address
-        /// </summary>
-        public string AddressAlias { get; set; }
 
         /// <summary>
         /// User empty constructor
@@ -107,9 +46,11 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="contactAlias"></param>
         /// <param name="cryptoAlias"></param>
         /// <param name="addressAlias"></param>
+        /// <param name="type"></param>
         public User(string userHandle, string firstName = null, string lastName = null, string entityName = null, string identityValue = null, string phone = null,
             string email = null, string streetAddress1 = null, string streetAddress2 = null, string city = null, string state = null, string postalCode = null,
-            string cryptopAddress = null, DateTime? birthdate = null, string country = null, string contactAlias = null, string cryptoAlias = null, string addressAlias = null)
+            string cryptopAddress = null, DateTime? birthdate = null, string country = null, string contactAlias = null, string cryptoAlias = null, string addressAlias = null,
+            string type = null)
         {
             UserHandle = userHandle;
             FirstName = firstName;
@@ -129,6 +70,7 @@ namespace SilaAPI.silamoney.client.domain
             ContactAlias = contactAlias;
             CryptoAlias = cryptoAlias;
             AddressAlias = addressAlias;
+            Type = type;
         }
     }
 }

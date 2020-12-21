@@ -61,12 +61,17 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the Entity object to save naics code
         /// </summary>
         [DataMember(Name = "naics_code", EmitDefaultValue = false)]
-        public int NaicsCode { get; set; }
+        public int? NaicsCode { get; set; }
         /// <summary>
         /// Int field used in the Entity object to save the created epoch
         /// </summary>
         [DataMember(Name = "created_epoch", EmitDefaultValue = false)]
         public int CreatedEpoch { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "business_type_uuid", EmitDefaultValue = false)]
+        public string BusinessTypeUuid { get; set; }
 
         /// <summary>
         /// If user is not null, set user values in the Entity object
@@ -76,12 +81,12 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.Birthdate = user.Birthdate;
-                this.EntityName = user.EntityName;
-                this.FirstName = user.FirstName;
-                this.LastName = user.LastName;
-                this.RelationshipOption = Relationship.User;
-                this.Type = "individual";
+                Birthdate = user.Birthdate;
+                EntityName = user.EntityName;
+                FirstName = user.FirstName;
+                LastName = user.LastName;
+                RelationshipOption = Relationship.User;
+                Type = user.Type ?? "individual";
             }
         }
 
@@ -93,11 +98,13 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null)
             {
-                this.EntityName = user.EntityName;
-                this.BusinessType = user.BusinessType;
-                this.BusinessWebsite = user.BusinessWebsite;
-                this.NaicsCode = user.NaicsCode;
-                this.Type = "business";
+                EntityName = user.EntityName;
+                BusinessType = user.BusinessType;
+                BusinessTypeUuid = user.BusinessTypeUuid;
+                BusinessWebsite = user.BusinessWebsite;
+                DoingBusinessAs = user.DoingBusinessAs;
+                NaicsCode = user.NaicsCode;
+                Type = user.Type ?? "business";
             }
         }
 

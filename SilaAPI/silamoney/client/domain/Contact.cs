@@ -27,27 +27,13 @@ namespace SilaAPI.silamoney.client.domain
         /// If user is not null, set user values in the Contact object
         /// </summary>
         /// <param name="user"></param>
-        public Contact(User user)
+        public Contact(BaseUser user)
         {
             if (user != null)
             {
                 ContactAlias = user.ContactAlias ?? "";
                 Email = user.Email;
                 Phone = user.Phone;
-            }
-        }
-
-        /// <summary>
-        /// If user is not null, set user values in the Contact object
-        /// </summary>
-        /// <param name="user"></param>
-        public Contact(BusinessUser user)
-        {
-            if (user != null)
-            {
-                this.ContactAlias = "";
-                this.Email = user.Email;
-                this.Phone = user.Phone;
             }
         }
     }

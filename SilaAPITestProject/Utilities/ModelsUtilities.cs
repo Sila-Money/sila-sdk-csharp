@@ -76,6 +76,25 @@ namespace SilaApiTest
             }
         }
 
+        private static BusinessUser basicBusiness;
+
+        public static BusinessUser BasicBusiness
+        {
+            get
+            {
+                if (basicBusiness == null) basicBusiness = new BusinessUser
+                {
+                    UserHandle = DefaultConfig.BasicBusiness.UserHandle,
+                    EntityName = "Basic Business",
+                    CryptoAddress = DefaultConfig.BasicBusiness.CryptoAddress,
+                    Type = "business",
+                    BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
+                    NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code
+                };
+                return basicBusiness;
+            }
+        }
+
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
