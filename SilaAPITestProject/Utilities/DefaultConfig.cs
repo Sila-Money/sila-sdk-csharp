@@ -28,7 +28,7 @@ namespace SilaApiTest
         private static UserConfiguration fourthUser;
         private static UserConfiguration businessUser;
         private static UserConfiguration basicUser;
-
+        private static UserConfiguration deviceUser;
 
         public static UserConfiguration FirstUser
         {
@@ -81,6 +81,15 @@ namespace SilaApiTest
             {
                 if (basicUser == null) basicUser = new UserConfiguration();
                 return basicUser;
+            }
+        }
+
+        public static UserConfiguration DeviceUser
+        {
+            get
+            {
+                if (deviceUser == null) deviceUser = new UserConfiguration();
+                return deviceUser;
             }
         }
 

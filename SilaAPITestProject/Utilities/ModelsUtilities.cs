@@ -76,6 +76,24 @@ namespace SilaApiTest
             }
         }
 
+        private static User deviceUser;
+
+        public static User DeviceUser
+        {
+            get
+            {
+                if (deviceUser == null) deviceUser = new User
+                {
+                    UserHandle = DefaultConfig.DeviceUser.UserHandle,
+                    FirstName = "Device",
+                    LastName = "User",
+                    CryptoAddress = DefaultConfig.DeviceUser.CryptoAddress,
+                    DeviceFingerprint = "test_instant_ach"
+                };
+                return deviceUser;
+            }
+        }
+
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
