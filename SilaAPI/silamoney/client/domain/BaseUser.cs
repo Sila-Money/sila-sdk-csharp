@@ -74,5 +74,9 @@
         /// This field should contain a valid Iovation device fingerprint in the production environment, but can be an arbitrary non-empty string in the sandbox environment.
         /// </summary>
         public string DeviceFingerprint { get; set; }
+        /// <summary>
+        /// Optional. If true, if and if app is configured with an SMS flow, triggers sending a confirmation SMS to the phone number in contact.phone. If no contact.phone field was provided, this is ignored.
+        /// </summary>
+        public bool? SmsOptIn { get; set; }
     }
 }

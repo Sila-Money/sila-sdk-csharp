@@ -57,11 +57,12 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="addressAlias"></param>
         /// <param name="type"></param>
         /// <param name="deviceFingerprint"></param>
+        /// <param name="smsOptIn"></param>
         public BusinessUser(string userHandle, string entityName = null, string identityValue = null, string phone = null,
         string email = null, string streetAddress1 = null, string streetAddress2 = null, string city = null, string state = null, string postalCode = null,
         string cryptopAddress = null, BusinessType businessType = null, string businessWebsite = null, string doingBusinessAs = null, int? naicsCode = null,
         string country = null, string contactAlias = null, string cryptoAlias = null, string addressAlias = null, string type = null,
-        string deviceFingerprint = null)
+        string deviceFingerprint = null, bool? smsOptIn = null)
         {
             UserHandle = userHandle;
             EntityName = entityName;
@@ -84,6 +85,7 @@ namespace SilaAPI.silamoney.client.domain
             AddressAlias = addressAlias;
             Type = type;
             DeviceFingerprint = deviceFingerprint;
+            SmsOptIn = smsOptIn;
         }
     }
 }

@@ -77,7 +77,7 @@ namespace SilaAPI.silamoney.client.domain
             Header = new Header(user.UserHandle, appHandle);
             if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
                 Address = new Address(user);
-            if (user.Phone != null || user.Email != null || user.ContactAlias != null)
+            if (user.Phone != null || user.Email != null || user.ContactAlias != null || user.SmsOptIn.HasValue)
                 Contact = new Contact(user);
             if (user.CryptoAddress != null || user.CryptoAlias != null)
                 CryptoEntry = new CryptoEntry(user);

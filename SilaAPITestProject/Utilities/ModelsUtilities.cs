@@ -88,7 +88,9 @@ namespace SilaApiTest
                     FirstName = "Device",
                     LastName = "User",
                     CryptoAddress = DefaultConfig.DeviceUser.CryptoAddress,
-                    DeviceFingerprint = "test_instant_ach"
+                    DeviceFingerprint = "test_instant_ach",
+                    Phone = "1234567890",
+                    SmsOptIn = true
                 };
                 return deviceUser;
             }
@@ -108,7 +110,9 @@ namespace SilaApiTest
                     Type = "business",
                     BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
                     NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code,
-                    DeviceFingerprint = "test_business_ach"
+                    DeviceFingerprint = "test_business_ach",
+                    Phone = "1234567890",
+                    SmsOptIn = true
                 };
                 return basicBusiness;
             }
