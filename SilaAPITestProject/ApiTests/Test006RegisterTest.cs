@@ -52,6 +52,12 @@ namespace SilaApiTest
             Assert.IsTrue(parsedBasicResponse.Success);
             Assert.AreEqual("SUCCESS", parsedBasicResponse.Status);
 
+            var basicBusinessResponse = api.Register(ModelsUtilities.BasicBusiness);
+
+            Assert.AreEqual(200, basicBusinessResponse.StatusCode);
+            var parsedBasicBusinessResponse = (BaseResponse)basicResponse.Data;
+            Assert.IsTrue(parsedBasicBusinessResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedBasicBusinessResponse.Status);
         }
 
         [TestMethod("2 - Register - Random user second registration failure")]

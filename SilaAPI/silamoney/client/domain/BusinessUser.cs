@@ -3,54 +3,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// User object in Address, Contact, CryptoEntry, Entity, EntityMsg, Header, Identity, User objects
     /// </summary>
-    public class BusinessUser
+    public class BusinessUser : BaseUser
     {
-
-        /// <summary>
-        /// String field used in the User object to save userHandle
-        /// </summary>
-        public string UserHandle { get; set; }
-        /// <summary>
-        /// String field used in the User object to save entityName
-        /// </summary>
-        public string EntityName { get; set; }
-        /// <summary>
-        /// String field used in the User object to save identityValue
-        /// </summary>
-        public string IdentityValue { get; set; }
-        /// <summary>
-        /// String field used in the User object to save phone
-        /// </summary>
-        public string Phone { get; set; }
-        /// <summary>
-        /// String field used in the User object to save email
-        /// </summary>
-        public string Email { get; set; }
-        /// <summary>
-        /// String field used in the User object to save streetAddress1
-        /// </summary>
-        public string StreetAddress1 { get; set; }
-        /// <summary>
-        /// String field used in the User object to save streetAddress2
-        /// </summary>
-        /// <value></value>
-        public string StreetAddress2 { get; set; }
-        /// <summary>
-        /// String field used in the User object to save city
-        /// </summary>
-        public string City { get; set; }
-        /// <summary>
-        /// String field used in the User object to save state
-        /// </summary>
-        public string State { get; set; }
-        /// <summary>
-        /// String field used in the User object to save postalCode
-        /// </summary>
-        public string PostalCode { get; set; }
-        /// <summary>
-        /// String field used in the User object to save cryptopAddress
-        /// </summary>
-        public string CryptopAddress { get; set; }
         /// <summary>
         /// Business type set to business user.
         /// </summary>
@@ -66,7 +20,18 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// Int field used in the BusinessUser object to save the naics code.
         /// </summary>
-        public int NaicsCode { get; set; }
+        public int? NaicsCode { get; set; }
+        /// <summary>
+        /// Must be a valid UUID4 string. 
+        /// Get from allowed business types in /get_business_types endpoint.
+        /// Required if business_type is not set
+        /// </summary>
+        public string BusinessTypeUuid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BusinessUser() { }
 
         /// <summary>
         /// User constructor
@@ -86,25 +51,36 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="businessWebsite"></param>
         /// <param name="doingBusinessAs"></param>
         /// <param name="naicsCode"></param>
-        public BusinessUser(string userHandle, string entityName, string identityValue, string phone,
-        string email, string streetAddress1, string streetAddress2, string city, string state, string postalCode,
-        string cryptopAddress, BusinessType businessType, string businessWebsite, string doingBusinessAs, int naicsCode)
+        /// <param name="country"></param>
+        /// <param name="contactAlias"></param>
+        /// <param name="cryptoAlias"></param>
+        /// <param name="addressAlias"></param>
+        /// <param name="type"></param>
+        public BusinessUser(string userHandle, string entityName = null, string identityValue = null, string phone = null,
+        string email = null, string streetAddress1 = null, string streetAddress2 = null, string city = null, string state = null, string postalCode = null,
+        string cryptopAddress = null, BusinessType businessType = null, string businessWebsite = null, string doingBusinessAs = null, int? naicsCode = null,
+        string country = null, string contactAlias = null, string cryptoAlias = null, string addressAlias = null, string type = null)
         {
-            this.UserHandle = userHandle;
-            this.EntityName = entityName;
-            this.IdentityValue = identityValue;
-            this.Phone = phone;
-            this.Email = email;
-            this.StreetAddress1 = streetAddress1;
-            this.StreetAddress2 = streetAddress2;
-            this.City = city;
-            this.State = state;
-            this.PostalCode = postalCode;
-            this.CryptopAddress = cryptopAddress;
-            this.BusinessType = businessType.Name;
-            this.BusinessWebsite = businessWebsite;
-            this.DoingBusinessAs = doingBusinessAs;
-            this.NaicsCode = naicsCode;
+            UserHandle = userHandle;
+            EntityName = entityName;
+            IdentityValue = identityValue;
+            Phone = phone;
+            Email = email;
+            StreetAddress1 = streetAddress1;
+            StreetAddress2 = streetAddress2;
+            City = city;
+            State = state;
+            PostalCode = postalCode;
+            CryptoAddress = cryptopAddress;
+            BusinessType = businessType.Name;
+            BusinessWebsite = businessWebsite;
+            DoingBusinessAs = doingBusinessAs;
+            NaicsCode = naicsCode;
+            Country = country;
+            ContactAlias = contactAlias;
+            CryptoAlias = cryptoAlias;
+            AddressAlias = addressAlias;
+            Type = type;
         }
     }
 }

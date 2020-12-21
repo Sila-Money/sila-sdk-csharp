@@ -28,27 +28,13 @@ namespace SilaAPI.silamoney.client.domain
         /// If user is not null, set user values in the CryptoEntry object
         /// </summary>
         /// <param name="user"></param>
-        public CryptoEntry(User user)
+        public CryptoEntry(BaseUser user)
         {
             if (user != null)
             {
                 CryptoAlias = user.CryptoAlias ?? "";
-                CryptoAddress = user.CryptoAddress;
                 CryptoCodeOption = CryptoCode.ETH;
-            }
-        }
-
-        /// <summary>
-        /// If user is not null, set user values in the CryptoEntry object
-        /// </summary>
-        /// <param name="user"></param>
-        public CryptoEntry(BusinessUser user)
-        {
-            if (user != null)
-            {
-                this.CryptoAlias = "";
-                this.CryptoCodeOption = CryptoCode.ETH;
-                this.CryptoAddress = user.CryptopAddress;
+                CryptoAddress = user.CryptoAddress;
             }
         }
     }
