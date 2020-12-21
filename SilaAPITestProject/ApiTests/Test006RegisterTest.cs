@@ -14,7 +14,6 @@ namespace SilaApiTest
         public void TestResponse200()
         {
             var firstUser = ModelsUtilities.FirstUser;
-            Console.WriteLine(firstUser.UserHandle);
             var firstResponse = api.Register(firstUser);
 
             Assert.AreEqual(200, firstResponse.StatusCode);

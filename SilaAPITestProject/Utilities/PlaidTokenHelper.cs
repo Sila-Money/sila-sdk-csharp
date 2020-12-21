@@ -53,8 +53,6 @@ namespace SilaAPITestProject.Utilities
             var json = response.Content;
             var jsonObject = JObject.Parse(json);
 
-            Console.WriteLine(jsonObject);
-
             string plaidToken = jsonObject["public_token"].ToString();
             string accountId = jsonObject["accounts"][0]["account_id"].ToString();
 

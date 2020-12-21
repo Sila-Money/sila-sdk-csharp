@@ -18,7 +18,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should success get_accounts");
             var accounts = (List<Account>)response.Data;
-            System.Console.WriteLine(accounts);
             Assert.AreEqual(3, accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
         }
 

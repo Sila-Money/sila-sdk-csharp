@@ -19,19 +19,6 @@ namespace SilaApiTest
             Assert.AreEqual(400, response.StatusCode, "Empty user handle failure");
         }
 
-        /*
-         * This endpoint doesn't validate user signature to be correct
-        [TestMethod("2 - CheckKYC - Bad user signature failure")]
-        public void T002_Response401User()
-        {
-            var response = api.CheckKYC(DefaultConfig.FirstUser.userHandle, DefaultConfig.SecondUser.privateKey);
-
-            System.Console.WriteLine(((BaseResponse)response.Data).Message);
-            Assert.AreEqual(401, response.StatusCode, "Bad user signature status - CheckKYC");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - CheckKYC");
-        }
-        */
-
         [TestMethod("3 - CheckKYC - Bad app signature failure")]
         public void T003_Response401()
         {

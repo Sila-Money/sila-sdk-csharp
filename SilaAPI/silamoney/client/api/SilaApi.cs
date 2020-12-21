@@ -535,17 +535,18 @@ namespace SilaAPI.silamoney.client.api
         /// Makes a call to /get_entity.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
+        /// <param name="prettyDates"></param>
         /// </summary>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey)
+        public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey, bool? prettyDates = null)
         {
-            var path = "/get_entity";
-            Dictionary<String, String> header = new Dictionary<string, string>();
+            var path = $"/get_entity{UrlParamsUtilities.AddQueryParameter("", "pretty_dates", prettyDates.ToString())}";
+            Dictionary<string, string> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("auth_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
 
             return MakeRequest<GetEntityResponse>(path, body, userPrivateKey);
@@ -856,7 +857,7 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<T>(path, body, userPrivateKey);
         }
 
-        private string GetRequestParams(int? page, int? perPage, string order = null)
+        private string GetRequestParams(int? page = null, int? perPage = null, string order = null)
         {
             string requestParams = "";
             if (page.HasValue)
