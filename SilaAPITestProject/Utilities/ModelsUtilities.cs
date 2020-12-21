@@ -107,7 +107,8 @@ namespace SilaApiTest
                     CryptoAddress = DefaultConfig.BasicBusiness.CryptoAddress,
                     Type = "business",
                     BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
-                    NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code
+                    NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code,
+                    DeviceFingerprint = "test_business_ach"
                 };
                 return basicBusiness;
             }

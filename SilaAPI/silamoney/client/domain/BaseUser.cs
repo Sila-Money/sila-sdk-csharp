@@ -74,5 +74,9 @@ namespace SilaAPI.silamoney.client.domain
         /// Optional. Choice Field: valid values are individual and business. (If not specified, other validation fields assume individual)
         /// </summary>
         public string Type { get; set; }
+        /// <summary>
+        /// This field should contain a valid Iovation device fingerprint in the production environment, but can be an arbitrary non-empty string in the sandbox environment.
+        /// </summary>
+        public string DeviceFingerprint { get; set; }
     }
 }

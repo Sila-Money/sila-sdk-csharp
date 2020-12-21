@@ -19,10 +19,6 @@ namespace SilaAPI.silamoney.client.domain
         /// DateTime field used in the User object to save birthdate
         /// </summary>
         public DateTime? Birthdate { get; set; }
-        /// <summary>
-        /// This field should contain a valid Iovation device fingerprint in the production environment, but can be an arbitrary non-empty string in the sandbox environment.
-        /// </summary>
-        public string DeviceFingerprint { get; set; }
 
         /// <summary>
         /// User empty constructor
