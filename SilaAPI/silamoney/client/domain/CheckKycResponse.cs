@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used to store the check_kyc response message.
     /// </summary>
-    public class CheckKycResponse : BaseResponse
+    public class CheckKYCResponse : BaseResponse
     {
         /// <summary>
         /// Indicates the type of entity being verified
@@ -27,6 +27,6 @@ namespace SilaAPI.silamoney.client.domain
         /// An array of valid kyc levels for the entity
         /// </summary>
         [JsonProperty("valid_kyc_levels")]
-        public List<string> ValidKycLevels { get; set; }
+        public List<string> ValidKYCLevels { get; set; }
     }
 }
