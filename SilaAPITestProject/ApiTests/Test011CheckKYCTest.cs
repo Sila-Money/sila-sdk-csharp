@@ -40,11 +40,13 @@ namespace SilaApiTest
             var secondUser = DefaultConfig.SecondUser;
             var fourthUser = DefaultConfig.FourthUser;
             var businessUser = DefaultConfig.BusinessUser;
+            var instantUser = DefaultConfig.InstantUser;
 
             SuccessCheck(firstUser.UserHandle, firstUser.PrivateKey);
             SuccessCheck(secondUser.UserHandle, secondUser.PrivateKey);
             SuccessCheck(fourthUser.UserHandle, fourthUser.PrivateKey);
             SuccessCheck(businessUser.UserHandle, businessUser.PrivateKey);
+            SuccessCheck(instantUser.UserHandle, instantUser.PrivateKey);
         }
 
         private void SuccessCheck(string handle, string privateKey)

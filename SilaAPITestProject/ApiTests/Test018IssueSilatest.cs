@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test018_IssueSilaTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, true);
 
         [TestMethod("1 - IssueSila - Successfully issue 1000 tokens")]
         public void Response200Success()
@@ -43,6 +43,19 @@ namespace SilaApiTest
             var response = api.IssueSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday);
             var parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+        }
+
+        [TestMethod]
+        public void Response200SuccessInstantAch()
+        {
+            UserConfiguration user = DefaultConfig.InstantUser;
+            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.Instant);
+
+            Assert.AreEqual(200, response.StatusCode);
+            TransactionResponse parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));

@@ -11,14 +11,19 @@ namespace SilaAPI.silamoney.client.domain
     public enum ProcessingType
     {
         /// <summary>
-        /// Value: header_msg
+        /// Standard ACH
         /// </summary>
         [EnumMember(Value = "STANDARD_ACH")]
         Standard = 1,
         /// <summary>
-        /// Value: header_msg
+        /// Same day ACH
         /// </summary>
         [EnumMember(Value = "SAME_DAY_ACH")]
-        Sameday = 2
+        Sameday = 2,
+        /// <summary>
+        /// Instant ACH
+        /// </summary>
+        [EnumMember(Value = "INSTANT_ACH")]
+        Instant
     }
 }

@@ -30,7 +30,7 @@ namespace SilaApiTest
         private static UserConfiguration basicUser;
         private static UserConfiguration deviceUser;
         private static UserConfiguration basicBusiness;
-
+        private static UserConfiguration instantUser;
         public static UserConfiguration FirstUser
         {
             get
@@ -100,6 +100,15 @@ namespace SilaApiTest
             {
                 if (basicBusiness == null) basicBusiness = new UserConfiguration();
                 return basicBusiness;
+            }
+        }
+
+        public static UserConfiguration InstantUser
+        {
+            get
+            {
+                if (instantUser == null) instantUser = new UserConfiguration();
+                return instantUser;
             }
         }
 

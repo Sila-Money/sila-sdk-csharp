@@ -81,6 +81,15 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
             Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
             Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
+
+            user = DefaultConfig.InstantUser;
+            plaid = DefaultConfig.PlaidToken;
+            response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+
+            Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
+            parsedData = (LinkAccountResponse)response.Data;
+            Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
         }
 
         [TestMethod("6 - LinkAccount - Link through plaid token and account id")]

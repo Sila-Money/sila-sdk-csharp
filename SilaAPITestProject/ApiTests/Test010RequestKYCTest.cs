@@ -73,6 +73,12 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, businessResponse.StatusCode, $"{businessUser.UserHandle} should be sent to KYC verification");
             Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should be sent to KYC verification");
+
+            UserConfiguration instantUser = DefaultConfig.InstantUser;
+            ApiResponse<object> instantResponse = api.RequestKYC(instantUser.UserHandle, instantUser.PrivateKey, "INSTANT-ACH");
+
+            Assert.AreEqual(200, instantResponse.StatusCode, $"{instantUser.UserHandle} should be sent to KYC verification");
+            Assert.AreEqual("SUCCESS", ((BaseResponse)instantResponse.Data).Status, $"{instantUser.UserHandle} should be sent to KYC verification");
         }
 
         [TestMethod("5 - RequestKYC - Empty user handle failure")]

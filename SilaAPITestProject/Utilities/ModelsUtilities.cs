@@ -7,7 +7,15 @@ namespace SilaApiTest
 {
     public static class ModelsUtilities
     {
-        public static User firstUser;
+        private static User firstUser;
+        private static User secondUser;
+        private static User thirdUser;
+        private static User fourthUser;
+        private static BusinessUser businessUser;
+        private static User basicUser;
+        private static User deviceUser;
+        private static BusinessUser basicBusiness;
+        private static User instantUser;
         public static User FirstUser
         {
             get
@@ -16,8 +24,6 @@ namespace SilaApiTest
                 return firstUser;
             }
         }
-
-        public static User secondUser;
         public static User SecondUser
         {
             get
@@ -26,8 +32,6 @@ namespace SilaApiTest
                 return secondUser;
             }
         }
-
-        public static User thirdUser;
         public static User ThirdUser
         {
             get
@@ -36,9 +40,6 @@ namespace SilaApiTest
                 return thirdUser;
             }
         }
-
-        public static User fourthUser;
-
         public static User FourthUser
         {
             get
@@ -47,9 +48,6 @@ namespace SilaApiTest
                 return fourthUser;
             }
         }
-
-        public static BusinessUser businessUser;
-
         public static BusinessUser BusinessUser
         {
             get
@@ -58,9 +56,6 @@ namespace SilaApiTest
                 return businessUser;
             }
         }
-
-        private static User basicUser;
-
         public static User BasicUser
         {
             get
@@ -75,9 +70,6 @@ namespace SilaApiTest
                 return basicUser;
             }
         }
-
-        private static User deviceUser;
-
         public static User DeviceUser
         {
             get
@@ -95,9 +87,6 @@ namespace SilaApiTest
                 return deviceUser;
             }
         }
-        
-        private static BusinessUser basicBusiness;
-
         public static BusinessUser BasicBusiness
         {
             get
@@ -115,6 +104,33 @@ namespace SilaApiTest
                     SmsOptIn = true
                 };
                 return basicBusiness;
+            }
+        }
+        public static User InstantUser
+        {
+            get
+            {
+                if (instantUser == null) instantUser = new User
+                {
+                    UserHandle = DefaultConfig.InstantUser.UserHandle,
+                    FirstName = "Instant",
+                    LastName = "User",
+                    EntityName = "Instant User",
+                    IdentityValue = "123452222",
+                    Phone = "1234567890",
+                    SmsOptIn = true,
+                    Email = "intant@email.com",
+                    AddressAlias = "default",
+                    StreetAddress1 = "1232 Main Street",
+                    City = "New City",
+                    State = "OR",
+                    PostalCode = "97204",
+                    CryptoAddress = DefaultConfig.InstantUser.CryptoAddress,
+                    CryptoAlias = "default",
+                    Birthdate = new DateTime(1994, 1, 8),
+                    DeviceFingerprint = "test_instant_ach"
+                };
+                return instantUser;
             }
         }
 
