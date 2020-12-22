@@ -47,15 +47,6 @@ namespace SilaApiTest
             SuccessCheck(businessUser.UserHandle, businessUser.PrivateKey);
         }
 
-        [TestMethod("5 - CheckKYC - Random users KYC failed")]
-        [Timeout(300000)]
-        public void T005_Response200Failure()
-        {
-            var thirdUser = DefaultConfig.ThirdUser;
-
-            FailedCheck(thirdUser.UserHandle, thirdUser.PrivateKey);
-        }
-
         private void SuccessCheck(string handle, string privateKey)
         {
             var response = api.CheckKYC(handle, privateKey);
@@ -77,30 +68,6 @@ namespace SilaApiTest
             }
 
             Assert.IsTrue("SUCCESS" == status || message.Contains("Business has passed verification"));
-        }
-
-        private void FailedCheck(string handle, string privateKey)
-        {
-            var response = api.CheckKYC(handle, privateKey);
-            var parsedResponse = (CheckKycResponse)response.Data;
-            var status = parsedResponse.Status;
-            var message = parsedResponse.Message;
-            int statusCode = response.StatusCode;
-
-            while (statusCode == 200 && status == "FAILURE" && !message.Contains("failed") && message.Contains("pending"))
-            {
-                Console.WriteLine($"{handle} KYC check waiting 30 seconds...");
-                Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
-                Thread.Sleep(30000);
-                response = api.CheckKYC(handle, privateKey);
-                parsedResponse = (CheckKycResponse)response.Data;
-                statusCode = response.StatusCode;
-                status = parsedResponse.Status;
-                message = parsedResponse.Message;
-            }
-
-            Assert.AreEqual("FAILURE", status, $"{handle} should fail KYC verification");
-            Assert.IsTrue(message.Contains("failed"), $"{handle} should pass KYC verification");
         }
     }
 }

@@ -7,10 +7,10 @@ namespace SilaApiTest
 {
     class DefaultConfig
     {
-        public static string environment = Environments.SANDBOX;
+        public static string environment = "https://stageapi.silamoney.com/0.2";
         public static string privateKey = Environment.GetEnvironmentVariable("SILA_PRIVATE_KEY");
-        public static string appHandle = "digital_geko_e2e.silamoney.eth";
-        public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+        public static string appHandle = "end2end.silamoney.eth";
+        public static string businessUuid = "ec5d1366-b56c-4442-b6c3-c919d548fcb5";
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
         public static string IssueTrans { get { return "Issue Trans"; } }
         public static string TransferTrans { get { return "Transfer Trans"; } }

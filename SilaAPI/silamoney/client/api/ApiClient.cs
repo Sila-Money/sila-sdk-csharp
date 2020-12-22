@@ -1,5 +1,7 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using SilaAPI.silamoney.client.configuration;
+using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 
@@ -14,14 +16,18 @@ namespace SilaAPI.silamoney.client.api
         /// ApiClient constructor.
         /// </summary>
         /// <param name="basePath"></param>
-        public ApiClient(string basePath = "https://sandbox.silamoney.com/0.2")
+        /// <param name="debug"></param>
+        public ApiClient(string basePath = Environments.sandbox, bool debug = false)
         {
             if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");
 
             RestClient = new RestClient(basePath);
             Configuration = Configuration.Default;
+            Debug = debug;
         }
+
+        public bool Debug { get; set; }
 
         /// <summary>
         /// ApiClient configuration.
@@ -50,6 +56,8 @@ namespace SilaAPI.silamoney.client.api
 
             foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
+            if (Debug)
+                Console.WriteLine(JsonConvert.SerializeObject(postBody));
 
             request.AddParameter(contentType, postBody, ParameterType.RequestBody);
 
