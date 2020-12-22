@@ -20,7 +20,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        public SingleWallet Wallet { get; set; }
+        public WalletResponse Wallet { get; set; }
 
         /// <summary>
         /// 
