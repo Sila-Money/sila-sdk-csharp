@@ -26,6 +26,10 @@
         /// 
         /// </summary>
         public static readonly RegistrationData Entity = new RegistrationData("entity");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly RegistrationData Device = new RegistrationData("device");
 
         private RegistrationData(string url)
         {

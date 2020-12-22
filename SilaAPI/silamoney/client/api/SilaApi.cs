@@ -772,6 +772,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// Add a new device fingerprint to a registered entity
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="deviceFingerprint">Iovation device token to be used in verification</param>
+        /// <returns></returns>
+        public ApiResponse<object> AddDevice(string userHandle, string userPrivateKey, string deviceFingerprint)
+        {
+            var body = new DeviceMsg(Configuration.AppHandle, userHandle, deviceFingerprint);
+            return CallRegistrationData<BaseResponse>("add", RegistrationData.Device, userPrivateKey, body);
+        }
+
+        /// <summary>
         /// Update an existing email of a registered entity
         /// </summary>
         /// <param name="userHandle">The user handle</param>
