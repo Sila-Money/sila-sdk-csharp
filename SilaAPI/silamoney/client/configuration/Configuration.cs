@@ -35,7 +35,7 @@ namespace SilaAPI.silamoney.client.configuration
         {
             UserAgent = "SilaSDK/1.0.0/csharp";
             BasePath = Environments.SANDBOX;
-
+            Debug = false;
             Timeout = 100000;
         }
 
@@ -55,7 +55,7 @@ namespace SilaAPI.silamoney.client.configuration
             }
         }
 
-        private String _basePath = null;
+        private string _basePath = null;
 
         public virtual string BasePath
         {
@@ -70,6 +70,8 @@ namespace SilaAPI.silamoney.client.configuration
                 }
             }
         }
+
+        public virtual bool Debug { get; set; }
 
         public virtual string PrivateKey { get; set; }
 

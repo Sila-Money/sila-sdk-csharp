@@ -22,9 +22,10 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="environment"></param>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public SilaApi(string environment, string privateKey, string appHandle)
+        /// <param name="debug"></param>
+        public SilaApi(string environment, string privateKey, string appHandle, bool debug = false)
         {
-            Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
+            Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle, Debug = debug };
         }
 
         /// <summary>
@@ -32,11 +33,13 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public SilaApi(string privateKey, string appHandle)
+        /// <param name="debug"></param>
+        public SilaApi(string privateKey, string appHandle, bool debug = false)
         {
             Configuration = Configuration.Default;
             Configuration.PrivateKey = privateKey;
             Configuration.AppHandle = appHandle;
+            Configuration.Debug = debug;
         }
 
         /// <summary>
@@ -805,10 +808,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey">The user's private key</param>
         /// <param name="uuid">The phone uuid</param>
         /// <param name="phone">The updated phone</param>
+        /// <param name="smsOptIn">optional boolean field. If true, and if app is configured to send SMS messages, sends a confirmation SMS to the passed-in phone number</param>
         /// <returns></returns>
-        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone)
+        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone, bool? smsOptIn = null)
         {
-            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid);
+            PhoneMsg body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid, smsOptIn);
             return CallRegistrationData<PhoneResponse>("update", RegistrationData.Phone, userPrivateKey, body);
         }
 
@@ -953,7 +957,8 @@ namespace SilaAPI.silamoney.client.api
 
             object responseBody;
 
-            Console.WriteLine(response.Content);
+            if (Configuration.Debug)
+                Console.WriteLine(response.Content);
 
             switch (statusCode)
             {
