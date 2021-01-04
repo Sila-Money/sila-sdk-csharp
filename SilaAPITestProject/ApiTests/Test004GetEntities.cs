@@ -33,5 +33,27 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Entities.Businesses.First().BlockchainAddresses.Count > 0);
 
         }
+
+        [TestMethod("2 - GetEntities - Successful with pagination")]
+        public void Response200WithPagination()
+        {
+            ApiResponse<object> response = api.GetEntities(page: 2, perPage: 2);
+
+            Assert.AreEqual(200, response.StatusCode);
+            GetEntitiesResponse parsedResponse = (GetEntitiesResponse)response.Data;
+            Assert.AreEqual(2, parsedResponse.Pagination.CurrentPage);
+            Assert.AreEqual(2, parsedResponse.Pagination.ReturnedCount);
+        }
+
+        [TestMethod("3 - GetEntities - Successful with only per page")]
+        public void Response200WithPerPage()
+        {
+            ApiResponse<object> response = api.GetEntities(perPage: 2);
+
+            Assert.AreEqual(200, response.StatusCode);
+            GetEntitiesResponse parsedResponse = (GetEntitiesResponse)response.Data;
+            Assert.AreEqual(1, parsedResponse.Pagination.CurrentPage);
+            Assert.AreEqual(2, parsedResponse.Pagination.ReturnedCount);
+        }
     }
 }
