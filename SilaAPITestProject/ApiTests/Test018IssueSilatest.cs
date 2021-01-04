@@ -48,7 +48,7 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
-        [TestMethod]
+        [TestMethod("4 - IssueSila - Successful instant ach")]
         public void Response200SuccessInstantAch()
         {
             UserConfiguration user = DefaultConfig.InstantUser;
@@ -61,7 +61,7 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
-        [TestMethod("4 - IssueSila - Poll until successful issue")]
+        [TestMethod("5 - IssueSila - Poll until successful issue")]
         [Timeout(300000)]
         public void Response200Transaction()
         {
@@ -74,14 +74,14 @@ namespace SilaApiTest
             GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
         }
 
-        [TestMethod("5 - IssueSila - Empty user handle failure")]
+        [TestMethod("6 - IssueSila - Empty user handle failure")]
         public void Response400()
         {
             var response = api.IssueSila("", 1000, DefaultConfig.FirstUser.PrivateKey);
             Assert.AreEqual(400, response.StatusCode);
         }
 
-        [TestMethod("6 - IssueSila - Fail issue tokens with invalid business uuid and descriptor")]
+        [TestMethod("7 - IssueSila - Fail issue tokens with invalid business uuid and descriptor")]
         public void Response400Descriptor()
         {
             var user = DefaultConfig.FirstUser;
@@ -92,7 +92,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
         }
 
-        [TestMethod("7 - IssueSila - Bad user signature failure")]
+        [TestMethod("8 - IssueSila - Bad user signature failure")]
         public void Response401User()
         {
             var response = api.IssueSila(DefaultConfig.FirstUser.UserHandle, 1000, DefaultConfig.privateKey);
@@ -101,7 +101,7 @@ namespace SilaApiTest
             Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - IssueSila");
         }
 
-        [TestMethod("8 - IssueSila - Unsuccessfully issue tokens")]
+        [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
         public void Response401NotVerified()
         {
             var user = DefaultConfig.ThirdUser;
@@ -111,7 +111,7 @@ namespace SilaApiTest
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
 
-        [TestMethod("9 - IssueSila - Bad app signature failure")]
+        [TestMethod("10 - IssueSila - Bad app signature failure")]
         public void Response401()
         {
             var user = DefaultConfig.FirstUser;

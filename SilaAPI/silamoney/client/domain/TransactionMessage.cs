@@ -9,10 +9,10 @@ namespace SilaAPI.silamoney.client.domain
     public class TransactionMessage : BaseMessage
     {
         /// <summary>
-        /// Float field use in the TransactionMessage object to save amount
+        /// Int field use in the TransactionMessage object to save amount
         /// </summary>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
-        public float? Amount { get; set; }
+        public int? Amount { get; set; }
 
         /// <summary>
         /// String field use in the TransactionMessage object to save descriptor
