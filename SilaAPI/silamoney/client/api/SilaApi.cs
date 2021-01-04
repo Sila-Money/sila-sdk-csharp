@@ -557,15 +557,17 @@ namespace SilaAPI.silamoney.client.api
 
         /// <summary>
         /// Makes a call to /get_entities.
-        /// <param name="entityTypeFilter"></param>
         /// </summary>
+        /// <param name="entityTypeFilter"></param>
+        /// <param name="page"></param>
+        /// <param name="perPage"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> GetEntities(string entityTypeFilter = null)
+        public ApiResponse<object> GetEntities(string entityTypeFilter = null, int? page = null, int? perPage = null)
         {
-            var path = "/get_entities";
-            var header = new Header(null, Configuration.AppHandle);
+            string path = $"/get_entities{GetRequestParams(page, perPage)}";
+            Header header = new Header(null, Configuration.AppHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
             body.Add("message", "header_msg");
             if (entityTypeFilter != null) body.Add("entity_type", entityTypeFilter);
