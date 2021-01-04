@@ -59,8 +59,7 @@ namespace SilaApiTest
             var user = DefaultConfig.FirstUser;
             var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.appHandle, user.PrivateKey);
             var parsedResponse = (BaseResponse)response.Data;
-
-            Assert.AreEqual(401, response.StatusCode);
+            Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
             Assert.IsTrue(parsedResponse.Message.Contains("does not exist"));
         }

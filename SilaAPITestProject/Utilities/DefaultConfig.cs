@@ -15,7 +15,7 @@ namespace SilaApiTest
         public static string IssueTrans { get { return "Issue Trans"; } }
         public static string TransferTrans { get { return "Transfer Trans"; } }
         public static string RedeemTrans { get { return "Redeem Trans"; } }
-        public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
+        public static string InvalidBusinessUuidRegex { get { return $"uuid {InvalidBusinessUuid} could not be found"; } }
         public static List<BusinessRole> BusinessRoles { get; set; }
         public static List<BusinessType> BusinessTypes { get; set; }
         public static List<DocumentType> DocumentTypes { get; set; }
