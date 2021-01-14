@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test021RegisterWalletTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - RegisterWallet - Succesful add new wallet to existing user")]
         public void Response200()

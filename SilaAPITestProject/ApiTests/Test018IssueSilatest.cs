@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test018_IssueSilaTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - IssueSila - Successfully issue 1000 tokens")]
         public void Response200Success()

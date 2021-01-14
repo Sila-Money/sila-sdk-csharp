@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test019_TransferSilaTests
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - TransferSila - Successful transfer")]
         public void T001Response200EmptyWallet()

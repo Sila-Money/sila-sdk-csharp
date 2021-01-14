@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test016_GetAccountsTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetAccounts - Successfully obtained accounts")]
         public void Response200()

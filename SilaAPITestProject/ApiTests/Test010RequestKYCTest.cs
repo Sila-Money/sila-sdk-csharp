@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test010_RequestKYCTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - RequestKYC - Bad user signature failure")]
         public void T001_Response401User()

@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test006_RegisterTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - Register - Random users registration")]
         public void TestResponse200()

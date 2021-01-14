@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test018CancelTransaction
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CancelTransaction - Successfully cancel issue transaction")]
         public void Response200Success()

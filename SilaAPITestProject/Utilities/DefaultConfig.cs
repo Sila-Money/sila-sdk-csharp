@@ -1,4 +1,5 @@
-﻿using SilaAPI.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using static SilaAPITestProject.Utilities.PlaidTokenHelper;
@@ -31,6 +32,17 @@ namespace SilaApiTest
         private static UserConfiguration deviceUser;
         private static UserConfiguration basicBusiness;
         private static UserConfiguration instantUser;
+        private static SilaApi client;
+
+        public static SilaApi Client
+        {
+            get
+            {
+                if (client == null) client = new SilaApi(environment, privateKey, appHandle, true);
+                return client;
+            }
+        }
+
         public static UserConfiguration FirstUser
         {
             get
@@ -93,7 +105,7 @@ namespace SilaApiTest
                 return deviceUser;
             }
         }
-        
+
         public static UserConfiguration BasicBusiness
         {
             get

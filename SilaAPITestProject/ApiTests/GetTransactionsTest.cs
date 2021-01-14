@@ -8,7 +8,7 @@ namespace SilaApiTest
 {
     public class GetTransactionsTest
     {
-        private static SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        private static SilaApi api = DefaultConfig.Client;
 
         public static void Poll(string userHandle, string userPrivateKey, SearchFilters filters, string result)
         {

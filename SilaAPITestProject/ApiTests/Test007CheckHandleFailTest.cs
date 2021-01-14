@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test007CheckHandleFailTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CheckHandle - Random users failure")]
         public void Response200Failure()

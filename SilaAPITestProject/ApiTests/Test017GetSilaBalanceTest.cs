@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test017GetSilaBalanceTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetSilaBalance - Successful balance retrieval")]
         public void Response200()

@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test001GetBusinessRoles
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetBusinessRoles - Successful get roles")]
         public void T020Response200()

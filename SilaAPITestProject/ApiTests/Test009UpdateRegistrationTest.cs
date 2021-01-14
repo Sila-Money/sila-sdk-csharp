@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test009UpdateRegistrationTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, true);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - UpdateAddress - Success Response")]
         public void Response200Address()

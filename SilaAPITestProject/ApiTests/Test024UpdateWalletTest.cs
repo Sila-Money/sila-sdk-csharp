@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test024UpdateWalletTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - UpdateWallet - Successful nickname change and set as default")]
         public void Response200()

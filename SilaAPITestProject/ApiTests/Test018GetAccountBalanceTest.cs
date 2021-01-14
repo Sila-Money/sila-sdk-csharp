@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test018GetAccountBalanceTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetAccountBalance - Successful plaid account balance")]
         public void Response200()

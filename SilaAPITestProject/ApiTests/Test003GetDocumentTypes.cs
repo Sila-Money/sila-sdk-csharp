@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test003GetDocumentTypes
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetDocumentTypes - Successful get document types")]
         public void Response200()

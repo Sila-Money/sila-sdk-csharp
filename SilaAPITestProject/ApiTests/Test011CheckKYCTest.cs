@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test011_CheckKYCTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CheckKYC - Empty user handle failure")]
         public void T001_Response400()

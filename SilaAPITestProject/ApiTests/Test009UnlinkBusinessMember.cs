@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test009UnlinkBusinessMember
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - UnlinkBusinessMember - Successful unlink administrator")]
         public void T022Response200Administrator()

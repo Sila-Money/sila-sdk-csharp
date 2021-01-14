@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test012ListDocumentsTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - ListDocuments - No filters")]
         public void Response200()

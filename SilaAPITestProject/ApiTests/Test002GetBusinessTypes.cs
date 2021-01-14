@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test002GetBusinessTypes
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetBusinessTypes - Successful get types")]
         public void T019Response200()

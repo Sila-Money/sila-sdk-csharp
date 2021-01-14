@@ -10,7 +10,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test021GetTransactionsTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetTransactions - Successfully retrieve timeline of transactions")]
         public void T001_GetTransactionsWithTimeline()

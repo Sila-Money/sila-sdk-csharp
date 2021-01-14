@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test015_LinkAccountTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - LinkAccount - Empty user handle failure")]
         public void T001_Response400()
