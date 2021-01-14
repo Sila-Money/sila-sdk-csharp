@@ -90,7 +90,12 @@ namespace SilaAPI.silamoney.client.api
         {
             GetAccountsMsg body = new GetAccountsMsg(userHandle, Configuration.AppHandle);
             var path = "/get_accounts";
-            return MakeRequest<List<Account>>(path, body, userPrivateKey);
+            ApiResponse<object> response = MakeRequest<List<Account>>(path, body, userPrivateKey);
+            if (response.Data is List<Account> list)
+            {
+                response.Data = new GetAccountsResponse { Accounts = list };
+            }
+            return response;
         }
 
         /// <summary>

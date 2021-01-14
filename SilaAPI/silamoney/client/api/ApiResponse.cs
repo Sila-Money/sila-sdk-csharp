@@ -19,7 +19,7 @@ namespace SilaAPI.silamoney.client.api
         /// <summary>
         /// Response data, this receive the message sent from the api server
         /// </summary>
-        public T Data { get; private set; }
+        public T Data { get; internal set; }
         /// <summary>
         /// Success value
         /// </summary>
