@@ -58,5 +58,15 @@ namespace SilaApiTest
             Assert.AreEqual(403, response.StatusCode, "Bad wallet signature status - RegisterWallet");
             Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("wallet signature"), "Bad wallet signature message - RegisterWallet");
         }
+
+        public void Response400Wallet()
+        {
+            var wallet = api.GenerateWallet();
+            wallet.Address = "";
+            wallet.PrivateKey = "";
+            var response = api.RegisterWallet("", "", wallet, "");
+
+            Assert.AreEqual(400, response.StatusCode, "Incomplete wallet information should fail registration");
+        }
     }
 }
