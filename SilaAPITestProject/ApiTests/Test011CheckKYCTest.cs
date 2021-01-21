@@ -33,7 +33,7 @@ namespace SilaApiTest
         }
 
         [TestMethod("4 - CheckKYC - Random users KYC passed")]
-        [Timeout(300000)]
+        [Timeout(480000)]
         public void T004_Response200Success()
         {
             var firstUser = DefaultConfig.FirstUser;
