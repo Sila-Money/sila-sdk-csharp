@@ -1,0 +1,47 @@
+v0.2.17-rc
+Features:
+- Added support for device_fingerprint in Register
+- Added support for sms_opt_in in Register
+- Added support for AddDevice
+- Added support for sms_opt_in in UpdatePhone
+- Added support for instant_ach in IssueSila
+- Added debug feature to SilaApi constructors
+
+Breaking changes:
+- Renaming kyc class names to caps
+    - CheckKycResponse -> CheckKYCResponse
+    - CheckKycResponse.ValidKycLevels -> CheckKYCResponse.ValidKYCLevels
+    - VerificationResultBase.KycLevel -> VerificationResultBase.KYCLevel
+- Merged SingleWallet into WalletResponse object. SingleWallet has been removed from the code base.
+- Changed sila amount parameter type to integer on requests:
+    - IssueSila
+    - TransferSila
+    - RedeemSila
+    - GetTransactions
+        - SearchFilters.MaxSilaAmount
+        - SearchFilters.MinSilaAmount
+- Changed sila amounts to integers on response objects:
+    - GetSilaBalanceResponse.SilaBalance
+    - SingleWalletResponse.SilaBalance
+    - Transaction.SilaAmount
+
+v0.2.13-rc4
+Bugfixes:
+- Rollback breaking change on TimeLine property of the Transaction object. It's been renamed to TimeLines as it used to be prior the breaking change.
+
+v0.2.13-rc3
+Features:
+- Added support for pagination in GetEntities
+
+Enhancements:
+- Removed uneeded Nethereum dependencies
+- Added missing property to UpdateWallet response object
+
+Bugfixes:
+- Fixed optional fields on Register
+- Fixed typo on timeline property of GetTransactions response object
+- Removed exception when private keys are not set or left blank when signing
+
+v0.2.13-rc2
+Bugfixes
+- Fixed production constant on environments file
