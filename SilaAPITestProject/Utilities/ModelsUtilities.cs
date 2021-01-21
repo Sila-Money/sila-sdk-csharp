@@ -140,7 +140,7 @@ namespace SilaApiTest
                 LastUpdate = "2019-04-03T00:00:00.003Z",
                 CreatedEpoch = 1234567890,
                 LastUpdateEpoch = 1234567899,
-                TimeLine = CreateTimeLines()
+                TimeLines = CreateTimeLines()
             };
 
             transactions.Add(transaction);

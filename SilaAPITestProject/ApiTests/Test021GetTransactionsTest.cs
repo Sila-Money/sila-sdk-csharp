@@ -21,8 +21,8 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             var parsedResponse = (GetTransactionsResult)response.Data;
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
-            Assert.IsNotNull(parsedResponse.Transactions[0].TimeLine);
-            Assert.IsTrue(parsedResponse.Transactions[0].TimeLine.Count > 0);
+            Assert.IsNotNull(parsedResponse.Transactions[0].TimeLines);
+            Assert.IsTrue(parsedResponse.Transactions[0].TimeLines.Count > 0);
         }
 
     }
