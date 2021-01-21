@@ -118,6 +118,6 @@ namespace SilaAPI.silamoney.client.domain
         /// String field value used in the Transaction objet to save timelines
         /// </summary>
         [JsonProperty("timeline")]
-        public List<TimeLine> TimeLine { get; set; }
+        public List<TimeLine> TimeLines { get; set; }
     }
 }
