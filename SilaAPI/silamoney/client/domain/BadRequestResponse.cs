@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Text;
 
 namespace SilaAPI.silamoney.client.domain
 {
@@ -31,50 +32,50 @@ namespace SilaAPI.silamoney.client.domain
 
         private string getJObjectProperties(JObject node)
         {
-            string message = "";
+            StringBuilder message = new StringBuilder();
             foreach (var child in node.Properties())
             {
                 if (child.HasValues)
                 {
-                    message += getJPropertyProperties(child);
+                    message.Append(getJPropertyProperties(child));
                 }
                 else
                 {
-                    message += child.Name + ": " + child.Value.Value<string>() + Environment.NewLine;
+                    message.Append(child.Name + ": " + child.Value.Value<string>() + Environment.NewLine);
+                }
+            }
+            return message.ToString();
+        }
+
+        private StringBuilder getJPropertyProperties(JProperty node)
+        {
+            StringBuilder message = new StringBuilder();
+            foreach (var child in node.Values())
+            {
+                if (child.HasValues)
+                {
+                    message.Append(getJTokenProperties(child));
+                }
+                else
+                {
+                    message.Append(child.Path + ": " + child.Value<string>() + Environment.NewLine);
                 }
             }
             return message;
         }
 
-        private string getJPropertyProperties(JProperty node)
+        private StringBuilder getJTokenProperties(JToken node)
         {
-            string message = "";
+            StringBuilder message = new StringBuilder();
             foreach (var child in node.Values())
             {
                 if (child.HasValues)
                 {
-                    message += getJTokenProperties(child);
+                    message.Append(getJTokenProperties(child));
                 }
                 else
                 {
-                    message += child.Path + ": " + child.Value<string>() + Environment.NewLine;
-                }
-            }
-            return message;
-        }
-
-        private string getJTokenProperties(JToken node)
-        {
-            string message = "";
-            foreach (var child in node.Values())
-            {
-                if (child.HasValues)
-                {
-                    message += getJTokenProperties(child);
-                }
-                else
-                {
-                    message += child.Path + ": " + child.Value<string>() + Environment.NewLine;
+                    message.Append(child.Path + ": " + child.Value<string>() + Environment.NewLine);
                 }
             }
             return message;

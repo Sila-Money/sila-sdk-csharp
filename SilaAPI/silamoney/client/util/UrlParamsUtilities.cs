@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SilaAPI.silamoney.client.util
+﻿namespace SilaAPI.silamoney.client.util
 {
-    internal class UrlParamsUtilities
+    internal static class UrlParamsUtilities
     {
         internal static string AddQueryParameter(string queryParameters, string parameterName, string value)
         {
