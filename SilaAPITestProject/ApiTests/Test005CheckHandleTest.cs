@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
+using System;
 
 namespace SilaApiTest
 {
@@ -14,9 +15,9 @@ namespace SilaApiTest
         {
             var firstResponse = api.CheckHandle(DefaultConfig.FirstUser.UserHandle);
 
-            
+
             Assert.AreEqual(200, firstResponse.StatusCode, $"{DefaultConfig.FirstUser.UserHandle} should be available");
-            Assert.AreEqual("SUCCESS", ((BaseResponse)firstResponse.Data).Status,  $"{DefaultConfig.FirstUser.UserHandle} should be available");
+            Assert.AreEqual("SUCCESS", ((BaseResponse)firstResponse.Data).Status, $"{DefaultConfig.FirstUser.UserHandle} should be available");
 
             var secondResponse = api.CheckHandle(DefaultConfig.SecondUser.UserHandle);
 
@@ -50,6 +51,8 @@ namespace SilaApiTest
             var response = api.CheckHandle("");
 
             Assert.AreEqual(400, response.StatusCode, "Empty user handle should fail - CheckHandle");
+            var parsedResponse = (BadRequestResponse)response.Data;
+            Assert.IsTrue(parsedResponse.AllValidationDetails.Contains("header.user_handle: This field may not be blank." + Environment.NewLine));
         }
 
         [TestMethod("4 - CheckHandle - Bad signature failure")]
