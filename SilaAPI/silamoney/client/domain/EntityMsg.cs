@@ -32,6 +32,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "entity", EmitDefaultValue = false)]
         public Entity Entity { get; set; }
+        /// <summary>
+        /// Device object field used in the EntityMsg object to save a device fingerprint
+        /// </summary>
+        [DataMember(Name = "device", EmitDefaultValue = false)]
+        public Device Device { get; set; }
 
         /// <summary>
         /// If user and appHandle are not null, set user values in the differents object
@@ -42,18 +47,11 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null && appHandle != null)
             {
-                Header = new Header(user.UserHandle, appHandle);
-                if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
-                    Address = new Address(user);
+                SetCommonFields(user, appHandle);
                 if (user.IdentityValue != null)
                     Identity = new Identity(user);
-                if (user.Phone != null || user.Email != null || user.ContactAlias != null)
-                    Contact = new Contact(user);
-                if (user.CryptoAddress != null || user.CryptoAlias != null)
-                    CryptoEntry = new CryptoEntry(user);
                 if (user.FirstName != null || user.LastName != null || user.EntityName != null || user.Birthdate.HasValue)
                     Entity = new Entity(user);
-                MessageOption = Message.EntityMsg;
             }
         }
 
@@ -66,19 +64,29 @@ namespace SilaAPI.silamoney.client.domain
         {
             if (user != null && appHandle != null)
             {
-                this.Header = new Header(user.UserHandle, appHandle);
-                if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
-                    this.Address = new Address(user);
+                SetCommonFields(user, appHandle);
                 if (user.IdentityValue != null)
-                    this.Identity = new Identity(user);
-                if (user.Phone != null || user.Email != null || user.ContactAlias != null)
-                    this.Contact = new Contact(user);
-                if (user.CryptoAddress != null || user.CryptoAlias != null)
-                    this.CryptoEntry = new CryptoEntry(user);
+                    Identity = new Identity(user);
                 if (user.EntityName != null || user.Type != null || user.BusinessType != null || user.BusinessWebsite != null || user.DoingBusinessAs != null || user.NaicsCode.HasValue || user.BusinessTypeUuid != null)
-                    this.Entity = new Entity(user);
-                this.MessageOption = Message.EntityMsg;
+                    Entity = new Entity(user);
             }
+        }
+
+        private void SetCommonFields(BaseUser user, string appHandle)
+        {
+            Header = new Header(user.UserHandle, appHandle);
+            if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
+                Address = new Address(user);
+            if (user.Phone != null || user.Email != null || user.ContactAlias != null || user.SmsOptIn.HasValue)
+                Contact = new Contact(user);
+            if (user.CryptoAddress != null || user.CryptoAlias != null)
+                CryptoEntry = new CryptoEntry(user);
+            if (user.DeviceFingerprint != null)
+                Device = new Device
+                {
+                    DeviceFingerprint = user.DeviceFingerprint
+                };
+            this.MessageOption = Message.EntityMsg;
         }
     }
 }

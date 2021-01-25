@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test016_GetAccountsTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetAccounts - Successfully obtained accounts")]
         public void Response200()
@@ -17,9 +17,8 @@ namespace SilaApiTest
             var response = api.GetAccounts(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should success get_accounts");
-            var accounts = (List<Account>)response.Data;
-            System.Console.WriteLine(accounts);
-            Assert.AreEqual(3, accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
+            var parsedResponse = (GetAccountsResponse)response.Data;
+            Assert.AreEqual(3, parsedResponse.Accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
         }
 
         [TestMethod("2 - GetAccounts - Empty user handle failure")]

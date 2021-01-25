@@ -1,0 +1,49 @@
+v0.2.17-rc
+In this release we added new features including support for Instant ACH as well as a new debug feature that allows you to see the request and response objects in the console.
+This release also includes some breaking changes that were made to improve the developer experience and provide some consistency in several areas.  See details below.
+New Features:
+    - Instant ACH
+        - Added support for instant_ach in /issue_sila
+        - Added support for device_fingerprint in /register
+        - Added support for sms_opt_in in /register, /add/phone, and /update/phone
+        - Added support for device registration in /add/device and /register
+    - Added debug feature to SilaApi
+        - The debug feature is an optional parameter on the creation of the SilaApi client that logs to the console the body of the requests sent to the API and the JSON response.  See https://docs.silamoney.com/docs/netc-sdk-beta for details.
+Breaking changes:
+    - Renaming kyc class names to caps where needed
+        - CheckKycResponse -> CheckKYCResponse
+        - CheckKycResponse.ValidKycLevels -> CheckKYCResponse.ValidKYCLevels
+        - VerificationResultBase.KycLevel -> VerificationResultBase.KYCLevel
+    - Merged SingleWallet into WalletResponse object
+        - SingleWallet was removed from the code base and replaced all references with WalletResponse
+    - Changed sila amounts to integers on /issue_sila, /transfer_sila and /redeem_sila requests.  Changed sila amounts to integers on /get_sila_balance, /get_transactions and /get_wallet responses
+        - GetSilaBalanceResponse.SilaBalance changed from decimal to int
+        - SingleWalletResponse.SilaBalance changed from decimal to int
+        - Transaction.SilaAmount changed from float to int
+        - SearchFilters.MaxSilaAmount changed from decimal? to int?
+        - SearchFilters.MinSilaAmount changed from decimal? to int?
+        - SilaApi.IssueSila - amount parameter now expects an int instead of a float
+        - SilaApi.RedeemSila - amount parameter now expects an int instead of a float
+        - SilaApi.TransferSila - amount parameter now expects an int instead of a float
+
+
+v0.2.13-rc4
+Bugfixes:
+- Rollback breaking change on TimeLine property of the Transaction object. It's been renamed to TimeLines as it used to be prior the breaking change.
+
+v0.2.13-rc3
+Features:
+- Added support for pagination in GetEntities
+
+Enhancements:
+- Removed uneeded Nethereum dependencies
+- Added missing property to UpdateWallet response object
+
+Bugfixes:
+- Fixed optional fields on Register
+- Fixed typo on timeline property of GetTransactions response object
+- Removed exception when private keys are not set or left blank when signing
+
+v0.2.13-rc2
+Bugfixes
+- Fixed production constant on environments file

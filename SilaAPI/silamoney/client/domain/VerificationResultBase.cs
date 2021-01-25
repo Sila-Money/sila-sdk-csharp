@@ -16,7 +16,7 @@ namespace SilaAPI.silamoney.client.domain
         /// The kyc level of the verification attempt
         /// </summary>
         [JsonProperty("kyc_level")]
-        public string KycLevel { get; set; }
+        public string KYCLevel { get; set; }
         /// <summary>
         /// The epoch of the request
         /// </summary>

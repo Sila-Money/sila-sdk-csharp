@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test009UpdateRegistrationTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - UpdateAddress - Success Response")]
         public void Response200Address()
@@ -143,6 +143,8 @@ namespace SilaApiTest
             Assert.AreEqual(identity.Uuid, parsedResponse.Identity.Uuid);
             Assert.AreEqual(identity.IdentityAlias, parsedResponse.Identity.IdentityType);
             Assert.IsNotNull(parsedResponse.Identity.Identity);
+            Assert.IsNull(parsedResponse.Identity.DocumentId);
+            Assert.IsNull(parsedResponse.Identity.DocumentName);
 
             DefaultConfig.IdentityUuid = parsedResponse.Identity.Uuid;
         }
@@ -152,7 +154,7 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var phone = "9087654321";
-            var response = api.UpdatePhone(user.UserHandle, user.PrivateKey, DefaultConfig.PhoneUuid, phone);
+            var response = api.UpdatePhone(user.UserHandle, user.PrivateKey, DefaultConfig.PhoneUuid, phone, true);
 
             Assert.AreEqual(200, response.StatusCode);
             var parsedResponse = (PhoneResponse)response.Data;
@@ -164,6 +166,9 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Phone.ModifiedEpoch);
             Assert.AreEqual(DefaultConfig.PhoneUuid, parsedResponse.Phone.Uuid);
             Assert.AreEqual(phone, parsedResponse.Phone.Phone);
+            Assert.IsTrue(parsedResponse.Phone.SmsConfirmationRequested);
+            Assert.IsFalse(parsedResponse.Phone.SmsConfirmed);
+            Assert.IsTrue(parsedResponse.Phone.Primary);
 
             DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
         }

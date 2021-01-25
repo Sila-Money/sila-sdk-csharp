@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test010_RequestKYCTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - RequestKYC - Bad user signature failure")]
         public void T001_Response401User()
@@ -73,6 +73,12 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, businessResponse.StatusCode, $"{businessUser.UserHandle} should be sent to KYC verification");
             Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should be sent to KYC verification");
+
+            UserConfiguration instantUser = DefaultConfig.InstantUser;
+            ApiResponse<object> instantResponse = api.RequestKYC(instantUser.UserHandle, instantUser.PrivateKey, "INSTANT-ACH");
+
+            Assert.AreEqual(200, instantResponse.StatusCode, $"{instantUser.UserHandle} should be sent to KYC verification");
+            Assert.AreEqual("SUCCESS", ((BaseResponse)instantResponse.Data).Status, $"{instantUser.UserHandle} should be sent to KYC verification");
         }
 
         [TestMethod("5 - RequestKYC - Empty user handle failure")]

@@ -1,16 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// 
     /// </summary>
-    public class SingleWallet : Wallet
+    public class GetAccountsResponse
     {
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("default")]
-        public bool Default { get; set; }
+        public List<Account> Accounts { get; internal set; }
     }
 }

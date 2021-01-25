@@ -8,13 +8,12 @@ namespace SilaApiTest
     [TestClass]
     public class Test006_RegisterTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - Register - Random users registration")]
         public void TestResponse200()
         {
             var firstUser = ModelsUtilities.FirstUser;
-            Console.WriteLine(firstUser.UserHandle);
             var firstResponse = api.Register(firstUser);
 
             Assert.AreEqual(200, firstResponse.StatusCode);
@@ -52,12 +51,26 @@ namespace SilaApiTest
             Assert.IsTrue(parsedBasicResponse.Success);
             Assert.AreEqual("SUCCESS", parsedBasicResponse.Status);
 
+            var deviceResponse = api.Register(ModelsUtilities.DeviceUser);
+
+            Assert.AreEqual(200, deviceResponse.StatusCode);
+            var parsedDeviceResponse = (BaseResponse)deviceResponse.Data;
+            Assert.IsTrue(parsedDeviceResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedDeviceResponse.Status);
+
             var basicBusinessResponse = api.Register(ModelsUtilities.BasicBusiness);
 
             Assert.AreEqual(200, basicBusinessResponse.StatusCode);
             var parsedBasicBusinessResponse = (BaseResponse)basicResponse.Data;
             Assert.IsTrue(parsedBasicBusinessResponse.Success);
             Assert.AreEqual("SUCCESS", parsedBasicBusinessResponse.Status);
+
+            ApiResponse<object> instantResponse = api.Register(ModelsUtilities.InstantUser);
+
+            Assert.AreEqual(200, instantResponse.StatusCode);
+            BaseResponse parsedInstantResponse = (BaseResponse)basicResponse.Data;
+            Assert.IsTrue(parsedInstantResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedInstantResponse.Status);
         }
 
         [TestMethod("2 - Register - Random user second registration failure")]

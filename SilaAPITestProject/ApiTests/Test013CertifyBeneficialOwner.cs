@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test013CertifyBeneficialOwner
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CertifyBeneficialOwner - Successful CertifyBeneficialOwner")]
         public void T026Response200()

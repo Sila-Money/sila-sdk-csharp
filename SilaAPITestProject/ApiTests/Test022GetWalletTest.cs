@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test022GetWalletTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetWallet - Sucessful retrieve for both wallets")]
         public void Response200()
@@ -19,6 +19,7 @@ namespace SilaApiTest
             Assert.AreEqual(200, firstResponse.StatusCode);
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("", parsedResponse.Wallet.Nickname);
+            Assert.IsTrue(parsedResponse.SilaBalance > 0);
 
             var secondResponse = api.GetWallet(user.UserHandle, DefaultConfig.Wallet.PrivateKey);
             var parsedResponse2 = (SingleWalletResponse)secondResponse.Data;

@@ -31,20 +31,20 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="processingType"></param>
         /// <param name="messageType"></param>
         public BankTransactionMessage(string userHandle,
-            float amount,
+            int amount,
             string authHandle,
             string accountName,
             string descriptor,
             string businessUuid,
             ProcessingType? processingType, Message messageType)
         {
-            this.Header = new Header(userHandle, authHandle);
-            this.Amount = amount;
-            this.MessageOption = messageType;
-            this.AccountName = accountName;
-            this.Descriptor = descriptor;
-            this.BusinessUuid = businessUuid;
-            this.ProcessingType = processingType;
+            Header = new Header(userHandle, authHandle);
+            Amount = amount;
+            MessageOption = messageType;
+            AccountName = accountName;
+            Descriptor = descriptor;
+            BusinessUuid = businessUuid;
+            ProcessingType = processingType;
         }
     }
 }

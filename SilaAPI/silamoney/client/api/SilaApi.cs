@@ -22,9 +22,10 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="environment"></param>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public SilaApi(string environment, string privateKey, string appHandle)
+        /// <param name="debug"></param>
+        public SilaApi(string environment, string privateKey, string appHandle, bool debug = false)
         {
-            Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle };
+            Configuration = new Configuration { BasePath = environment, PrivateKey = privateKey, AppHandle = appHandle, Debug = debug };
         }
 
         /// <summary>
@@ -32,11 +33,13 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="privateKey"></param>
         /// <param name="appHandle"></param>
-        public SilaApi(string privateKey, string appHandle)
+        /// <param name="debug"></param>
+        public SilaApi(string privateKey, string appHandle, bool debug = false)
         {
             Configuration = Configuration.Default;
             Configuration.PrivateKey = privateKey;
             Configuration.AppHandle = appHandle;
+            Configuration.Debug = debug;
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/check_kyc";
 
-            return MakeRequest<CheckKycResponse>(path, body, userPrivateKey);
+            return MakeRequest<CheckKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -87,7 +90,12 @@ namespace SilaAPI.silamoney.client.api
         {
             GetAccountsMsg body = new GetAccountsMsg(userHandle, Configuration.AppHandle);
             var path = "/get_accounts";
-            return MakeRequest<List<Account>>(path, body, userPrivateKey);
+            ApiResponse<object> response = MakeRequest<List<Account>>(path, body, userPrivateKey);
+            if (response.Data is List<Account> list)
+            {
+                response.Data = new GetAccountsResponse { Accounts = list };
+            }
+            return response;
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="businessUuid">Optional. UUID of a business with an approved ACH name.</param>
         /// <param name="processingType">Optional.</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, float amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
+        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
         {
             BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg);
             var path = "/issue_sila";
@@ -173,7 +181,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="businessUuid"></param>
         /// <param name="processingType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, float amount, string userPrivateKey, string accountName = "default",
+        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default",
             string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
         {
             BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg);
@@ -299,7 +307,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> TransferSila(string userHandle, float amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null,
+        public ApiResponse<object> TransferSila(string userHandle, int amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null,
             string descriptor = null, string businessUuid = null)
         {
             TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid);
@@ -535,17 +543,18 @@ namespace SilaAPI.silamoney.client.api
         /// Makes a call to /get_entity.
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
+        /// <param name="prettyDates"></param>
         /// </summary>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey)
+        public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey, bool? prettyDates = null)
         {
-            var path = "/get_entity";
-            Dictionary<String, String> header = new Dictionary<string, string>();
+            var path = $"/get_entity{UrlParamsUtilities.AddQueryParameter("", "pretty_dates", prettyDates.ToString())}";
+            Dictionary<string, string> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("auth_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
 
             return MakeRequest<GetEntityResponse>(path, body, userPrivateKey);
@@ -773,6 +782,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// Add a new device fingerprint to a registered entity
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="deviceFingerprint">Iovation device token to be used in verification</param>
+        /// <returns></returns>
+        public ApiResponse<object> AddDevice(string userHandle, string userPrivateKey, string deviceFingerprint)
+        {
+            var body = new DeviceMsg(Configuration.AppHandle, userHandle, deviceFingerprint);
+            return CallRegistrationData<BaseResponse>("add", RegistrationData.Device, userPrivateKey, body);
+        }
+
+        /// <summary>
         /// Update an existing email of a registered entity
         /// </summary>
         /// <param name="userHandle">The user handle</param>
@@ -793,10 +815,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey">The user's private key</param>
         /// <param name="uuid">The phone uuid</param>
         /// <param name="phone">The updated phone</param>
+        /// <param name="smsOptIn">optional boolean field. If true, and if app is configured to send SMS messages, sends a confirmation SMS to the passed-in phone number</param>
         /// <returns></returns>
-        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone)
+        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone, bool? smsOptIn = null)
         {
-            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid);
+            PhoneMsg body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid, smsOptIn);
             return CallRegistrationData<PhoneResponse>("update", RegistrationData.Phone, userPrivateKey, body);
         }
 
@@ -858,7 +881,7 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<T>(path, body, userPrivateKey);
         }
 
-        private string GetRequestParams(int? page, int? perPage, string order = null)
+        private string GetRequestParams(int? page = null, int? perPage = null, string order = null)
         {
             string requestParams = "";
             if (page.HasValue)
@@ -941,7 +964,8 @@ namespace SilaAPI.silamoney.client.api
 
             object responseBody;
 
-            Console.WriteLine(response.Content);
+            if (Configuration.Debug)
+                Console.WriteLine(response.Content);
 
             switch (statusCode)
             {

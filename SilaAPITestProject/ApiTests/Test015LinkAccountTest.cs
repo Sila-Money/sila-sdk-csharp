@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test015_LinkAccountTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - LinkAccount - Empty user handle failure")]
         public void T001_Response400()
@@ -79,6 +79,15 @@ namespace SilaApiTest
             parsedData = (LinkAccountResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
+            Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
+            Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
+
+            user = DefaultConfig.InstantUser;
+            plaid = DefaultConfig.PlaidToken;
+            response = api.LinkAccount(user.UserHandle, plaid.Token, user.PrivateKey);
+
+            Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link plaid account - status code");
+            parsedData = (LinkAccountResponse)response.Data;
             Assert.AreEqual("SUCCESS", parsedData.Status, $"{user.UserHandle} should link plaid account - status");
             Assert.IsFalse(string.IsNullOrEmpty(parsedData.AccountName));
         }

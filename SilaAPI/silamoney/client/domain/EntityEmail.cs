@@ -12,6 +12,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         /// <value>Email</value>
         [JsonProperty("email")]
-        public string Email{get;set;}
+        public string Email { get; set; }
     }
 }

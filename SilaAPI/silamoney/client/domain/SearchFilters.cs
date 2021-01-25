@@ -59,10 +59,10 @@ namespace SilaAPI.silamoney.client.domain
         public string TransactionId { get; set; }
         
         /// <summary>
-        /// Decimal field used in the SearchFilters object to save max sila amount
+        /// Int field used in the SearchFilters object to save max sila amount
         /// </summary>
         [DataMember(Name = "max_sila_amount", EmitDefaultValue = false)]
-        public decimal? MaxSilaAmount { get; set; }
+        public int? MaxSilaAmount { get; set; }
         /// <summary>
         /// String field used in the SearchFilters object to save reference id
         /// </summary>
@@ -86,10 +86,10 @@ namespace SilaAPI.silamoney.client.domain
         public int? StartEpoch { get; set; }
         
         /// <summary>
-        /// Decimal field used in the SearchFilters object to save min sila amount
+        /// Int field used in the SearchFilters object to save min sila amount
         /// </summary>
         [DataMember(Name = "min_sila_amount", EmitDefaultValue = false)]
-        public decimal? MinSilaAmount { get; set; }           
+        public int? MinSilaAmount { get; set; }           
 
         /// <summary>
         /// SearchFilters constructor
@@ -111,8 +111,8 @@ namespace SilaAPI.silamoney.client.domain
             string referenceId = default,
             Statuses[] statuses = default,
             TransactionTypes[] transactionTypes = default,
-            decimal? maxSilaAmount = default,
-            decimal? minSilaAmount = default,
+            int? maxSilaAmount = default,
+            int? minSilaAmount = default,
             int? startEpoch = default,
             int? endEpoch = default,
             int? page = default,

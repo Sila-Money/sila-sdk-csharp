@@ -18,6 +18,16 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("modified_epoch")]
         public int ModifiedEpoch { get; set; }
         /// <summary>
+        /// RFC3339 formatted date for creation
+        /// </summary>
+        [JsonProperty("added")]
+        public string Added { get; set; }
+        /// <summary>
+        /// RFC3339 formatted date for creation
+        /// </summary>
+        [JsonProperty("modified")]
+        public string Modified { get; set; }
+        /// <summary>
         /// Uuid field in entities information.
         /// </summary>
         [JsonProperty("uuid")]

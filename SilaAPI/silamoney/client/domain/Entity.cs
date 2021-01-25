@@ -63,11 +63,6 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "naics_code", EmitDefaultValue = false)]
         public int? NaicsCode { get; set; }
         /// <summary>
-        /// Int field used in the Entity object to save the created epoch
-        /// </summary>
-        [DataMember(Name = "created_epoch", EmitDefaultValue = false)]
-        public int CreatedEpoch { get; set; }
-        /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "business_type_uuid", EmitDefaultValue = false)]

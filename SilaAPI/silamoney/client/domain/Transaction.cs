@@ -33,11 +33,12 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
-        /// <summary>
-        /// Float field value used in the Transaction objet to save sila_amount
-        /// </summary>
         [JsonProperty("sila_amount")]
-        public float SilaAmount { get; set; }
+        internal float Amount { get; set; }
+        /// <summary>
+        /// Int field value used in the Transaction objet to save sila_amount
+        /// </summary>
+        public int SilaAmount { get { return (int)Amount; } }
         /// <summary>
         /// String field value used in the Transaction objet to save bank_account_name
         /// </summary>

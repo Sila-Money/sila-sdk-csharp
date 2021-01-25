@@ -8,7 +8,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test018CancelTransaction
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CancelTransaction - Successfully cancel issue transaction")]
         public void Response200Success()
@@ -16,7 +16,6 @@ namespace SilaApiTest
             var user = DefaultConfig.FirstUser;
             var issueResponse = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
             Assert.AreEqual(200, issueResponse.StatusCode);
-            Thread.Sleep(3000);
             var response = api.CancelTransaction(user.UserHandle, user.PrivateKey, ((TransactionResponse)issueResponse.Data).TransactionId);
             var parsedResponse = (BaseResponse)response.Data;
 

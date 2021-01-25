@@ -20,7 +20,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        public SingleWallet Wallet { get; set; }
+        public WalletResponse Wallet { get; set; }
 
         /// <summary>
         /// 
@@ -28,10 +28,12 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("is_whitelisted")]
         public bool IsWhitelisted { get; set; }
 
+        [JsonProperty("sila_balance")]
+        internal decimal Balance { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("sila_balance")]
-        public decimal SilaBalance { get; set; }
+        public int SilaBalance { get { return decimal.ToInt32(Balance); } }
     }
 }

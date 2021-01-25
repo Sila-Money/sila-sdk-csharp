@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test020RedeemSilaTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - RedeemSila - Successful redeem for user")]
         public void T001Response200Success()

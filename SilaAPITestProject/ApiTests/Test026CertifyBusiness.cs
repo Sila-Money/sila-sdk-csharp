@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test026CertifyBusiness
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - CertifyBusiness - Successful certify business")]
         public void Response200()

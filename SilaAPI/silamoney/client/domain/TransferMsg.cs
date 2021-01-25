@@ -37,7 +37,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
         public TransferMsg(string userHandle,
-            float amount,
+            int amount,
             string destinationHandle,
             string authHandle,
             string destinationAddress,

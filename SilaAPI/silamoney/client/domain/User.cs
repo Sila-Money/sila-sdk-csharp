@@ -47,10 +47,12 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="cryptoAlias"></param>
         /// <param name="addressAlias"></param>
         /// <param name="type"></param>
+        /// <param name="deviceFingerprint"></param>
+        /// <param name="smsOptIn"></param>
         public User(string userHandle, string firstName = null, string lastName = null, string entityName = null, string identityValue = null, string phone = null,
             string email = null, string streetAddress1 = null, string streetAddress2 = null, string city = null, string state = null, string postalCode = null,
             string cryptopAddress = null, DateTime? birthdate = null, string country = null, string contactAlias = null, string cryptoAlias = null, string addressAlias = null,
-            string type = null)
+            string type = null, string deviceFingerprint = null, bool? smsOptIn = null)
         {
             UserHandle = userHandle;
             FirstName = firstName;
@@ -70,7 +72,9 @@ namespace SilaAPI.silamoney.client.domain
             ContactAlias = contactAlias;
             CryptoAlias = cryptoAlias;
             AddressAlias = addressAlias;
+            DeviceFingerprint = deviceFingerprint;
             Type = type;
+            SmsOptIn = smsOptIn;
         }
     }
 }

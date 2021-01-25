@@ -1,4 +1,5 @@
-﻿using SilaAPI.silamoney.client.domain;
+﻿using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 using static SilaAPITestProject.Utilities.PlaidTokenHelper;
@@ -7,15 +8,15 @@ namespace SilaApiTest
 {
     class DefaultConfig
     {
-        public static string environment = Environments.SANDBOX;
+        public static string environment = "https://stageapi.silamoney.com/0.2";
         public static string privateKey = Environment.GetEnvironmentVariable("SILA_PRIVATE_KEY");
-        public static string appHandle = "digital_geko_e2e.silamoney.eth";
-        public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+        public static string appHandle = "end2end.silamoney.eth";
+        public static string businessUuid = "ec5d1366-b56c-4442-b6c3-c919d548fcb5";
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
         public static string IssueTrans { get { return "Issue Trans"; } }
         public static string TransferTrans { get { return "Transfer Trans"; } }
         public static string RedeemTrans { get { return "Redeem Trans"; } }
-        public static string InvalidBusinessUuidRegex { get { return $"{InvalidBusinessUuid} does not have an approved ACH display name"; } }
+        public static string InvalidBusinessUuidRegex { get { return $"uuid {InvalidBusinessUuid} could not be found"; } }
         public static List<BusinessRole> BusinessRoles { get; set; }
         public static List<BusinessType> BusinessTypes { get; set; }
         public static List<DocumentType> DocumentTypes { get; set; }
@@ -28,7 +29,19 @@ namespace SilaApiTest
         private static UserConfiguration fourthUser;
         private static UserConfiguration businessUser;
         private static UserConfiguration basicUser;
+        private static UserConfiguration deviceUser;
         private static UserConfiguration basicBusiness;
+        private static UserConfiguration instantUser;
+        private static SilaApi client;
+
+        public static SilaApi Client
+        {
+            get
+            {
+                if (client == null) client = new SilaApi(environment, privateKey, appHandle, true);
+                return client;
+            }
+        }
 
         public static UserConfiguration FirstUser
         {
@@ -84,12 +97,30 @@ namespace SilaApiTest
             }
         }
 
+        public static UserConfiguration DeviceUser
+        {
+            get
+            {
+                if (deviceUser == null) deviceUser = new UserConfiguration();
+                return deviceUser;
+            }
+        }
+
         public static UserConfiguration BasicBusiness
         {
             get
             {
                 if (basicBusiness == null) basicBusiness = new UserConfiguration();
                 return basicBusiness;
+            }
+        }
+
+        public static UserConfiguration InstantUser
+        {
+            get
+            {
+                if (instantUser == null) instantUser = new UserConfiguration();
+                return instantUser;
             }
         }
 

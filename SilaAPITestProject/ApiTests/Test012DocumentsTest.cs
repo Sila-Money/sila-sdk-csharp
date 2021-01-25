@@ -9,7 +9,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test012DocumentsTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - UploadDocument - Successfully upload file")]
         public void Response200()

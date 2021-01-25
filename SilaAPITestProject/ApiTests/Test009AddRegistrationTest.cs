@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test009AddRegistrationTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - AddAddress - Success Response")]
         public void Response200Address()
@@ -111,6 +111,20 @@ namespace SilaApiTest
             Assert.AreEqual(phone, parsedResponse.Phone.Phone);
 
             DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
+        }
+
+        [TestMethod("5 - AddDevice - Success Response")]
+        public void Response200Device()
+        {
+            var user = DefaultConfig.FirstUser;
+            var deviceFingerprint = "test_device_fingerprint";
+            var response = api.AddDevice(user.UserHandle, user.PrivateKey, deviceFingerprint);
+
+            Assert.AreEqual(200, response.StatusCode);
+            var parsedResponse = (BaseResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Message.Contains("Device successfully registered"));
         }
     }
 }

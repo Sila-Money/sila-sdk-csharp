@@ -7,7 +7,15 @@ namespace SilaApiTest
 {
     public static class ModelsUtilities
     {
-        public static User firstUser;
+        private static User firstUser;
+        private static User secondUser;
+        private static User thirdUser;
+        private static User fourthUser;
+        private static BusinessUser businessUser;
+        private static User basicUser;
+        private static User deviceUser;
+        private static BusinessUser basicBusiness;
+        private static User instantUser;
         public static User FirstUser
         {
             get
@@ -16,8 +24,6 @@ namespace SilaApiTest
                 return firstUser;
             }
         }
-
-        public static User secondUser;
         public static User SecondUser
         {
             get
@@ -26,8 +32,6 @@ namespace SilaApiTest
                 return secondUser;
             }
         }
-
-        public static User thirdUser;
         public static User ThirdUser
         {
             get
@@ -36,9 +40,6 @@ namespace SilaApiTest
                 return thirdUser;
             }
         }
-
-        public static User fourthUser;
-
         public static User FourthUser
         {
             get
@@ -47,9 +48,6 @@ namespace SilaApiTest
                 return fourthUser;
             }
         }
-
-        public static BusinessUser businessUser;
-
         public static BusinessUser BusinessUser
         {
             get
@@ -58,9 +56,6 @@ namespace SilaApiTest
                 return businessUser;
             }
         }
-
-        private static User basicUser;
-
         public static User BasicUser
         {
             get
@@ -75,9 +70,23 @@ namespace SilaApiTest
                 return basicUser;
             }
         }
-
-        private static BusinessUser basicBusiness;
-
+        public static User DeviceUser
+        {
+            get
+            {
+                if (deviceUser == null) deviceUser = new User
+                {
+                    UserHandle = DefaultConfig.DeviceUser.UserHandle,
+                    FirstName = "Device",
+                    LastName = "User",
+                    CryptoAddress = DefaultConfig.DeviceUser.CryptoAddress,
+                    DeviceFingerprint = "test_instant_ach",
+                    Phone = "1234567890",
+                    SmsOptIn = true
+                };
+                return deviceUser;
+            }
+        }
         public static BusinessUser BasicBusiness
         {
             get
@@ -89,9 +98,39 @@ namespace SilaApiTest
                     CryptoAddress = DefaultConfig.BasicBusiness.CryptoAddress,
                     Type = "business",
                     BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
-                    NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code
+                    NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code,
+                    DeviceFingerprint = "test_business_ach",
+                    Phone = "1234567890",
+                    SmsOptIn = true
                 };
                 return basicBusiness;
+            }
+        }
+        public static User InstantUser
+        {
+            get
+            {
+                if (instantUser == null) instantUser = new User
+                {
+                    UserHandle = DefaultConfig.InstantUser.UserHandle,
+                    FirstName = "Instant",
+                    LastName = "User",
+                    EntityName = "Instant User",
+                    IdentityValue = "123452222",
+                    Phone = "1234567890",
+                    SmsOptIn = true,
+                    Email = "intant@email.com",
+                    AddressAlias = "default",
+                    StreetAddress1 = "1232 Main Street",
+                    City = "New City",
+                    State = "OR",
+                    PostalCode = "97204",
+                    CryptoAddress = DefaultConfig.InstantUser.CryptoAddress,
+                    CryptoAlias = "default",
+                    Birthdate = new DateTime(1994, 1, 8),
+                    DeviceFingerprint = "test_instant_ach"
+                };
+                return instantUser;
             }
         }
 
@@ -105,104 +144,6 @@ namespace SilaApiTest
         {
             return new BusinessUser(handle, entityName, "123452222", "1234567890", "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code);
-        }
-
-        public static GetTransactionsResult CreateTransactionResult()
-        {
-            GetTransactionsResult responseMessage = new GetTransactionsResult
-            {
-                Success = true,
-                Page = 1,
-                ReturnedCount = 1,
-                TotalCount = 1,
-                Transactions = CreateTransactions()
-            };
-
-            return responseMessage;
-        }
-
-        private static List<Transaction> CreateTransactions()
-        {
-            List<Transaction> transactions = new List<Transaction>();
-            Transaction transaction = new Transaction
-            {
-                UserHandle = "user.silamoney.eth",
-                ReferenceId = "ref",
-                TransactionHash = "0x1234567890abcdef1234567890abcdef",
-                TransactionType = "issue",
-                SilaAmount = 1000,
-                BankAccountName = "default",
-                HandleAddress = "0x65a796a4bD3AaF6370791BefFb1A86EAcfdBc3C1",
-                Status = "success",
-                UsdStatus = "success",
-                TokenStatus = "success",
-                Created = "2019-04-03T00:00:00.000Z",
-                LastUpdate = "2019-04-03T00:00:00.003Z",
-                CreatedEpoch = 1234567890,
-                LastUpdateEpoch = 1234567899,
-                TimeLines = CreateTimeLines()
-            };
-
-            transactions.Add(transaction);
-
-            return transactions;
-        }
-
-        private static List<TimeLine> CreateTimeLines()
-        {
-            List<TimeLine> TimeLines = new List<TimeLine>();
-            TimeLine timeLine = new TimeLine
-            {
-                Date = "2019-04-03T00:00:00.000Z",
-                DateEpoch = 1234567890,
-                Status = "queued",
-                UsdStatus = "not started",
-                TokenStatus = "not started"
-            };
-
-            TimeLines.Add(timeLine);
-
-            return TimeLines;
-        }
-
-        internal static List<Account> CreateGetAccountsResult()
-        {
-            List<Account> accounts = new List<Account>();
-            Account account = new Account
-            {
-                AccountName = "default",
-                AccountNumber = "1234",
-                AccountStatus = "active",
-                AccountType = "CHEKING"
-            };
-
-            accounts.Add(account);
-
-            return accounts;
-        }
-
-        internal static BaseResponse CreateResponse(string reference, string message, string Status)
-        {
-            BaseResponse response = new BaseResponse
-            {
-                Message = message,
-                Reference = reference,
-                Status = Status
-            };
-
-            return response;
-        }
-
-        internal static GetTransactionsResponse CreateResponse(string reference, GetTransactionsResult message, string Status)
-        {
-            GetTransactionsResponse response = new GetTransactionsResponse
-            {
-                Message = message,
-                Reference = reference,
-                Status = Status
-            };
-
-            return response;
         }
     }
 }

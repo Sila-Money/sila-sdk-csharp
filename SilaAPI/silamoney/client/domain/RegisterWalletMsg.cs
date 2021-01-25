@@ -12,12 +12,12 @@ namespace SilaAPI.silamoney.client.domain
         /// Wallet field used in the RegisterWalletMsg object to save wallet
         /// </summary>
         [DataMember(Name = "wallet", EmitDefaultValue = false)]
-        public Wallet Wallet { get; set; }        
+        public Wallet Wallet { get; set; }
         /// <summary>
         /// String field used in the RegisterWalletMsg object to save wallet_verification_signature
         /// </summary>
         [DataMember(Name = "wallet_verification_signature", EmitDefaultValue = false)]
-        public string WalletVerificationSignature { get; set; }   
+        public string WalletVerificationSignature { get; set; }
 
         /// <summary>
         /// RegisterWalletMsg constructor
@@ -32,7 +32,8 @@ namespace SilaAPI.silamoney.client.domain
             string nickname)
         {
             Header = new Header(userHandle, authHandle);
-            WalletVerificationSignature = Signer.Sign(wallet.Address, wallet.PrivateKey);
+            if (!string.IsNullOrWhiteSpace(wallet.PrivateKey))
+                WalletVerificationSignature = Signer.Sign(wallet.Address, wallet.PrivateKey);
             Wallet = new Wallet(wallet.Address, Header.Crypto.ETH, nickname);
         }
     }

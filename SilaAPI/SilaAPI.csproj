@@ -10,7 +10,7 @@
     <Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
     <Company>DigitalGeko</Company>
     <Product>SilaSDK</Product>
-    <Version>0.2.13-rc4</Version>
+    <Version>0.2.17-rc</Version>
     <owners>Silamoney</owners>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -43,5 +43,11 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/release-notes.txt"))</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
 
 </Project>

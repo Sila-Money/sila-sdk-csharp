@@ -7,7 +7,7 @@ namespace SilaApiTest
     [TestClass]
     public class Test025DeleteWalletTest
     {
-        SilaApi api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle);
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - DeleteWallet - Successful wallet deletion")]
         public void Response200()

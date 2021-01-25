@@ -5,22 +5,22 @@
     /// </summary>
     public static class Environments
     {
-        private const string _sandbox = "https://sandbox.silamoney.com/0.2";
+        internal const string sandbox = "https://sandbox.silamoney.com/0.2";
         /// <summary>
         /// Property to get sandbox envirnoment.
         /// </summary>
-        public static string SANDBOX { get => _sandbox; }
+        public static string SANDBOX { get => sandbox; }
 
-        private const string _production = "https://api.silamoney.com/0.2";
+        private const string production = "https://api.silamoney.com/0.2";
         /// <summary>
         /// Property to get production envirnoment.
         /// </summary>
-        public static string PRODUCTION { get => _production; }
+        public static string PRODUCTION { get => production; }
 
-        private const string _local = "http://localhost:8080";
+        private const string local = "http://localhost:8080";
         /// <summary>
         /// Property to get localhost envirnoment.
         /// </summary>
-        public static string LOCAL { get => _local; }
+        public static string LOCAL { get => local; }
     }
 }
