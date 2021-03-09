@@ -34,7 +34,6 @@ namespace SilaApiTest
             var response = failApi.RegisterWallet(user.UserHandle, user.PrivateKey, wallet, "fail_app");
 
             Assert.AreEqual(403, response.StatusCode, "Bad app signature status - RegisterWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - RegisterWallet");
         }
 
         [TestMethod("3 - RegisterWallet - Bad user signature failure")]
@@ -44,7 +43,6 @@ namespace SilaApiTest
             var response = api.RegisterWallet(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey, wallet, "fail_user");
 
             Assert.AreEqual(403, response.StatusCode, "Bad user signature status - RegisterWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - RegisterWallet");
         }
 
         [TestMethod("4 - RegisterWallet - Bad wallet signature failure")]
@@ -56,7 +54,6 @@ namespace SilaApiTest
             var response = api.RegisterWallet(user.UserHandle, user.PrivateKey, wallet, "fail_wallet");
 
             Assert.AreEqual(403, response.StatusCode, "Bad wallet signature status - RegisterWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("wallet signature"), "Bad wallet signature message - RegisterWallet");
         }
 
         public void Response400Wallet()

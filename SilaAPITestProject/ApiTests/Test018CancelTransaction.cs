@@ -22,7 +22,6 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsTrue(parsedResponse.Success);
-            Assert.IsTrue(parsedResponse.Message.Contains($"Transaction {((TransactionResponse)issueResponse.Data).TransactionId} has been canceled"));
         }
     }
 }

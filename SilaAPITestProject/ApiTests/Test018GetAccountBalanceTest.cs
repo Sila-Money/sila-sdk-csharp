@@ -43,7 +43,6 @@ namespace SilaApiTest
             var response = api.GetAccountBalance(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey, "default");
 
             Assert.AreEqual(403, response.StatusCode, "Bad user signature status - GetAccountBalance");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - GetAccountBalance");
         }
 
         [TestMethod("4 - GetAccountBalance - Bad app signature failure")]
@@ -56,7 +55,6 @@ namespace SilaApiTest
             var response = failApi.GetAccountBalance(user.UserHandle, user.PrivateKey, "default");
 
             Assert.AreEqual(403, response.StatusCode, "Bad app signature status - GetAccountBalance");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - GetAccountBalance");
         }
     }
 }

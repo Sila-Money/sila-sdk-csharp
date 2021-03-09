@@ -9,7 +9,7 @@ namespace SilaApiTest
     class DefaultConfig
     {
         public static string environment = "https://stageapi.silamoney.com/0.2";
-        public static string privateKey = Environment.GetEnvironmentVariable("SILA_PRIVATE_KEY");
+        public static string privateKey = "98cf2bcc3244b7688cf73f68c441872d5f0e8fa1fc77d2d843a3ee96cb27b2a5";
         public static string appHandle = "end2end.silamoney.eth";
         public static string businessUuid = "ec5d1366-b56c-4442-b6c3-c919d548fcb5";
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }

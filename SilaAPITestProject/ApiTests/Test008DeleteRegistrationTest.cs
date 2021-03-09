@@ -22,7 +22,6 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponseWithoutReference)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains($"Successfully deleted identity with UUID {entityResponse.Identities[0].Uuid}"));
         }
     }
 }

@@ -26,7 +26,6 @@ namespace SilaApiTest
             var parsedResponse = (AddressResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated address"));
             Assert.IsNotNull(parsedResponse.Address);
             Assert.IsNotNull(parsedResponse.Address.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Address.ModifiedEpoch);
@@ -51,7 +50,6 @@ namespace SilaApiTest
             var parsedResponse = (EmailResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated email"));
             Assert.IsNotNull(parsedResponse.Email);
             Assert.IsNotNull(parsedResponse.Email.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Email.ModifiedEpoch);
@@ -76,7 +74,6 @@ namespace SilaApiTest
             var parsedResponse = (IndividualEntityResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated entity"));
             Assert.AreEqual(user.UserHandle.ToLower(), parsedResponse.UserHandle);
             Assert.AreEqual("individual", parsedResponse.EntityType);
             Assert.IsNotNull(parsedResponse.Entity);
@@ -105,7 +102,6 @@ namespace SilaApiTest
             var parsedResponse = (BusinessEntityResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated entity"));
             Assert.AreEqual(user.UserHandle.ToLower(), parsedResponse.UserHandle);
             Assert.AreEqual("business", parsedResponse.EntityType);
             Assert.IsNotNull(parsedResponse.Entity);
@@ -136,7 +132,6 @@ namespace SilaApiTest
             var parsedResponse = (IdentityResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated identity"));
             Assert.IsNotNull(parsedResponse.Identity);
             Assert.IsNotNull(parsedResponse.Identity.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Identity.ModifiedEpoch);
@@ -160,7 +155,6 @@ namespace SilaApiTest
             var parsedResponse = (PhoneResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully updated phone"));
             Assert.IsNotNull(parsedResponse.Phone);
             Assert.IsNotNull(parsedResponse.Phone.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Phone.ModifiedEpoch);

@@ -14,11 +14,11 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
+            api.IssueSila(user.UserHandle, 420, user.PrivateKey);
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.IssueReference = parsedResponse.Reference;
         }
@@ -31,7 +31,6 @@ namespace SilaApiTest
             var parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.AreEqual(DefaultConfig.IssueTrans, parsedResponse.Descriptor);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
@@ -44,7 +43,6 @@ namespace SilaApiTest
             var parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
@@ -57,7 +55,6 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             TransactionResponse parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
@@ -89,8 +86,7 @@ namespace SilaApiTest
             var parsedResponse = (BadRequestResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
-        }
+            }
 
         [TestMethod("8 - IssueSila - Bad user signature failure")]
         public void Response401User()
@@ -98,7 +94,6 @@ namespace SilaApiTest
             var response = api.IssueSila(DefaultConfig.FirstUser.UserHandle, 1000, DefaultConfig.privateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - IssueSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - IssueSila");
         }
 
         [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
@@ -121,7 +116,6 @@ namespace SilaApiTest
             var response = failApi.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - IssueSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - IssueSila");
         }
     }
 }

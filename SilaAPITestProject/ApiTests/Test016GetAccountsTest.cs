@@ -51,7 +51,6 @@ namespace SilaApiTest
             var response = failApi.GetAccounts(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - GetAccounts");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - GetAccounts");
         }
     }
 }

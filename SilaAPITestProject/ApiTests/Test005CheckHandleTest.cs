@@ -52,7 +52,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(400, response.StatusCode, "Empty user handle should fail - CheckHandle");
             var parsedResponse = (BadRequestResponse)response.Data;
-            Assert.IsTrue(parsedResponse.AllValidationDetails.Contains("header.user_handle: This field may not be blank." + Environment.NewLine));
         }
 
         [TestMethod("4 - CheckHandle - Bad signature failure")]

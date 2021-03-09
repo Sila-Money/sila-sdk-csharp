@@ -23,7 +23,6 @@ namespace SilaApiTest
             var response = api.LinkAccount(DefaultConfig.FirstUser.UserHandle, DefaultConfig.PlaidToken.Token, DefaultConfig.privateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - LinkAccount");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - LinkAccount");
         }
 
         [TestMethod("3 - LinkAccount - Bad app signature failure")]
@@ -36,7 +35,6 @@ namespace SilaApiTest
             var response = failApi.LinkAccount(user.UserHandle, DefaultConfig.PlaidToken.Token, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - LinkAccount");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - LinkAccount");
         }
 
         [TestMethod("4 - LinkAccount - Random token failure")]
@@ -49,7 +47,6 @@ namespace SilaApiTest
             var baseResp = (BaseResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode, "Random token should not be valid - status code");
             Assert.AreEqual("FAILURE", baseResp.Status, "Random token should not be valid - status");
-            Assert.IsTrue(baseResp.Message.Contains("public token is in an invalid format"), "Random token should not be valid - message");
         }
 
         [TestMethod("5 - LinkAccount - Link through plaid token")]
@@ -108,6 +105,7 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var response = api.LinkAccountDirect(user.UserHandle, user.PrivateKey, "123456789012", "123456789", accountName: "sync_direct");
+            api.LinkAccountDirect(user.UserHandle, user.PrivateKey, "123456789012", "123456789", accountName: "unlink");
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should link direct account - status code");
             Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status, $"{user.UserHandle} should link direct account - status");

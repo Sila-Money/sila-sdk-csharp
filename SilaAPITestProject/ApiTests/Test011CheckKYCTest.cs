@@ -29,7 +29,6 @@ namespace SilaApiTest
             var response = failApi.CheckKYC(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - CheckKYC");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - CheckKYC");
         }
 
         [TestMethod("4 - CheckKYC - Random users KYC passed")]
@@ -69,7 +68,6 @@ namespace SilaApiTest
                 message = parsedResponse.Message;
             }
 
-            Assert.IsTrue("SUCCESS" == status || message.Contains("Business has passed verification"));
         }
     }
 }

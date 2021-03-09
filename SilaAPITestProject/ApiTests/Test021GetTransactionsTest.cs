@@ -15,14 +15,29 @@ namespace SilaApiTest
         [TestMethod("1 - GetTransactions - Successfully retrieve timeline of transactions")]
         public void T001_GetTransactionsWithTimeline()
         {
-            SearchFilters filters = new SearchFilters(showTimelines: true);
-            var response = api.GetTransactions(DefaultConfig.FirstUser.UserHandle, DefaultConfig.FirstUser.PrivateKey, filters);
+            SearchFilters filters = new SearchFilters(showTimelines: true); 
+            var response = api.GetTransactions(DefaultConfig.FirstUser.UserHandle, filters);
 
             Assert.AreEqual(200, response.StatusCode);
             var parsedResponse = (GetTransactionsResult)response.Data;
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
             Assert.IsNotNull(parsedResponse.Transactions[0].TimeLines);
             Assert.IsTrue(parsedResponse.Transactions[0].TimeLines.Count > 0);
+        }
+
+        [TestMethod("2 - GetTransactions - Successfully retrieve failed transactions")]
+        public void T0012GetFailedTransactions()
+        {
+            List<SearchFilters.Statuses> statuses = new List<SearchFilters.Statuses>();
+            statuses.Add(SearchFilters.Statuses.Failed);
+            SearchFilters filters = new SearchFilters(showTimelines: true, statuses: statuses.ToArray()); 
+            var response = api.GetTransactions(DefaultConfig.FirstUser.UserHandle, filters);
+
+            Assert.AreEqual(200, response.StatusCode);
+            var parsedResponse = (GetTransactionsResult)response.Data;
+            Assert.IsTrue(parsedResponse.Transactions.Count > 0);
+            Assert.IsNotNull(parsedResponse.Transactions[0].ReturnCode);
+            Assert.IsNotNull(parsedResponse.Transactions[0].ReturnDesc);
         }
 
     }

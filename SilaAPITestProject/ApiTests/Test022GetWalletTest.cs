@@ -39,7 +39,6 @@ namespace SilaApiTest
             var response = failApi.GetWallet(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(403, response.StatusCode, "Bad app signature status - GetWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - GetWallet");
         }
 
         [TestMethod("3 - GetWallet - Bad user signature failure")]
@@ -48,7 +47,6 @@ namespace SilaApiTest
             var response = api.GetWallet(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey);
 
             Assert.AreEqual(403, response.StatusCode, "Bad user signature status - GetWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - GetWallet");
         }
     }
 }

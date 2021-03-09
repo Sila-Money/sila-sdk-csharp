@@ -20,7 +20,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
             DefaultConfig.InvalidTransferReference = parsedResponse.Reference;
@@ -48,7 +47,6 @@ namespace SilaApiTest
             var parsedResponse = (TransferResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
         }
@@ -61,7 +59,6 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponse)response.Data;
             Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("does not exist"));
         }
 
         [TestMethod("5 - TransferSila - Successful transfer with wallet")]
@@ -85,7 +82,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("does not exist"));
         }
 
         [TestMethod("7 - TransferSila - Successful transfer with address")]
@@ -108,7 +104,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("same address as sender is prohibited"));
         }
 
         [TestMethod("9 - TransferSila - Successful transfer tokens with business uuid and descriptor")]
@@ -119,7 +114,6 @@ namespace SilaApiTest
             var parsedResponse = (TransferResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
             Assert.AreEqual(DefaultConfig.TransferTrans, parsedResponse.Descriptor);
@@ -154,7 +148,6 @@ namespace SilaApiTest
             var parsedResponse = (BadRequestResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
         }
 
         [TestMethod("13 - TransferSila - Bad user signature failure")]
@@ -163,7 +156,6 @@ namespace SilaApiTest
             var response = api.TransferSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, DefaultConfig.privateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - TransferSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - TransferSila");
         }
 
         [TestMethod("14 - TransferSila - Bad app signature failure")]
@@ -176,7 +168,6 @@ namespace SilaApiTest
             var response = failApi.TransferSila(user.UserHandle, 100, DefaultConfig.SecondUser.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - TransferSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - TransferSila");
         }
     }
 }

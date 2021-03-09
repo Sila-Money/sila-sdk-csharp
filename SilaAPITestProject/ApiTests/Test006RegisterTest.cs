@@ -80,19 +80,16 @@ namespace SilaApiTest
             var firstResponse = api.Register(firstUser);
 
             Assert.AreEqual(400, firstResponse.StatusCode, $"{firstUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)firstResponse.Data).Message.Contains("taken"), $"{firstUser.UserHandle} should be taken");
-
+            
             var secondUser = ModelsUtilities.SecondUser;
             var secondResponse = api.Register(secondUser);
 
             Assert.AreEqual(400, secondResponse.StatusCode, $"{secondUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)secondResponse.Data).Message.Contains("taken"), $"{secondUser.UserHandle} should be taken");
-
+            
             var thirdUser = ModelsUtilities.ThirdUser;
             var thirdResponse = api.Register(thirdUser);
 
             Assert.AreEqual(400, thirdResponse.StatusCode, $"{thirdUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)thirdResponse.Data).Message.Contains("taken"), $"{thirdUser.UserHandle} should be taken");
         }
 
         [TestMethod("3 - Register - Bad signature failure")]

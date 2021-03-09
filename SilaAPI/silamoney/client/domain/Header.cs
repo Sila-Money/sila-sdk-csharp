@@ -32,7 +32,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the Header object to save auth handle
         /// </summary>
-        [DataMember(Name = "auth_handle", EmitDefaultValue = false)]
+        [DataMember(Name = "app_handle", EmitDefaultValue = false)]
         public string AuthHandle { get; set; }
         /// <summary>
         /// Enum field used in the Header object to select crypto

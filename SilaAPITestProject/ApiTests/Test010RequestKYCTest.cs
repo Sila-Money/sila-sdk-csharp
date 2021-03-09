@@ -15,7 +15,6 @@ namespace SilaApiTest
             var response = api.RequestKYC(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - RequestKYC");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - RequestKYC");
         }
 
         [TestMethod("2 - RequestKYC - Bad app signature failure")]
@@ -28,7 +27,6 @@ namespace SilaApiTest
             var response = failApi.RequestKYC(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - RequestKYC");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - RequestKYC");
         }
 
         [TestMethod("3 - RequestKYC - Random KYC Level")]
@@ -38,7 +36,6 @@ namespace SilaApiTest
             var response = api.RequestKYC(user.UserHandle, user.PrivateKey, new System.Random().Next().ToString());
 
             Assert.AreEqual(403, response.StatusCode, "Random KYC level status - RequestKYC");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("KYC flow"), "Random KYC level message - RequestKYC");
         }
 
         [TestMethod("4 - RequestKYC - Random user RequestKYC")]
