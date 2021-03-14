@@ -37,7 +37,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         /// <value>Addresses</value>
         [JsonProperty("addresses")]
-        public List<Address> Addresses {get;set;} 
+        public List<EntityAddress> Addresses {get;set;} 
         /// <summary>
         /// Identities property.
         /// </summary>
