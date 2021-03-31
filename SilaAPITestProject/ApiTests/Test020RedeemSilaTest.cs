@@ -13,12 +13,11 @@ namespace SilaApiTest
         public void T001Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.RedeemReference = parsedResponse.Reference;
         }
@@ -40,12 +39,11 @@ namespace SilaApiTest
         public void T003Response200Descriptor()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.AreEqual(DefaultConfig.RedeemTrans, parsedResponse.Descriptor);
         }
@@ -54,12 +52,11 @@ namespace SilaApiTest
         public void T004Response200SameDay()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("submitted to processing queue"));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
@@ -92,7 +89,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains(DefaultConfig.InvalidBusinessUuidRegex));
         }
 
         [TestMethod("8 - RedeemSila - Bad user signature failure")]
@@ -101,7 +97,6 @@ namespace SilaApiTest
             var response = api.RedeemSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.privateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - IssueSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - IssueSila");
         }
 
         [TestMethod("9 - RedeemSila - Bad app signature failure")]
@@ -114,7 +109,6 @@ namespace SilaApiTest
             var response = failApi.RedeemSila(user.UserHandle, 100, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - IssueSila");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - IssueSila");
         }
     }
 }

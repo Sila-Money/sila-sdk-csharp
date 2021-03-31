@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SilaAPI.silamoney.client.util
 {
@@ -10,12 +12,25 @@ namespace SilaAPI.silamoney.client.util
     {
         public static String Serialize(object obj)
         {
-            return obj != null ? JsonConvert.SerializeObject(obj, 
+            return JsonConvert.SerializeObject(obj,
                 Newtonsoft.Json.Formatting.None,
                 new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
-                }) : null;
+                });
+        }
+
+        public static String Serialize(Dictionary<string, object> obj)
+        {
+            return JsonConvert.SerializeObject(
+                obj
+                .Where(p => p.Value != null)
+                .ToDictionary(p => p.Key, p => p.Value),
+                Newtonsoft.Json.Formatting.None,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
         }
 
         public static Object Deserialize(string obj)

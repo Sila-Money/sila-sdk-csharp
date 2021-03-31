@@ -65,7 +65,8 @@ namespace SilaApiTest
                     UserHandle = DefaultConfig.BasicUser.UserHandle,
                     FirstName = "Basic",
                     LastName = "Last",
-                    CryptoAddress = DefaultConfig.BasicUser.CryptoAddress
+                    CryptoAddress = DefaultConfig.BasicUser.CryptoAddress,
+                    DeviceFingerprint = "asdfghkl"
                 };
                 return basicUser;
             }
@@ -137,13 +138,13 @@ namespace SilaApiTest
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19));
+                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), deviceFingerprint: "asdfghjk", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1");
         }
 
         public static BusinessUser CreateBusinessUser(string handle, string entityName, string cryptoAddress, BusinessType businessType, NaicsSubcategory naicsSubcategory)
         {
             return new BusinessUser(handle, entityName, "123452222", "1234567890", "fake@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code);
+                "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code, deviceFingerprint: "asdfgh", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1", type: "business");
         }
     }
 }

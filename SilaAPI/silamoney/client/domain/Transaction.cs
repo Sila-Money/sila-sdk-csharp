@@ -119,5 +119,17 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("timeline")]
         public List<TimeLine> TimeLines { get; set; }
+        [JsonProperty("error_code")]
+        public string ErrorCode { get; set; }
+        [JsonProperty("error_msg")]
+        public string ErrorMsg { get; set; }
+        [JsonProperty("return_code")]
+        public string ReturnCode { get; set; }
+        [JsonProperty("return_desc")]
+        public string ReturnDesc { get; set; }
+        [JsonProperty("trace_number")]
+        public string TraceNumber { get; set; }
+        [JsonProperty("addenda")]
+        public string Addenda { get; set; }
     }
 }

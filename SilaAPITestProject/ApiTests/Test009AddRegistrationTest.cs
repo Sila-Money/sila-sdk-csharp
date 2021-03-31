@@ -16,10 +16,10 @@ namespace SilaApiTest
             var address = new AddressMessage
             {
                 AddressAlias = "new_address",
-                StreetAddress1 = "324 Songbird Avenue",
-                StreetAddress2 = "Apt. 132",
-                City = "Portland",
-                State = "VA",
+                StreetAddress1 = "324 songbird avenue",
+                StreetAddress2 = "apt. 132",
+                City = "portland",
+                State = "va",
                 PostalCode = "12345",
                 Country = "US"
             };
@@ -29,7 +29,6 @@ namespace SilaApiTest
             var parsedResponse = (AddressResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added address"));
             Assert.IsNotNull(parsedResponse.Address);
             Assert.IsNotNull(parsedResponse.Address.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Address.ModifiedEpoch);
@@ -56,7 +55,6 @@ namespace SilaApiTest
             var parsedResponse = (EmailResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added email"));
             Assert.IsNotNull(parsedResponse.Email);
             Assert.IsNotNull(parsedResponse.Email.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Email.ModifiedEpoch);
@@ -81,7 +79,6 @@ namespace SilaApiTest
             var parsedResponse = (IdentityResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added identity"));
             Assert.IsNotNull(parsedResponse.Identity);
             Assert.IsNotNull(parsedResponse.Identity.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Identity.ModifiedEpoch);
@@ -103,7 +100,6 @@ namespace SilaApiTest
             var parsedResponse = (PhoneResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Successfully added phone"));
             Assert.IsNotNull(parsedResponse.Phone);
             Assert.IsNotNull(parsedResponse.Phone.AddedEpoch);
             Assert.IsNotNull(parsedResponse.Phone.ModifiedEpoch);
@@ -124,7 +120,6 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Device successfully registered"));
         }
     }
 }

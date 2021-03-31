@@ -23,7 +23,6 @@ namespace SilaApiTest
             var parsedResponse = (DocumentResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("File uploaded successfully"));
             Assert.IsNotNull(parsedResponse.ReferenceId);
             Assert.IsNotNull(parsedResponse.DocumentId);
             DefaultConfig.DocumentId = parsedResponse.DocumentId;
@@ -41,7 +40,6 @@ namespace SilaApiTest
             var parsedResponse = (BadRequestResponse)response.Data;
             Assert.IsFalse(parsedResponse.Success);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Bad request"));
         }
 
         [TestMethod("3 - UploadDocument - App signature failure")]
@@ -59,7 +57,6 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponse)response.Data;
             Assert.IsFalse(parsedResponse.Success);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Message.Contains("Failed to authenticate app signature"));
         }
     }
 }

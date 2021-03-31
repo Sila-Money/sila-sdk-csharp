@@ -18,7 +18,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should success get_accounts");
             var parsedResponse = (GetAccountsResponse)response.Data;
-            Assert.AreEqual(3, parsedResponse.Accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
+            Assert.AreEqual(5, parsedResponse.Accounts.Count, $"{user.UserHandle} must have 4 linked accounts");
         }
 
         [TestMethod("2 - GetAccounts - Empty user handle failure")]
@@ -51,7 +51,6 @@ namespace SilaApiTest
             var response = failApi.GetAccounts(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - GetAccounts");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - GetAccounts");
         }
     }
 }

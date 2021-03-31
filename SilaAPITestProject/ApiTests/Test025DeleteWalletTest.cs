@@ -18,7 +18,6 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.IsTrue(parsedResponse.Success);
-            Assert.IsTrue(parsedResponse.Message.Contains($"{wallet.Address}"));
         }
 
         [TestMethod("2 - DeleteWallet - Bad app signature failure")]
@@ -31,7 +30,6 @@ namespace SilaApiTest
             var response = failApi.DeleteWallet(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(403, response.StatusCode, "Bad app signature status - DeleteWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - DeleteWallet");
         }
 
         [TestMethod("3 - DeleteWallet - Unsuccessful wallet deletion")]
@@ -41,7 +39,6 @@ namespace SilaApiTest
             var response = api.DeleteWallet(user.UserHandle, user.PrivateKey);
 
             Assert.AreEqual(403, response.StatusCode);
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("Cannot delete"));
         }
 
         [TestMethod("4 - DeleteWallet - Bad user signature failure")]
@@ -50,7 +47,6 @@ namespace SilaApiTest
             var response = api.DeleteWallet(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey);
 
             Assert.AreEqual(403, response.StatusCode, "Bad user signature status - DeleteWallet");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - DeleteWallet");
         }
     }
 }

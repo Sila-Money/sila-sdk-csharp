@@ -15,23 +15,38 @@ namespace SilaAPI.silamoney.client.domain
             /// <summary>
             /// Value: pending
             /// </summary>
-            [EnumMember(Value = "pending")]
-            Pending = 1,
+            [EnumMember(Value = "queued")]
+            Queued,
             /// <summary>
             /// Value: complete
             /// </summary>
-            [EnumMember(Value = "complete")]
-            Complete = 2,
+            [EnumMember(Value = "pending")]
+            Pending,
             /// <summary>
             /// Value: successful
             /// </summary>
-            [EnumMember(Value = "successful")]
-            Successful = 3,
+            [EnumMember(Value = "failed")]
+            Failed,
             /// <summary>
             /// Value: failed
             /// </summary>
-            [EnumMember(Value = "failed")]
-            Failed = 4
+            [EnumMember(Value = "success")]
+            Success,
+            /// <summary>
+            /// Value: failed
+            /// </summary>
+            [EnumMember(Value = "rollback")]
+            Rollback,
+            /// <summary>
+            /// Value: failed
+            /// </summary>
+            [EnumMember(Value = "review")]
+            Review,
+            /// <summary>
+            /// Value: failed
+            /// </summary>
+            [EnumMember(Value = "pending_confirmation")]
+            PendingConfirmation,
         }
     }
 }

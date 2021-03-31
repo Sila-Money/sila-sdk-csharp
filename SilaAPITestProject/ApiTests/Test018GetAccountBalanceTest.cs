@@ -13,11 +13,11 @@ namespace SilaApiTest
         public void Response200()
         {
             var user = DefaultConfig.FirstUser;
-            var firstResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "default");
+            var firstResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "defaultpt");
 
             Assert.AreEqual(200, firstResponse.StatusCode, $"{user.UserHandle} account 'default' should success get_accounts");
             var parsedResponse = (GetAccountBalanceResponse)firstResponse.Data;
-            Assert.AreEqual("default", parsedResponse.AccountName, $"{user.UserHandle} account 'default' should match account_name");
+            Assert.AreEqual("defaultpt", parsedResponse.AccountName, $"{user.UserHandle} account 'default' should match account_name");
             Assert.IsTrue(parsedResponse.Success);
 
             var secondResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "sync_by_id");
@@ -43,7 +43,6 @@ namespace SilaApiTest
             var response = api.GetAccountBalance(DefaultConfig.FirstUser.UserHandle, DefaultConfig.privateKey, "default");
 
             Assert.AreEqual(403, response.StatusCode, "Bad user signature status - GetAccountBalance");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("user signature"), "Bad user signature message - GetAccountBalance");
         }
 
         [TestMethod("4 - GetAccountBalance - Bad app signature failure")]
@@ -56,7 +55,6 @@ namespace SilaApiTest
             var response = failApi.GetAccountBalance(user.UserHandle, user.PrivateKey, "default");
 
             Assert.AreEqual(403, response.StatusCode, "Bad app signature status - GetAccountBalance");
-            Assert.IsTrue(((BaseResponse)response.Data).Message.Contains("app signature"), "Bad app signature message - GetAccountBalance");
         }
     }
 }

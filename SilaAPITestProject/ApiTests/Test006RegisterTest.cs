@@ -1,110 +1,271 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.api;
-using SilaAPI.silamoney.client.domain;
+using SilaAPI.silamoney.client.refactored.api;
+using SilaAPI.silamoney.client.refactored.domain;
 
 namespace SilaApiTest
 {
     [TestClass]
     public class Test006_RegisterTest
     {
-        SilaApi api = DefaultConfig.Client;
+        [TestInitialize]
+        public void TestInitialize() {
+            SilaApi.Init(Environment.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
+        }
 
         [TestMethod("1 - Register - Random users registration")]
         public void TestResponse200()
         {
-            var firstUser = ModelsUtilities.FirstUser;
-            var firstResponse = api.Register(firstUser);
+            RegisterRequest request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.FirstUser.AddressAlias,
+                    City = ModelsUtilities.FirstUser.City,
+                    PostalCode = ModelsUtilities.FirstUser.PostalCode,
+                    State = ModelsUtilities.FirstUser.State,
+                    StreetAddress1 = ModelsUtilities.FirstUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.FirstUser.ContactAlias,
+                    Email = ModelsUtilities.FirstUser.Email,
+                    Phone = ModelsUtilities.FirstUser.Phone,
+                    SmsOptIn = ModelsUtilities.FirstUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.FirstUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.FirstUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.FirstUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    Birthdate = "1990-01-31",
+                    EntityName = ModelsUtilities.FirstUser.EntityName,
+                    FirstName = ModelsUtilities.FirstUser.FirstName,
+                    LastName = ModelsUtilities.FirstUser.LastName,
+                    Relationship = "user"
+                },
+                Identity = new Identity {
+                    IdentityAlias = "SSN",
+                    IdentityValue = ModelsUtilities.FirstUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.FirstUser.UserHandle
+            };
 
-            Assert.AreEqual(200, firstResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)firstResponse.Data).Status, $"{firstUser.UserHandle} should register");
+            RegisterResponse response = Register.Send(request);
 
-            var secondUser = ModelsUtilities.SecondUser;
-            var secondResponse = api.Register(secondUser);
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
 
-            Assert.AreEqual(200, secondResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)secondResponse.Data).Status, $"{secondUser.UserHandle} should register");
+            request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.SecondUser.AddressAlias,
+                    City = ModelsUtilities.SecondUser.City,
+                    PostalCode = ModelsUtilities.SecondUser.PostalCode,
+                    State = ModelsUtilities.SecondUser.State,
+                    StreetAddress1 = ModelsUtilities.SecondUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.SecondUser.ContactAlias,
+                    Email = ModelsUtilities.SecondUser.Email,
+                    Phone = ModelsUtilities.SecondUser.Phone,
+                    SmsOptIn = ModelsUtilities.SecondUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.SecondUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.SecondUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.SecondUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    Birthdate = "1990-01-31",
+                    EntityName = ModelsUtilities.SecondUser.EntityName,
+                    FirstName = ModelsUtilities.SecondUser.FirstName,
+                    LastName = ModelsUtilities.SecondUser.LastName
+                },
+                Identity = new Identity {
+                    IdentityAlias = "SSN",
+                    IdentityValue = ModelsUtilities.SecondUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.SecondUser.UserHandle
+            };
 
-            var thirdUser = ModelsUtilities.ThirdUser;
-            var thirdResponse = api.Register(thirdUser);
+            response = Register.Send(request);
+            
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
 
-            Assert.AreEqual(200, thirdResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)thirdResponse.Data).Status, $"{thirdUser.UserHandle} should register");
+            request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.ThirdUser.AddressAlias,
+                    City = ModelsUtilities.ThirdUser.City,
+                    PostalCode = ModelsUtilities.ThirdUser.PostalCode,
+                    State = ModelsUtilities.ThirdUser.State,
+                    StreetAddress1 = ModelsUtilities.ThirdUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.ThirdUser.ContactAlias,
+                    Email = ModelsUtilities.ThirdUser.Email,
+                    Phone = ModelsUtilities.ThirdUser.Phone,
+                    SmsOptIn = ModelsUtilities.ThirdUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.ThirdUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.ThirdUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.ThirdUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    Birthdate = "1990-01-31",
+                    EntityName = ModelsUtilities.ThirdUser.EntityName,
+                    FirstName = ModelsUtilities.ThirdUser.FirstName,
+                    LastName = ModelsUtilities.ThirdUser.LastName
+                },
+                Identity = new Identity {
+                    IdentityAlias = "SSN",
+                    IdentityValue = ModelsUtilities.ThirdUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.ThirdUser.UserHandle
+            };
 
-            var fourthUser = ModelsUtilities.FourthUser;
-            var fourthResponse = api.Register(fourthUser);
+            response = Register.Send(request);
 
-            Assert.AreEqual(200, fourthResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)fourthResponse.Data).Status, $"{fourthUser.UserHandle} should register");
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
 
-            var businessUser = ModelsUtilities.BusinessUser;
-            var businessResponse = api.Register(businessUser);
+            request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.FourthUser.AddressAlias,
+                    City = ModelsUtilities.FourthUser.City,
+                    PostalCode = ModelsUtilities.FourthUser.PostalCode,
+                    State = ModelsUtilities.FourthUser.State,
+                    StreetAddress1 = ModelsUtilities.FourthUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.FourthUser.ContactAlias,
+                    Email = ModelsUtilities.FourthUser.Email,
+                    Phone = ModelsUtilities.FourthUser.Phone,
+                    SmsOptIn = ModelsUtilities.FourthUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.FourthUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.FourthUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.FourthUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    Birthdate = "1990-01-31",
+                    EntityName = ModelsUtilities.FourthUser.EntityName,
+                    FirstName = ModelsUtilities.FourthUser.FirstName,
+                    LastName = ModelsUtilities.FourthUser.LastName
+                },
+                Identity = new Identity {
+                    IdentityAlias = "SSN",
+                    IdentityValue = ModelsUtilities.FourthUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.FourthUser.UserHandle
+            };
 
-            Assert.AreEqual(200, fourthResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
+            response = Register.Send(request);
 
-            var basicUser = ModelsUtilities.BasicUser;
-            var basicResponse = api.Register(basicUser);
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
 
-            Assert.AreEqual(200, basicResponse.StatusCode);
-            var parsedBasicResponse = (BaseResponse)basicResponse.Data;
-            Assert.IsTrue(parsedBasicResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedBasicResponse.Status);
+            request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.BusinessUser.AddressAlias,
+                    City = ModelsUtilities.BusinessUser.City,
+                    PostalCode = ModelsUtilities.BusinessUser.PostalCode,
+                    State = ModelsUtilities.BusinessUser.State,
+                    StreetAddress1 = ModelsUtilities.BusinessUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.BusinessUser.ContactAlias,
+                    Email = ModelsUtilities.BusinessUser.Email,
+                    Phone = ModelsUtilities.BusinessUser.Phone,
+                    SmsOptIn = ModelsUtilities.BusinessUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.BusinessUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.BusinessUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.BusinessUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    EntityName = ModelsUtilities.BusinessUser.EntityName,
+                    BusinessType = ModelsUtilities.BusinessUser.BusinessType,
+                    BusinessTypeUuid = ModelsUtilities.BusinessUser.BusinessTypeUuid,
+                    BusinessWebsite = ModelsUtilities.BusinessUser.BusinessWebsite,
+                    DoingBusinessAs = ModelsUtilities.BusinessUser.DoingBusinessAs,
+                    Type = ModelsUtilities.BusinessUser.Type,
+                    NaicsCode = ModelsUtilities.BusinessUser.NaicsCode
+                },
+                Identity = new Identity {
+                    IdentityAlias = "EIN",
+                    IdentityValue = ModelsUtilities.BusinessUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.BusinessUser.UserHandle
+            };
 
-            var deviceResponse = api.Register(ModelsUtilities.DeviceUser);
+            response = Register.Send(request);
 
-            Assert.AreEqual(200, deviceResponse.StatusCode);
-            var parsedDeviceResponse = (BaseResponse)deviceResponse.Data;
-            Assert.IsTrue(parsedDeviceResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedDeviceResponse.Status);
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
 
-            var basicBusinessResponse = api.Register(ModelsUtilities.BasicBusiness);
+            request = new RegisterRequest{
+                Address = new Address{
+                    AddressAlias = ModelsUtilities.InstantUser.AddressAlias,
+                    City = ModelsUtilities.InstantUser.City,
+                    PostalCode = ModelsUtilities.InstantUser.PostalCode,
+                    State = ModelsUtilities.InstantUser.State,
+                    StreetAddress1 = ModelsUtilities.InstantUser.StreetAddress1
+                },
+                Contact = new Contact {
+                    ContactAlias = ModelsUtilities.InstantUser.ContactAlias,
+                    Email = ModelsUtilities.InstantUser.Email,
+                    Phone = ModelsUtilities.InstantUser.Phone,
+                    SmsOptIn = ModelsUtilities.InstantUser.SmsOptIn
+                },
+                CryptoEntry = new CryptoEntry{
+                    CryptoAddress = ModelsUtilities.InstantUser.CryptoAddress,
+                    CryptoAlias = ModelsUtilities.InstantUser.CryptoAlias
+                },
+                Device = new Device {
+                    DeviceFingerprint = ModelsUtilities.InstantUser.DeviceFingerprint
+                },
+                Entity = new Entity {
+                    Birthdate = "1990-01-31",
+                    EntityName = ModelsUtilities.InstantUser.EntityName,
+                    FirstName = ModelsUtilities.InstantUser.FirstName,
+                    LastName = ModelsUtilities.InstantUser.LastName
+                },
+                Identity = new Identity {
+                    IdentityAlias = "SSN",
+                    IdentityValue = ModelsUtilities.InstantUser.IdentityValue
+                },
+                UserHandle = ModelsUtilities.InstantUser.UserHandle
+            };
 
-            Assert.AreEqual(200, basicBusinessResponse.StatusCode);
-            var parsedBasicBusinessResponse = (BaseResponse)basicResponse.Data;
-            Assert.IsTrue(parsedBasicBusinessResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedBasicBusinessResponse.Status);
+            response = Register.Send(request);
 
-            ApiResponse<object> instantResponse = api.Register(ModelsUtilities.InstantUser);
-
-            Assert.AreEqual(200, instantResponse.StatusCode);
-            BaseResponse parsedInstantResponse = (BaseResponse)basicResponse.Data;
-            Assert.IsTrue(parsedInstantResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedInstantResponse.Status);
+            Assert.IsTrue(response.Success);
+            Assert.AreEqual("SUCCESS", response.Status);
+            Assert.IsNotNull(response.Message);
+            Assert.IsNotNull(response.Reference);
         }
 
-        [TestMethod("2 - Register - Random user second registration failure")]
-        public void TestResponse400()
-        {
-            var firstUser = ModelsUtilities.FirstUser;
-            var firstResponse = api.Register(firstUser);
-
-            Assert.AreEqual(400, firstResponse.StatusCode, $"{firstUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)firstResponse.Data).Message.Contains("taken"), $"{firstUser.UserHandle} should be taken");
-
-            var secondUser = ModelsUtilities.SecondUser;
-            var secondResponse = api.Register(secondUser);
-
-            Assert.AreEqual(400, secondResponse.StatusCode, $"{secondUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)secondResponse.Data).Message.Contains("taken"), $"{secondUser.UserHandle} should be taken");
-
-            var thirdUser = ModelsUtilities.ThirdUser;
-            var thirdResponse = api.Register(thirdUser);
-
-            Assert.AreEqual(400, thirdResponse.StatusCode, $"{thirdUser.UserHandle} should be already register");
-            Assert.IsTrue(((BaseResponse)thirdResponse.Data).Message.Contains("taken"), $"{thirdUser.UserHandle} should be taken");
-        }
-
-        [TestMethod("3 - Register - Bad signature failure")]
-        public void TestResponse401()
-        {
-            var failApi = new SilaApi(DefaultConfig.environment,
-                "3a1076bf45ab87712ad64ccb3b10217737f7faacbf2872e88fdd9a537d8fe266",
-                DefaultConfig.appHandle);
-            User user = ModelsUtilities.FirstUser;
-            var response = failApi.Register(user);
-
-            Assert.AreEqual(401, response.StatusCode, "Bad app signature should fail - Register");
-        }
     }
 }

@@ -105,12 +105,24 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="searchFilters"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        [Obsolete("This method is obsolet, you don't need to pass the userPrivateKey parameter anymore.")]
         public ApiResponse<object> GetTransactions(string userHandle, string userPrivateKey, SearchFilters searchFilters)
+        {
+            return GetTransactions(userHandle, searchFilters);
+        }
+
+        /// <summary>
+        /// Makes a call to the get_transactions endpoint.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> GetTransactions(string userHandle, SearchFilters searchFilters)
         {
             GetTransactionsMsg body = new GetTransactionsMsg(userHandle, Configuration.AppHandle, searchFilters);
             var path = "/get_transactions";
 
-            return MakeRequest<GetTransactionsResult>(path, body, userPrivateKey);
+            return MakeRequest<GetTransactionsResult>(path, body);
         }
 
         /// <summary>
@@ -439,7 +451,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/get_business_types";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -456,7 +468,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/get_business_roles";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -473,7 +485,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/get_naics_categories";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -498,7 +510,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/link_business_member";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
 
@@ -527,7 +539,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/unlink_business_member";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
 
@@ -551,7 +563,7 @@ namespace SilaAPI.silamoney.client.api
             var path = $"/get_entity{UrlParamsUtilities.AddQueryParameter("", "pretty_dates", prettyDates.ToString())}";
             Dictionary<string, string> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
 
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -595,7 +607,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/certify_beneficial_owner";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
 
@@ -620,7 +632,7 @@ namespace SilaAPI.silamoney.client.api
             var path = "/certify_business";
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("auth_handle", Configuration.AppHandle);
+            header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
 
@@ -873,6 +885,35 @@ namespace SilaAPI.silamoney.client.api
         {
             var body = new BusinessEntityMsg(Configuration.AppHandle, userHandle, entity);
             return CallRegistrationData<BusinessEntityResponse>("update", RegistrationData.Entity, userPrivateKey, body);
+        }
+
+        /// <summary>
+        /// An end-user who is attempting to complete the Plaid's authorization needs a Plaid link_token to initiate the process.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey)
+        {
+            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle);
+            var path = "/plaid_link_token";
+
+            return MakeRequest<PlaidLinkTokenResult>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Deletes a bank account.
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        public ApiResponse<object> DeleteAccount(string userHandle, string userPrivateKey, string accountName)
+        {
+            DeleteAccountMsg body = new DeleteAccountMsg(userHandle, Configuration.AppHandle, accountName);
+            var path = "/delete_account";
+
+            return MakeRequest<DeleteAccountResult>(path, body, userPrivateKey);
         }
 
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
