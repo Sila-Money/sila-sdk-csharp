@@ -50,7 +50,7 @@ namespace SilaApiTest
         public void Response200SuccessInstantAch()
         {
             UserConfiguration user = DefaultConfig.InstantUser;
-            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.Instant);
+            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.Instant, accountName: "defaultpt");
 
             Assert.AreEqual(200, response.StatusCode);
             TransactionResponse parsedResponse = (TransactionResponse)response.Data;

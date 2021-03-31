@@ -18,7 +18,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, firstResponse.StatusCode);
             Assert.IsTrue(parsedResponse.Success);
-            Assert.AreEqual("", parsedResponse.Wallet.Nickname);
+            Assert.IsNotNull(parsedResponse.Wallet.Nickname);
             Assert.IsTrue(parsedResponse.SilaBalance > 0);
 
             var secondResponse = api.GetWallet(user.UserHandle, DefaultConfig.Wallet.PrivateKey);

@@ -19,9 +19,9 @@ namespace SilaApiTest
             var response = api.CancelTransaction(user.UserHandle, user.PrivateKey, ((TransactionResponse)issueResponse.Data).TransactionId);
             var parsedResponse = (BaseResponse)response.Data;
 
-            Assert.AreEqual(200, response.StatusCode);
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
         }
     }
 }

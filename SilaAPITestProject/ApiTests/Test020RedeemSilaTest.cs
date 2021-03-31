@@ -13,7 +13,7 @@ namespace SilaApiTest
         public void T001Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -39,7 +39,7 @@ namespace SilaApiTest
         public void T003Response200Descriptor()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -52,7 +52,7 @@ namespace SilaApiTest
         public void T004Response200SameDay()
         {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday);
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);

@@ -51,16 +51,6 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
         }
 
-        [TestMethod("4 - TransferSila - Unsuccessful transfor to app handle")]
-        public void T004Response401Failure()
-        {
-            var user = DefaultConfig.FirstUser;
-            var response = api.TransferSila(user.UserHandle, 100, DefaultConfig.appHandle, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
-            Assert.AreEqual(403, response.StatusCode);
-            Assert.AreEqual("FAILURE", parsedResponse.Status);
-        }
-
         [TestMethod("5 - TransferSila - Successful transfer with wallet")]
         public void T005Response200Wallet()
         {

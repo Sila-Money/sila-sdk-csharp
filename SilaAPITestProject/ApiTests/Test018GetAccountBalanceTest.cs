@@ -13,11 +13,11 @@ namespace SilaApiTest
         public void Response200()
         {
             var user = DefaultConfig.FirstUser;
-            var firstResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "default");
+            var firstResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "defaultpt");
 
             Assert.AreEqual(200, firstResponse.StatusCode, $"{user.UserHandle} account 'default' should success get_accounts");
             var parsedResponse = (GetAccountBalanceResponse)firstResponse.Data;
-            Assert.AreEqual("default", parsedResponse.AccountName, $"{user.UserHandle} account 'default' should match account_name");
+            Assert.AreEqual("defaultpt", parsedResponse.AccountName, $"{user.UserHandle} account 'default' should match account_name");
             Assert.IsTrue(parsedResponse.Success);
 
             var secondResponse = api.GetAccountBalance(user.UserHandle, user.PrivateKey, "sync_by_id");

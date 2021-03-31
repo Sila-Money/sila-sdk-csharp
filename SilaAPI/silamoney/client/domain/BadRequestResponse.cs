@@ -41,7 +41,7 @@ namespace SilaAPI.silamoney.client.domain
                 }
                 else
                 {
-                    message.Append(child.Name + ": " + child.Value.Value<string>() + Environment.NewLine);
+                    message.Append(child.Name + ": " + child.Value.Value<string>());
                 }
             }
             return message.ToString();
@@ -58,7 +58,7 @@ namespace SilaAPI.silamoney.client.domain
                 }
                 else
                 {
-                    message.Append(child.Path + ": " + child.Value<string>() + Environment.NewLine);
+                    message.Append(child.Path + ": " + child.Value<string>());
                 }
             }
             return message;
@@ -75,7 +75,7 @@ namespace SilaAPI.silamoney.client.domain
                 }
                 else
                 {
-                    message.Append(child.Path + ": " + child.Value<string>() + Environment.NewLine);
+                    message.Append(child.Path + ": " + child.Value<string>());
                 }
             }
             return message;
