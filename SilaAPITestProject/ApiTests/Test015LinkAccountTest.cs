@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.refactored.api;
+using SilaAPI.silamoney.client.refactored.endpoints.accounts.linkaccount;
 
 namespace SilaApiTest
 {
@@ -8,7 +9,7 @@ namespace SilaApiTest
     {
         [TestInitialize]
         public void TestInitialize() {
-            SilaApi.Init(Environment.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
+            SilaApi.Init(Environments.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
         }
 
         [TestMethod("5 - LinkAccount - Link through plaid token")]
@@ -27,7 +28,7 @@ namespace SilaApiTest
             LinkAccountResponse response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.AccountOwnerName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
@@ -46,7 +47,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.AccountOwnerName);
             Assert.IsNotNull(response.EntityName);
             Assert.IsNotNull(response.Message);
@@ -66,7 +67,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.AccountOwnerName);
             Assert.IsNotNull(response.EntityName);
             Assert.IsNotNull(response.Message);
@@ -86,7 +87,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.AccountOwnerName);
             Assert.IsNotNull(response.EntityName);
             Assert.IsNotNull(response.Message);
@@ -110,7 +111,7 @@ namespace SilaApiTest
             LinkAccountResponse response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.AccountOwnerName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
@@ -133,7 +134,7 @@ namespace SilaApiTest
             LinkAccountResponse response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
             Assert.IsNotNull(response.Status);
@@ -149,7 +150,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
             Assert.IsNotNull(response.Status);
@@ -165,7 +166,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
             Assert.IsNotNull(response.Status);
@@ -181,7 +182,7 @@ namespace SilaApiTest
             response = LinkAccount.Send(request);
 
             Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Account);
+            Assert.IsNotNull(response.AccountName);
             Assert.IsNotNull(response.Message);
             Assert.IsNotNull(response.Reference);
             Assert.IsNotNull(response.Status);

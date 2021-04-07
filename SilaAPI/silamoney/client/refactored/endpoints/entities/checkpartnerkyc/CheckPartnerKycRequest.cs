@@ -1,7 +1,8 @@
-using SilaAPI.silamoney.client.refactored.domain;
-
-public class CheckPartnerKycRequest
+namespace SilaAPI.silamoney.client.refactored.endpoints.entities.checkpartnerkyc
 {
-    public string QueryAppHandle { get; set; }
-    public string QueryUserHandle { get; set; }
+    public class CheckPartnerKycRequest
+    {
+        public string QueryAppHandle { get; set; }
+        public string QueryUserHandle { get; set; }
+    }
 }

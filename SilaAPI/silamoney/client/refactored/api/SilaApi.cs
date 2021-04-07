@@ -1,4 +1,6 @@
-﻿namespace SilaAPI.silamoney.client.refactored.api
+﻿using SilaAPI.silamoney.client.refactored.exceptions;
+
+namespace SilaAPI.silamoney.client.refactored.api
 {
     /// <summary>
     /// Singleton class used to configure the api calls.
@@ -21,12 +23,12 @@
         /// <param name="environment"></param>
         /// <param name="appHandle"></param>
         /// <param name="privateKey"></param>
-        public static void Init(Environment environment, string appHandle, string privateKey)
+        public static void Init(Environments environment, string appHandle, string privateKey)
         {
             if (_instance == null)
             {
-                string basePath = environment == Environment.STAGING ? "https://stageapi.silamoney.com/0.2" :
-                    environment == Environment.PRODUCTION ? "https://api.silamoney.com/0.2" :
+                string basePath = environment == Environments.STAGING ? "https://stageapi.silamoney.com/0.2" :
+                    environment == Environments.PRODUCTION ? "https://api.silamoney.com/0.2" :
                     "https://sandbox.silamoney.com/0.2";
                 _instance = new SilaApi(
                     apiClient: new ApiClient(

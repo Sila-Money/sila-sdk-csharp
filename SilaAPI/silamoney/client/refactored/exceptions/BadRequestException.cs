@@ -1,13 +1,17 @@
 using System;
-/// <summary>
-/// Exception thrown when sdk got a 400 response code.
-/// </summary>
-public class BadRequestException : Exception
+
+namespace SilaAPI.silamoney.client.refactored.exceptions
 {
     /// <summary>
-    /// Main constructor
+    /// Exception thrown when sdk got a 400 response code.
     /// </summary>
-    /// <param name="message"></param>
-    /// <returns></returns>
-    public BadRequestException(string message) : base(message) { }
+    public class BadRequestException : Exception
+    {
+        /// <summary>
+        /// Main constructor
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public BadRequestException(string message) : base(message) { }
+    }
 }

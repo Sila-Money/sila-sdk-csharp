@@ -16,7 +16,7 @@ namespace SilaAPI.silamoney.client.refactored.api
         /// ApiClient constructor.
         /// </summary>
         /// <param name="basePath"></param>
-        public ApiClient(string basePath = Environments.sandbox)
+        public ApiClient(string basePath)
         {
             if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");

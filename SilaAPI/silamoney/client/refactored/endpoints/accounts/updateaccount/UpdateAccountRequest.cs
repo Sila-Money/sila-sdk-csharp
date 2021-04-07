@@ -1,9 +1,10 @@
-using SilaAPI.silamoney.client.refactored.domain;
-
-public class UpdateAccountRequest
+namespace SilaAPI.silamoney.client.refactored.endpoints.accounts.updateaccount
 {
-    public string UserHandle { get; set; }
-    public string UserPrivateKey { get; set; }
-    public string AccountName { get; set; }
-    public string NewAccountName { get; set; }
+    public class UpdateAccountRequest
+    {
+        public string UserHandle { get; set; }
+        public string UserPrivateKey { get; set; }
+        public string AccountName { get; set; }
+        public string NewAccountName { get; set; }
+    }
 }
