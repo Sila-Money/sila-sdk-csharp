@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
-using SilaAPI.silamoney.client.refactored.endpoints.accounts.updateaccount;
+using SilaAPI.Silamoney.Client.Refactored.Api;
+using SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.UpdateAccount;
 
 namespace SilaApiTest
 {

@@ -1,7 +1,7 @@
 ﻿// using System;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using SilaAPI.silamoney.client.refactored.api;
-// using SilaAPI.silamoney.client.refactored.domain;
+// using SilaAPI.Silamoney.Client.Refactored.Api;
+// using SilaAPI.Silamoney.Client.Refactored.Domain;
 
 // namespace SilaApiTest
 // {

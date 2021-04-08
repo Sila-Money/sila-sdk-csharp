@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
-using SilaAPI.silamoney.client.refactored.domain;
-using SilaAPI.silamoney.client.refactored.endpoints.transactions.gettransactions;
+using SilaAPI.Silamoney.Client.Refactored.Api;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
+using SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions;
 using System.Collections.Generic;
 
 namespace SilaApiTest

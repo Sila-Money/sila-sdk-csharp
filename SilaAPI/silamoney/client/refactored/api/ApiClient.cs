@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
-using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 
-namespace SilaAPI.silamoney.client.refactored.api
+namespace SilaAPI.Silamoney.Client.Refactored.Api
 {
     /// <summary>
     /// Class used to prepare requests and make calls to the api server.

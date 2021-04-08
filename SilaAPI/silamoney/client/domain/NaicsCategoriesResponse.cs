@@ -20,5 +20,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <value>NaicsSubcategories</value>
         [JsonProperty("naics_categories")]
         public Dictionary<string, List<NaicsSubcategory>> NaicsCategories { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

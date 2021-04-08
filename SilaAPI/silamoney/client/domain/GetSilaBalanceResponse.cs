@@ -26,5 +26,7 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public int SilaBalance { get { return decimal.ToInt32(Balance); } }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

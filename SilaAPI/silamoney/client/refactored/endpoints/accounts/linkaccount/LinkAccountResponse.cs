@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.endpoints.accounts.linkaccount
+namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount
 {
     public class LinkAccountResponse
     {

@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
 using SilaAPI.Silamoney.Client.Refactored.exceptions;
 using SilaAPI.Silamoney.Client.Refactored.utils;
 using SilaAPI.silamoney.client.util;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount
+namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.GetAccounts
 {
-    public class LinkAccount : AbstractEndpoint
+    public class GetAccounts : AbstractEndpoint
     {
-        private static string endpoint = "/link_account";
-        private LinkAccount() { }
-        public static LinkAccountResponse Send(LinkAccountRequest request)
+        private static string endpoint = "/get_accounts";
+        private GetAccounts() { }
+        public static GetAccountsResponse Send(GetAccountsRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -25,17 +25,9 @@ namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount
                 Reference = UuidUtils.GetUuid(),
                 Version = "0.2"
             });
-            body.Add("account_name", request.AccountName);
-            body.Add("account_number", request.AccountNumber);
-            body.Add("routing_number", request.RoutingNumber);
-            body.Add("account_type", request.AccountType);
-            body.Add("plaid_token", request.PlaidToken);
-            body.Add("selected_account_id", request.SelectedAccountId);
-            body.Add("plaid_token_type", request.PlaidTokenType);
+            body.Add("message", "get_accounts_msg");
 
             string serializedBody = SerializationUtil.Serialize(body);
-
-            Console.WriteLine(serializedBody);
 
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
@@ -44,14 +36,14 @@ namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
             Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200 || (int)response.StatusCode == 202)
-                return JsonConvert.DeserializeObject<LinkAccountResponse>(response.Content);
+            if ((int)response.StatusCode == 200){
+                List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(response.Content); 
+                return new GetAccountsResponse(accounts);
+            }
             if ((int)response.StatusCode == 400)
                 throw new BadRequestException(response.Content);
             if ((int)response.StatusCode == 401)
                 throw new InvalidSignatureException(response.Content);
-            if ((int)response.StatusCode == 403)
-                throw new ForbiddenException(response.Content);
 
             throw new Exception(response.Content);
         }

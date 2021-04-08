@@ -1,4 +1,4 @@
-namespace SilaAPI.silamoney.client.refactored.api
+namespace SilaAPI.Silamoney.Client.Refactored.Api
 {
     /// <summary>
     /// Available environments for the Sila Api

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SilaAPI.silamoney.client.refactored.domain;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
 
-namespace SilaAPI.silamoney.client.refactored.endpoints.accounts.updateaccount
+namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.UpdateAccount
 {
     public class UpdateAccountResponse
     {

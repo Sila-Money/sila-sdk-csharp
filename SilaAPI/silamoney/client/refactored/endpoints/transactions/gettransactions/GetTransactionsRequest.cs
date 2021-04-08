@@ -1,6 +1,6 @@
-using SilaAPI.silamoney.client.refactored.domain;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
 
-namespace SilaAPI.silamoney.client.refactored.endpoints.transactions.gettransactions
+namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
 {
     public class GetTransactionsRequest
     {

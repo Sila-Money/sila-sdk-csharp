@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace SilaAPI.Silamoney.Client.Refactored.Domain
 {
     /// <summary>
     /// Address object used in the entity_msg object

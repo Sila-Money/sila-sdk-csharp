@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace SilaAPI.Silamoney.Client.Refactored.Domain
 {
     public class SearchFilters
     {

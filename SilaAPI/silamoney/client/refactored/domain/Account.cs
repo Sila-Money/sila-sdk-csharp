@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace SilaAPI.Silamoney.Client.Refactored.Domain
 {
     /// <summary>
     /// Account object used in the get_accounts endpoint response
@@ -41,6 +41,12 @@ namespace SilaAPI.silamoney.client.refactored.domain
         /// String field used in the Account object to save account status
         /// </summary>
         [JsonProperty("active")]
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
+        [JsonProperty("match_score")]
+        public float? MatchScore { get; set; }
+        [JsonProperty("account_owner_name")]
+        public string AccountOwnerName { get; set; }
+        [JsonProperty("entity_name")]
+        public string EntityName { get; set; }
     }
 }

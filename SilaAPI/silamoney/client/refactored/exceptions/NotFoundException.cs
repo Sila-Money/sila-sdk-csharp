@@ -3,15 +3,15 @@ using System;
 namespace SilaAPI.Silamoney.Client.Refactored.exceptions
 {
     /// <summary>
-    /// Exception thrown when sdk got a 400 response code.
+    /// Exception thrown when sdk got a 404 response code.
     /// </summary>
-    public class BadRequestException : Exception
+    public class NotFoundException : Exception
     {
         /// <summary>
         /// Main constructor
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public BadRequestException(string message) : base(message) { }
+        public NotFoundException(string message) : base(message) { }
     }
 }

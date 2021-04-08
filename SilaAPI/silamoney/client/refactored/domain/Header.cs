@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace SilaAPI.Silamoney.Client.Refactored.Domain
 {
     /// <summary>
     /// Header object used in HeaderMsg

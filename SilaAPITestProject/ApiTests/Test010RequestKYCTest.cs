@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
-using SilaAPI.silamoney.client.refactored.endpoints.entities.requestkyc;
+using SilaAPI.Silamoney.Client.Refactored.Api;
+using SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesrequestkyc;
 
 namespace SilaApiTest
 {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using SilaAPI.silamoney.client.refactored.api;
+using SilaAPI.Silamoney.Client.Refactored.Api;
 using SilaAPI.silamoney.client.security;
 
-namespace SilaAPI.silamoney.client.refactored.utils
+namespace SilaAPI.Silamoney.Client.Refactored.utils
 {
     public static class HeaderUtils
     {

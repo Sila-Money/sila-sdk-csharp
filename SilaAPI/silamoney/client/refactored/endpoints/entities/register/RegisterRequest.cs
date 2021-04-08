@@ -1,6 +1,6 @@
-using SilaAPI.silamoney.client.refactored.domain;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
 
-namespace SilaAPI.silamoney.client.refactored.endpoints.entities.register
+namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesregister
 {
     public class RegisterRequest
     {

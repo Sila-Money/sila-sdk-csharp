@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
-using SilaAPI.silamoney.client.refactored.domain;
-using SilaAPI.silamoney.client.refactored.exceptions;
-using SilaAPI.silamoney.client.refactored.utils;
+using SilaAPI.Silamoney.Client.Refactored.Domain;
+using SilaAPI.Silamoney.Client.Refactored.exceptions;
+using SilaAPI.Silamoney.Client.Refactored.utils;
 using SilaAPI.silamoney.client.util;
+using SilaAPI.Silamoney.Client.Refactored.Api;
+using SilaAPI.Silamoney.Client.Refactored.Endpoints;
 
-namespace SilaAPI.silamoney.client.refactored.endpoints.transactions.gettransactions
+namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
 {
     public class GetTransactions : AbstractEndpoint
     {

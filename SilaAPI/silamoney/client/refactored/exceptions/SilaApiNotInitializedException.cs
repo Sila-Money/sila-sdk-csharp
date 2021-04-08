@@ -1,6 +1,6 @@
 using System;
 
-namespace SilaAPI.silamoney.client.refactored.exceptions
+namespace SilaAPI.Silamoney.Client.Refactored.exceptions
 {
     /// <summary>
     /// Exception thrown when trying to get SilaApi instance not initialized.

@@ -1,4 +1,4 @@
-namespace SilaAPI.silamoney.client.refactored.endpoints.entities.requestkyc
+namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesrequestkyc
 {
     public class RequestKycRequest
     {

@@ -24,5 +24,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("reference")]
         public string Reference { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

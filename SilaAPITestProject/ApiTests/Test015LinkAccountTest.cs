@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
-using SilaAPI.silamoney.client.refactored.endpoints.accounts.linkaccount;
+using SilaAPI.Silamoney.Client.Refactored.Api;
+using SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount;
 
 namespace SilaApiTest
 {
@@ -61,7 +61,8 @@ namespace SilaApiTest
                 UserHandle = user.UserHandle,
                 UserPrivateKey = user.PrivateKey,
                 PlaidToken = plaid.Token,
-                AccountName = "defaultpt"
+                AccountName = "defaultpt",
+                PlaidTokenType = "legacy"
             };
 
             response = LinkAccount.Send(request);
