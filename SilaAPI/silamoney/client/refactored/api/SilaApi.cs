@@ -25,19 +25,16 @@ namespace SilaAPI.Silamoney.Client.Refactored.Api
         /// <param name="privateKey"></param>
         public static void Init(Environments environment, string appHandle, string privateKey)
         {
-            if (_instance == null)
-            {
-                string basePath = environment == Environments.STAGING ? "https://stageapi.silamoney.com/0.2" :
+            string basePath = environment == Environments.STAGING ? "https://stageapi.silamoney.com/0.2" :
                     environment == Environments.PRODUCTION ? "https://api.silamoney.com/0.2" :
                     "https://sandbox.silamoney.com/0.2";
-                _instance = new SilaApi(
-                    apiClient: new ApiClient(
-                        basePath: basePath
-                    ),
-                    appHandle: appHandle,
-                    privateKey: privateKey
-                );
-            }
+            _instance = new SilaApi(
+                apiClient: new ApiClient(
+                    basePath: basePath
+                ),
+                appHandle: appHandle,
+                privateKey: privateKey
+            );
         }
         /// <summary>
         /// Gets the Sila Api instance.
