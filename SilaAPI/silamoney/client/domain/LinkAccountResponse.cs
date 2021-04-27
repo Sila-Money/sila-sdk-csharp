@@ -18,5 +18,14 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary> 
         [JsonProperty("match_score")]
         public decimal? MatchScore { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary> 
+        [JsonProperty("account_owner_name")]
+        public string AccountOwnerName { get; set; }
+
+        [JsonProperty("entity_name")]
+        public string EntityName { get; set; }
     }
 }

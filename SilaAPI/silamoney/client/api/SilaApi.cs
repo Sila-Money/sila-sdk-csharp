@@ -4,6 +4,7 @@ using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
+using SilaAPI.Silamoney.Client.Refactored.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -152,11 +153,14 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
         /// <param name="accountId"></param>
+        /// <param name="plaidTokenType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        /// 
         public ApiResponse<object> LinkAccount(string userHandle, string publicToken, string userPrivateKey,
-            string accountName = null, string accountId = null)
+            string accountName = null, string accountId = null, string plaidTokenType = null)
         {
             LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, Configuration.AppHandle, accountId, accountName);
+            body.PlaidTokenType = plaidTokenType;
             var path = "/link_account";
 
             return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
@@ -239,7 +243,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/request_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<RequestKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -254,7 +258,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle, kycLevel);
             var path = "/request_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<RequestKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -914,6 +918,67 @@ namespace SilaAPI.silamoney.client.api
             var path = "/delete_account";
 
             return MakeRequest<DeleteAccountResult>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Returns whether entity attached to partnered app is verified, not valid, or still pending.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CheckPartnerKyc(CheckPartnerKycRequest request)
+        {
+            var path = "/check_partner_kyc";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
+            });
+            body.Add("query_app_handle", request.QueryAppHandle);
+            body.Add("query_user_handle", request.QueryUserHandle);
+
+            return MakeRequest<CheckPartnerKycResponse>(path, body);
+        }
+
+        /// <summary>
+        /// Updates account name of a bank account.
+        /// /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateAccount(UpdateAccountRequest request)
+        {
+            var path = "/update_account";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = request.UserHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
+            });
+            body.Add("account_name", request.AccountName);
+            body.Add("new_account_name", request.NewAccountName);
+
+            return MakeRequest<UpdateAccountResponse>(path, body, request.UserPrivateKey);
+        }
+
+        public ApiResponse<object> PlaidUpdateLinkToken(PlaidUpdateLinkTokenRequest request){
+            var path = "/plaid_update_link_token";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = request.UserHandle
+            });
+            body.Add("account_name", request.AccountName);
+
+            return MakeRequest<UpdateAccountResponse>(path, body);
         }
 
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
