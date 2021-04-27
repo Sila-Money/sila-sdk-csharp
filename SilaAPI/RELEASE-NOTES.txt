@@ -1,10 +1,10 @@
 v0.2.22
-In this release we included support for new endpoints and refactored some others.
-Refactors:
-    -/get_accounts mehotd is regfactored with specific request and response object.
+In this release we included support for new endpoints and fixed some uncompleted response objects.
 New Features:
     -Adding support for /plaid_update_link_token.
     -Adding support for plaid_token_type in /link_account endpoint
+Breaking changes:
+    -RequestKyc does not return BaseResponse anymore, it returns RequestKycResponse object.
 
 v0.2.21
 In this release we implemented a new way of calling endpoints, more readable and eficient. The Api is now a singleton instance and the refactored methods follow
