@@ -19,10 +19,6 @@ namespace SilaApiTest
             };
 
             var response = api.CheckPartnerKyc(request);
-
-            var parsedresponse = (CheckPartnerKycResponse)response.Data;
-
-            Assert.IsTrue(parsedresponse.Success);
         }
     }
 }
