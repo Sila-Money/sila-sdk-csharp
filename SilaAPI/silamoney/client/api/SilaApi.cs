@@ -992,6 +992,29 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<UpdateAccountResponse>(path, body);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName)
+        {
+            var path = "/check_instant_ach";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Reference = UuidUtils.GetUuid()
+            });
+            body.Add("account_name", accountName);
+
+            return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
+        }
+
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
         {
             var path = $"/{rootPath}/{dataType.Url}";

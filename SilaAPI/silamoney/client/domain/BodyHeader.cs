@@ -12,7 +12,7 @@ namespace SilaAPI.silamoney.client.domain
         /// Enum field used in Header object to select version
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
-        public string Version { get; set; }
+        public string Version { get; set; } = "0.2";
         /// <summary>
         /// String field used in Header object to save reference
         /// </summary>

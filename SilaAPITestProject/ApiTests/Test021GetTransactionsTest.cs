@@ -1,54 +1,29 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.Silamoney.Client.Refactored.Api;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
-using SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions;
-using System.Collections.Generic;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 
 namespace SilaApiTest
 {
     [TestClass]
     public class Test021GetTransactionsTest
     {
-        [TestInitialize]
-        public void TestInitialize() {
-            SilaApi.Init(Environments.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
-        }
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - GetTransactions - Successfully retrieve timeline of transactions")]
         public void T001_GetTransactionsWithTimeline()
         {
-            GetTransactionsRequest request = new GetTransactionsRequest {
-                SearchFilters = new SearchFilters {
+            var response = api.GetTransactions(
+                userHandle: DefaultConfig.FirstUser.UserHandle, 
+                searchFilters: new SearchFilters {
                     ShowTimelines = true
-                },
-                UserHandle = DefaultConfig.FirstUser.UserHandle
-            };
+                }
+            );
 
-            GetTransactionsResponse response = GetTransactions.Send(request);
+            var parsedResponse = (GetTransactionsResult) response.Data;
 
-            Assert.IsTrue(response.Success);
-            Assert.IsTrue(response.Transactions.Count > 0);
-            Assert.IsTrue(response.Transactions[0].Timeline.Count > 0);
-        }
-
-        [TestMethod("2 - GetTransactions - Successfully retrieve failed transactions")]
-        public void T0012GetFailedTransactions()
-        {
-
-            GetTransactionsRequest request = new GetTransactionsRequest {
-                SearchFilters = new SearchFilters {
-                    ShowTimelines = true,
-                    Statuses = new List<string> {"failed"}
-                },
-                UserHandle = DefaultConfig.FirstUser.UserHandle
-            };
-
-            GetTransactionsResponse response = GetTransactions.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsTrue(response.Transactions.Count > 0);
-            Assert.IsNotNull(response.Transactions[0].ReturnCode);
-            Assert.IsNotNull(response.Transactions[0].ReturnDesc);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsTrue(parsedResponse.Transactions.Count > 0);
+            Assert.IsTrue(parsedResponse.Transactions[0].TimeLines.Count > 0);
         }
 
     }
