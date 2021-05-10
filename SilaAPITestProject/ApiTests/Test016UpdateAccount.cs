@@ -12,14 +12,12 @@ namespace SilaApiTest
         [TestMethod("1 - Update account - Successful update account")]
         public void T020Response200()
         {
-            UpdateAccountRequest request = new UpdateAccountRequest {
-                AccountName = "toupdate",
-                NewAccountName = "updated",
-                UserHandle = DefaultConfig.FirstUser.UserHandle,
-                UserPrivateKey = DefaultConfig.FirstUser.PrivateKey
-            };
-
-            var response = api.UpdateAccount(request);
+            var response = api.UpdateAccount(
+                accountName: "toupdate",
+                newAccountName: "updated",
+                userHandle: DefaultConfig.FirstUser.UserHandle,
+                userPrivateKey: DefaultConfig.FirstUser.PrivateKey
+            );
             var parsedResponse = (UpdateAccountResponse) response.Data;
 
             Assert.IsNotNull(parsedResponse.Message);

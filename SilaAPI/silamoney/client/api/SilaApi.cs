@@ -923,9 +923,10 @@ namespace SilaAPI.silamoney.client.api
         /// <summary>
         /// Returns whether entity attached to partnered app is verified, not valid, or still pending.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="queryAppHandle"></param>
+        /// <param name="queryUserHandle"></param>
         /// <returns></returns>
-        public ApiResponse<object> CheckPartnerKyc(CheckPartnerKycRequest request)
+        public ApiResponse<object> CheckPartnerKyc(string queryAppHandle, string queryUserHandle)
         {
             var path = "/check_partner_kyc";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -937,8 +938,8 @@ namespace SilaAPI.silamoney.client.api
                 Reference = UuidUtils.GetUuid(),
                 Version = "0.2"
             });
-            body.Add("query_app_handle", request.QueryAppHandle);
-            body.Add("query_user_handle", request.QueryUserHandle);
+            body.Add("query_app_handle", queryAppHandle);
+            body.Add("query_user_handle", queryUserHandle);
 
             return MakeRequest<CheckPartnerKycResponse>(path, body);
         }
@@ -946,9 +947,12 @@ namespace SilaAPI.silamoney.client.api
         /// <summary>
         /// Updates account name of a bank account.
         /// /// </summary>
-        /// <param name="request"></param>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <param name="newAccountName"></param>
         /// <returns></returns>
-        public ApiResponse<object> UpdateAccount(UpdateAccountRequest request)
+        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName)
         {
             var path = "/update_account";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -956,27 +960,34 @@ namespace SilaAPI.silamoney.client.api
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle,
-                UserHandle = request.UserHandle,
+                UserHandle = userHandle,
                 Crypto = "ETH",
                 Reference = UuidUtils.GetUuid(),
                 Version = "0.2"
             });
-            body.Add("account_name", request.AccountName);
-            body.Add("new_account_name", request.NewAccountName);
+            body.Add("account_name", accountName);
+            body.Add("new_account_name", newAccountName);
 
-            return MakeRequest<UpdateAccountResponse>(path, body, request.UserPrivateKey);
+            return MakeRequest<UpdateAccountResponse>(path, body, userPrivateKey);
         }
 
-        public ApiResponse<object> PlaidUpdateLinkToken(PlaidUpdateLinkTokenRequest request){
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> PlaidUpdateLinkToken(string userHandle, string accountName)
+        {
             var path = "/plaid_update_link_token";
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new BodyHeader
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle,
-                UserHandle = request.UserHandle
+                UserHandle = userHandle
             });
-            body.Add("account_name", request.AccountName);
+            body.Add("account_name", accountName);
 
             return MakeRequest<UpdateAccountResponse>(path, body);
         }

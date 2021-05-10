@@ -13,12 +13,11 @@ namespace SilaApiTest
         public void T001Response200()
         {
             var user = DefaultConfig.FirstUser;
-            PlaidUpdateLinkTokenRequest request = new PlaidUpdateLinkTokenRequest{
-                AccountName = "defaultpt",
-                UserHandle = user.UserHandle
-            }; 
 
-            var response = api.PlaidUpdateLinkToken(request);
+            var response = api.PlaidUpdateLinkToken(
+                accountName: "defaultpt",
+                userHandle: user.UserHandle
+            );
         }
     }
 }

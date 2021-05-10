@@ -12,13 +12,9 @@ namespace SilaApiTest
         [TestMethod("1 - Check Partner Kyc")]
         public void TestResponse200()
         {
-            CheckPartnerKycRequest request = new CheckPartnerKycRequest
-            {
-                QueryAppHandle = "digital_geko_e2e_new",
-                QueryUserHandle = "cross_app_check_partner"
-            };
-
-            var response = api.CheckPartnerKyc(request);
+            var response = api.CheckPartnerKyc(
+                queryAppHandle: "digital_geko_e2e_new",
+                queryUserHandle: "cross_app_check_partner");
         }
     }
 }
