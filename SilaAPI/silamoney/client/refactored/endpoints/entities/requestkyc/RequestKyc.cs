@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
-using SilaAPI.Silamoney.Client.Refactored.exceptions;
-using SilaAPI.Silamoney.Client.Refactored.utils;
+using Sila.API.Client.Domain;
+using Sila.API.Client.Exceptions;
+using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.util;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesrequestkyc
+namespace Sila.API.Client.Entitiesrequestkyc
 {
     public class RequestKyc : AbstractEndpoint
     {

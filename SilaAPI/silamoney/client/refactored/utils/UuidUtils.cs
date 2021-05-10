@@ -1,6 +1,6 @@
 using System;
 
-namespace SilaAPI.Silamoney.Client.Refactored.utils
+namespace Sila.API.Client.Utils
 {
     public static class UuidUtils
     {

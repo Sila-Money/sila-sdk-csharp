@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesrequestkyc
+namespace Sila.API.Client.Entitiesrequestkyc
 {
     public class RequestKycResponse
     {

@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.Silamoney.Client.Refactored.Api;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
-using SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesregister;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sila.API;
+using Sila.API.Client.Domain;
+using Sila.API.Client.Entitiesregister;
 
 namespace SilaApiTest
 {

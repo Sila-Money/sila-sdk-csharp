@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
+using Sila.API.Client.Domain;
 
 namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
 {

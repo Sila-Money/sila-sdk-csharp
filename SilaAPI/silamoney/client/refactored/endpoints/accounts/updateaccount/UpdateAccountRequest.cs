@@ -1,4 +1,4 @@
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.UpdateAccount
+namespace Sila.API.Client.Accounts.UpdateAccount
 {
     public class UpdateAccountRequest
     {

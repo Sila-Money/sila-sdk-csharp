@@ -1,4 +1,4 @@
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.CheckInstantACH
+namespace Sila.API.Client.Accounts.CheckInstantACH
 {
     public class CheckInstantACHRequest
     {

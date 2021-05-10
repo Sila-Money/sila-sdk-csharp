@@ -1,6 +1,4 @@
-using SilaAPI.Silamoney.Client.Refactored.Api;
-
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints
+namespace Sila.API.Client
 {
     public abstract class AbstractEndpoint
     {

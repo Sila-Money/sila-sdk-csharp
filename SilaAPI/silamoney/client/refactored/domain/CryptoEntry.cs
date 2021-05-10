@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// Crypto_Entry object used in the entity_msg object

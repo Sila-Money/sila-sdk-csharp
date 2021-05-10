@@ -4,7 +4,7 @@ using SilaAPI.silamoney.client.configuration;
 using System;
 using System.Collections.Generic;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Api
+namespace Sila.API
 {
     /// <summary>
     /// Class used to prepare requests and make calls to the api server.

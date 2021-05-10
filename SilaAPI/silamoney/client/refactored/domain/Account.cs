@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// Account object used in the get_accounts endpoint response

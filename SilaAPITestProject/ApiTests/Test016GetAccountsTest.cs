@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.Silamoney.Client.Refactored.Api;
-using SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.GetAccounts;
-using System.Collections.Generic;
+using Sila.API;
+using Sila.API.Client.Accounts.GetAccounts;
 
 namespace SilaApiTest
 {

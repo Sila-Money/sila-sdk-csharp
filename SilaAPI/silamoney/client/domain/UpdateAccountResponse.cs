@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
 
 namespace SilaAPI.silamoney.client.domain
 {

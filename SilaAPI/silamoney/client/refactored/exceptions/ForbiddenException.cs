@@ -1,6 +1,6 @@
 using System;
 
-namespace SilaAPI.Silamoney.Client.Refactored.exceptions
+namespace Sila.API.Client.Exceptions
 {
     /// <summary>
     /// Exception thrown when sdk got a 403 response code.

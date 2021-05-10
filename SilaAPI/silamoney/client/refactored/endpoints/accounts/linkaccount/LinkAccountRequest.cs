@@ -1,4 +1,4 @@
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.LinkAccount
+namespace Sila.API.Client.Accounts.LinkAccount
 {
     public class LinkAccountRequest
     {

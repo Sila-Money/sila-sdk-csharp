@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entities.CheckPartnerKyc
+namespace Sila.API.Client.Entities.CheckPartnerKyc
 {
     public class CheckPartnerKycResponse
     {

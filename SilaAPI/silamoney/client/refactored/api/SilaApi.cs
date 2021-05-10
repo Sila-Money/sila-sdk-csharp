@@ -1,6 +1,6 @@
-﻿using SilaAPI.Silamoney.Client.Refactored.exceptions;
+﻿using Sila.API.Client.Exceptions;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Api
+namespace Sila.API
 {
     /// <summary>
     /// Singleton class used to configure the api calls.

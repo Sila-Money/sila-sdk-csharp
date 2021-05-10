@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
-using SilaAPI.Silamoney.Client.Refactored.utils;
 using System;
 using System.Collections.Generic;
 using System.IO;

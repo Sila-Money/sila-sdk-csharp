@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using SilaAPI.Silamoney.Client.Refactored.Domain;
+using Sila.API.Client.Domain;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Accounts.GetAccounts
+namespace Sila.API.Client.Accounts.GetAccounts
 {
     public class GetAccountsResponse
     {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SilaAPI.Silamoney.Client.Refactored.Endpoints.Entitiesregister
+namespace Sila.API.Client.Entitiesregister
 {
     public class RegisterResponse
     {
