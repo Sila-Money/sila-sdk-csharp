@@ -5,6 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
+using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts.PlaidUpdateLinkToken
@@ -13,7 +14,7 @@ namespace Sila.API.Client.Accounts.PlaidUpdateLinkToken
     {
         private static string endpoint = "/plaid_update_link_token";
         private PlaidUpdateLinkToken() { }
-        public static PlaidUpdateLinkTokenResponse Send(PlaidUpdateLinkTokenRequest request)
+        public static ApiResponse<object> Send(PlaidUpdateLinkTokenRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -33,13 +34,7 @@ namespace Sila.API.Client.Accounts.PlaidUpdateLinkToken
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200 || (int)response.StatusCode == 202)
-                return JsonConvert.DeserializeObject<PlaidUpdateLinkTokenResponse>(response.Content);
-            if ((int)response.StatusCode == 404)
-                throw new NotFoundException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<PlaidUpdateLinkTokenResponse>(response);
         }
     }
 }

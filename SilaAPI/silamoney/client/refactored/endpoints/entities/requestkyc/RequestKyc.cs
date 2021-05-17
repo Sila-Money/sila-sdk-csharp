@@ -5,6 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
+using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Entitiesrequestkyc
@@ -13,7 +14,7 @@ namespace Sila.API.Client.Entitiesrequestkyc
     {
         private static string endpoint = "/request_kyc";
         private RequestKyc() { }
-        public static RequestKycResponse Send(RequestKycRequest request)
+        public static ApiResponse<object> Send(RequestKycRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -36,17 +37,7 @@ namespace Sila.API.Client.Entitiesrequestkyc
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200)
-                return JsonConvert.DeserializeObject<RequestKycResponse>(response.Content);
-            if ((int)response.StatusCode == 400)
-                throw new BadRequestException(response.Content);
-            if ((int)response.StatusCode == 401)
-                throw new InvalidSignatureException(response.Content);
-            if ((int)response.StatusCode == 403)
-                throw new ForbiddenException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<RequestKycResponse>(response);
         }
     }
 }

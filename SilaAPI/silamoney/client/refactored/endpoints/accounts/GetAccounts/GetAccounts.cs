@@ -5,6 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
+using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts.GetAccounts
@@ -13,7 +14,7 @@ namespace Sila.API.Client.Accounts.GetAccounts
     {
         private static string endpoint = "/get_accounts";
         private GetAccounts() { }
-        public static GetAccountsResponse Send(GetAccountsRequest request)
+        public static ApiResponse<object> Send(GetAccountsRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -35,17 +36,7 @@ namespace Sila.API.Client.Accounts.GetAccounts
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200){
-                List<Account> accounts = JsonConvert.DeserializeObject<List<Account>>(response.Content); 
-                return new GetAccountsResponse(accounts);
-            }
-            if ((int)response.StatusCode == 400)
-                throw new BadRequestException(response.Content);
-            if ((int)response.StatusCode == 401)
-                throw new InvalidSignatureException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponseGetAccounts(response);
         }
     }
 }

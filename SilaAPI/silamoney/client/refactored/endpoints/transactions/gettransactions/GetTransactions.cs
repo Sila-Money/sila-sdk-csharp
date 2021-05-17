@@ -7,6 +7,7 @@ using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
+using SilaAPI.silamoney.client.api;
 
 namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
 {
@@ -14,7 +15,7 @@ namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransact
     {
         private static string endpoint = "/get_transactions";
         private GetTransactions() { }
-        public static GetTransactionsResponse Send(GetTransactionsRequest request)
+        public static ApiResponse<object> Send(GetTransactionsRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -36,17 +37,7 @@ namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransact
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200)
-                return JsonConvert.DeserializeObject<GetTransactionsResponse>(response.Content);
-            if ((int)response.StatusCode == 400)
-                throw new BadRequestException(response.Content);
-            if ((int)response.StatusCode == 401)
-                throw new InvalidSignatureException(response.Content);
-            if ((int)response.StatusCode == 403)
-                throw new ForbiddenException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<GetTransactionsResponse>(response);
         }
     }
 }

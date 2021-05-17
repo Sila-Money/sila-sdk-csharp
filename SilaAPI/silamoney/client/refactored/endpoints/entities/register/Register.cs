@@ -5,6 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
+using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Entitiesregister
@@ -13,7 +14,7 @@ namespace Sila.API.Client.Entitiesregister
     {
         private static string endpoint = "/register";
         private Register() { }
-        public static RegisterResponse Send(RegisterRequest request)
+        public static ApiResponse<object> Send(RegisterRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -40,15 +41,7 @@ namespace Sila.API.Client.Entitiesregister
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200)
-                return JsonConvert.DeserializeObject<RegisterResponse>(response.Content);
-            if ((int)response.StatusCode == 400)
-                throw new BadRequestException(response.Content);
-            if ((int)response.StatusCode == 401)
-                throw new InvalidSignatureException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<RegisterResponse>(response);
         }
     }
 }

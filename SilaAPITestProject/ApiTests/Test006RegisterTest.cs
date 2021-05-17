@@ -51,12 +51,14 @@ namespace SilaApiTest
                 UserHandle = ModelsUtilities.FirstUser.UserHandle
             };
 
-            RegisterResponse response = Register.Send(request);
+            var response = Register.Send(request);
 
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            var parsedResponse = (RegisterResponse) response.Data;
+
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
 
             request = new RegisterRequest{
                 Address = new Address{
@@ -93,11 +95,12 @@ namespace SilaApiTest
             };
 
             response = Register.Send(request);
+            parsedResponse = (RegisterResponse) response.Data;
             
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
 
             request = new RegisterRequest{
                 Address = new Address{
@@ -134,11 +137,12 @@ namespace SilaApiTest
             };
 
             response = Register.Send(request);
+            parsedResponse = (RegisterResponse) response.Data;
 
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
 
             request = new RegisterRequest{
                 Address = new Address{
@@ -175,11 +179,12 @@ namespace SilaApiTest
             };
 
             response = Register.Send(request);
+            parsedResponse = (RegisterResponse) response.Data;
 
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
 
             request = new RegisterRequest{
                 Address = new Address{
@@ -219,11 +224,12 @@ namespace SilaApiTest
             };
 
             response = Register.Send(request);
+            parsedResponse = (RegisterResponse) response.Data;
 
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
 
             request = new RegisterRequest{
                 Address = new Address{
@@ -260,11 +266,12 @@ namespace SilaApiTest
             };
 
             response = Register.Send(request);
+            parsedResponse = (RegisterResponse) response.Data;
 
-            Assert.IsTrue(response.Success);
-            Assert.AreEqual("SUCCESS", response.Status);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
         }
 
     }

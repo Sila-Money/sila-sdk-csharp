@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using Sila.API.Client.Domain;
-using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
+using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts.CheckInstantACH
@@ -13,7 +11,7 @@ namespace Sila.API.Client.Accounts.CheckInstantACH
     {
         private static string endpoint = "/update_account";
         private CheckInstantACH() { }
-        public static CheckInstantACHResponse Send(CheckInstantACHRequest request)
+        public static ApiResponse<object> Send(CheckInstantACHRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -35,17 +33,7 @@ namespace Sila.API.Client.Accounts.CheckInstantACH
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            Console.WriteLine(response.Content);
-            if ((int)response.StatusCode == 200)
-                return JsonConvert.DeserializeObject<CheckInstantACHResponse>(response.Content);
-            if ((int)response.StatusCode == 400)
-                throw new BadRequestException(response.Content);
-            if ((int)response.StatusCode == 401)
-                throw new InvalidSignatureException(response.Content);
-            if ((int)response.StatusCode == 403)
-                throw new ForbiddenException(response.Content);
-
-            throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<CheckInstantACHResponse>(response);
         }
     }
 }
