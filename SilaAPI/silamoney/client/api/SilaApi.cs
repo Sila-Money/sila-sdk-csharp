@@ -772,6 +772,20 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// Add a new phone to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="phone">The new phone</param>
+        /// <param name="smsOptIn"></param>
+        /// <returns></returns>
+        public ApiResponse<object> AddPhone(string userHandle, string userPrivateKey, string phone, Boolean smsOptIn)
+        {
+            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, null, smsOptIn);
+            return CallRegistrationData<PhoneResponse>("add", RegistrationData.Phone, userPrivateKey, body);
+        }
+
+        /// <summary>
         /// Add a new identity to a registered entity.
         /// </summary>
         /// <param name="userHandle">The user handle</param>
