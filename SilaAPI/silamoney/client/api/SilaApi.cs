@@ -1003,7 +1003,7 @@ namespace SilaAPI.silamoney.client.api
             });
             body.Add("account_name", accountName);
 
-            return MakeRequest<UpdateAccountResponse>(path, body);
+            return MakeRequest<PlaidUpdateLinkTokenResponse>(path, body);
         }
 
         /// <summary>
