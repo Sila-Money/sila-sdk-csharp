@@ -1,6 +1,6 @@
 using Sila.API.Client.Domain;
 
-namespace Sila.API.Client.Entitiesregister
+namespace Sila.API.Client.Entities
 {
     public class RegisterRequest
     {

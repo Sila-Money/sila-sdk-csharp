@@ -8,7 +8,7 @@ namespace Sila.API.Client.Utils
     {
         public static Dictionary<string, string> SetAuthSignature(Dictionary<string, string> headers, string body)
         {
-            headers.Add("authsignature", Signer.Sign(body, SilaApi.GetInstance().PrivateKey));
+            headers.Add("authsignature", Signer.Sign(body, SilaAPI.GetInstance().PrivateKey));
             return headers;
         }
         public static Dictionary<string, string> SetUserSignature(Dictionary<string, string> headers, string body, string userPrivateKey)

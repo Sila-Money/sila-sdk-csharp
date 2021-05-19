@@ -5,7 +5,7 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.Accounts.CheckInstantACH
+namespace Sila.API.Client.Accounts
 {
     public class CheckInstantACH : AbstractEndpoint
     {

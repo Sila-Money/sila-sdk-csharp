@@ -8,7 +8,7 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.Entitiesregister
+namespace Sila.API.Client.Entities
 {
     public class Register : AbstractEndpoint
     {

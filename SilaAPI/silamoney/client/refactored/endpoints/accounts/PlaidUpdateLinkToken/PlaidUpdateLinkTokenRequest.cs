@@ -1,4 +1,4 @@
-namespace Sila.API.Client.Accounts.PlaidUpdateLinkToken
+namespace Sila.API.Client.Accounts
 {
     public class PlaidUpdateLinkTokenRequest
     {

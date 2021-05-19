@@ -1,6 +1,6 @@
 using Sila.API.Client.Domain;
 
-namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
+namespace Sila.API.Client.Transactions
 {
     public class GetTransactionsRequest
     {

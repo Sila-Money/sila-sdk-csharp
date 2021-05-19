@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Sila.API.Client.Accounts.PlaidUpdateLinkToken
+namespace Sila.API.Client.Accounts
 {
     public class PlaidUpdateLinkTokenResponse
     {

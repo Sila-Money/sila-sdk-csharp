@@ -1,4 +1,4 @@
-namespace Sila.API.Client.Entities.CheckPartnerKyc
+namespace Sila.API.Client.Entities
 {
     public class CheckPartnerKycRequest
     {

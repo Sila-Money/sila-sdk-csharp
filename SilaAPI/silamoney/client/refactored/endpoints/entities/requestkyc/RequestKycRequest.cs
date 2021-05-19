@@ -1,4 +1,4 @@
-namespace Sila.API.Client.Entitiesrequestkyc
+namespace Sila.API.Client.Entities
 {
     public class RequestKycRequest
     {

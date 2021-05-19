@@ -1,4 +1,4 @@
-namespace Sila.API.Client.Accounts.UpdateAccount
+namespace Sila.API.Client.Accounts
 {
     public class UpdateAccountRequest
     {

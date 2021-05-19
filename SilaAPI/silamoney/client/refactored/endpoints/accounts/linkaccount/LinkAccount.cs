@@ -8,7 +8,7 @@ using SilaAPI.silamoney.client.util;
 using Sila.API.Client.Domain;
 using SilaAPI.silamoney.client.api;
 
-namespace Sila.API.Client.Accounts.LinkAccount
+namespace Sila.API.Client.Accounts
 {
     public class LinkAccount : AbstractEndpoint
     {

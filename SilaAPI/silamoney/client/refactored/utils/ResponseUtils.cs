@@ -23,7 +23,7 @@ namespace Sila.API.Client.Utils
                     List<Sila.API.Client.Domain.Account> accounts = JsonConvert.DeserializeObject<List<Sila.API.Client.Domain.Account>>(rawResponse.Content);
                     return new ApiResponse<object>(statusCode,
                 rawResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                new Sila.API.Client.Accounts.GetAccounts.GetAccountsResponse(accounts),
+                new Sila.API.Client.Accounts.GetAccountsResponse(accounts),
                 GetSuccess(statusCode, accounts));
                 case 400:
                     responseBody = JsonConvert.DeserializeObject<BadRequestResponse>(rawResponse.Content);

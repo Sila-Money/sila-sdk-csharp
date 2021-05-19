@@ -1,4 +1,4 @@
-namespace Sila.API.Client.Accounts.GetAccounts
+namespace Sila.API.Client.Accounts
 {
     public class GetAccountsRequest
     {

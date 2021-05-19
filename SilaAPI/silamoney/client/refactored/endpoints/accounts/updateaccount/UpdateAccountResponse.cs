@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sila.API.Client.Domain;
 
-namespace Sila.API.Client.Accounts.UpdateAccount
+namespace Sila.API.Client.Accounts
 {
     public class UpdateAccountResponse
     {

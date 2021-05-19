@@ -9,7 +9,7 @@ using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
 using SilaAPI.silamoney.client.api;
 
-namespace SilaAPI.Silamoney.Client.Refactored.endpoints.transactions.gettransactions
+namespace Sila.API.Client.Transactions
 {
     public class GetTransactions : AbstractEndpoint
     {

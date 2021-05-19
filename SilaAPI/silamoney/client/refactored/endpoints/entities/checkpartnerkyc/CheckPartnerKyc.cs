@@ -8,7 +8,7 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.Entities.CheckPartnerKyc
+namespace Sila.API.Client.Entities
 {
     public class CheckPartnerKyc : AbstractEndpoint
     {
