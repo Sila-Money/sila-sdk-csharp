@@ -40,5 +40,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("total_page_count")]
         public int TotalPageCount { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

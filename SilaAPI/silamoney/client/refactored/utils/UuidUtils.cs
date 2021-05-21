@@ -1,10 +1,13 @@
 using System;
 
-public static class UuidUtils
+namespace Sila.API.Client.Utils
 {
-    public static string GetUuid()
+    public static class UuidUtils
     {
-        Guid myuuid = Guid.NewGuid();
-        return myuuid.ToString();
+        public static string GetUuid()
+        {
+            Guid myuuid = Guid.NewGuid();
+            return myuuid.ToString();
+        }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using SilaAPI.silamoney.client.configuration;
-using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
 
-namespace SilaAPI.silamoney.client.refactored.api
+namespace Sila.API.Client
 {
     /// <summary>
     /// Class used to prepare requests and make calls to the api server.
@@ -16,7 +15,7 @@ namespace SilaAPI.silamoney.client.refactored.api
         /// ApiClient constructor.
         /// </summary>
         /// <param name="basePath"></param>
-        public ApiClient(string basePath = Environments.sandbox)
+        public ApiClient(string basePath)
         {
             if (string.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");

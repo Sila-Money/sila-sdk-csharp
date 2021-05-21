@@ -1,109 +1,82 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 
 namespace SilaApiTest
 {
     [TestClass]
     public class Test010_RequestKYCTest
     {
-        [TestInitialize]
-        public void TestInitialize() {
-            SilaApi.Init(Environment.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
-        }
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("4 - RequestKYC - Random user RequestKYC")]
         public void T004_Response200()
         {
             var user = DefaultConfig.FirstUser;
 
-            RequestKycRequest request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey
-            };
+            var response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey);
+            var parsedResponse = (RequestKYCResponse) response.Data;
 
-            RequestKycResponse response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
 
             user = DefaultConfig.SecondUser;
 
-            request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey
-            };
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey);
+            parsedResponse = (RequestKYCResponse) response.Data;
 
-            response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
             
             user = DefaultConfig.ThirdUser;
 
-            request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey
-            };
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey);
+            parsedResponse = (RequestKYCResponse) response.Data;
 
-            response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
 
             user = DefaultConfig.FourthUser;
 
-            request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey
-            };
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey);
+            parsedResponse = (RequestKYCResponse) response.Data;
 
-            response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
 
             user = DefaultConfig.BusinessUser;
 
-            request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey
-            };
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey);
+            parsedResponse = (RequestKYCResponse) response.Data;
 
-            response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
 
             user = DefaultConfig.InstantUser;
 
-            request = new RequestKycRequest{
-                UserHandle = user.UserHandle,
-                UserPrivateKey = user.PrivateKey,
-                KycLevel = "INSTANT-ACH"
-            };
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey, kycLevel: "INSTANT-ACH");
+            parsedResponse = (RequestKYCResponse) response.Data;
 
-            response = RequestKyc.Send(request);
-
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Message);
-            Assert.IsNotNull(response.Reference);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.VerificationUuid);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.VerificationUuid);
         }
     }
 }

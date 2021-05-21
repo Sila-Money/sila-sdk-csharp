@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// Transaction object used in the GetTransactionsResult object
@@ -34,7 +34,7 @@ namespace SilaAPI.silamoney.client.refactored.domain
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
         [JsonProperty("sila_amount")]
-        internal float Amount { get; set; }
+        public float? Amount { get; set; }
         /// <summary>
         /// Int field value used in the Transaction objet to save sila_amount
         /// </summary>

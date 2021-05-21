@@ -10,8 +10,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the LinkAccountMsg object to save public token
         /// </summary>
-        [DataMember(Name = "public_token", EmitDefaultValue = false)]
-        public string PublicToken { get; set; }
+        [DataMember(Name = "plaid_token", EmitDefaultValue = false)]
+        public string PlaidToken { get; set; }
         /// <summary>
         /// String field used in the LinkAccountMsg object to save account name
         /// </summary>
@@ -38,24 +38,26 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the LinkAccountMsg object to save selected account type
         /// </summary>
         [DataMember(Name = "account_type", EmitDefaultValue = false)]
-        public string AccountType { get; set; }                        
+        public string AccountType { get; set; }
+        [DataMember(Name = "plaid_token_type", EmitDefaultValue = false)]
+        public string PlaidTokenType { get; set; }
 
         /// <summary>
         /// LinkAccountMsg constructor
         /// </summary>
         /// <param name="userHandle"></param>
-        /// <param name="publicToken"></param>
+        /// <param name="plaidToken"></param>
         /// <param name="appHandle"></param>
         /// <param name="accountId"></param>
         /// <param name="accountName"></param>                   
         public LinkAccountMsg(string userHandle,
-            string publicToken,
+            string plaidToken,
             string appHandle,
             string accountId,
             string accountName)
         {
             Header = new Header(userHandle, appHandle);
-            PublicToken = publicToken;
+            PlaidToken = plaidToken;
             MessageOption = Message.LinkAccountMsg;
             AccountName = accountName;
             SelectedAccountId = accountId;

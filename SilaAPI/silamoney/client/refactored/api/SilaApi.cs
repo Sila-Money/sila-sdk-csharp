@@ -1,51 +1,50 @@
-﻿namespace SilaAPI.silamoney.client.refactored.api
+﻿using Sila.API.Client.Exceptions;
+
+namespace Sila.API.Client
 {
     /// <summary>
     /// Singleton class used to configure the api calls.
     /// </summary>
-    public class SilaApi
+    public class SilaAPI
     {
-        private SilaApi(ApiClient apiClient, string appHandle, string privateKey)
+        private SilaAPI(ApiClient apiClient, string appHandle, string privateKey)
         {
             this.AppHandle = appHandle;
             this.ApiClient = apiClient;
             this.PrivateKey = privateKey;
         }
-        private static SilaApi _instance;
+        private static SilaAPI _instance;
         public string AppHandle { get; private set; }
         public string PrivateKey { get; private set; }
         public ApiClient ApiClient { get; private set; }
         /// <summary>
-        /// Initialize the SilaApi instance.
+        /// Initialize the SilaAPI instance.
         /// </summary>
         /// <param name="environment"></param>
         /// <param name="appHandle"></param>
         /// <param name="privateKey"></param>
-        public static void Init(Environment environment, string appHandle, string privateKey)
+        public static void Init(Environments environment, string appHandle, string privateKey)
         {
-            if (_instance == null)
-            {
-                string basePath = environment == Environment.STAGING ? "https://stageapi.silamoney.com/0.2" :
-                    environment == Environment.PRODUCTION ? "https://api.silamoney.com/0.2" :
+            string basePath = environment == Environments.STAGING ? "https://stageapi.silamoney.com/0.2" :
+                    environment == Environments.PRODUCTION ? "https://api.silamoney.com/0.2" :
                     "https://sandbox.silamoney.com/0.2";
-                _instance = new SilaApi(
-                    apiClient: new ApiClient(
-                        basePath: basePath
-                    ),
-                    appHandle: appHandle,
-                    privateKey: privateKey
-                );
-            }
+            _instance = new SilaAPI(
+                apiClient: new ApiClient(
+                    basePath: basePath
+                ),
+                appHandle: appHandle,
+                privateKey: privateKey
+            );
         }
         /// <summary>
         /// Gets the Sila Api instance.
         /// </summary>
         /// <returns></returns>
-        public static SilaApi GetInstance()
+        public static SilaAPI GetInstance()
         {
             if (_instance == null)
             {
-                throw new SilaApiNotInitializedException("SilaApi not yet initialized. Run Init method before.");
+                throw new SilaApiNotInitializedException("SilaAPI not yet initialized. Run Init method before.");
             }
             return _instance;
         }

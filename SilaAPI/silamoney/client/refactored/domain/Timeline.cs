@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// Timeline object used in the SearchFilters object

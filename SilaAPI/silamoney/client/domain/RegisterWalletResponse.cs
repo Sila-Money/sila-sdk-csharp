@@ -30,5 +30,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("wallet_nickname")]
         public string WalletNickname { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

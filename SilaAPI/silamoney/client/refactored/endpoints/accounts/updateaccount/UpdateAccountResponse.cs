@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SilaAPI.silamoney.client.refactored.domain;
+using Sila.API.Client.Domain;
 
-public class UpdateAccountResponse
+namespace Sila.API.Client.Accounts
 {
-    [JsonProperty("success")]
-    public bool Success { get; private set; }
-    [JsonProperty("message")]
-    public string Message { get; private set; }
-    [JsonProperty("status")]
-    public string Status { get; private set; }
-    [JsonProperty("account")]
-    public Account Account { get; private set; }
-    [JsonProperty("changes")]
-    public List<Change> Changes { get; private set; }
+    public class UpdateAccountResponse
+    {
+        [JsonProperty("success")]
+        public bool Success { get; private set; }
+        [JsonProperty("message")]
+        public string Message { get; private set; }
+        [JsonProperty("status")]
+        public string Status { get; private set; }
+        [JsonProperty("account")]
+        public Account Account { get; private set; }
+        [JsonProperty("changes")]
+        public List<Change> Changes { get; private set; }
+    }
 }

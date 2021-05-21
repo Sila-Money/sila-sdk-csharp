@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace Sila.API.Client.Domain
 {
     public class SearchFilters
     {
@@ -32,5 +31,7 @@ namespace SilaAPI.silamoney.client.refactored.domain
         public List<string> TransactionTypes { get; set; }
         [JsonProperty("bank_account_name")]
         public string BankAccountName { get; set; }
+        [JsonProperty("blockchain_address")]
+        public string BlockchainAddress { get; set; }
     }
 }

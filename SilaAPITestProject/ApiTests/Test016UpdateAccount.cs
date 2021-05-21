@@ -1,33 +1,30 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilaAPI.silamoney.client.refactored.api;
+using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.domain;
 
 namespace SilaApiTest
 {
     [TestClass]
     public class Test016UpdateAccount
     {
-        [TestInitialize]
-        public void TestInitialize() {
-            SilaApi.Init(Environment.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
-        }
+        SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - Update account - Successful update account")]
         public void T020Response200()
         {
-            UpdateAccountRequest request = new UpdateAccountRequest {
-                AccountName = "toupdate",
-                NewAccountName = "updated",
-                UserHandle = DefaultConfig.FirstUser.UserHandle,
-                UserPrivateKey = DefaultConfig.FirstUser.PrivateKey
-            };
+            var response = api.UpdateAccount(
+                accountName: "toupdate",
+                newAccountName: "updated",
+                userHandle: DefaultConfig.FirstUser.UserHandle,
+                userPrivateKey: DefaultConfig.FirstUser.PrivateKey
+            );
+            var parsedResponse = (UpdateAccountResponse) response.Data;
 
-            UpdateAccountResponse response = UpdateAccount.Send(request);
-
-            Assert.IsNotNull(response.Message);
-            Assert.IsTrue(response.Success);
-            Assert.IsNotNull(response.Status);
-            Assert.IsNotNull(response.Account);
-            Assert.IsNotNull(response.Changes);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Account);
+            Assert.IsNotNull(parsedResponse.Changes);
         }
     }
 }

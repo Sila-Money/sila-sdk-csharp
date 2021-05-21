@@ -1,7 +1,7 @@
 ﻿// using System;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using SilaAPI.silamoney.client.refactored.api;
-// using SilaAPI.silamoney.client.refactored.domain;
+// 
+// using Sila.API.Client.Domain;
 
 // namespace SilaApiTest
 // {
@@ -10,7 +10,7 @@
 //     {
 //         [TestInitialize]
 //         public void TestInitialize() {
-//             SilaApi.Init(Environment.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
+//             SilaApi.Init(Environments.SANDBOX, "digital_geko_e2e", "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e");
 //         }
 
 //         [TestMethod("1 - Register - Random users registration")]

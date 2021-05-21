@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// 

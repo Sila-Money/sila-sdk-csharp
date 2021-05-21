@@ -1,7 +1,10 @@
-using SilaAPI.silamoney.client.refactored.domain;
+using Sila.API.Client.Domain;
 
-public class GetTransactionsRequest
+namespace Sila.API.Client.Transactions
 {
-    public string UserHandle { get; set; }
-    public SearchFilters SearchFilters { get; set; }
+    public class GetTransactionsRequest
+    {
+        public string UserHandle { get; set; }
+        public SearchFilters SearchFilters { get; set; }
+    }
 }

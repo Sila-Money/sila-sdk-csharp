@@ -2,52 +2,49 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
-using SilaAPI.silamoney.client.refactored.domain;
+using Sila.API.Client.Exceptions;
+using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.util;
+using Sila.API.Client.Domain;
+using SilaAPI.silamoney.client.api;
 
-public class LinkAccount : AbstractEndpoint
+namespace Sila.API.Client.Accounts
 {
-    private static string endpoint = "/link_account";
-    private LinkAccount() { }
-    public static LinkAccountResponse Send(LinkAccountRequest request)
+    public class LinkAccount : AbstractEndpoint
     {
-        Dictionary<string, object> body = new Dictionary<string, object>();
-        body.Add("header", new Header
+        private static string endpoint = "/link_account";
+        private LinkAccount() { }
+        public static ApiResponse<object> Send(LinkAccountRequest request)
         {
-            Created = EpochUtils.getEpoch(),
-            AppHandle = AppHandle,
-            UserHandle = request.UserHandle,
-            Crypto = "ETH",
-            Reference = UuidUtils.GetUuid(),
-            Version = "0.2"
-        });
-        body.Add("account_name", request.AccountName);
-        body.Add("account_number", request.AccountNumber);
-        body.Add("routing_number", request.RoutingNumber);
-        body.Add("account_type", request.AccountType);
-        body.Add("plaid_token", request.PlaidToken);
-        body.Add("selected_account_id", request.SelectedAccountId);
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new Header
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = AppHandle,
+                UserHandle = request.UserHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
+            });
+            body.Add("account_name", request.AccountName);
+            body.Add("account_number", request.AccountNumber);
+            body.Add("routing_number", request.RoutingNumber);
+            body.Add("account_type", request.AccountType);
+            body.Add("plaid_token", request.PlaidToken);
+            body.Add("selected_account_id", request.SelectedAccountId);
+            body.Add("plaid_token_type", request.PlaidTokenType);
 
-        string serializedBody = SerializationUtil.Serialize(body);
+            string serializedBody = SerializationUtil.Serialize(body);
 
-        Console.WriteLine(serializedBody);
+            Console.WriteLine(serializedBody);
 
-        Dictionary<string, string> headers = new Dictionary<string, string>();
-        headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
-        headers = HeaderUtils.SetUserSignature(headers, serializedBody, request.UserPrivateKey);
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
+            headers = HeaderUtils.SetUserSignature(headers, serializedBody, request.UserPrivateKey);
 
-        IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
+            IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-        Console.WriteLine(response.Content);
-        if ((int)response.StatusCode == 200 || (int)response.StatusCode == 202)
-            return JsonConvert.DeserializeObject<LinkAccountResponse>(response.Content);
-        if ((int)response.StatusCode == 400)
-            throw new BadRequestException(response.Content);
-        if ((int)response.StatusCode == 401)
-            throw new InvalidSignatureException(response.Content);
-        if ((int)response.StatusCode == 403)
-            throw new ForbiddenException(response.Content);
-
-        throw new Exception(response.Content);
+            return ResponseUtils.PrepareResponse<LinkAccountResponse>(response);
+        }
     }
 }

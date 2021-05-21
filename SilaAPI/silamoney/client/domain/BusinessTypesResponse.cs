@@ -20,5 +20,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <value>BusinessTypes</value>
         [JsonProperty("business_types")]
         public List<BusinessType> BusinessTypes { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

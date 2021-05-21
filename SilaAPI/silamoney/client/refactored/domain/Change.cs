@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace SilaAPI.silamoney.client.refactored.domain
+namespace Sila.API.Client.Domain
 {
     public class Change
     {

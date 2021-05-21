@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
@@ -152,11 +153,14 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
         /// <param name="accountId"></param>
+        /// <param name="plaidTokenType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
+        /// 
         public ApiResponse<object> LinkAccount(string userHandle, string publicToken, string userPrivateKey,
-            string accountName = null, string accountId = null)
+            string accountName = null, string accountId = null, string plaidTokenType = null)
         {
             LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, Configuration.AppHandle, accountId, accountName);
+            body.PlaidTokenType = plaidTokenType;
             var path = "/link_account";
 
             return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
@@ -239,7 +243,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle);
             var path = "/request_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<RequestKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -254,7 +258,7 @@ namespace SilaAPI.silamoney.client.api
             HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle, kycLevel);
             var path = "/request_kyc";
 
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+            return MakeRequest<RequestKYCResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>
@@ -768,6 +772,20 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// Add a new phone to a registered entity.
+        /// </summary>
+        /// <param name="userHandle">The user handle</param>
+        /// <param name="userPrivateKey">The user's private key</param>
+        /// <param name="phone">The new phone</param>
+        /// <param name="smsOptIn"></param>
+        /// <returns></returns>
+        public ApiResponse<object> AddPhone(string userHandle, string userPrivateKey, string phone, Boolean smsOptIn)
+        {
+            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, null, smsOptIn);
+            return CallRegistrationData<PhoneResponse>("add", RegistrationData.Phone, userPrivateKey, body);
+        }
+
+        /// <summary>
         /// Add a new identity to a registered entity.
         /// </summary>
         /// <param name="userHandle">The user handle</param>
@@ -914,6 +932,101 @@ namespace SilaAPI.silamoney.client.api
             var path = "/delete_account";
 
             return MakeRequest<DeleteAccountResult>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Returns whether entity attached to partnered app is verified, not valid, or still pending.
+        /// </summary>
+        /// <param name="queryAppHandle"></param>
+        /// <param name="queryUserHandle"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CheckPartnerKyc(string queryAppHandle, string queryUserHandle)
+        {
+            var path = "/check_partner_kyc";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
+            });
+            body.Add("query_app_handle", queryAppHandle);
+            body.Add("query_user_handle", queryUserHandle);
+
+            return MakeRequest<CheckPartnerKycResponse>(path, body);
+        }
+
+        /// <summary>
+        /// Updates account name of a bank account.
+        /// /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <param name="newAccountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName)
+        {
+            var path = "/update_account";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
+            });
+            body.Add("account_name", accountName);
+            body.Add("new_account_name", newAccountName);
+
+            return MakeRequest<UpdateAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> PlaidUpdateLinkToken(string userHandle, string accountName)
+        {
+            var path = "/plaid_update_link_token";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle
+            });
+            body.Add("account_name", accountName);
+
+            return MakeRequest<PlaidUpdateLinkTokenResponse>(path, body);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName)
+        {
+            var path = "/check_instant_ach";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Reference = UuidUtils.GetUuid()
+            });
+            body.Add("account_name", accountName);
+
+            return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
         }
 
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
