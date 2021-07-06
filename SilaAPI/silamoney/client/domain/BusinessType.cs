@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -5,5 +7,7 @@ namespace SilaAPI.silamoney.client.domain
     /// </summary>
     public class BusinessType : BusinessInformation
     {
+        [JsonProperty("requires_certification")]
+        public bool RequiresCertification { get; set; }
     }
 }

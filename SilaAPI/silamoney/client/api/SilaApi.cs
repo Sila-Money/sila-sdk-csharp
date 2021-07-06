@@ -1029,6 +1029,25 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// Fetch data about institutions and which products they support.
+        /// </summary>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters)
+        {
+            var path = "/get_institutions";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle
+            });
+            body.Add("search_filters", searchFilters);
+
+            return MakeRequest<GetInstitutionsResponse>(path, body);
+        }
+
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
         {
             var path = $"/{rootPath}/{dataType.Url}";
