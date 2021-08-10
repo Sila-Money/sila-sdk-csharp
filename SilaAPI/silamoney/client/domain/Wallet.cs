@@ -29,6 +29,12 @@ namespace SilaAPI.silamoney.client.domain
         public string Nickname { get; set; }
 
         /// <summary>
+        /// bool field used in the Wallet object to save default
+        /// </summary>
+        [DataMember(Name = "default", EmitDefaultValue = false)]
+        public bool? IsDefault { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public Wallet() { }
@@ -39,11 +45,13 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="blockChainAddress"></param>
         /// <param name="blockChainNetwork"></param>
         /// <param name="nickname"></param>
-        public Wallet(string blockChainAddress, Crypto blockChainNetwork, string nickname)
+        /// <param name="isDefault"></param>
+        public Wallet(string blockChainAddress, Crypto blockChainNetwork, string nickname, bool? isDefault)
         {
             BlockChainAddress = blockChainAddress;
             BlockChainNetwork = blockChainNetwork;
             Nickname = nickname;
+            IsDefault = isDefault;
         }
     }
 }
