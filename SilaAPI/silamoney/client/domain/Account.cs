@@ -42,5 +42,20 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("active")]
         public bool Active { get; set; }
+        /// <summary>
+        /// Float field used in the Account object to save account MatchScore
+        /// </summary>
+        [JsonProperty("match_score")]
+        public float? MatchScore { get; set; }
+        /// <summary>
+        /// Float field used in the Account object to save account AccountOwnerName 
+        /// </summary>
+        [JsonProperty("account_owner_name")]
+        public string AccountOwnerName { get; set; }
+        /// <summary>
+        /// Float field used in the Account object to save account EntityName  
+        /// </summary>
+        [JsonProperty("entity_name")]
+        public string EntityName { get; set; }
     }
 }
