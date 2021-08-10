@@ -1,3 +1,12 @@
+v0.2.26
+Enhancements:
+    - Added MatchScore, AccountOwnerName, and EntityName to the response in /get_accounts.
+    - Added business_uuid to the response in /register.
+    - Added IsDefault a new optional input in /register_wallet.
+    - Added AndroidPackageName a new optional input in /plaid_link_token.
+Breaking changes:
+    -Register for BusinessUser does not return BaseResponse anymore, it returns BusinessUserResponse object.
+
 v0.2.24
 New Features:
     -Adding support for /get_institutions.
