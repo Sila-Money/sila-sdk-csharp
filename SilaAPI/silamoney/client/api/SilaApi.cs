@@ -911,10 +911,11 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
+        /// <param name="androidPackageName">optional</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey)
+        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey, string androidPackageName = null)
         {
-            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle);
+            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle, androidPackageName);
             var path = "/plaid_link_token";
 
             return MakeRequest<PlaidLinkTokenResult>(path, body, userPrivateKey);

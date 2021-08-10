@@ -14,10 +14,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="authHandle"></param>
-        public PlaidLinkTokenMsg(string userHandle,
-            string authHandle)
+        /// <param name="androidPackageName"></param>
+        public PlaidLinkTokenMsg(string userHandle, string authHandle, string androidPackageName)
         {
-            Header = new Header(userHandle, authHandle);
+            Header = new Header(userHandle, authHandle, androidPackageName);
         }
     }
 }

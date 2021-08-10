@@ -39,16 +39,20 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "crypto", EmitDefaultValue = false)]
         public Crypto CryptoOption { get; set; }
+        /// <summary>
+        /// string field used in the Header object to save android_package_name
+        /// </summary>
+        [DataMember(Name = "android_package_name", EmitDefaultValue = false)]
+        public string AndroidPackageName { get; set; }
 
         /// <summary>
         /// Header constructor
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="authHandle"></param>
+        /// <param name="androidPackageName"></param>
         /// <returns></returns>
-        public Header(string userHandle = default,
-            string authHandle = default
-            )
+        public Header(string userHandle = default, string authHandle = default, string androidPackageName = default)
         {
             UserHandle = userHandle;
             AuthHandle = authHandle;
@@ -56,6 +60,7 @@ namespace SilaAPI.silamoney.client.domain
             VersionOption = Version._02;
             Created = ((int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds) - 100;
             Reference = Guid.NewGuid().ToString();
+            AndroidPackageName = androidPackageName;
         }
     }
 }
