@@ -229,7 +229,7 @@ namespace SilaAPI.silamoney.client.api
             EntityMsg body = new EntityMsg(user, Configuration.AppHandle);
             var path = "/register";
 
-            return MakeRequest<BaseResponse>(path, body);
+            return MakeRequest<BusinessUserResponse>(path, body);
         }
 
         /// <summary>
