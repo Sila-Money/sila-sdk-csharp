@@ -8,7 +8,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     ///  Object used in the Register method for BusinessUser
     /// </summary>   
-    public class BusinessUserResponse : BaseResponseWithoutReference
+    public class BusinessUserResponse : BaseResponse
     {
         /// <summary>
         ///  String field used in the BusinessUserResponse object to save BusinessUuid
