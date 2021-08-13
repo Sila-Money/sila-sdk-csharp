@@ -18,7 +18,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should success get_accounts");
             var parsedResponse = (GetAccountsResponse)response.Data;
-            Assert.AreEqual(6, parsedResponse.Accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
+            Assert.AreEqual(5, parsedResponse.Accounts.Count, $"{user.UserHandle} must have 3 linked accounts");
         }
 
         [TestMethod("2 - GetAccounts - Empty user handle failure")]
