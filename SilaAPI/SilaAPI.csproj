@@ -10,7 +10,7 @@
     <Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
     <Company>DigitalGeko</Company>
     <Product>SilaSDK</Product>
-    <Version>0.2.24</Version>
+    <Version>0.2.26</Version>
     <owners>Silamoney</owners>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

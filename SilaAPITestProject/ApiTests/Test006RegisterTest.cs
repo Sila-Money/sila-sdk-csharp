@@ -41,7 +41,7 @@ namespace SilaApiTest
             var businessResponse = api.Register(businessUser);
 
             Assert.AreEqual(200, fourthResponse.StatusCode);
-            Assert.AreEqual("SUCCESS", ((BaseResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
+            Assert.AreEqual("SUCCESS", ((BusinessUserResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
 
             var basicUser = ModelsUtilities.BasicUser;
             var basicResponse = api.Register(basicUser);
@@ -61,7 +61,7 @@ namespace SilaApiTest
             var basicBusinessResponse = api.Register(ModelsUtilities.BasicBusiness);
 
             Assert.AreEqual(200, basicBusinessResponse.StatusCode);
-            var parsedBasicBusinessResponse = (BaseResponse)basicResponse.Data;
+            var parsedBasicBusinessResponse = (BusinessUserResponse)basicBusinessResponse.Data;
             Assert.IsTrue(parsedBasicBusinessResponse.Success);
             Assert.AreEqual("SUCCESS", parsedBasicBusinessResponse.Status);
 

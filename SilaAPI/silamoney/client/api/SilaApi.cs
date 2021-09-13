@@ -229,7 +229,7 @@ namespace SilaAPI.silamoney.client.api
             EntityMsg body = new EntityMsg(user, Configuration.AppHandle);
             var path = "/register";
 
-            return MakeRequest<BaseResponse>(path, body);
+            return MakeRequest<BusinessUserResponse>(path, body);
         }
 
         /// <summary>
@@ -392,10 +392,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>   
         /// <param name="wallet"></param>
         /// <param name="nickname"></param>
+        /// <param name="isDefault">optional</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RegisterWallet(string userHandle, string userPrivateKey, UserWallet wallet, string nickname)
+        public ApiResponse<object> RegisterWallet(string userHandle, string userPrivateKey, UserWallet wallet, string nickname, bool? isDefault = null)
         {
-            RegisterWalletMsg body = new RegisterWalletMsg(userHandle, Configuration.AppHandle, wallet, nickname);
+            RegisterWalletMsg body = new RegisterWalletMsg(userHandle, Configuration.AppHandle, wallet, nickname, isDefault);
             var path = "/register_wallet";
 
             return MakeRequest<RegisterWalletResponse>(path, body, userPrivateKey);
@@ -910,10 +911,11 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
+        /// <param name="androidPackageName">optional</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey)
+        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey, string androidPackageName = null)
         {
-            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle);
+            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle, androidPackageName);
             var path = "/plaid_link_token";
 
             return MakeRequest<PlaidLinkTokenResult>(path, body, userPrivateKey);

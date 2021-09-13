@@ -56,12 +56,12 @@ namespace SilaAPI.silamoney.client.domain
         /// String field used in the Entity object to save naics code
         /// </summary>
         [JsonProperty("naics_category")]
-        public int NaicsCategory { get; set; }
+        public string NaicsCategory { get; set; }
         /// <summary>
         /// String field used in the Entity object to save naics code
         /// </summary>
         [JsonProperty("naics_subcategory")]
-        public int NaicsSubcategory { get; set; }
+        public string NaicsSubcategory { get; set; }
         /// <summary>
         /// String field used in the Entity object to save business website
         /// </summary>

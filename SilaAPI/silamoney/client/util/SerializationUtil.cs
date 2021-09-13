@@ -16,7 +16,7 @@ namespace SilaAPI.silamoney.client.util
                 Newtonsoft.Json.Formatting.None,
                 new JsonSerializerSettings
                 {
-                    ContractResolver = RemoveStringsImplementation.Instance,
+                    //ContractResolver = RemoveStringsImplementation.Instance,
                     NullValueHandling = NullValueHandling.Ignore
                 });
         }

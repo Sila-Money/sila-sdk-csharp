@@ -26,15 +26,13 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="authHandle"></param>
         /// <param name="wallet"></param>        
         /// <param name="nickname"></param>
-        public RegisterWalletMsg(string userHandle,
-            string authHandle,
-            UserWallet wallet,
-            string nickname)
+        /// <param name="isDefault"></param>
+        public RegisterWalletMsg(string userHandle, string authHandle, UserWallet wallet, string nickname, bool? isDefault)
         {
             Header = new Header(userHandle, authHandle);
             if (!string.IsNullOrWhiteSpace(wallet.PrivateKey))
                 WalletVerificationSignature = Signer.Sign(wallet.Address, wallet.PrivateKey);
-            Wallet = new Wallet(wallet.Address, Header.Crypto.ETH, nickname);
+            Wallet = new Wallet(wallet.Address, Header.Crypto.ETH, nickname, isDefault);
         }
     }
 }

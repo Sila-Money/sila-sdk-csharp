@@ -120,7 +120,7 @@ namespace SilaApiTest
                 userPrivateKey: user.PrivateKey,
                 accountName: "sync_direct",
                 accountNumber: "12345678912", 
-                routingNumber: "123456789"
+                routingNumber: "123456780"
             );
             var parsedResponse = (LinkAccountResponse)response.Data;
 
@@ -135,7 +135,7 @@ namespace SilaApiTest
                 userPrivateKey: user.PrivateKey,
                 accountName: "default",
                 accountNumber: "12345678912", 
-                routingNumber: "123456789"
+                routingNumber: "123456780"
             );
             parsedResponse = (LinkAccountResponse)response.Data;
 
@@ -150,7 +150,7 @@ namespace SilaApiTest
                 userPrivateKey: user.PrivateKey,
                 accountName: "unlink",
                 accountNumber: "12345678912", 
-                routingNumber: "123456789"
+                routingNumber: "123456780"
             );
             parsedResponse = (LinkAccountResponse)response.Data;
 
@@ -165,7 +165,7 @@ namespace SilaApiTest
                 userPrivateKey: user.PrivateKey,
                 accountName: "toupdate",
                 accountNumber: "12345678912", 
-                routingNumber: "123456789"
+                routingNumber: "123456780"
             );
             parsedResponse = (LinkAccountResponse)response.Data;
 
