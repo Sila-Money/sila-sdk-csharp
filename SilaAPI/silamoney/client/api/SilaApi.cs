@@ -1037,7 +1037,7 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="searchFilters"></param>
         /// <returns></returns>
-        public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters)
+        public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters = null)
         {
             var path = "/get_institutions";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -1046,7 +1046,7 @@ namespace SilaAPI.silamoney.client.api
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle
             });
-            body.Add("search_filters", searchFilters);
+            if (searchFilters != null) body.Add("search_filters", searchFilters);
 
             return MakeRequest<GetInstitutionsResponse>(path, body);
         }

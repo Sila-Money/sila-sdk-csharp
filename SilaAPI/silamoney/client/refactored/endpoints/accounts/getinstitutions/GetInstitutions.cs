@@ -14,20 +14,24 @@ namespace Sila.API.Client.Accounts
     {
         private static string endpoint = "/get_institutions";
         private GetInstitutions() { }
-        public static ApiResponse<object> Send(GetInstitutionsRequest request)
+        public static ApiResponse<object> Send(GetInstitutionsRequest request = null)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
-            Dictionary<string, object> searchFilters = new Dictionary<string, object>();
-            searchFilters.Add("institution_name", request.InstitutionName);
-            searchFilters.Add("institution_name", request.RoutingNumber);
-            searchFilters.Add("institution_name", request.Page);
-            searchFilters.Add("institution_name", request.PerPage);
             body.Add("header", new Header
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = AppHandle
             });
-            body.Add("search_filters", searchFilters);
+
+            if (request != null)
+            {
+                Dictionary<string, object> searchFilters = new Dictionary<string, object>();
+                searchFilters.Add("institution_name", request.InstitutionName);
+                searchFilters.Add("routing_number", request.RoutingNumber);
+                searchFilters.Add("page", request.Page);
+                searchFilters.Add("per_page", request.PerPage);
+                body.Add("search_filters", searchFilters);
+            }
 
             string serializedBody = SerializationUtil.Serialize(body);
 
