@@ -968,7 +968,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="accountName"></param>
         /// <param name="newAccountName"></param>
         /// <returns></returns>
-        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName)
+        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName, bool isActive = true)
         {
             var path = "/update_account";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -983,6 +983,7 @@ namespace SilaAPI.silamoney.client.api
             });
             body.Add("account_name", accountName);
             body.Add("new_account_name", newAccountName);
+            body.Add("active", isActive);
 
             return MakeRequest<UpdateAccountResponse>(path, body, userPrivateKey);
         }
