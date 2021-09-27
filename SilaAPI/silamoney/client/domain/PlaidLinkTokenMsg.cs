@@ -10,12 +10,6 @@ namespace SilaAPI.silamoney.client.domain
     {
 
         /// <summary>
-        /// string field used in the Header object to save android_package_name
-        /// </summary>
-        [DataMember(Name = "android_package_name", EmitDefaultValue = false)]
-        public string AndroidPackageName { get; set; }
-
-        /// <summary>
         /// PlaidLinkTokenMsg constructor
         /// </summary>
         /// <param name="userHandle"></param>
@@ -23,8 +17,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="androidPackageName"></param>
         public PlaidLinkTokenMsg(string userHandle, string authHandle, string androidPackageName)
         {
-            Header = new Header(userHandle, authHandle);
-            AndroidPackageName = androidPackageName;
+            Header = new Header(userHandle, authHandle, androidPackageName);
         }
     }
 }

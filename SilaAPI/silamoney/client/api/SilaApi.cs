@@ -967,9 +967,8 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
         /// <param name="newAccountName"></param>
-        /// <param name="isActive"></param>
         /// <returns></returns>
-        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName, bool? isActive = true)
+        public ApiResponse<object> UpdateAccount(string userHandle, string userPrivateKey, string accountName, string newAccountName)
         {
             var path = "/update_account";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -984,7 +983,6 @@ namespace SilaAPI.silamoney.client.api
             });
             body.Add("account_name", accountName);
             body.Add("new_account_name", newAccountName);
-            body.Add("active", isActive);
 
             return MakeRequest<UpdateAccountResponse>(path, body, userPrivateKey);
         }
@@ -1038,7 +1036,7 @@ namespace SilaAPI.silamoney.client.api
         /// </summary>
         /// <param name="searchFilters"></param>
         /// <returns></returns>
-        public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters = null)
+        public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters)
         {
             var path = "/get_institutions";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -1047,7 +1045,7 @@ namespace SilaAPI.silamoney.client.api
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle
             });
-            if (searchFilters != null) body.Add("search_filters", searchFilters);
+            body.Add("search_filters", searchFilters);
 
             return MakeRequest<GetInstitutionsResponse>(path, body);
         }

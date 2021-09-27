@@ -28,7 +28,6 @@ namespace Sila.API.Client.Accounts
             });
             body.Add("account_name", request.AccountName);
             body.Add("new_account_name", request.NewAccountName);
-            body.Add("active", request.IsActive);
 
             string serializedBody = SerializationUtil.Serialize(body);
 

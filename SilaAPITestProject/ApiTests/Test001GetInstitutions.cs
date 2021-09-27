@@ -21,14 +21,5 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
         }
-
-        [TestMethod("2 - GetInstitutions - Successful get institutions")]
-        public void T002Response200()
-        {
-            var response = api.GetInstitutions();
-            var parsedResponse = (GetInstitutionsResponse)response.Data;
-
-            Assert.AreEqual(200, response.StatusCode);
-        }
     }
 }

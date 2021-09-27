@@ -6,6 +6,5 @@ namespace Sila.API.Client.Accounts
         public string UserPrivateKey { get; set; }
         public string AccountName { get; set; }
         public string NewAccountName { get; set; }
-        public bool IsActive { get; set; }
     }
 }

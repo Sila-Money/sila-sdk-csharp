@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.domain
     /// 
     /// </summary>
     [DataContract]
-    public class Device : EntityAudit
+    public class Device
     {
         /// <summary>
         /// 

@@ -61,13 +61,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         /// <value>Memberships</value>
         [JsonProperty("memberships")]
-        public List<EntityMembership> Memberships {get;set;}
-
-        /// <summary>
-        /// Devices property.
-        /// </summary>
-        /// <value>Devices</value>
-        [JsonProperty("devices")]
-        public List<Device> Devices { get; set; }
+        public List<EntityMembership> Memberships {get;set;} 
     }
 }
