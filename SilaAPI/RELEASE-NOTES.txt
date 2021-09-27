@@ -1,3 +1,9 @@
+v0.2.28
+Enhancements:
+    - Added Devices info to the response in /get_entity.
+    - Added isActive a new optional input in /update_account.
+    - Make searchFilters optional input in /get_institutions.
+
 v0.2.26
 Enhancements:
     - Added MatchScore, AccountOwnerName, and EntityName to the response in /get_accounts.
