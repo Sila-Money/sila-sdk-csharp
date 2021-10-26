@@ -20,6 +20,12 @@ namespace SilaAPI.silamoney.client.domain
         public ProcessingType? ProcessingType { get; set; }
 
         /// <summary>
+        ///  String field used to save the card name
+        /// </summary>
+        [DataMember(Name = "card_name", EmitDefaultValue = false)]
+        public string CardName { get; set; }
+
+        /// <summary>
         /// BankTransactionMessage constructor
         /// </summary>
         /// <param name="userHandle"></param>
@@ -30,13 +36,14 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="businessUuid"></param>
         /// <param name="processingType"></param>
         /// <param name="messageType"></param>
+        /// <param name="cardName"></param>
         public BankTransactionMessage(string userHandle,
             int amount,
             string authHandle,
             string accountName,
             string descriptor,
             string businessUuid,
-            ProcessingType? processingType, Message messageType)
+            ProcessingType? processingType, Message messageType, string cardName)
         {
             Header = new Header(userHandle, authHandle);
             Amount = amount;
@@ -45,6 +52,7 @@ namespace SilaAPI.silamoney.client.domain
             Descriptor = descriptor;
             BusinessUuid = businessUuid;
             ProcessingType = processingType;
+            CardName = cardName;
         }
     }
 }

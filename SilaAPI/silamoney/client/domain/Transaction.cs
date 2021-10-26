@@ -45,6 +45,12 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("bank_account_name")]
         public string BankAccountName { get; set; }
         /// <summary>
+        /// String field value used in the Transaction objet to save card_account_name
+        /// </summary>
+        [JsonProperty("card_account_name")]
+        public string CardAccountName { get; set; }
+
+        /// <summary>
         /// String field value used in the Transaction objet to save handle_address
         /// </summary>
         [JsonProperty("handle_address")]

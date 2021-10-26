@@ -136,10 +136,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="descriptor">Optional. Max Length 100</param>
         /// <param name="businessUuid">Optional. UUID of a business with an approved ACH name.</param>
         /// <param name="processingType">Optional.</param>
+        /// <param name="cardName">Optional.</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
+        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -196,11 +197,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
         /// <param name="processingType"></param>
+        /// <param name="cardName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default",
-            string descriptor = null, string businessUuid = null, ProcessingType? processingType = null)
+            string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -1052,6 +1054,99 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<GetInstitutionsResponse>(path, body);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="token"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="accountPostalCode"></param>
+        /// <param name="cardName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> LinkCard(string userHandle, string token, string userPrivateKey, string accountPostalCode, string cardName = null)
+        {
+            LinkCardMsg body = new LinkCardMsg(userHandle, token, Configuration.AppHandle, accountPostalCode, cardName);
+            var path = "/link_card";
+
+            return MakeRequest<LinkCardResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetCards(string userHandle, string userPrivateKey)
+        {
+            var path = "/get_cards";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Version = "0.2",
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid()
+            });
+            return MakeRequest<GetCardsResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="cardName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> DeleteCard(string userHandle, string userPrivateKey, string cardName)
+        {
+            DeleteCardMsg body = new DeleteCardMsg(userHandle, Configuration.AppHandle, cardName);
+            var path = "/delete_card";
+
+            return MakeRequest<DeleteCardResult>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="transactionId"></param>
+        /// <returns></returns>
+        public ApiResponse<object> ReverseTransaction(string userHandle, string userPrivateKey, string transactionId)
+        {
+            ReverseTransactionMsg body = new ReverseTransactionMsg(userHandle, Configuration.AppHandle, transactionId);
+            var path = "/reverse_transaction";
+
+            return MakeRequest<ReverseTransactionResult>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetWebhooks(string userHandle, string userPrivateKey, WebhooksSearchFilters searchFilters = null)
+        {
+            var path = "/get_webhooks";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Version = "0.2",
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid()
+            });
+            if (searchFilters != null) body.Add("search_filters", searchFilters);
+
+            return MakeRequest<GetWebhooksResponse>(path, body, userPrivateKey);
+        }
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
         {
             var path = $"/{rootPath}/{dataType.Url}";

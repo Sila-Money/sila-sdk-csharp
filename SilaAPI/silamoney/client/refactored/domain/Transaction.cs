@@ -33,6 +33,10 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("sila_amount")]
         public float? Amount { get; set; }
         /// <summary>
@@ -44,6 +48,11 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("bank_account_name")]
         public string BankAccountName { get; set; }
+        /// <summary>
+        /// String field value used in the Transaction objet to save card_account_name
+        /// </summary>
+        [JsonProperty("card_account_name")]
+        public string CardAccountName { get; set; }
         /// <summary>
         /// String field value used in the Transaction objet to save handle_address
         /// </summary>
@@ -119,16 +128,34 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("timeline")]
         public List<Timeline> Timeline { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("error_code")]
         public string ErrorCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("error_msg")]
         public string ErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("return_code")]
         public string ReturnCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("return_desc")]
         public string ReturnDesc { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("trace_number")]
         public string TraceNumber { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("addenda")]
         public string Addenda { get; set; }
     }
