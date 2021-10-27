@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
+using System.Threading;
 
 namespace SilaApiTest
 {
@@ -38,6 +39,33 @@ namespace SilaApiTest
 
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
+            int i = 0;
+            do
+            {
+                if (parsedResponse.Transactions[0].Status.ToLower() != "success")
+                {
+                    response = api.GetTransactions(userHandle: DefaultConfig.FirstUser.UserHandle,
+                         searchFilters: new SearchFilters
+                         {
+                             ReferenceId = DefaultConfig.IssueReference
+                         }
+                     );
+
+                    parsedResponse = (GetTransactionsResult)response.Data;
+                    if (parsedResponse.Transactions[0].Status.ToLower() == "success")
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+                Thread.Sleep(30000);
+                i++;
+            }
+            while (i <= 8);
+
             Assert.AreEqual("CARD", parsedResponse.Transactions[0].ProcessingType);
         }
 
@@ -48,23 +76,11 @@ namespace SilaApiTest
             var response = api.ReverseTransaction(user.UserHandle, user.PrivateKey, DefaultConfig.TransactionId);
             var parsedResponse = (BaseResponse)response.Data;
 
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);           
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
-
-
-            //ApiResponse<object> response = api.ReverseTransaction(userHandle, userPrivateKey, transactionId);
-
-            //// Success Response Object
-            //Console.WriteLine(response.StatusCode); 
-            //Console.WriteLine(((ReverseTransactionResult)response.Data).Reference); // Random reference number
-            //Console.WriteLine(((ReverseTransactionResult)response.Data).Success); // true            
-            //Console.WriteLine(((ReverseTransactionResult)response.Data).Status); // SUCCESS
-            //Console.WriteLine(((ReverseTransactionResult)response.Data).Message); // Transaction successfully reverse.  
         }
-
-
     }
 }
 
