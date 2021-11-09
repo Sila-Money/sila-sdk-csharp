@@ -77,8 +77,8 @@ namespace Sila.API.Client.Domain
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("card_account_name")]
-        public string CardAccountName { get; set; }
+        [JsonProperty("card_name")]
+        public string CardName { get; set; }
         /// <summary>
         /// 
         /// </summary>

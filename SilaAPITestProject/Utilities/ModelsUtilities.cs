@@ -117,7 +117,7 @@ namespace SilaApiTest
                     FirstName = "Instant",
                     LastName = "User",
                     EntityName = "Instant User",
-                    IdentityValue = "123452222",
+                    IdentityValue = "123458888",
                     Phone = "1234567890",
                     SmsOptIn = true,
                     Email = "intant@email.com",

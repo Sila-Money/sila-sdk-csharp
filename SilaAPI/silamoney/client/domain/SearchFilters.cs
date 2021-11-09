@@ -99,8 +99,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "card_account_name", EmitDefaultValue = false)]
-        public string CardAccountName { get; set; }
+        [DataMember(Name = "card_name", EmitDefaultValue = false)]
+        public string CardName { get; set; }
 
         /// <summary>
         /// </summary>
@@ -123,7 +123,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="sortAscending"></param>
         /// <param name="showTimelines"></param>
         /// <param name="bankAccountName"></param>
-        /// <param name="cardAccountName"></param>
+        /// <param name="cardName"></param>
         /// <param name="blockchainAddress"></param>                     
         /// <returns></returns>
         public SearchFilters(string transactionId = default,
@@ -139,7 +139,7 @@ namespace SilaAPI.silamoney.client.domain
             bool? sortAscending = default,
             bool? showTimelines = default,
             string bankAccountName = default,
-            string cardAccountName = default,            
+            string cardName = default,            
             string blockchainAddress = default
             ) : base(page, perPage, sortAscending)
         {
@@ -154,7 +154,7 @@ namespace SilaAPI.silamoney.client.domain
             SetStatuses(statuses);
             MinSilaAmount = minSilaAmount;
             BankAccountName = bankAccountName;
-            CardAccountName = cardAccountName;
+            CardName = cardName;
             BlockchainAddress = blockchainAddress;
         }
     }
