@@ -24,6 +24,11 @@ namespace SilaAPI.silamoney.client.domain
         /// Instant ACH
         /// </summary>
         [EnumMember(Value = "INSTANT_ACH")]
-        Instant
+        Instant,
+        /// <summary>
+        /// CARD
+        /// </summary>
+        [EnumMember(Value = "CARD")]
+        Card
     }
 }

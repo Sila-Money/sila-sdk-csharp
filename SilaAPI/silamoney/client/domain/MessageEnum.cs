@@ -50,7 +50,12 @@ namespace SilaAPI.silamoney.client.domain
             /// Value: transfer_msg
             /// </summary>
             [EnumMember(Value = "transfer_msg")]
-            TransferMsg = 8
+            TransferMsg = 8,
+            /// <summary>
+            /// Value: link_card_msg
+            /// </summary>
+            [EnumMember(Value = "link_card_msg")]
+            LinkCardMsg = 9
         }
     }
 }

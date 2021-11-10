@@ -8,13 +8,24 @@ namespace SilaApiTest
 {
     class DefaultConfig
     {
+        //SANDBOX
         public static string environment = "https://sandbox.silamoney.com/0.2";
         public static string privateKey = "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e";
         public static string appHandle = "digital_geko_e2e.silamoney.eth";
-        //STAGING
-        //public static string businessUuid = "ec5d1366-b56c-4442-b6c3-c919d548fcb5";
-        //SANDBOX
         public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+
+        //STAGING       
+        //public static string environment = "https://stageapi.silamoney.com/0.2";
+        //public static string privateKey = "197f4d0f41fa98a67b2bdcf931b3076e64005264b59f3d5c1658a6a9aba7e471";
+        //public static string appHandle = "arcgate_stage_app01";
+        //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
+
+        ////DEVELOPERMENT       
+        //public static string environment = "https://stageapi.silamoney.com/0.2";
+        //public static string privateKey = "b141233286d93618db64788a88017e1b901f3c084a047d8e3efbbbea5dd4a873";
+        //public static string appHandle = "test_limit_stage_111";
+        //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
+
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
         public static string IssueTrans { get { return "Issue Trans"; } }
         public static string TransferTrans { get { return "Transfer Trans"; } }
@@ -147,6 +158,8 @@ namespace SilaApiTest
         }
 
         public static string IssueReference { get; set; }
+
+        public static string TransactionId { get; set; }        
 
         public static string TransferReference { get; set; }
 
