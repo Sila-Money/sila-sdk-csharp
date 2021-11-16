@@ -11,7 +11,7 @@ namespace SilaApiTest
 
         [TestMethod("1 - GetWebhooks - Successfully retrieve of Webhooks")]
         public void T001_GetWebhooks()
-        {
+        {         
             var user = DefaultConfig.FirstUser;
 
             WebhooksSearchFilters searchFilters = new WebhooksSearchFilters();

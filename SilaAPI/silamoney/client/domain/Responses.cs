@@ -17,6 +17,6 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("status_code")]
-        public string StatusCode { get; set; }    
+        public int StatusCode { get; set; }    
     }
 }

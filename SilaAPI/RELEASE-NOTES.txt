@@ -1,3 +1,7 @@
+v0.2.30-rc1
+Hotfix:
+- Removed private key input from GetWebhooks wrapper
+
 v0.2.30
 Enhancements:    
     - Added cardName a new optional input in /Issue_Sila.

@@ -16,6 +16,6 @@ namespace Sila.API.Client.Domain
         /// 
         /// </summary>
         [JsonProperty("status_code")]
-        public string StatusCode { get; set; }
+        public int StatusCode { get; set; }
     }
 }
