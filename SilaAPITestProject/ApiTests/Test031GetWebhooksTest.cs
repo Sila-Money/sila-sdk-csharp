@@ -11,11 +11,11 @@ namespace SilaApiTest
 
         [TestMethod("1 - GetWebhooks - Successfully retrieve of Webhooks")]
         public void T001_GetWebhooks()
-        {
+        {         
             var user = DefaultConfig.FirstUser;
 
             WebhooksSearchFilters searchFilters = new WebhooksSearchFilters();
-            var response = api.GetWebhooks(user.UserHandle, user.PrivateKey, searchFilters);
+            var response = api.GetWebhooks(user.UserHandle, searchFilters);
             var parsedResponse = (GetWebhooksResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Page);

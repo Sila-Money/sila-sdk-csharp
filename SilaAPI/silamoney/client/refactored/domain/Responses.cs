@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
-
-namespace SilaAPI.silamoney.client.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// 
@@ -17,6 +16,6 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("status_code")]
-        public int StatusCode { get; set; }    
+        public int StatusCode { get; set; }
     }
 }

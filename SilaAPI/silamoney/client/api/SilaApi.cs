@@ -1130,7 +1130,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="searchFilters"></param>
         /// <returns></returns>
-        public ApiResponse<object> GetWebhooks(string userHandle, string userPrivateKey, WebhooksSearchFilters searchFilters = null)
+        public ApiResponse<object> GetWebhooks(string userHandle, WebhooksSearchFilters searchFilters = null)
         {
             var path = "/get_webhooks";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -1145,7 +1145,7 @@ namespace SilaAPI.silamoney.client.api
             });
             if (searchFilters != null) body.Add("search_filters", searchFilters);
 
-            return MakeRequest<GetWebhooksResponse>(path, body, userPrivateKey);
+            return MakeRequest<GetWebhooksResponse>(path, body);
         }
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
         {
