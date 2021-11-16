@@ -60,11 +60,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("attempts")]
         public int? Attempts { get; set; }
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[JsonProperty("responses")]
-        //public List<Responses> Responses { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("responses")]
+        public List<Responses> Responses { get; set; }
         /// <summary>
         /// 
         /// </summary>

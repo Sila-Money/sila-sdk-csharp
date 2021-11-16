@@ -15,7 +15,7 @@ namespace SilaApiTest
             var user = DefaultConfig.FirstUser;
 
             WebhooksSearchFilters searchFilters = new WebhooksSearchFilters();
-            var response = api.GetWebhooks(user.UserHandle, user.PrivateKey, searchFilters);
+            var response = api.GetWebhooks(user.UserHandle, searchFilters);
             var parsedResponse = (GetWebhooksResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Page);

@@ -10,10 +10,7 @@ namespace Sila.API.Client.GetWebhooks
         /// 
         /// </summary>
         public string UserHandle { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string UserPrivateKey { get; set; }
+   
         /// <summary>
         /// 
         /// </summary>
