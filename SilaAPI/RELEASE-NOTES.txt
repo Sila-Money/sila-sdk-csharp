@@ -1,6 +1,10 @@
+v0.2.30-rc2
+Hotfix:
+    - Added new field qualification_details in response /check_instant_ach.
+
 v0.2.30-rc1
 Hotfix:
-- Removed private key input from GetWebhooks wrapper
+    - Removed private key input from GetWebhooks wrapper.
 
 v0.2.30
 Enhancements:    
