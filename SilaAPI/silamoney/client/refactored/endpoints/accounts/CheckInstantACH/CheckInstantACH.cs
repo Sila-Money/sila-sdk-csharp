@@ -9,7 +9,7 @@ namespace Sila.API.Client.Accounts
 {
     public class CheckInstantACH : AbstractEndpoint
     {
-        private static string endpoint = "/update_account";
+        private static string endpoint = "/check_instant_ach";
         private CheckInstantACH() { }
         public static ApiResponse<object> Send(CheckInstantACHRequest request)
         {
