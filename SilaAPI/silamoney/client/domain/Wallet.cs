@@ -35,6 +35,13 @@ namespace SilaAPI.silamoney.client.domain
         public bool? IsDefault { get; set; }
 
         /// <summary>
+        ///  wallet_id (uuid)
+        /// </summary>
+        [DataMember(Name = "wallet_id", EmitDefaultValue = false)]
+        public string WalletId { get; set; }
+
+
+        /// <summary>
         /// 
         /// </summary>
         public Wallet() { }
