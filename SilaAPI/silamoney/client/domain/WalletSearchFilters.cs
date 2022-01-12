@@ -27,6 +27,12 @@ namespace SilaAPI.silamoney.client.domain
         public string Nickname { get; set; }
 
         /// <summary>
+        /// String field used in the SearchFilters object to save uuid
+        /// </summary>
+        [DataMember(Name = "uuid", EmitDefaultValue = false)]
+        public string UuId { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="blockChainAddress"></param>
@@ -35,16 +41,19 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="page"></param>
         /// <param name="perPage"></param>
         /// <param name="sortAscending"></param>
+        /// <param name="uuid"></param>
         public WalletSearchFilters(string blockChainAddress = default,
             Crypto blockChainNetwork = default,
             string nickname = default,
             int? page = default,
             int? perPage = default,
-            bool? sortAscending = default) : base(page, perPage, sortAscending)
+            bool? sortAscending = default,
+            string uuid = default) : base(page, perPage, sortAscending)
         {
             BlockChainAddress = blockChainAddress;
             BlockChainNetwork = blockChainNetwork;
             Nickname = nickname;
+            UuId = uuid;
         }
     }
 }
