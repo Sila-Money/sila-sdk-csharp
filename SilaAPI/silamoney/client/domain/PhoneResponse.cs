@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class PhoneResponse : BaseResponseWithoutReference
+    public class PhoneResponse : BaseResponse
     {
         /// <summary>
         /// 

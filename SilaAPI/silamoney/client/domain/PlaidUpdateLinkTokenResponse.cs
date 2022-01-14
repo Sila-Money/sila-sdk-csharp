@@ -12,5 +12,11 @@ namespace SilaAPI.silamoney.client.domain
         public string Status { get; private set; }
         [JsonProperty("link_token")]
         public string LinkToken { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

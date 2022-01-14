@@ -5,7 +5,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class IdentityResponse : BaseResponseWithoutReference
+    public class IdentityResponse : BaseResponse
     {
         /// <summary>
         /// 

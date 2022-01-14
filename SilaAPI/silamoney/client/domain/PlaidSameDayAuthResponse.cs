@@ -24,5 +24,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

@@ -30,5 +30,10 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public List<Change> Changes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Reference { get; set; }
     }
 }

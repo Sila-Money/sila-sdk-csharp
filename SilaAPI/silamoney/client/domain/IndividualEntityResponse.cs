@@ -12,5 +12,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("entity")]
         public IndividualEntityData Entity { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

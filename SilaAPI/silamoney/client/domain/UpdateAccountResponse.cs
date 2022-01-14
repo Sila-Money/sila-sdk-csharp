@@ -15,5 +15,11 @@ namespace SilaAPI.silamoney.client.domain
         public Account Account { get; private set; }
         [JsonProperty("changes")]
         public List<Change> Changes { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }
