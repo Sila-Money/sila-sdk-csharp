@@ -20,7 +20,10 @@ namespace Sila.API.Client.Accounts
             body.Add("header", new Header
             {
                 Created = EpochUtils.getEpoch(),
-                AppHandle = AppHandle
+                AppHandle = AppHandle,                
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
             });
 
             if (request != null)
