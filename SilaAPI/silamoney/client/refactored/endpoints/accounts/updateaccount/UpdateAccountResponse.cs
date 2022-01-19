@@ -16,5 +16,8 @@ namespace Sila.API.Client.Accounts
         public Account Account { get; private set; }
         [JsonProperty("changes")]
         public List<Change> Changes { get; private set; }
+
+        [JsonProperty("reference")]
+        public string Reference { get; private set; }
     }
 }

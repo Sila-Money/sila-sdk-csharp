@@ -20,5 +20,7 @@ namespace Sila.API.Client.Accounts
         public Pagination Pagination { get; private set; }
         [JsonProperty("status")]
         public string Status { get; private set; }
+        [JsonProperty("reference")]
+        public string Reference { get; private set; }
     }
 }

@@ -42,5 +42,11 @@ namespace SilaAPI.silamoney.client.domain
         public int TotalPageCount { get; set; }
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

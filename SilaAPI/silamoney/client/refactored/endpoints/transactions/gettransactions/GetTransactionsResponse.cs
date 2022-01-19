@@ -50,5 +50,11 @@ namespace Sila.API.Client.Transactions
         /// </summary>
         [JsonProperty("transactions")]
         public List<Transaction> Transactions { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; private set; }
     }
 }

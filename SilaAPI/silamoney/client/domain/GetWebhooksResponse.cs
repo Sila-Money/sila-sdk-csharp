@@ -45,6 +45,12 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }
 

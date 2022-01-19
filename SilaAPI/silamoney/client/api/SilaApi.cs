@@ -459,6 +459,9 @@ namespace SilaAPI.silamoney.client.api
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("app_handle", Configuration.AppHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -476,6 +479,9 @@ namespace SilaAPI.silamoney.client.api
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("app_handle", Configuration.AppHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -493,6 +499,9 @@ namespace SilaAPI.silamoney.client.api
             Dictionary<String, String> header = new Dictionary<string, string>();
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("app_handle", Configuration.AppHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -520,6 +529,9 @@ namespace SilaAPI.silamoney.client.api
             header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -550,6 +562,10 @@ namespace SilaAPI.silamoney.client.api
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
 
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
+
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
             body.Add("role", businessRole.Label);
@@ -572,6 +588,10 @@ namespace SilaAPI.silamoney.client.api
             header.Add("created", EpochUtils.getEpoch().ToString());
             header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
+
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -617,6 +637,9 @@ namespace SilaAPI.silamoney.client.api
             header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -642,6 +665,9 @@ namespace SilaAPI.silamoney.client.api
             header.Add("app_handle", Configuration.AppHandle);
             header.Add("user_handle", userHandle);
             header.Add("business_handle", businessHandle);
+            header.Add("version", "0.2");
+            header.Add("reference", UuidUtils.GetUuid());
+            header.Add("crypto", "ETH");
 
             Dictionary<String, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -1005,7 +1031,10 @@ namespace SilaAPI.silamoney.client.api
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle
+                UserHandle = userHandle,
+                Version = "0.2",
+                Reference = UuidUtils.GetUuid(),
+                Crypto = "ETH"
             });
             body.Add("account_name", accountName);
 
@@ -1028,7 +1057,9 @@ namespace SilaAPI.silamoney.client.api
                 Created = EpochUtils.getEpoch(),
                 AppHandle = Configuration.AppHandle,
                 UserHandle = userHandle,
-                Reference = UuidUtils.GetUuid()
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
             });
             body.Add("account_name", accountName);
 
@@ -1047,7 +1078,10 @@ namespace SilaAPI.silamoney.client.api
             body.Add("header", new BodyHeader
             {
                 Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle
+                AppHandle = Configuration.AppHandle,
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid(),
+                Version = "0.2"
             });
             if (searchFilters != null) body.Add("search_filters", searchFilters);
 
@@ -1127,7 +1161,6 @@ namespace SilaAPI.silamoney.client.api
         /// 
         /// </summary>
         /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
         /// <param name="searchFilters"></param>
         /// <returns></returns>
         public ApiResponse<object> GetWebhooks(string userHandle, WebhooksSearchFilters searchFilters = null)

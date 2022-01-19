@@ -12,5 +12,8 @@ namespace Sila.API.Client.Accounts
         public string Status { get; private set; }
         [JsonProperty("link_token")]
         public string LinkToken { get; private set; }
+
+        [JsonProperty("reference")]
+        public string Reference { get; private set; }
     }
 }

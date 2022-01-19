@@ -1,3 +1,11 @@
+v0.2.36
+Enhancements:        
+    - Added Reference to the response in API returns. 
+    - Added CARD a new optional input in ProcessingType in /redeem_sila.    
+    - Added ErrorCode to the response for Instant ACH. 
+    - Added Members list to the response in /get_entity.
+    - Added UuId a new optional input in WalletSearchFilters in /get_wallets.
+
 v0.2.30-rc3
 Hotfix:
     - Added new field WalletId in response /get_wallet and /get_wallets.
