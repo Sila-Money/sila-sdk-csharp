@@ -5,7 +5,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used to store response message.
     /// </summary>
-    public class TransferResponse:TransactionResponse
+    public class TransferResponse : TransactionResponse
     {
         /// <summary>
         /// String field used in the TransferResponse object to save destination address

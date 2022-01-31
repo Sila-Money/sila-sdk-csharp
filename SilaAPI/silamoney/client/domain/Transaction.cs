@@ -125,17 +125,86 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("timeline")]
         public List<TimeLine> TimeLines { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("error_code")]
         public string ErrorCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("error_msg")]
         public string ErrorMsg { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("return_code")]
         public string ReturnCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("return_desc")]
         public string ReturnDesc { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("trace_number")]
         public string TraceNumber { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("addenda")]
         public string Addenda { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("sila_ledger_type")]
+        public string SilaLedgerType { get; set; }    
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("source_id")]
+        public string SourceId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_id")]
+        public string DestinationId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("submitted")]
+        public string Submitted { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("submitted_epoch")]
+        public string SubmittedEpoch { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("effective_date")]
+        public string EffectiveDate { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("effective_epoch")]
+        public string EffectiveEpoch { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_sila_ledger_type")]
+        public string DestinationSilaLedgerType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("ledger_account_id")]
+        public string LedgerAccountId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_ledger_account_id")]
+        public string DestinationLedgerAccountId { get; set; }
     }
 }

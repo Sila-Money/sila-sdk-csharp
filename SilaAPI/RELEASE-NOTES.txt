@@ -1,3 +1,16 @@
+v0.2.37
+Enhancements:        
+    - Added SourceId, DestinationId new optional input fields in SearchFilters and EffectiveDate, EffectiveEpoch, SilaLedgerType, SourceId, DestinationId, DestinationSilaLedgerType, LedgerAccountId, DestinationLedgerAccountId in response in /get_transactions.
+    - Added SourceId, DestinationId new optional input fields in /issue_sila.
+    - Added SourceId, DestinationId new optional input fields in /transfer_sila.
+    - Added SourceId, DestinationId new optional input fields in /redeem_sila.
+New Features:
+    - Added support for /open_virtual_account endpoint to support vAccount.
+    - Added support for /update_virtual_account endpoint to support vAccount.
+    - Added support for /get_virtual_account endpoint to support vAccount.
+    - Added support for /get_virtual_accounts endpoint to support vAccount.   
+    - Added support for /get_payment_methods endpoint to support vAccount.
+
 v0.2.36
 Enhancements:        
     - Added Reference to the response in API returns. 

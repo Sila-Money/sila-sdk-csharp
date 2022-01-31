@@ -189,6 +189,8 @@ namespace SilaApiTest
 
         public static string DocumentId { get; internal set; }
         public static string IdentityUuid { get; internal set; }
+        public static string VirtualAccountId { get; internal set; }
+        public static string VirtualAccountDisId { get; internal set; }
         public static string EmailUuid { get; internal set; }
         public static string PhoneUuid { get; internal set; }
         public static string AddressUuid { get; internal set; }

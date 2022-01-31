@@ -1,11 +1,10 @@
-using Sila.API.Client.Domain;
-
-namespace Sila.API.Client.Transactions
+﻿using Sila.API.Client.Domain;
+namespace Sila.API.Client.GetVirtualAccount
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetTransactionsRequest
+    public class GetVirtualAccountRequest
     {
         /// <summary>
         /// 
@@ -15,6 +14,7 @@ namespace Sila.API.Client.Transactions
         /// <summary>
         /// 
         /// </summary>
-        public SearchFilters SearchFilters { get; set; }
+        public string VirtualAccountId { get; set; }
+
     }
 }

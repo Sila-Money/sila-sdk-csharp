@@ -28,7 +28,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().FullName);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Handle);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().BusinessType);
-            Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Dba);
+            //Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Dba);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Uuid);
             Assert.IsTrue(parsedResponse.Entities.Businesses.First().BlockchainAddresses.Count > 0);
 

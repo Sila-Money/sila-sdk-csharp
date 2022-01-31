@@ -1,30 +1,29 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.util;
-using Sila.API.Client;
 using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.Transactions
+namespace Sila.API.Client.OpenVirtualAccount
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetTransactions : AbstractEndpoint
+    public class OpenVirtualAccount : AbstractEndpoint
     {
-        private static string endpoint = "/get_transactions";
-        private GetTransactions() { }
+        private static string endpoint = "/open_virtual_account";
+        private OpenVirtualAccount() { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static ApiResponse<object> Send(GetTransactionsRequest request)
+        public static ApiResponse<object> Send(OpenVirtualAccountRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
@@ -36,8 +35,8 @@ namespace Sila.API.Client.Transactions
                 Reference = UuidUtils.GetUuid(),
                 Version = "0.2"
             });
-            body.Add("message", "get_transactions_msg");
-            body.Add("search_filters", request.SearchFilters);
+
+            body.Add("virtual_account_name", request.VirtualAccountName);
 
             string serializedBody = SerializationUtil.Serialize(body);
 
@@ -46,7 +45,7 @@ namespace Sila.API.Client.Transactions
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            return ResponseUtils.PrepareResponse<GetTransactionsResponse>(response);
+            return ResponseUtils.PrepareResponse<OpenVirtualAccountResponse>(response);
         }
     }
 }

@@ -137,10 +137,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="businessUuid">Optional. UUID of a business with an approved ACH name.</param>
         /// <param name="processingType">Optional.</param>
         /// <param name="cardName">Optional.</param>
+        /// <param name="sourceId">Optional.</param>
+        /// <param name="destinationId">Optional.</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null)
+        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -188,7 +190,7 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to the redeem_sila endpoint.
+        /// Makes a call to the redeem_sila endpoint. 
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="amount"></param>
@@ -198,11 +200,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="businessUuid"></param>
         /// <param name="processingType"></param>
         /// <param name="cardName"></param>
+        /// <param name="sourceId"></param>
+        /// <param name="destinationId"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default",
-            string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null)
+        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -324,11 +327,13 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="destinationWallet"></param>
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
+        /// <param name="sourceId"></param>
+        /// <param name="destinationId"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> TransferSila(string userHandle, int amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null,
-            string descriptor = null, string businessUuid = null)
+            string descriptor = null, string businessUuid = null, string sourceId = null, string destinationId = null)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid, sourceId, destinationId);
             var path = "/transfer_sila";
 
             return MakeRequest<TransferResponse>(path, body, userPrivateKey);
@@ -1180,6 +1185,92 @@ namespace SilaAPI.silamoney.client.api
 
             return MakeRequest<GetWebhooksResponse>(path, body);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="virtualAccountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> OpenVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountName)
+        {
+            OpenVirtualAccountMsg body = new OpenVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountName);
+            var path = "/open_virtual_account";
+
+            return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="virtualAccountId"></param>
+        /// <param name="virtualAccountName"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
+        public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true)
+        {
+            UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, isActive);
+            var path = "/update_virtual_account";
+
+            return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="virtualAccountId"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId)
+        {
+            GetVirtualAccountMsg body = new GetVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId);
+            var path = "/get_virtual_account";
+
+            return MakeRequest<GetVirtualAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetVirtualAccounts(string userHandle, string userPrivateKey)
+        {
+            GetVirtualAccountsMsg body = new GetVirtualAccountsMsg(userHandle, Configuration.AppHandle);
+            var path = "/get_virtual_accounts";
+
+            return MakeRequest<GetVirtualAccountsResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetPaymentMethods(string userHandle, string userPrivateKey)
+        {
+            GetPaymentMethodsMsg body = new GetPaymentMethodsMsg(userHandle, Configuration.AppHandle);
+            var path = "/get_payment_methods";
+
+            return MakeRequest<GetPaymentMethodsResponse>(path, body, userPrivateKey);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rootPath"></param>
+        /// <param name="dataType"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
         private ApiResponse<object> CallRegistrationData<T>(string rootPath, RegistrationData dataType, string userPrivateKey, object body)
         {
             var path = $"/{rootPath}/{dataType.Url}";
