@@ -33,6 +33,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("sila_amount")]
         internal float Amount { get; set; }
         /// <summary>
