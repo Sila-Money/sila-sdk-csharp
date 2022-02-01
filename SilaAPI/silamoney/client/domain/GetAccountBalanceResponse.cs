@@ -20,13 +20,13 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("available_balance")]
-        public decimal AvailableBalance { get; set; }
+        public decimal? AvailableBalance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("current_balance")]
-        public decimal CurrentBalance { get; set; }
+        public decimal? CurrentBalance { get; set; }
 
         /// <summary>
         /// 
