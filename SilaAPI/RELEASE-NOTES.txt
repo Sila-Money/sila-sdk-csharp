@@ -11,6 +11,10 @@ New Features:
     - Added support for /get_virtual_accounts endpoint to support vAccount.   
     - Added support for /get_payment_methods endpoint to support vAccount.
 
+v0.2.36-rc1
+Hotfix:
+    - Handle null value for the fields AvailableBalance and CurrentBalance in response /get_account_balance.
+
 v0.2.36
 Enhancements:        
     - Added Reference to the response in API returns. 
