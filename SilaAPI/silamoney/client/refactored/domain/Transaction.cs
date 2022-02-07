@@ -158,5 +158,57 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("addenda")]
         public string Addenda { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("sila_ledger_type")]
+        public string SilaLedgerType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("source_id")]
+        public string SourceId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_id")]
+        public string DestinationId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("submitted")]
+        public string Submitted { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("submitted_epoch")]
+        public string SubmittedEpoch { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("effective_date")]
+        public string EffectiveDate { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("effective_epoch")]
+        public string EffectiveEpoch { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_sila_ledger_type")]
+        public string DestinationSilaLedgerType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("ledger_account_id")]
+        public string LedgerAccountId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_ledger_account_id")]
+        public string DestinationLedgerAccountId { get; set; }
     }
 }

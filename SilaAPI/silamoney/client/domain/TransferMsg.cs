@@ -26,16 +26,30 @@ namespace SilaAPI.silamoney.client.domain
         public string DestinationWallet { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "source_id", EmitDefaultValue = false)]
+        public string SourceId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "destination_id", EmitDefaultValue = false)]
+        public string DestinationId { get; set; }
+
+        /// <summary>
         /// TransferMsg constructor
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="amount"></param>
-        /// <param name="destinationHandle"></param>       
+        /// <param name="destinationHandle"></param>
         /// <param name="authHandle"></param>
-        /// <param name="destinationAddress"></param> 
+        /// <param name="destinationAddress"></param>
         /// <param name="destinationWallet"></param>
         /// <param name="descriptor"></param>
         /// <param name="businessUuid"></param>
+        /// <param name="sourceId"></param>
+        /// <param name="destinationId"></param>
         public TransferMsg(string userHandle,
             int amount,
             string destinationHandle,
@@ -43,7 +57,8 @@ namespace SilaAPI.silamoney.client.domain
             string destinationAddress,
             string destinationWallet,
             string descriptor,
-            string businessUuid)
+            string businessUuid,
+            string sourceId, string destinationId)
         {
             Header = new Header(userHandle, authHandle);
             DestinationHandle = destinationHandle;
@@ -53,6 +68,8 @@ namespace SilaAPI.silamoney.client.domain
             DestinationWallet = destinationWallet;
             Descriptor = descriptor;
             BusinessUuid = businessUuid;
+            SourceId = sourceId;
+            DestinationId = destinationId;
         }
     }
 }

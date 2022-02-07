@@ -11,6 +11,6 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("silaBalance")]
-        public decimal SilaBalance { get; set; }
+        public decimal? SilaBalance { get; set; }
     }
 }

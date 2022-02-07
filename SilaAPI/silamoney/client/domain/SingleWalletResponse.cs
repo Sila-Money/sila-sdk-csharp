@@ -28,6 +28,9 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("is_whitelisted")]
         public bool IsWhitelisted { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("sila_balance")]
         internal decimal Balance { get; set; }
 
@@ -35,6 +38,10 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public int SilaBalance { get { return decimal.ToInt32(Balance); } }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
     }

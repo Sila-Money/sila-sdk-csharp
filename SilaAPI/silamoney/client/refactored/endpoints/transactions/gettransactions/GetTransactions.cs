@@ -11,10 +11,19 @@ using SilaAPI.silamoney.client.api;
 
 namespace Sila.API.Client.Transactions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class GetTransactions : AbstractEndpoint
     {
         private static string endpoint = "/get_transactions";
         private GetTransactions() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static ApiResponse<object> Send(GetTransactionsRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();

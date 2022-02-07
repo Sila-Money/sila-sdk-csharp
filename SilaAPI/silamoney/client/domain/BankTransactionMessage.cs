@@ -26,6 +26,18 @@ namespace SilaAPI.silamoney.client.domain
         public string CardName { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "source_id", EmitDefaultValue = false)]
+        public string SourceId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "destination_id", EmitDefaultValue = false)]
+        public string DestinationId { get; set; }
+
+        /// <summary>
         /// BankTransactionMessage constructor
         /// </summary>
         /// <param name="userHandle"></param>
@@ -37,13 +49,9 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="processingType"></param>
         /// <param name="messageType"></param>
         /// <param name="cardName"></param>
-        public BankTransactionMessage(string userHandle,
-            int amount,
-            string authHandle,
-            string accountName,
-            string descriptor,
-            string businessUuid,
-            ProcessingType? processingType, Message messageType, string cardName)
+        /// <param name="sourceId"></param>
+        /// <param name="destinationId"></param>
+        public BankTransactionMessage(string userHandle, int amount, string authHandle, string accountName, string descriptor, string businessUuid, ProcessingType? processingType, Message messageType, string cardName, string sourceId, string destinationId )
         {
             Header = new Header(userHandle, authHandle);
             Amount = amount;
@@ -53,6 +61,8 @@ namespace SilaAPI.silamoney.client.domain
             BusinessUuid = businessUuid;
             ProcessingType = processingType;
             CardName = cardName;
+            SourceId = sourceId;
+            DestinationId = destinationId;
         }
     }
 }

@@ -13,6 +13,9 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("success")]
         public bool Success { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
 

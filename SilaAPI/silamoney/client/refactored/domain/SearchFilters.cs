@@ -84,5 +84,18 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("blockchain_address")]
         public string BlockchainAddress { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("source_id")]
+        public string SourceId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_id")]
+        public string DestinationId { get; set; }
     }
 }

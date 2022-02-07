@@ -17,5 +17,17 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("descriptor")]
         public string Descriptor { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("source_id")]
+        public string SourceId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("destination_id")]
+        public string DestinationId { get; set; }
     }
 }
