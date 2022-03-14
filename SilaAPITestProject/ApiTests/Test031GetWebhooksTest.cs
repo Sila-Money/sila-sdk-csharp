@@ -8,7 +8,8 @@ namespace SilaApiTest
     public class Test031GetWebhooksTest
     {
         SilaApi api = DefaultConfig.Client;
-
+        string eventUuid = "";
+        
         [TestMethod("1 - GetWebhooks - Successfully retrieve of Webhooks")]
         public void T001_GetWebhooks()
         {         
@@ -24,6 +25,24 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Status);
             Assert.IsNotNull(parsedResponse.Webhooks);
             Assert.IsNotNull(parsedResponse.Pagination);
+            if (parsedResponse.Webhooks.Count > 0)
+            {
+                eventUuid = parsedResponse.Webhooks[0].Uuid;
+            }
+        }
+
+        [TestMethod("2 - RetryWebhook - Successfully retrieve of retry webhook")]
+        public void T002_RetryWebhook()
+        {
+            if (!string.IsNullOrWhiteSpace(eventUuid))
+            {
+                var user = DefaultConfig.FirstUser;
+                var response = api.RetryWebhook(user.UserHandle, eventUuid);
+                var parsedResponse = (BaseResponse)response.Data;
+                Assert.IsTrue(parsedResponse.Success);
+                Assert.IsNotNull(parsedResponse.Message);
+                Assert.IsNotNull(parsedResponse.Status);
+            }
         }
     }
 }

@@ -14,16 +14,22 @@ namespace SilaApiTest
         public static string appHandle = "digital_geko_e2e.silamoney.eth";
         public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
 
-        //STAGING       
+        //STAGING
         //public static string environment = "https://stageapi.silamoney.com/0.2";
         //public static string privateKey = "197f4d0f41fa98a67b2bdcf931b3076e64005264b59f3d5c1658a6a9aba7e471";
         //public static string appHandle = "arcgate_stage_app01";
         //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
 
-        ////DEVELOPERMENT       
+        //DEVELOPERMENT       
         //public static string environment = "https://stageapi.silamoney.com/0.2";
         //public static string privateKey = "b141233286d93618db64788a88017e1b901f3c084a047d8e3efbbbea5dd4a873";
         //public static string appHandle = "test_limit_stage_111";
+        //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
+
+        ////instant settlement       
+        //public static string environment = "https://sandbox.silamoney.com/0.2";
+        //public static string privateKey = "eaf42ff2c0016fcb0a996d0ce1e692559e19b38f58056a87492683cdf6e9a7cc";
+        //public static string appHandle = "is_sandbox_test_app004";
         //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
 
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
@@ -41,6 +47,7 @@ namespace SilaApiTest
         private static UserConfiguration secondUser;
         private static UserConfiguration thirdUser;
         private static UserConfiguration fourthUser;
+        private static UserConfiguration fifthUser;
         private static UserConfiguration businessUser;
         private static UserConfiguration basicUser;
         private static UserConfiguration deviceUser;
@@ -90,6 +97,15 @@ namespace SilaApiTest
             {
                 if (fourthUser == null) fourthUser = new UserConfiguration();
                 return fourthUser;
+            }
+        }
+
+        public static UserConfiguration FifthUser
+        {
+            get
+            {
+                if (fifthUser == null) fifthUser = new UserConfiguration();
+                return fifthUser;
             }
         }
 
@@ -159,7 +175,7 @@ namespace SilaApiTest
 
         public static string IssueReference { get; set; }
 
-        public static string TransactionId { get; set; }        
+        public static string TransactionId { get; set; }
 
         public static string TransferReference { get; set; }
 

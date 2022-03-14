@@ -44,7 +44,8 @@ namespace Sila.API.Client.Transactions
             body.Add("amount", request.Amount);
             body.Add("descriptor", request.Descriptor);
             body.Add("business_uuid", request.BusinessUuid);
-            body.Add("message", "transfer_msg");          
+            body.Add("message", "transfer_msg");
+
 
             string serializedBody = SerializationUtil.Serialize(body);
 

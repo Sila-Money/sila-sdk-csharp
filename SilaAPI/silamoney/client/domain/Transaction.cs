@@ -210,5 +210,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("destination_ledger_account_id")]
         public string DestinationLedgerAccountId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("child_transactions")]
+        public List<Transaction> ChildTransactions { get; set; }
     }
 }

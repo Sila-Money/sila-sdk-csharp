@@ -16,10 +16,9 @@ namespace SilaApiTest
                 userHandle: DefaultConfig.FirstUser.UserHandle,
                 userPrivateKey: DefaultConfig.FirstUser.PrivateKey,
                 accountName: "default"
-
             );
 
-            var parsedResponse = (CheckInstantACHResponse) response.Data;
+            var parsedResponse = (CheckInstantACHResponse)response.Data;
 
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Status);

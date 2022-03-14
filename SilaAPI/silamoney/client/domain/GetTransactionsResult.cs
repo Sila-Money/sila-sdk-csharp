@@ -36,7 +36,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// List of Transaction objects used in the GetTransactionsResult to save transactions
         /// </summary>
-        public List<Transaction> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }        
     }
 }
 

@@ -81,11 +81,8 @@ namespace SilaAPI.silamoney.client.domain
                 Contact = new Contact(user);
             if (user.CryptoAddress != null || user.CryptoAlias != null)
                 CryptoEntry = new CryptoEntry(user);
-            if (user.DeviceFingerprint != null)
-                Device = new Device
-                {
-                    DeviceFingerprint = user.DeviceFingerprint
-                };
+            if (user.DeviceFingerprint != null || user.SessionIdentifier != null)
+                Device = new Device(user);
             this.MessageOption = Message.EntityMsg;
         }
     }

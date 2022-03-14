@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
-    /// Object used in the /cancel_transaction endpoint
+    /// Object used in the endpoint
     /// </summary>
     [DataContract]
     public class CancelTransactionMsg
