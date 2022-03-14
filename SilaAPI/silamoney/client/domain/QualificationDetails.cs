@@ -11,5 +11,18 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("sms_opt_in")]
         public string SmsOptIn { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("kyc_level")]
+        public string KycLevel { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("plaid_products")]
+        public string PlaidProducts { get; set; }
+        
     }
 }

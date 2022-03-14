@@ -78,5 +78,10 @@
         /// Optional. If true, if and if app is configured with an SMS flow, triggers sending a confirmation SMS to the phone number in contact.phone. If no contact.phone field was provided, this is ignored.
         /// </summary>
         public bool? SmsOptIn { get; set; }
+
+        /// <summary>
+        ///  Sila bears responsibility for IACH returns, a critical next step is strengthening the internal risk analysis model to reduce the current return rate
+        /// </summary>
+        public string SessionIdentifier { get; set; }
     }
 }

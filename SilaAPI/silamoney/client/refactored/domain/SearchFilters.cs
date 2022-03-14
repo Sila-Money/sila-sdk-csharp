@@ -85,7 +85,6 @@ namespace Sila.API.Client.Domain
         [JsonProperty("blockchain_address")]
         public string BlockchainAddress { get; set; }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -97,5 +96,11 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("destination_id")]
         public string DestinationId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("processing_type")]
+        public ProcessingType ProcessingType { get; set; }
     }
 }

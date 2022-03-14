@@ -57,7 +57,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "transaction_id", EmitDefaultValue = false)]
         public string TransactionId { get; set; }
-        
+
         /// <summary>
         /// Int field used in the SearchFilters object to save max sila amount
         /// </summary>
@@ -73,7 +73,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "show_timelines", EmitDefaultValue = false)]
         public bool? ShowTimelines { get; set; }
-        
+
         /// <summary>
         /// Integer field used in the SearchFilters object to save end epoch
         /// </summary>
@@ -84,12 +84,12 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "start_epoch", EmitDefaultValue = false)]
         public int? StartEpoch { get; set; }
-        
+
         /// <summary>
         /// Int field used in the SearchFilters object to save min sila amount
         /// </summary>
         [DataMember(Name = "min_sila_amount", EmitDefaultValue = false)]
-        public int? MinSilaAmount { get; set; }           
+        public int? MinSilaAmount { get; set; }
 
         /// <summary>
         /// </summary>
@@ -117,6 +117,12 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
+        [DataMember(Name = "processing_type", EmitDefaultValue = false)]
+        public ProcessingType ProcessingType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember(Name = "destination_id", EmitDefaultValue = false)]
         public string DestinationId { get; set; }
 
@@ -140,6 +146,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="blockchainAddress"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
+        /// <param name="processingType"></param>
         public SearchFilters(string transactionId = default,
             string referenceId = default,
             Statuses[] statuses = default,
@@ -153,11 +160,11 @@ namespace SilaAPI.silamoney.client.domain
             bool? sortAscending = default,
             bool? showTimelines = default,
             string bankAccountName = default,
-            string cardName = default,            
-            string blockchainAddress = default, string sourceId = default, string destinationId = default
+            string cardName = default,
+            string blockchainAddress = default, string sourceId = default, string destinationId = default, ProcessingType processingType = default
             ) : base(page, perPage, sortAscending)
         {
-            
+
             TransactionId = transactionId;
             SetTransactionTypes(transactionTypes);
             MaxSilaAmount = maxSilaAmount;
@@ -172,6 +179,7 @@ namespace SilaAPI.silamoney.client.domain
             BlockchainAddress = blockchainAddress;
             SourceId = sourceId;
             DestinationId = destinationId;
+            this.ProcessingType = processingType;
         }
     }
 }

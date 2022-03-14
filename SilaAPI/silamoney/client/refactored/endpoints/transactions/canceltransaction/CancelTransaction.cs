@@ -1,51 +1,43 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
+using Sila.API.Client;
+using SilaAPI.silamoney.client.api;
 
-namespace Sila.API.Client.Entities
+namespace Sila.API.Client.Transactions
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Register : AbstractEndpoint
+    public class CancelTransaction : AbstractEndpoint
     {
-        private static string endpoint = "/register";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Register() { }
+        private static string endpoint = "/cancel_transaction";
+        private CancelTransaction() { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static ApiResponse<object> Send(RegisterRequest request)
+        public static ApiResponse<object> Send(CancelTransactionRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = AppHandle,
+                UserHandle = request.UserHandle,
                 Crypto = "ETH",
                 Reference = UuidUtils.GetUuid(),
-                UserHandle = request.UserHandle,
                 Version = "0.2"
             });
-            body.Add("message", "entity_msg");
-            body.Add("address", request.Address);
-            body.Add("identity", request.Identity);
-            body.Add("contact", request.Contact);
-            body.Add("crypto_entry", request.CryptoEntry);
-            body.Add("entity", request.Entity);
-            body.Add("device", request.Device);
+            body.Add("transaction_id", request.TransactionId);
+
 
             string serializedBody = SerializationUtil.Serialize(body);
 
@@ -54,7 +46,7 @@ namespace Sila.API.Client.Entities
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            return ResponseUtils.PrepareResponse<RegisterResponse>(response);
+            return ResponseUtils.PrepareResponse<CancelTransactionResponse>(response);
         }
     }
 }

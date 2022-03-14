@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
@@ -8,44 +8,35 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.Entities
+namespace Sila.API.Client.RetryWebhook
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Register : AbstractEndpoint
+    public class RetryWebhook : AbstractEndpoint
     {
-        private static string endpoint = "/register";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Register() { }
+        private static string endpoint = "/retry_webhook";
+        private RetryWebhook() { }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static ApiResponse<object> Send(RegisterRequest request)
+        public static ApiResponse<object> Send(RetryWebhookRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = AppHandle,
+                UserHandle = request.UserHandle,
                 Crypto = "ETH",
                 Reference = UuidUtils.GetUuid(),
-                UserHandle = request.UserHandle,
                 Version = "0.2"
             });
-            body.Add("message", "entity_msg");
-            body.Add("address", request.Address);
-            body.Add("identity", request.Identity);
-            body.Add("contact", request.Contact);
-            body.Add("crypto_entry", request.CryptoEntry);
-            body.Add("entity", request.Entity);
-            body.Add("device", request.Device);
+            body.Add("message", "header_msg");
+            body.Add("event_uuid", request.EventUuid);
 
             string serializedBody = SerializationUtil.Serialize(body);
 
@@ -54,7 +45,7 @@ namespace Sila.API.Client.Entities
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            return ResponseUtils.PrepareResponse<RegisterResponse>(response);
+            return ResponseUtils.PrepareResponse<RetryWebhookResponse>(response);
         }
     }
 }

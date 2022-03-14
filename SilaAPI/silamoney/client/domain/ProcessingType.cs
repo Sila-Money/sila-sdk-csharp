@@ -29,6 +29,11 @@ namespace SilaAPI.silamoney.client.domain
         /// CARD
         /// </summary>
         [EnumMember(Value = "CARD")]
-        Card
+        Card,
+        /// <summary>
+        /// INSTANTSETTLEMENT
+        /// </summary>
+        [EnumMember(Value = "INSTANT_SETTLEMENT")]
+        InstantSettlement
     }
 }

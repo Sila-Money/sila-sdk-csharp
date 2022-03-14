@@ -7,10 +7,23 @@ using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CheckInstantACH : AbstractEndpoint
     {
         private static string endpoint = "/check_instant_ach";
+
+        /// <summary>
+        /// 
+        /// </summary>
         private CheckInstantACH() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static ApiResponse<object> Send(CheckInstantACHRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -24,7 +37,10 @@ namespace Sila.API.Client.Accounts
                 Version = "0.2"
             });
             body.Add("account_name", request.AccountName);
-
+            if (request.KycLevel != null)
+            {
+                body.Add("kyc_level", request.KycLevel);
+            }
             string serializedBody = SerializationUtil.Serialize(body);
 
             Dictionary<string, string> headers = new Dictionary<string, string>();

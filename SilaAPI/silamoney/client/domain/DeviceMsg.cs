@@ -10,10 +10,14 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "device_fingerprint", EmitDefaultValue = false)]
         public string DeviceFingerprint { get; }
 
-        internal DeviceMsg(string authHandle, string userHandle, string deviceFingerprint)
+        [DataMember(Name = "session_identifier", EmitDefaultValue = false)]
+        public string SessionIdentifier { get; }
+
+        internal DeviceMsg(string authHandle, string userHandle, string deviceFingerprint, string sessionIdentifier)
         {
             Header = new Header(userHandle, authHandle);
             DeviceFingerprint = deviceFingerprint;
+            SessionIdentifier = sessionIdentifier;
         }
     }
 }

@@ -13,5 +13,11 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [DataMember(Name = "device_fingerprint", EmitDefaultValue = false)]
         public string DeviceFingerprint { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "session_identifier", EmitDefaultValue = false)]
+        public string SessionIdentifier { get; set; }
     }
 }

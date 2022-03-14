@@ -11,6 +11,7 @@ namespace SilaApiTest
         private static User secondUser;
         private static User thirdUser;
         private static User fourthUser;
+        private static User fifthUser;
         private static BusinessUser businessUser;
         private static User basicUser;
         private static User deviceUser;
@@ -46,6 +47,14 @@ namespace SilaApiTest
             {
                 if (fourthUser == null) fourthUser = CreateUser(DefaultConfig.FourthUser.UserHandle, "Fourth", "User", DefaultConfig.FourthUser.CryptoAddress);
                 return fourthUser;
+            }
+        }
+        public static User FifthUser
+        {
+            get
+            {
+                if (fifthUser == null) fifthUser = CreateUser(DefaultConfig.FifthUser.UserHandle, "Fif", "User", DefaultConfig.FifthUser.CryptoAddress);
+                return fifthUser;
             }
         }
         public static BusinessUser BusinessUser

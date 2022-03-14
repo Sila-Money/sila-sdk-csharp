@@ -13,40 +13,34 @@ namespace Sila.API.Client.Entities
     /// <summary>
     /// 
     /// </summary>
-    public class Register : AbstractEndpoint
+    public class CheckKYC : AbstractEndpoint
     {
-        private static string endpoint = "/register";
-
+        private static string endpoint = "/check_kyc";
         /// <summary>
         /// 
         /// </summary>
-        private Register() { }
-
+        private CheckKYC() { }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static ApiResponse<object> Send(RegisterRequest request)
+        public static ApiResponse<object> Send(CheckKYCRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", new Header
             {
                 Created = EpochUtils.getEpoch(),
                 AppHandle = AppHandle,
+                UserHandle = request.UserHandle,
                 Crypto = "ETH",
                 Reference = UuidUtils.GetUuid(),
-                UserHandle = request.UserHandle,
                 Version = "0.2"
             });
-            body.Add("message", "entity_msg");
-            body.Add("address", request.Address);
-            body.Add("identity", request.Identity);
-            body.Add("contact", request.Contact);
-            body.Add("crypto_entry", request.CryptoEntry);
-            body.Add("entity", request.Entity);
-            body.Add("device", request.Device);
-
+            if (!string.IsNullOrWhiteSpace(request.kycLevel))
+            {
+                body.Add("kyc_level", request.kycLevel);
+            }
             string serializedBody = SerializationUtil.Serialize(body);
 
             Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -54,7 +48,7 @@ namespace Sila.API.Client.Entities
 
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
 
-            return ResponseUtils.PrepareResponse<RegisterResponse>(response);
+            return ResponseUtils.PrepareResponse<CheckKYCResponse>(response);
         }
     }
 }

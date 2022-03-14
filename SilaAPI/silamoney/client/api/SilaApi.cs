@@ -82,6 +82,21 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="kycLevel"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CheckKYC(string userHandle, string userPrivateKey, string kycLevel)
+        {
+            HeaderMsg body = new HeaderMsg(userHandle, Configuration.AppHandle, kycLevel);
+            var path = "/check_kyc";
+
+            return MakeRequest<CheckKYCResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
         /// Makes a call to the get_accounts endpoint.
         /// </summary>
         /// <param name="userHandle"></param>
@@ -684,7 +699,7 @@ namespace SilaAPI.silamoney.client.api
         /// Cancel a pending transaction under certain circumstances
         /// <param name="userHandle">The user handle</param>
         /// <param name="userPrivateKey">The user's private key</param>
-        /// <param name="transactionId">The transaction id to cancel</param>
+        /// <param name="transactionId">The transaction id to cancel</param>        
         /// </sumary>
         public ApiResponse<object> CancelTransaction(string userHandle, string userPrivateKey, string transactionId)
         {
@@ -851,10 +866,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle">The user handle</param>
         /// <param name="userPrivateKey">The user's private key</param>
         /// <param name="deviceFingerprint">Iovation device token to be used in verification</param>
+        /// <param name="sessionIdentifier">Iovation device token to be used in verification</param>
         /// <returns></returns>
-        public ApiResponse<object> AddDevice(string userHandle, string userPrivateKey, string deviceFingerprint)
+        public ApiResponse<object> AddDevice(string userHandle, string userPrivateKey, string deviceFingerprint, string sessionIdentifier = null)
         {
-            var body = new DeviceMsg(Configuration.AppHandle, userHandle, deviceFingerprint);
+            var body = new DeviceMsg(Configuration.AppHandle, userHandle, deviceFingerprint, sessionIdentifier);
             return CallRegistrationData<BaseResponse>("add", RegistrationData.Device, userPrivateKey, body);
         }
 
@@ -1052,8 +1068,9 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="accountName"></param>
+        /// <param name="kycLevel"></param>
         /// <returns></returns>
-        public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName)
+        public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName, string kycLevel = null)
         {
             var path = "/check_instant_ach";
             Dictionary<string, object> body = new Dictionary<string, object>();
@@ -1067,6 +1084,10 @@ namespace SilaAPI.silamoney.client.api
                 Version = "0.2"
             });
             body.Add("account_name", accountName);
+            if (kycLevel != null)
+            {
+                body.Add("kyc_level", kycLevel);
+            }
 
             return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
         }
@@ -1184,6 +1205,31 @@ namespace SilaAPI.silamoney.client.api
             if (searchFilters != null) body.Add("search_filters", searchFilters);
 
             return MakeRequest<GetWebhooksResponse>(path, body);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="eventUuid"></param>
+        /// <returns></returns>
+        public ApiResponse<object> RetryWebhook(string userHandle, string eventUuid)
+        {
+            var path = "/retry_webhook";
+            Dictionary<string, object> body = new Dictionary<string, object>();
+            body.Add("header", new BodyHeader
+            {
+                Created = EpochUtils.getEpoch(),
+                AppHandle = Configuration.AppHandle,
+                UserHandle = userHandle,
+                Version = "0.2",
+                Crypto = "ETH",
+                Reference = UuidUtils.GetUuid()
+            });
+            body.Add("message", "header_msg");
+            body.Add("event_uuid", eventUuid);
+
+            return MakeRequest<BaseResponse>(path, body);
         }
 
         /// <summary>
