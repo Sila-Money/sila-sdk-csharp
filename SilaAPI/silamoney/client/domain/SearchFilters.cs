@@ -127,6 +127,12 @@ namespace SilaAPI.silamoney.client.domain
         public string DestinationId { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "payment_method_id", EmitDefaultValue = false)]
+        public string PaymentMethodId { get; set; }
+
+        /// <summary>
         /// SearchFilters constructor
         /// </summary>
         /// <param name="transactionId"></param>
@@ -147,6 +153,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
         /// <param name="processingType"></param>
+        /// <param name="paymentMethodId"></param>
         public SearchFilters(string transactionId = default,
             string referenceId = default,
             Statuses[] statuses = default,
@@ -161,7 +168,7 @@ namespace SilaAPI.silamoney.client.domain
             bool? showTimelines = default,
             string bankAccountName = default,
             string cardName = default,
-            string blockchainAddress = default, string sourceId = default, string destinationId = default, ProcessingType processingType = default
+            string blockchainAddress = default, string sourceId = default, string destinationId = default, ProcessingType processingType = default, string paymentMethodId = default
             ) : base(page, perPage, sortAscending)
         {
 
@@ -180,6 +187,7 @@ namespace SilaAPI.silamoney.client.domain
             SourceId = sourceId;
             DestinationId = destinationId;
             this.ProcessingType = processingType;
+            this.PaymentMethodId = paymentMethodId;
         }
     }
 }

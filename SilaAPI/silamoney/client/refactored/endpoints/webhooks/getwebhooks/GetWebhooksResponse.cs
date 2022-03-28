@@ -52,6 +52,12 @@ namespace Sila.API.Client.GetWebhooks
         /// </summary>
         [JsonProperty("reference")]
         public string Reference { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }
 

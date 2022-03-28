@@ -15,13 +15,29 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="appHandle"></param>
-        /// <param name="virtualAccountName"></param>
-        public OpenVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountName)
+        [DataMember(Name = "ach_credit_enabled", EmitDefaultValue = false)]
+        public bool? AchCreditEnabled { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "ach_debit_enabled", EmitDefaultValue = false)]
+        public bool? AchDebitEnabled { get; set; }
+
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="userHandle"></param>
+       /// <param name="appHandle"></param>
+       /// <param name="virtualAccountName"></param>
+       /// <param name="achCreditEnabled"></param>
+       /// <param name="achDebitEnabled"></param>
+        public OpenVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountName, bool? achCreditEnabled, bool? achDebitEnabled)
         {
             Header = new Header(userHandle, appHandle);
             VirtualAccountName = virtualAccountName;
+            AchCreditEnabled = achCreditEnabled;
+            AchDebitEnabled = achDebitEnabled;
         }
     }
 }

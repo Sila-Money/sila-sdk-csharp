@@ -730,17 +730,17 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="filename">Do not include the file extension</param>
         /// <param name="mimeType">MIME type for one of Supported Image Formats</param>
         /// <param name="documentType">One of Supported Document Types</param>
-        /// <param name="identityType">Matching Identity Type for Document Type</param>
+        /// <param name="identityType">Matching Identity Type for Document Type optional</param>
         /// <param name="name">Descriptive name of the document</param>
         /// <param name="description">General description of the document</param>
         /// <returns></returns>
-        public ApiResponse<object> UploadDocument(string userHandle, string userPrivateKey, string filePath, string filename, string mimeType, string documentType, string identityType, string name = null, string description = null)
+        public ApiResponse<object> UploadDocument(string userHandle, string userPrivateKey, string filePath, string filename, string mimeType, string documentType, string identityType = null, string name = null, string description = null)
         {
             var path = "/documents";
             FileStream file = new FileStream(filePath, FileMode.Open);
             string hash = Signer.HashFile(file);
             file.Close();
-            DocumentMsg body = new DocumentMsg(Configuration.AppHandle, userHandle, filename, hash, mimeType, documentType, identityType, name, description);
+            DocumentMsg body = new DocumentMsg(Configuration.AppHandle, userHandle, filename, hash, mimeType, documentType, name, description);
             return MakeRequest<DocumentResponse>(path, body, filePath, body.MimeType, userPrivateKey);
         }
 
@@ -1238,27 +1238,31 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="virtualAccountName"></param>
+        /// <param name="achCreditEnabled"></param>
+        /// <param name="achDebitEnabled"></param>
         /// <returns></returns>
-        public ApiResponse<object> OpenVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountName)
+        public ApiResponse<object> OpenVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountName, bool? achCreditEnabled = null, bool? achDebitEnabled = null)
         {
-            OpenVirtualAccountMsg body = new OpenVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountName);
+            OpenVirtualAccountMsg body = new OpenVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountName, achCreditEnabled, achDebitEnabled);
             var path = "/open_virtual_account";
 
             return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="virtualAccountId"></param>
-        /// <param name="virtualAccountName"></param>
-        /// <param name="isActive"></param>
-        /// <returns></returns>
-        public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true)
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="userHandle"></param>
+       /// <param name="userPrivateKey"></param>
+       /// <param name="virtualAccountId"></param>
+       /// <param name="virtualAccountName"></param>
+       /// <param name="isActive"></param>
+       /// <param name="achCreditEnabled"></param>
+       /// <param name="achDebitEnabled"></param>
+       /// <returns></returns>
+        public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true, bool? achCreditEnabled = null, bool? achDebitEnabled = null)
         {
-            UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, isActive);
+            UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, achCreditEnabled, achDebitEnabled, isActive);
             var path = "/update_virtual_account";
 
             return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
@@ -1307,6 +1311,41 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<GetPaymentMethodsResponse>(path, body, userPrivateKey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="virtualAccountId"></param>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CloseVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string accountNumber)
+        {
+            CloseVirtualAccountMsg body = new CloseVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, accountNumber);
+            var path = "/close_virtual_account";
+            return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="amount"></param>
+        /// <param name="virtualAccountNumber"></param>
+        /// <param name="tranCode"></param>
+        /// <param name="entityName"></param>
+        /// <param name="effectiveDate"></param>
+        /// <param name="ced"></param>
+        /// <param name="achName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CreateTestVirtualAccountAchTransaction(string userHandle, string userPrivateKey, int amount, string virtualAccountNumber, int tranCode, string entityName, DateTime? effectiveDate = null, string ced = null, string achName = null)
+        {
+            CreateTestVirtualAccountAchTransactionMsg body = new CreateTestVirtualAccountAchTransactionMsg(userHandle, Configuration.AppHandle, amount, virtualAccountNumber, tranCode, entityName, effectiveDate, ced, achName);
+            var path = "/create_test_virtual_account_ach_transaction";
+
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
 
         /// <summary>
         /// 

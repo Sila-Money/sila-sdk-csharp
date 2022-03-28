@@ -21,6 +21,16 @@ namespace Sila.API.Client.UpdateVirtualAccount
         /// <summary>
         /// 
         /// </summary>
-        public bool? Active { get; set; }
+        public bool? Active { get; set; } = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool? AchCreditEnabled { get; set; } = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool? AchDebitEnabled { get; set; } = null;
     }
 }

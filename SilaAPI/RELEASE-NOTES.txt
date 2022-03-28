@@ -1,3 +1,18 @@
+v0.2.41
+Enhancements:              
+    - Added virtual accounts as a type/section and AchCreditEnabled and AchDebitEnabled boolean fields to the response in /get_payment_methods.   
+    - Added PaymentMethodId new optional input field in SearchFilters in /get_transactions.   
+    - Updated uuid to wallet_id input field in internal code in WalletSearchFilters in /get_wallets. 
+    - Added ResponseTimeMs to the response in API returns. 
+    - Added AchCreditEnabled and AchDebitEnabled new optional inputs fields and corresponding response fields in /open_virtual_account. 
+    - Added AchCreditEnabled and AchDebitEnabled new optional inputs fields and corresponding response fields in /update_virtual_account.
+    - Added AchCreditEnabled and AchDebitEnabled boolean fields to the response in /get_virtual_account. 
+    - Added AchCreditEnabled and AchDebitEnabled boolean fields to the response in /get_virtual_accounts. 
+    - Updated identityType input field as optional in /documents.
+New Features:
+    - Added support for /close_virtual_account endpoint.
+    - Added support for /create_test_virtual_account_ach_transaction endpoint.
+
 v0.2.39
 Enhancements:              
     - Added SessionIdentifier new optional input field in Device object in /register.

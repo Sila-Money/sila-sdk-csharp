@@ -56,5 +56,11 @@ namespace Sila.API.Client.Entities
         /// </summary>
         [JsonProperty("valid_kyc_levels")]
         public List<string> ValidKYCLevels { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }

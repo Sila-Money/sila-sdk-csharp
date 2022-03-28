@@ -40,5 +40,11 @@ namespace Sila.API.Client.Cards
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }

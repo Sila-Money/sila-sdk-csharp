@@ -29,7 +29,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// String field used in the SearchFilters object to save uuid
         /// </summary>
-        [DataMember(Name = "uuid", EmitDefaultValue = false)]
+        [DataMember(Name = "wallet_id", EmitDefaultValue = false)]
         public string UuId { get; set; }
 
         /// <summary>

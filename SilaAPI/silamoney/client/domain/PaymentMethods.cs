@@ -179,5 +179,17 @@ namespace SilaAPI.silamoney.client.domain
         [JsonProperty("closed_epoch")]
         public string ClosedEpoch { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("ach_credit_enabled")]
+        public bool AchCreditEnabled { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("ach_debit_enabled")]
+        public bool AchDebitEnabled { get; set; }
+
     }
 }
