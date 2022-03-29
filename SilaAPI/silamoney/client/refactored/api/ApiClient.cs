@@ -24,6 +24,9 @@ namespace Sila.API.Client
             Configuration = Configuration.Default;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Debug { get; set; }
 
         /// <summary>
@@ -85,6 +88,16 @@ namespace Sila.API.Client
             return response;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="method"></param>
+        /// <param name="postBody"></param>
+        /// <param name="headerParams"></param>
+        /// <param name="filePath"></param>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
         public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string filePath, string contentType)
         {
             var request = new RestRequest(path, method, DataFormat.None);

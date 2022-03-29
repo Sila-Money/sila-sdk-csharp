@@ -32,5 +32,11 @@ namespace Sila.API.Client.Cards
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }

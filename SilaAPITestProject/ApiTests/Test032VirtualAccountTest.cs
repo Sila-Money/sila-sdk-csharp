@@ -35,7 +35,6 @@ namespace SilaApiTest
 
         }
 
-
         [TestMethod("2 - GetVirtualAccounts - Successfully retrieve of VirtualAccounts")]
         public void T002GetVirtualAccounts()
         {
@@ -48,11 +47,13 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Pagination);
             Assert.IsNotNull(parsedResponse.VirtualAccounts);
             DefaultConfig.VirtualAccountId = parsedResponse.VirtualAccounts[0].VirtualAccountId;
+            DefaultConfig.AccountNumber = parsedResponse.VirtualAccounts[0].AccountNumber;
 
             user = DefaultConfig.SecondUser;
             response = api.GetVirtualAccounts(user.UserHandle, user.PrivateKey);
             parsedResponse = (GetVirtualAccountsResponse)response.Data;
             DefaultConfig.VirtualAccountDisId = parsedResponse.VirtualAccounts[0].VirtualAccountId;
+            DefaultConfig.AccountNumberDis = parsedResponse.VirtualAccounts[0].AccountNumber;
         }
 
         [TestMethod("3 - IssueSila - Successfully issue of VirtualAccount")]
@@ -170,6 +171,41 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
+        }
+
+        [TestMethod("9 - CloseVirtualAccount - Successfully Close of VirtualAccount")]
+        public void T009CloseVirtualAccount()
+        {
+            string virtualAccountId = DefaultConfig.VirtualAccountId;
+            string accountNumber = DefaultConfig.AccountNumber;
+            var user = DefaultConfig.FirstUser;
+            var response = api.CloseVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountId, accountNumber);
+            var parsedResponse = (BaseResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Status);
+        }
+
+        [TestMethod("10 - CreateTestVirtualAccountAchTransaction - Successfully create of test VirtualAccountAchTransaction")]
+        public void T10CreateTestVirtualAccountAchTransaction()
+        {
+            var user = DefaultConfig.SecondUser;
+            string userHandle = user.UserHandle;
+            string userPrivateKey = user.PrivateKey;
+            int amount = 100;
+            string virtualAccountNumber = DefaultConfig.AccountNumberDis;
+            int tranCode = 22;
+            string entityName = ModelsUtilities.SecondUser.EntityName;
+            DateTime? effectiveDate = null;
+            string ced = "PAYROLL";
+            string achName = "SILA INC";
+            var response = api.CreateTestVirtualAccountAchTransaction(userHandle, userPrivateKey, amount, virtualAccountNumber, tranCode, entityName, effectiveDate, ced, achName);
+            var parsedResponse = (BaseResponse)response.Data;
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

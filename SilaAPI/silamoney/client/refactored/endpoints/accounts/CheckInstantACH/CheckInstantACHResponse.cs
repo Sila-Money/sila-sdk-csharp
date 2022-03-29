@@ -36,5 +36,11 @@ namespace Sila.API.Client.Accounts
         /// </summary>
         [JsonProperty("qualification_details")]
         public QualificationDetails QualificationDetails { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }

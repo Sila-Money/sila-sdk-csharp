@@ -28,17 +28,33 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="appHandle"></param>
-        /// <param name="virtualAccountId"></param>
-        /// <param name="virtualAccountName"></param>
-        /// <param name="active"></param>
-        public UpdateVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountId, string virtualAccountName, bool? active = true)
+        [DataMember(Name = "ach_credit_enabled", EmitDefaultValue = false)]
+        public bool? AchCreditEnabled { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "ach_debit_enabled", EmitDefaultValue = false)]
+        public bool? AchDebitEnabled { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="userHandle"></param>
+    /// <param name="appHandle"></param>
+    /// <param name="virtualAccountId"></param>
+    /// <param name="virtualAccountName"></param>
+    /// <param name="achCreditEnabled"></param>
+    /// <param name="achDebitEnabled"></param>
+    /// <param name="active"></param>
+        public UpdateVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountId, string virtualAccountName, bool? achCreditEnabled, bool? achDebitEnabled, bool? active = true)
         {
             Header = new Header(userHandle, appHandle);
             VirtualAccountId = virtualAccountId;
             VirtualAccountName = virtualAccountName;
             Active = active;
+            AchCreditEnabled = achCreditEnabled;
+            AchDebitEnabled = achDebitEnabled;
         }
     }
 }

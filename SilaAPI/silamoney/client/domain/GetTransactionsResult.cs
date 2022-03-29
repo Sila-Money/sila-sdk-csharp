@@ -35,8 +35,27 @@ namespace SilaAPI.silamoney.client.domain
         public int TotalCount { get; set; }
         /// <summary>
         /// List of Transaction objects used in the GetTransactionsResult to save transactions
+        /// </summary>        
+        [JsonProperty("transactions")]
+        public List<Transaction> Transactions { get; set; }
+
+        /// <summary>
+        /// 
         /// </summary>
-        public List<Transaction> Transactions { get; set; }        
+        [JsonProperty("pagination")]
+        public Pagination Pagination { get; set; }
+
+        /// <summary>
+        /// String field used in the BaseResponse object to save reference
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }
 

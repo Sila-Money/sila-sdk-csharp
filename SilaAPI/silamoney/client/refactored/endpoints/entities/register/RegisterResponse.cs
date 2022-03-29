@@ -33,5 +33,11 @@ namespace Sila.API.Client.Entities
         /// <value>BusinessUuid</value>
         [JsonProperty("business_uuid")]
         public string BusinessUuid { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }

@@ -37,6 +37,10 @@ namespace Sila.API.Client.OpenVirtualAccount
             });
 
             body.Add("virtual_account_name", request.VirtualAccountName);
+            if (request.AchCreditEnabled != null) body.Add("ach_credit_enabled", request.AchCreditEnabled);
+            if (request.AchDebitEnabled != null) body.Add("ach_debit_enabled", request.AchDebitEnabled);
+
+
 
             string serializedBody = SerializationUtil.Serialize(body);
 

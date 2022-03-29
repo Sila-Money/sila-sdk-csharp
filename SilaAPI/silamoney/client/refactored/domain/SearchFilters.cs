@@ -102,5 +102,11 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("processing_type")]
         public ProcessingType ProcessingType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("payment_method_id")]
+        public string PaymentMethodId { get; set; }
     }
 }

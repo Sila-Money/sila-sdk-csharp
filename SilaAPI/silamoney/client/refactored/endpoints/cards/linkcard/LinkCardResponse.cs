@@ -4,6 +4,9 @@ using Sila.API.Client.Domain;
 
 namespace Sila.API.Client.Cards
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LinkCardResponse
     {
         /// <summary>
@@ -44,5 +47,11 @@ namespace Sila.API.Client.Cards
         /// </summary>
         [JsonProperty("card_details")]
         public Card CardDetail { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("response_time_ms")]
+        public string ResponseTimeMs { get; set; }
     }
 }
