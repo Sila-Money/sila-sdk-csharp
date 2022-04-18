@@ -33,6 +33,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, fourthResponse.StatusCode, $"{DefaultConfig.FourthUser.UserHandle} should be available");
             Assert.AreEqual("SUCCESS", ((BaseResponse)fourthResponse.Data).Status, $"{DefaultConfig.FourthUser.UserHandle} should be available");
+            Assert.IsNotNull(((BaseResponse)fourthResponse.Data).ResponseTimeMs);
         }
 
         [TestMethod("2 - CheckHandle - Default user failure")]
@@ -43,6 +44,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status, $"{handle} should not be available");
+            Assert.IsNotNull(((BaseResponse)response.Data).ResponseTimeMs);
         }
 
         [TestMethod("3 - CheckHandle - Empty handle failure")]

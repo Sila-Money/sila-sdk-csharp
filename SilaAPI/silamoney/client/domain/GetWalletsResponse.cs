@@ -6,13 +6,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class GetWalletsResponse
+    public class GetWalletsResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool Success { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -39,14 +34,6 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("total_page_count")]
-        public int TotalPageCount { get; set; }
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
+        public int TotalPageCount { get; set; }        
     }
 }

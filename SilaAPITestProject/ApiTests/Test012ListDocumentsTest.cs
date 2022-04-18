@@ -31,6 +31,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Documents[0].Size);
             Assert.IsNotNull(parsedResponse.Documents[0].Created);
             Assert.IsNotNull(parsedResponse.Pagination);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("1 - ListDocuments - All filters")]
@@ -54,6 +55,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Documents[0].Size);
             Assert.IsNotNull(parsedResponse.Documents[0].Created);
             Assert.IsNotNull(parsedResponse.Pagination);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

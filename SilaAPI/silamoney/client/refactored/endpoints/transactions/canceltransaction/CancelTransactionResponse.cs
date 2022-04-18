@@ -7,43 +7,8 @@ namespace Sila.API.Client.Transactions
     /// <summary>
     /// 
     /// </summary>
-    public class CancelTransactionResponse
+    public class CancelTransactionResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        /// <summary>
-        ///  String field used in the TransactionResponse object to save error_code
-        /// </summary>
-        [JsonProperty("error_code")]
-        public string ErrorCode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("response_time_ms")]
-        public string ResponseTimeMs { get; set; }
     }
 }
 

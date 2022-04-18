@@ -7,18 +7,8 @@ namespace Sila.API.Client.GetWebhooks
     /// <summary>
     /// 
     /// </summary>
-    public class GetWebhooksResponse
+    public class GetWebhooksResponse : BaseResponse
     {
-        /// <summary>
-        /// Boolean field used in the GetWebhooksResponse to save success value
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-        /// <summary>
-        /// String field used to indicate if the api call was successful
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
         /// <summary>
         /// Integer field used in the GetWebhooksResponse to save page
         /// </summary>
@@ -46,18 +36,6 @@ namespace Sila.API.Client.GetWebhooks
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("response_time_ms")]
-        public string ResponseTimeMs { get; set; }
     }
 }
 

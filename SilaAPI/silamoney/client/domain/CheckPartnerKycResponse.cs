@@ -2,18 +2,20 @@ using Newtonsoft.Json;
 
 namespace SilaAPI.silamoney.client.domain
 {
-    public class CheckPartnerKycResponse
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CheckPartnerKycResponse : BaseResponse
     {
-        [JsonProperty("success")]
-        public bool Success { get; private set; }
-        [JsonProperty("reference")]
-        public string Reference { get; private set; }
-        [JsonProperty("message")]
-        public string Message { get; private set; }
-        [JsonProperty("status")]
-        public string Status { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("entity_type")]
         public string EntityType { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("verification_status")]
         public string VerificationStatus { get; private set; }
     }

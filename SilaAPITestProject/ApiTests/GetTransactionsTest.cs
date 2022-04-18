@@ -29,6 +29,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, statusCode);
             Assert.AreEqual(result, transactionStatus);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

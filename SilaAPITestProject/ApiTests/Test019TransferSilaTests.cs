@@ -23,6 +23,7 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
             DefaultConfig.InvalidTransferReference = parsedResponse.Reference;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
         /*
          * Temporally removed due to issue on Sila's end
@@ -49,6 +50,7 @@ namespace SilaApiTest
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("5 - TransferSila - Successful transfer with wallet")]
@@ -61,6 +63,7 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             DefaultConfig.TransferReference = parsedResponse.Reference;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("6 - TransferSila - Unsuccessful transfor to random handle")]
@@ -83,6 +86,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", ((BaseResponse)response.Data).Status);
+            Assert.IsNotNull(((BaseResponse)response.Data).ResponseTimeMs);
         }
 
         [TestMethod("8 - TransferSila - Unsuccessful transfer to sender address")]
@@ -107,6 +111,7 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.DestinationAddress));
             Assert.AreEqual(DefaultConfig.TransferTrans, parsedResponse.Descriptor);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("10 - TransferSila - Successful transfer received by wallet")]
@@ -138,6 +143,7 @@ namespace SilaApiTest
             var parsedResponse = (BadRequestResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("13 - TransferSila - Bad user signature failure")]

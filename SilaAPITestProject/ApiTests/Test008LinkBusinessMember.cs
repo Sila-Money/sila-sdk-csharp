@@ -44,6 +44,7 @@ namespace SilaApiTest
             Assert.AreEqual("test details", parsedResponse.Details);
             Assert.AreEqual(businessRole.Name, parsedResponse.Role);
             Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - LinkBusinessMember - Successful link second administrator")]

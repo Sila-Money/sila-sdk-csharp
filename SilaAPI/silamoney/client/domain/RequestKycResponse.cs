@@ -5,7 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class RequestKYCResponse : BaseResponse {
+    public class RequestKYCResponse : BaseResponse
+    {
         /// <summary>
         /// 
         /// </summary> 

@@ -26,6 +26,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ReferenceId);
             Assert.IsNotNull(parsedResponse.DocumentId);
             DefaultConfig.DocumentId = parsedResponse.DocumentId;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - UploadDocument - Bad request")]

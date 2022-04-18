@@ -20,6 +20,7 @@ namespace SilaApiTest
             var parsedResponse = (GetInstitutionsResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetInstitutions - Successful get institutions")]
@@ -29,6 +30,7 @@ namespace SilaApiTest
             var parsedResponse = (GetInstitutionsResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

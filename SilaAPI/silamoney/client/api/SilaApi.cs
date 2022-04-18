@@ -1249,17 +1249,17 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
         }
 
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="userHandle"></param>
-       /// <param name="userPrivateKey"></param>
-       /// <param name="virtualAccountId"></param>
-       /// <param name="virtualAccountName"></param>
-       /// <param name="isActive"></param>
-       /// <param name="achCreditEnabled"></param>
-       /// <param name="achDebitEnabled"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="virtualAccountId"></param>
+        /// <param name="virtualAccountName"></param>
+        /// <param name="isActive"></param>
+        /// <param name="achCreditEnabled"></param>
+        /// <param name="achDebitEnabled"></param>
+        /// <returns></returns>
         public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true, bool? achCreditEnabled = null, bool? achDebitEnabled = null)
         {
             UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, achCreditEnabled, achDebitEnabled, isActive);
@@ -1403,7 +1403,7 @@ namespace SilaAPI.silamoney.client.api
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, filePath, contentType);
 
-            return GenerateResponseFromJson<T>(response);
+            return GenerateResponseFromJson<T>(response, false);
         }
 
         private ApiResponse<object> MakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
@@ -1413,8 +1413,11 @@ namespace SilaAPI.silamoney.client.api
             string contentType = "application/json";
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
-
-            return GenerateResponseFromJson<T>(response);
+            if (path == "/issue_sila")
+            {
+                return GenerateResponseFromJson<T>(response, true);
+            }
+            return GenerateResponseFromJson<T>(response, false);
         }
 
         private ApiResponse<object> MakeFileRequest(string path, object body, string userPrivateKey)
@@ -1439,7 +1442,7 @@ namespace SilaAPI.silamoney.client.api
             return headerParams;
         }
 
-        private ApiResponse<object> GenerateResponseFromJson<T>(IRestResponse response)
+        private ApiResponse<object> GenerateResponseFromJson<T>(IRestResponse response, bool errorCodeHandle)
         {
             int statusCode = (int)response.StatusCode;
 
@@ -1455,6 +1458,14 @@ namespace SilaAPI.silamoney.client.api
                     break;
                 case 400:
                     responseBody = JsonConvert.DeserializeObject<BadRequestResponse>(response.Content);
+                    break;
+                case 403:
+                    {
+                        if (errorCodeHandle == true)
+                            responseBody = JsonConvert.DeserializeObject<BaseResponseWithErrorCode>(response.Content);
+                        else
+                            responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
+                    }
                     break;
                 case 500:
                     responseBody = JsonConvert.DeserializeObject<BaseResponse>(response.Content);
@@ -1483,7 +1494,7 @@ namespace SilaAPI.silamoney.client.api
                 response.Content,
                 true);
             }
-            return GenerateResponseFromJson<string>(response);
+            return GenerateResponseFromJson<string>(response, false);
         }
 
         private bool GetSuccess(int statusCode, object body)

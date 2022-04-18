@@ -21,6 +21,7 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should succesfully add wallet {wallet.Address}");
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual(nickname, parsedResponse.WalletNickname);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - RegisterWallet - Bad app signature failure")]

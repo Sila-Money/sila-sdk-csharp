@@ -5,22 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class UpdateWalletResponse
+    public class UpdateWalletResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool Success { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Status { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -30,10 +16,5 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public List<Change> Changes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Reference { get; set; }
     }
 }

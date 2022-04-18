@@ -32,6 +32,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
 
         }
 
@@ -54,6 +55,7 @@ namespace SilaApiTest
             parsedResponse = (GetVirtualAccountsResponse)response.Data;
             DefaultConfig.VirtualAccountDisId = parsedResponse.VirtualAccounts[0].VirtualAccountId;
             DefaultConfig.AccountNumberDis = parsedResponse.VirtualAccounts[0].AccountNumber;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - IssueSila - Successfully issue of VirtualAccount")]
@@ -70,6 +72,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Descriptor);
             Assert.IsNotNull(parsedResponse.TransactionId);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("4 - GetVirtualAccount - Successfully retrieve of VirtualAccount")]
@@ -105,6 +108,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Balance);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("5 - RedeemSila - Successfully redeem of VirtualAccount")]
@@ -121,6 +125,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Descriptor);
             Assert.IsNotNull(parsedResponse.TransactionId);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("6 - TransferSila - Successfully transfer of VirtualAccount")]
@@ -138,6 +143,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Descriptor);
             Assert.IsNotNull(parsedResponse.TransactionId);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("7 - GetTransactions - Successfully retrieve timeline of transactions")]
@@ -154,6 +160,7 @@ namespace SilaApiTest
             var parsedResponse = (GetTransactionsResult)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("8 - UpdateVirtualAccount - Successfully update of VirtualAccount")]
@@ -171,6 +178,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("9 - CloseVirtualAccount - Successfully Close of VirtualAccount")]
@@ -184,6 +192,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("10 - CreateTestVirtualAccountAchTransaction - Successfully create of test VirtualAccountAchTransaction")]

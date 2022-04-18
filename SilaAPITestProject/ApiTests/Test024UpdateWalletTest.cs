@@ -32,6 +32,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Wallet.Default);
             Assert.AreEqual(nickname, parsedResponse.Wallet.Nickname);
             Assert.AreEqual(2, parsedResponse.Changes.Count);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - UpdateWallet - Bad app signature failure")]

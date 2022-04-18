@@ -31,6 +31,7 @@ namespace SilaApiTest
             //Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Dba);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Uuid);
             Assert.IsTrue(parsedResponse.Entities.Businesses.First().BlockchainAddresses.Count > 0);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
 
         }
 
@@ -43,6 +44,7 @@ namespace SilaApiTest
             GetEntitiesResponse parsedResponse = (GetEntitiesResponse)response.Data;
             Assert.AreEqual(2, parsedResponse.Pagination.CurrentPage);
             Assert.AreEqual(2, parsedResponse.Pagination.ReturnedCount);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - GetEntities - Successful with only per page")]
@@ -54,6 +56,7 @@ namespace SilaApiTest
             GetEntitiesResponse parsedResponse = (GetEntitiesResponse)response.Data;
             Assert.AreEqual(1, parsedResponse.Pagination.CurrentPage);
             Assert.AreEqual(2, parsedResponse.Pagination.ReturnedCount);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

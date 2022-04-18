@@ -20,6 +20,7 @@ namespace SilaApiTest
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.RedeemReference = parsedResponse.Reference;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - RedeemSila - Poll for successful redeem")]
@@ -46,6 +47,7 @@ namespace SilaApiTest
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             Assert.AreEqual(DefaultConfig.RedeemTrans, parsedResponse.Descriptor);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("4 - RedeemSila - Successful redeem tokens with same day ACH")]
@@ -89,6 +91,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("8 - RedeemSila - Bad user signature failure")]

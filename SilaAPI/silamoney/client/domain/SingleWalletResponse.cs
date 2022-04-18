@@ -5,18 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class SingleWalletResponse
+    public class SingleWalletResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool Success { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Reference { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -38,11 +28,5 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         public int SilaBalance { get { return decimal.ToInt32(Balance); } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
     }
 }

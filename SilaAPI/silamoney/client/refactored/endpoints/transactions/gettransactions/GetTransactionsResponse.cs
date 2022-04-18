@@ -7,20 +7,8 @@ namespace Sila.API.Client.Transactions
     /// <summary>
     /// 
     /// </summary>
-    public class GetTransactionsResponse
+    public class GetTransactionsResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; private set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -50,17 +38,5 @@ namespace Sila.API.Client.Transactions
         /// </summary>
         [JsonProperty("transactions")]
         public List<Transaction> Transactions { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("response_time_ms")]
-        public string ResponseTimeMs { get; set; }
     }
 }

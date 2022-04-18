@@ -29,6 +29,8 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, thirdResponse.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)thirdResponse.Data).Status, $"{thirdHandle} should not be available");
+
+            Assert.IsNotNull(((BaseResponse)thirdResponse.Data).ResponseTimeMs);
         }
     }
 }

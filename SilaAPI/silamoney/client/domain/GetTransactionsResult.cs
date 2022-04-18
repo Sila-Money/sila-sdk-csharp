@@ -6,18 +6,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// TransactionsResult used in the GetTransactionsResponse object
     /// </summary>
-    public class GetTransactionsResult
+    public class GetTransactionsResult : BaseResponse
     {
-        /// <summary>
-        /// Boolean field used in the GetTransactionsResult to save success value
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-        /// <summary>
-        /// String field used to indicate if the api call was successful
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
         /// <summary>
         /// Integer field used in the GetTransactionsResult to save page
         /// </summary>
@@ -38,24 +28,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>        
         [JsonProperty("transactions")]
         public List<Transaction> Transactions { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
-        /// <summary>
-        /// String field used in the BaseResponse object to save reference
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("response_time_ms")]
-        public string ResponseTimeMs { get; set; }
     }
 }
 

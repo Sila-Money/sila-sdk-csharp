@@ -85,6 +85,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("6 - LinkAccount - Link through plaid token and account id")]
@@ -108,6 +109,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("7 - LinkAccount - Link direct account link")]
@@ -174,6 +176,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

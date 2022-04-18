@@ -26,6 +26,7 @@ namespace SilaApiTest
             parsedResponse = (GetAccountBalanceResponse)secondResponse.Data;
             Assert.AreEqual("sync_by_id", parsedResponse.AccountName, $"{user.UserHandle} account 'sync_by_id' should match account_name");
             Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetAccountBalance - Unsuccessful direct link account balance")]
