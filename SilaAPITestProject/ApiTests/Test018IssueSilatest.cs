@@ -21,6 +21,7 @@ namespace SilaApiTest
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.IssueReference = parsedResponse.Reference;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - IssueSila - Succesfully issue tokens with business uuid and descriptor")]
@@ -33,6 +34,7 @@ namespace SilaApiTest
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.AreEqual(DefaultConfig.IssueTrans, parsedResponse.Descriptor);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - IssueSila - Succesfully issue tokens with same day ACH")]
@@ -44,18 +46,20 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("4 - IssueSila - Successful instant ach")]
         public void Response200SuccessInstantAch()
         {
             UserConfiguration user = DefaultConfig.InstantUser;
-            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.Instant, accountName: "defaultpt");
+            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.InstantACH, accountName: "defaultpt");
 
             Assert.AreEqual(200, response.StatusCode);
             TransactionResponse parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("5 - IssueSila - Poll until successful issue")]
@@ -86,7 +90,8 @@ namespace SilaApiTest
             var parsedResponse = (BadRequestResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
-            }
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
+        }
 
         [TestMethod("8 - IssueSila - Bad user signature failure")]
         public void Response401User()

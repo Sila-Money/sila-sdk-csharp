@@ -22,6 +22,8 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponseWithoutReference)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

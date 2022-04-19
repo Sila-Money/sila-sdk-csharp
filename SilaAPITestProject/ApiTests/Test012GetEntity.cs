@@ -62,6 +62,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Devices.First().ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Devices.First().Uuid);
             Assert.IsNotNull(parsedResponse.UserHandle);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetEntity - Successful with pretty dates")]
@@ -123,6 +124,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Devices.First().ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Devices.First().Uuid);
             Assert.IsNotNull(parsedResponse.UserHandle);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetEntity - Failure when private key is blank")]

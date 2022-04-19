@@ -20,6 +20,7 @@ namespace SilaApiTest
             Assert.AreEqual(2, parsedResponse.TotalCount, $"{user.UserHandle} get_wallets succes count");
             Assert.AreEqual(2, parsedResponse.Wallets.Count, $"{user.UserHandle} get_wallets succes wallets count");
             Assert.IsTrue(parsedResponse.Success, $"{user.UserHandle} get_wallets succes property");
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetWallets - Bad app signature failure")]

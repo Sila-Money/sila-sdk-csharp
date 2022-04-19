@@ -5,20 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class GetAccountBalanceResponse
+    public class GetAccountBalanceResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -48,11 +36,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("account_name")]
         public string AccountName { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }

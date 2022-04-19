@@ -22,7 +22,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].Name);
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].Label);
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].IdentityType);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.DocumentTypes = parsedResponse.DocumentTypes;
         }
 
@@ -39,6 +39,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].Name);
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].Label);
             Assert.IsNotNull(parsedResponse.DocumentTypes[0].IdentityType);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

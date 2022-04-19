@@ -12,7 +12,7 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("virtual_accounts")]
-        public List<VirtualAccounts> VirtualAccounts { get; set; }
+        public List<VirtualAccount> VirtualAccounts { get; set; }
 
         /// <summary>
         /// 

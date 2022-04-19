@@ -6,14 +6,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used in GetEntity method.
     /// </summary>
-    public class GetEntityResponse
-    {
-        /// <summary>
-        /// Success property.
-        /// </summary>
-        /// <value>Success</value>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
+    public class GetEntityResponse : BaseResponse
+    {        
         /// <summary>
         /// User handle property.
         /// </summary>
@@ -76,11 +70,5 @@ namespace SilaAPI.silamoney.client.domain
         /// <value>Devices</value>
         [JsonProperty("devices")]
         public List<Device> Devices { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }

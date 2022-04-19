@@ -5,30 +5,12 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class PlaidSameDayAuthResponse
+    public class PlaidSameDayAuthResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("public_token")]
         public string PublicToken { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }

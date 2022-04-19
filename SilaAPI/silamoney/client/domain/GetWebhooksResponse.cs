@@ -6,18 +6,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// WebhooksResult used in the GetWebhooksResponse object
     /// </summary>
-    public class GetWebhooksResponse
+    public class GetWebhooksResponse : BaseResponse
     {
-        /// <summary>
-        /// Boolean field used in the GetWebhooksResponse to save success value
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-        /// <summary>
-        /// String field used to indicate if the api call was successful
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
         /// <summary>
         /// Integer field used in the GetWebhooksResponse to save page
         /// </summary>
@@ -33,7 +23,7 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("total_count")]
         public int TotalCount { get; set; }
-     
+
         /// <summary>
         /// List of Webhooks objects used in the GetWebhooks to save webhooks
         /// </summary>
@@ -45,12 +35,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }
 

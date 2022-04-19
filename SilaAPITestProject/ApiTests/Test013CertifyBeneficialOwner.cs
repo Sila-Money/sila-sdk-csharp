@@ -20,6 +20,8 @@ namespace SilaApiTest
             );
 
             var parsedEntityResponse = (GetEntityResponse)entity.Data;
+            Assert.IsNotNull(parsedEntityResponse.ResponseTimeMs);
+
 
             foreach (var membership in parsedEntityResponse.Memberships)
             {
@@ -43,6 +45,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("Beneficial owner successfully certified.", parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

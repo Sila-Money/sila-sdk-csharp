@@ -10,12 +10,12 @@ namespace Sila.API.Client.Domain
         /// 
         /// </summary>
         [JsonProperty("pending_sila_balance")]
-        public int? PendingSilaBalance { get; set; }
+        public int PendingSilaBalance { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("available_sila_balance")]
-        public int? AvailableSilaBalance { get; set; }
+        public int AvailableSilaBalance { get; set; }
     }
 }

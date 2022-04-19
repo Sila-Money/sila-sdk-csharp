@@ -5,13 +5,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Object used in the GetEntities mehtod.
     /// </summary>
-    public class GetEntitiesResponse
+    public class GetEntitiesResponse : BaseResponse
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -22,11 +17,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }

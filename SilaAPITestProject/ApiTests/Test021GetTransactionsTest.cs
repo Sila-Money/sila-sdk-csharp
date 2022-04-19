@@ -24,6 +24,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
             Assert.IsTrue(parsedResponse.Transactions[0].TimeLines.Count > 0);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
     }

@@ -37,6 +37,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Address.State);
             Assert.IsNotNull(parsedResponse.Address.Country);
             Assert.IsNotNull(parsedResponse.Address.PostalCode);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - UpdateEmail - Success Response")]
@@ -55,6 +56,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Email.ModifiedEpoch);
             Assert.AreEqual(DefaultConfig.EmailUuid, parsedResponse.Email.Uuid);
             Assert.AreEqual(email, parsedResponse.Email.Email);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - UpdateEntity - Individual Success Response")]
@@ -82,6 +84,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Entity.Birthdate);
             Assert.AreEqual(entity.FirstName, parsedResponse.Entity.FirstName);
             Assert.AreEqual(entity.LastName, parsedResponse.Entity.LastName);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - UpdateEntity - Business Success Response")]
@@ -114,6 +117,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Entity.NaicsSubcategory);
             Assert.AreEqual(entity.DoingBusinessAs, parsedResponse.Entity.DoingBusinessAs);
             Assert.AreEqual(entity.BusinessWebsite, parsedResponse.Entity.BusinessWebsite);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("5 - UpdateIdentity - Success Response")]
@@ -140,7 +144,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Identity.Identity);
             Assert.IsNull(parsedResponse.Identity.DocumentId);
             Assert.IsNull(parsedResponse.Identity.DocumentName);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.IdentityUuid = parsedResponse.Identity.Uuid;
         }
 
@@ -163,7 +167,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Phone.SmsConfirmationRequested);
             Assert.IsFalse(parsedResponse.Phone.SmsConfirmed);
             Assert.IsTrue(parsedResponse.Phone.Primary);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
         }
     }

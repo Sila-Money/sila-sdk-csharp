@@ -18,6 +18,7 @@ namespace SilaApiTest
 
             Assert.AreEqual(200, response.StatusCode);
             Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - DeleteWallet - Bad app signature failure")]

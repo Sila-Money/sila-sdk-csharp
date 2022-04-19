@@ -22,6 +22,7 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
             DefaultConfig.IssueReference = parsedResponse.Reference;
             DefaultConfig.TransactionId = parsedResponse.TransactionId;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetTransactions - Successfully transactions")]
@@ -36,7 +37,7 @@ namespace SilaApiTest
             );
 
             var parsedResponse = (GetTransactionsResult)response.Data;
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsTrue(parsedResponse.Transactions.Count > 0);
             int i = 0;
@@ -80,6 +81,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

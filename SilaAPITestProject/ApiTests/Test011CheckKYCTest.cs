@@ -55,6 +55,7 @@ namespace SilaApiTest
             var status = parsedResponse.Status;
             var message = parsedResponse.Message;
             int statusCode = response.StatusCode;
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
 
             while (statusCode == 200 && status == "FAILURE" && message.Contains("pending") && !message.Contains("Business has passed verification"))
             {
@@ -67,7 +68,6 @@ namespace SilaApiTest
                 status = parsedResponse.Status;
                 message = parsedResponse.Message;
             }
-
         }
     }
 }

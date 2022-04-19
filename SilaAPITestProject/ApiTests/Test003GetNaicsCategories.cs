@@ -20,7 +20,7 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.NaicsCategories.Count > 0);
             Assert.IsNotNull(parsedResponse.NaicsCategories.First().Key);
             Assert.IsNotNull(parsedResponse.NaicsCategories.First().Value);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.NaicsCategories = parsedResponse.NaicsCategories;
         }
     }

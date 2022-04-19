@@ -12,17 +12,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("reference")]
         public string Reference { get; set; }
-
-        /// <summary>
-        ///  String field used in the TransactionResponse object to save error_code
-        /// </summary>
-        [JsonProperty("error_code")]
-        public string ErrorCode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("response_time_ms")]
-        public string ResponseTimeMs { get; set; }
     }
 }

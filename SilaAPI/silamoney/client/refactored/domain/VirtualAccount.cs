@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
-
-namespace SilaAPI.silamoney.client.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
     /// 
     /// </summary>
-    public class VirtualAccounts
+    public class VirtualAccount
     {
         /// <summary>
         /// 
@@ -52,17 +51,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("closed")]
         public bool Closed { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("ach_credit_enabled")]
-        public bool AchCreditEnabled { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("ach_debit_enabled")]
-        public bool AchDebitEnabled { get; set; }
     }
 }

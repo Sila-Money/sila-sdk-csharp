@@ -40,7 +40,7 @@ namespace SilaApiTest
             Assert.AreEqual(address.State, parsedResponse.Address.State);
             Assert.AreEqual(address.Country, parsedResponse.Address.Country);
             Assert.AreEqual(address.PostalCode, parsedResponse.Address.PostalCode);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.AddressUuid = parsedResponse.Address.Uuid;
         }
 
@@ -60,7 +60,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Email.ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Email.Uuid);
             Assert.AreEqual(email, parsedResponse.Email.Email);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.EmailUuid = parsedResponse.Email.Uuid;
         }
 
@@ -85,7 +85,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Identity.Uuid);
             Assert.AreEqual(identity.IdentityAlias, parsedResponse.Identity.IdentityType);
             Assert.IsNotNull(parsedResponse.Identity.Identity);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.IdentityUuid = parsedResponse.Identity.Uuid;
         }
 
@@ -105,7 +105,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Phone.ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Phone.Uuid);
             Assert.AreEqual(phone, parsedResponse.Phone.Phone);
-
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
         }
 
@@ -120,6 +120,7 @@ namespace SilaApiTest
             var parsedResponse = (BaseResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

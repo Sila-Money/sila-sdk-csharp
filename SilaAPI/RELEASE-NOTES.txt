@@ -1,3 +1,9 @@
+v0.2.41-rc1
+Breaking changes:
+    - Renamed class VirtualAccounts to VirtualAccount.
+    - Renamed field Instant to InstantACH in ProcessingType enum.
+    - Created response class BaseResponseWithErrorCode when status code is 403 in /issue_sila.    
+
 v0.2.41
 Enhancements:              
     - Added virtual accounts as a type/section and AchCreditEnabled and AchDebitEnabled boolean fields to the response in /get_payment_methods.   

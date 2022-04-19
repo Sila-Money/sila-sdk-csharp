@@ -11,6 +11,6 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [JsonProperty("virtual_account")]
-        public VirtualAccounts VirtualAccount { get; set; }
+        public VirtualAccount VirtualAccount { get; set; }
     }
 }

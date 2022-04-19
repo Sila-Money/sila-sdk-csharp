@@ -22,6 +22,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

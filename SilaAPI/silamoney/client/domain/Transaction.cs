@@ -6,7 +6,7 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// Transaction object used in the GetTransactionsResult object
     /// </summary>
-    public class Transaction
+    public class Transaction : BaseResponse
     {
         /// <summary>
         /// String field value used in the Transaction objet to save user_handle
@@ -33,7 +33,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -53,17 +52,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("card_name")]
         public string CardName { get; set; }
-
         /// <summary>
         /// String field value used in the Transaction objet to save handle_address
         /// </summary>
         [JsonProperty("handle_address")]
-        public string HandleAddress { get; set; }
-        /// <summary>
-        /// String field value used in the transaction object to save status
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
+        public string HandleAddress { get; set; }      
         /// <summary>
         /// String field value used in the Transaction objet to save usd_status
         /// </summary>
@@ -159,7 +152,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("addenda")]
         public string Addenda { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -210,7 +202,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("destination_ledger_account_id")]
         public string DestinationLedgerAccountId { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

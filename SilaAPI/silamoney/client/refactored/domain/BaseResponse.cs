@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
-namespace SilaAPI.silamoney.client.domain
+namespace Sila.API.Client.Domain
 {
     /// <summary>
-    /// 
+    /// Object used to store response message.
     /// </summary>
-    public class BaseResponseWithoutReference
+    public class BaseResponse
     {
         /// <summary>
         /// String field used in the BaseResponse object to save message 
@@ -28,5 +29,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("response_time_ms")]
         public string ResponseTimeMs { get; set; }
+        /// <summary>
+        /// String field used in the BaseResponse object to save reference
+        /// </summary>
+        [JsonProperty("reference")]
+        public string Reference { get; set; }
     }
 }

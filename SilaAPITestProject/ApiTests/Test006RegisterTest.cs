@@ -71,6 +71,7 @@ namespace SilaApiTest
             BaseResponse parsedInstantResponse = (BaseResponse)basicResponse.Data;
             Assert.IsTrue(parsedInstantResponse.Success);
             Assert.AreEqual("SUCCESS", parsedInstantResponse.Status);
+            Assert.IsNotNull(parsedInstantResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - Register - Random user second registration failure")]

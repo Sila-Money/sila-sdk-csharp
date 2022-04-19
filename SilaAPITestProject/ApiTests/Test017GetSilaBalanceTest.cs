@@ -20,6 +20,7 @@ namespace SilaApiTest
             Assert.AreEqual(user.CryptoAddress, parsedResponse.Address);
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual(0, parsedResponse.SilaBalance);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("2 - GetSilaBalance - Unsuccessful balance retrieval")]

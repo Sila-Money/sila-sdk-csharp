@@ -27,6 +27,7 @@ namespace SilaApiTest
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual(businessRole.Name, parsedResponse.Role);
             Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
 }

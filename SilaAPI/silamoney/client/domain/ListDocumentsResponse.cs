@@ -6,18 +6,8 @@ namespace SilaAPI.silamoney.client.domain
     /// <summary>
     /// 
     /// </summary>
-    public class ListDocumentsResponse
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
+    public class ListDocumentsResponse : BaseResponse
+    {       
         /// <summary>
         /// 
         /// </summary>
@@ -28,11 +18,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("reference")]
-        public string Reference { get; set; }
     }
 }
