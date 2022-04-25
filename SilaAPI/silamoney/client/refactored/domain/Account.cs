@@ -42,11 +42,29 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("active")]
         public bool? Active { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("match_score")]
         public float? MatchScore { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("account_owner_name")]
         public string AccountOwnerName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("entity_name")]
         public string EntityName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("web_debit_verified")]
+        public bool WebDebitVerified { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
+        [JsonProperty("attribute")]
         public string Attribute { get; set; }
 
         /// <summary>

@@ -7,10 +7,18 @@ using System.Linq;
 
 namespace Sila.API.Client.Utils
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ResponseUtils
     {
         private ResponseUtils() { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rawResponse"></param>
+        /// <returns></returns>
         public static ApiResponse<object> PrepareResponseGetAccounts(IRestResponse rawResponse)
         {
             int statusCode = (int)rawResponse.StatusCode;
@@ -42,6 +50,12 @@ namespace Sila.API.Client.Utils
                 GetSuccess(statusCode, responseBody));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rawResponse"></param>
+        /// <returns></returns>
         public static ApiResponse<object> PrepareResponse<T>(IRestResponse rawResponse)
         {
             int statusCode = (int)rawResponse.StatusCode;

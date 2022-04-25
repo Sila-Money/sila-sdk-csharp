@@ -57,5 +57,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("entity_name")]
         public string EntityName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("web_debit_verified")]
+        public bool WebDebitVerified { get; set; }
     }
 }

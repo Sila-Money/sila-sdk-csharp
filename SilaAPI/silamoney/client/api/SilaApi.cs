@@ -142,6 +142,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetTransactions(SearchFilters searchFilters)
+        {
+            GetTransactionsMsg body = new GetTransactionsMsg(Configuration.AppHandle, searchFilters);
+            var path = "/get_transactions";
+
+            return MakeRequest<GetTransactionsResult>(path, body);
+        }
+
+        /// <summary>
         /// Initiates and ACH Debit transaction on a specified bank account and issues SILAUSD tokens to the address belonging to the requested handle.
         /// </summary>
         /// <param name="userHandle"></param>

@@ -207,5 +207,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("child_transactions")]
         public List<Transaction> ChildTransactions { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("sec_code")]
+        public string SecCode { get; set; }
     }
 }
