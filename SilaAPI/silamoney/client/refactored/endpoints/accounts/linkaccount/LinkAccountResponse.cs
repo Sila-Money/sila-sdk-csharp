@@ -30,5 +30,11 @@ namespace Sila.API.Client.Accounts
         /// </summary>
         [JsonProperty("entity_name")]
         public string EntityName { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("web_debit_verified")]
+        public bool WebDebitVerified { get; set; }
     }
 }

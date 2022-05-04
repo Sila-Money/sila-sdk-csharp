@@ -2,12 +2,24 @@ using Newtonsoft.Json;
 
 namespace Sila.API.Client.Domain
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Change
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("attribute")]
         public string Attribute { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("old_value")]
         public string OldValue { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("new_value")]
         public string NewValue { get; set; }
     }

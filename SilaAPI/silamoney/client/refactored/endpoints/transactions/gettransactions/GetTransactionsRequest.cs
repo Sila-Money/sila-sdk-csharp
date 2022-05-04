@@ -10,7 +10,7 @@ namespace Sila.API.Client.Transactions
         /// <summary>
         /// 
         /// </summary>
-        public string UserHandle { get; set; }
+        public string UserHandle { get; set; } = null;
 
         /// <summary>
         /// 

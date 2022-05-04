@@ -26,5 +26,17 @@ namespace SilaAPI.silamoney.client.domain
             this.SearchFilters = searchFilters;
             this.MessageOption = Message.GetTransactionMsg;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authHandle"></param>
+        /// <param name="searchFilters"></param>
+        public GetTransactionsMsg(string authHandle, SearchFilters searchFilters = default)
+        {
+            this.Header = new Header(authHandle: authHandle);
+            this.SearchFilters = searchFilters;
+            this.MessageOption = Message.GetTransactionMsg;
+        }
     }
 }

@@ -216,5 +216,11 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("child_transactions")]
         public List<Transaction> ChildTransactions { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("sec_code")]
+        public string SecCode { get; set; }
     }
 }

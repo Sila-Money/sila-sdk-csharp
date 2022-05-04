@@ -142,6 +142,19 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetTransactions(SearchFilters searchFilters)
+        {
+            GetTransactionsMsg body = new GetTransactionsMsg(Configuration.AppHandle, searchFilters);
+            var path = "/get_transactions";
+
+            return MakeRequest<GetTransactionsResult>(path, body);
+        }
+
+        /// <summary>
         /// Initiates and ACH Debit transaction on a specified bank account and issues SILAUSD tokens to the address belonging to the requested handle.
         /// </summary>
         /// <param name="userHandle"></param>
@@ -476,14 +489,9 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> GetBusinessTypes()
         {
             var path = "/get_business_types";
-            Dictionary<String, String> header = new Dictionary<string, string>();
-            header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("app_handle", Configuration.AppHandle);
-            header.Add("version", "0.2");
-            header.Add("reference", UuidUtils.GetUuid());
-            header.Add("crypto", "ETH");
+            Header header = new Header(null, Configuration.AppHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
 
             return MakeRequest<BusinessTypesResponse>(path, body);
@@ -496,14 +504,9 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> GetBusinessRoles()
         {
             var path = "/get_business_roles";
-            Dictionary<String, String> header = new Dictionary<string, string>();
-            header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("app_handle", Configuration.AppHandle);
-            header.Add("version", "0.2");
-            header.Add("reference", UuidUtils.GetUuid());
-            header.Add("crypto", "ETH");
+            Header header = new Header(null, Configuration.AppHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
 
             return MakeRequest<BusinessRolesResponse>(path, body);
@@ -516,14 +519,9 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> GetNaicsCategories()
         {
             var path = "/get_naics_categories";
-            Dictionary<String, String> header = new Dictionary<string, string>();
-            header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("app_handle", Configuration.AppHandle);
-            header.Add("version", "0.2");
-            header.Add("reference", UuidUtils.GetUuid());
-            header.Add("crypto", "ETH");
+            Header header = new Header(null, Configuration.AppHandle);
 
-            Dictionary<String, object> body = new Dictionary<string, object>();
+            Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
 
             return MakeRequest<NaicsCategoriesResponse>(path, body);
@@ -604,14 +602,7 @@ namespace SilaAPI.silamoney.client.api
         public ApiResponse<object> GetEntity(string userHandle, string userPrivateKey, bool? prettyDates = null)
         {
             var path = $"/get_entity{UrlParamsUtilities.AddQueryParameter("", "pretty_dates", prettyDates.ToString())}";
-            Dictionary<string, string> header = new Dictionary<string, string>();
-            header.Add("created", EpochUtils.getEpoch().ToString());
-            header.Add("app_handle", Configuration.AppHandle);
-            header.Add("user_handle", userHandle);
-
-            header.Add("version", "0.2");
-            header.Add("reference", UuidUtils.GetUuid());
-            header.Add("crypto", "ETH");
+            Header header = new Header(userHandle, Configuration.AppHandle);
 
             Dictionary<string, object> body = new Dictionary<string, object>();
             body.Add("header", header);
@@ -993,19 +984,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> CheckPartnerKyc(string queryAppHandle, string queryUserHandle)
         {
+            CheckPartnerKycMsg body = new CheckPartnerKycMsg(Configuration.AppHandle, queryAppHandle, queryUserHandle);
             var path = "/check_partner_kyc";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid(),
-                Version = "0.2"
-            });
-            body.Add("query_app_handle", queryAppHandle);
-            body.Add("query_user_handle", queryUserHandle);
-
             return MakeRequest<CheckPartnerKycResponse>(path, body);
         }
 
@@ -1022,15 +1002,8 @@ namespace SilaAPI.silamoney.client.api
         {
             var path = "/update_account";
             Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid(),
-                Version = "0.2"
-            });
+            Header header = new Header(userHandle, Configuration.AppHandle);
+            body.Add("header", header);
             body.Add("account_name", accountName);
             body.Add("new_account_name", newAccountName);
             body.Add("active", isActive);
@@ -1046,19 +1019,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> PlaidUpdateLinkToken(string userHandle, string accountName)
         {
+            PlaidUpdateLinkTokenMsg body = new PlaidUpdateLinkTokenMsg(userHandle,Configuration.AppHandle, accountName);
             var path = "/plaid_update_link_token";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Version = "0.2",
-                Reference = UuidUtils.GetUuid(),
-                Crypto = "ETH"
-            });
-            body.Add("account_name", accountName);
-
             return MakeRequest<PlaidUpdateLinkTokenResponse>(path, body);
         }
 
@@ -1072,23 +1034,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName, string kycLevel = null)
         {
+            CheckInstantACHMsg body = new CheckInstantACHMsg(userHandle, Configuration.AppHandle, accountName, kycLevel);
             var path = "/check_instant_ach";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid(),
-                Version = "0.2"
-            });
-            body.Add("account_name", accountName);
-            if (kycLevel != null)
-            {
-                body.Add("kyc_level", kycLevel);
-            }
-
             return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
         }
 
@@ -1099,18 +1046,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters = null)
         {
+            GetInstitutionsMsg body = new GetInstitutionsMsg(Configuration.AppHandle, searchFilters);           
             var path = "/get_institutions";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid(),
-                Version = "0.2"
-            });
-            if (searchFilters != null) body.Add("search_filters", searchFilters);
-
             return MakeRequest<GetInstitutionsResponse>(path, body);
         }
 
@@ -1139,17 +1076,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> GetCards(string userHandle, string userPrivateKey)
         {
+            GetCardsMsg body = new GetCardsMsg(userHandle,Configuration.AppHandle);
             var path = "/get_cards";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Version = "0.2",
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid()
-            });
             return MakeRequest<GetCardsResponse>(path, body, userPrivateKey);
         }
 
@@ -1191,19 +1119,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> GetWebhooks(string userHandle, WebhooksSearchFilters searchFilters = null)
         {
+            GetWebhooksMsg body = new GetWebhooksMsg(userHandle, Configuration.AppHandle, searchFilters);
             var path = "/get_webhooks";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Version = "0.2",
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid()
-            });
-            if (searchFilters != null) body.Add("search_filters", searchFilters);
-
             return MakeRequest<GetWebhooksResponse>(path, body);
         }
 
@@ -1215,20 +1132,8 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> RetryWebhook(string userHandle, string eventUuid)
         {
+            RetryWebhookMsg body = new RetryWebhookMsg(userHandle, Configuration.AppHandle, eventUuid);
             var path = "/retry_webhook";
-            Dictionary<string, object> body = new Dictionary<string, object>();
-            body.Add("header", new BodyHeader
-            {
-                Created = EpochUtils.getEpoch(),
-                AppHandle = Configuration.AppHandle,
-                UserHandle = userHandle,
-                Version = "0.2",
-                Crypto = "ETH",
-                Reference = UuidUtils.GetUuid()
-            });
-            body.Add("message", "header_msg");
-            body.Add("event_uuid", eventUuid);
-
             return MakeRequest<BaseResponse>(path, body);
         }
 

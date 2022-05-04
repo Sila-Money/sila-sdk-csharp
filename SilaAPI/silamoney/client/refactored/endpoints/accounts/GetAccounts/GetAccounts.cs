@@ -10,10 +10,19 @@ using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class GetAccounts : AbstractEndpoint
     {
         private static string endpoint = "/get_accounts";
         private GetAccounts() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static ApiResponse<object> Send(GetAccountsRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();

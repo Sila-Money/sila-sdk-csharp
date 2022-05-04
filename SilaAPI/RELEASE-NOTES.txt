@@ -1,4 +1,11 @@
+v0.2.43
+Enhancements:
+	- Added SecCode string field in Transaction class to the response and created an overload method without passing userHandle input field in /get_transactions.   
+	- Added WebDebitVerified bool field in LinkAccountResponse class to the response in /link_account.
+    - Added WebDebitVerified bool field in Account class to the response in /get_accounts and /update_account.    
+
 v0.2.41-rc1
+Hotfix:
 Breaking changes:
     - Renamed class VirtualAccounts to VirtualAccount.
     - Renamed field Instant to InstantACH in ProcessingType enum.
@@ -153,7 +160,7 @@ Breaking changes:
         - VerificationResultBase.KycLevel -> VerificationResultBase.KYCLevel
     - Merged SingleWallet into WalletResponse object
         - SingleWallet was removed from the code base and replaced all references with WalletResponse
-    - Changed sila amounts to integers on /issue_sila, /transfer_sila and /redeem_sila requests.  Changed sila amounts to integers on /get_sila_balance, /get_transactions and /get_wallet responses
+    - Changed sila amounts to integers on /issue_sila, /transfer_sila and /redeem_sila requests. Changed sila amounts to integers on /get_sila_balance, /get_transactions and /get_wallet responses
         - GetSilaBalanceResponse.SilaBalance changed from decimal to int
         - SingleWalletResponse.SilaBalance changed from decimal to int
         - Transaction.SilaAmount changed from float to int
