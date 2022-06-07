@@ -77,12 +77,12 @@ namespace SilaApiTest
             var response = api.ReverseTransaction(user.UserHandle, user.PrivateKey, DefaultConfig.TransactionId);
             var parsedResponse = (BaseResponse)response.Data;
 
-            //Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            //Assert.IsTrue(parsedResponse.Success);
+            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
-}
 
+}
