@@ -32,5 +32,10 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("token_status")]
         public string TokenStatus { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("provider_status")]
+        public string ProviderStatus { get; set; }
     }
 }

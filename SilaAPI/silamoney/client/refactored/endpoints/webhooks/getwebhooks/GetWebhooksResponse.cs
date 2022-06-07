@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Sila.API.Client.Domain;
 
-namespace Sila.API.Client.GetWebhooks
+namespace Sila.API.Client.Webhooks
 {
     /// <summary>
     /// 

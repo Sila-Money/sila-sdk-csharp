@@ -18,6 +18,7 @@ namespace SilaApiTest
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/tabapay-compact");
+            request.AddHeader("Referer", "https://sso.sandbox.tabapay.com:8443/SSOEvolveISO.html");
             var body = @"cBm0RU8eASGfSxLYJjsG73Q	n9010111999999992	e202201	s4561";
             request.AddParameter("application/tabapay-compact", body, ParameterType.RequestBody);
             IRestResponse responseToken = client.Execute(request);

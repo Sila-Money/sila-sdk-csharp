@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Sila.API.Client.Domain;
 
-namespace Sila.API.Client.Cards
+namespace Sila.API.Client.Wallets
 {
     /// <summary>
     /// 
@@ -12,13 +12,29 @@ namespace Sila.API.Client.Cards
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("cards")]
-        public List<Card> Cards { get; internal set; }
+        public List<WalletResponse> Wallets { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("pagination")]
-        public Pagination Pagination { get; set; }
+        public int Page { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("returned_count")]
+        public int ReturnedCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("total_count")]
+        public int TotalCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("total_page_count")]
+        public int TotalPageCount { get; set; }
     }
 }

@@ -45,7 +45,10 @@ namespace Sila.API.Client.Transactions
             body.Add("card_name", request.CardName);
             body.Add("source_id", request.SourceId);
             body.Add("destination_id", request.DestinationId);
-
+            if (!string.IsNullOrWhiteSpace(request.MockWireAccountName))
+            {
+                body.Add("mock_wire_account_name", request.MockWireAccountName);
+            }
             string serializedBody = SerializationUtil.Serialize(body);
 
             Dictionary<string, string> headers = new Dictionary<string, string>();

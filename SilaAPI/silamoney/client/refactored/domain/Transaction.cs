@@ -222,5 +222,25 @@ namespace Sila.API.Client.Domain
         /// </summary>
         [JsonProperty("sec_code")]
         public string SecCode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("IMAD")]
+        public string IMAD { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("OMAD")]
+        public string OMAD { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("provider_tx_id")]
+        public string ProviderTxId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("provider_status")]
+        public string ProviderStatus { get; set; }
     }
 }

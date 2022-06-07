@@ -1,3 +1,14 @@
+v0.2.44
+Enhancements:
+	- Added SilaAvailableBalance and SilaPendingBalance decimal fields to the response in /get_wallet.  
+    - Added Wire input field in ProcessingType enum and mockWireAccountName input field in /redeem_sila.
+    - Added IMAD, OMAD, ProviderTxId and ProviderStatus string fields in Transaction class to the response in /get_transactions. 
+    - Added ProviderStatus string field in TimeLine class to the response in /get_transactions.
+    - Added Wire field in ProcessingType enum input in SearchFilters class in /get_transactions.
+New Features:
+    - Added support for /approve_wire endpoint.
+    - Added support for /mock_wire_out_file endpoint.
+
 v0.2.43
 Enhancements:
 	- Added SecCode string field in Transaction class to the response and created an overload method without passing userHandle input field in /get_transactions.   
