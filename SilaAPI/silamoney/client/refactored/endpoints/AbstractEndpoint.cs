@@ -18,4 +18,5 @@ namespace Sila.API.Client
         /// </summary>
         public static string PrivateKey = SilaAPI.GetInstance().PrivateKey;
     }
+
 }

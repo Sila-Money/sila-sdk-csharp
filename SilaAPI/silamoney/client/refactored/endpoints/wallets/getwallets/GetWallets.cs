@@ -47,4 +47,5 @@ namespace Sila.API.Client.Wallets
             return ResponseUtils.PrepareResponse<GetWalletsResponse>(response);
         }
     }
+
 }

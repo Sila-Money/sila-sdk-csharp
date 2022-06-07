@@ -51,4 +51,5 @@ namespace Sila.API.Client.Transactions
             return ResponseUtils.PrepareResponse<ApproveWireResponse>(response);
         }
     }
+
 }

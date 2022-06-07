@@ -27,4 +27,5 @@ namespace Sila.API.Client.Wallets
         /// </summary>
         public bool IsDefault { get; set; }
     }
+
 }

@@ -11,4 +11,5 @@ namespace Sila.API.Client.Wallets
         /// </summary>
         public string UserHandle { get; set; }
     }
+
 }

@@ -17,6 +17,7 @@ namespace Sila.API.Client.Transactions
         /// <summary>
         /// 
         /// </summary>
-        public string WireStatus { get; set; } = null;      
+        public string WireStatus { get; set; } = null;
     }
+
 }

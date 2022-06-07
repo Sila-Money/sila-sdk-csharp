@@ -27,4 +27,5 @@ namespace Sila.API.Client.Transactions
         /// </summary>
         public string MockWireAccountName { get; set; }
     }
+
 }

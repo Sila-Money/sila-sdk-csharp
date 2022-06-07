@@ -54,4 +54,5 @@ namespace Sila.API.Client.Transactions
             return ResponseUtils.PrepareResponse<RedeemSilaResponse>(response);
         }
     }
+
 }
