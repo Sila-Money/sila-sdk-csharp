@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -12,7 +11,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "card_name", EmitDefaultValue = false)]
         public string CardName { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

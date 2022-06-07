@@ -8,7 +8,6 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
 using SilaAPI.silamoney.client.api;
-
 namespace Sila.API.Client.Transactions
 {
     /// <summary>
@@ -18,7 +17,6 @@ namespace Sila.API.Client.Transactions
     {
         private static string endpoint = "/mock_wire_out_file";
         private MockWireOutFile() { }
-
         /// <summary>
         /// 
         /// </summary>
@@ -38,15 +36,10 @@ namespace Sila.API.Client.Transactions
             });
             body.Add("transaction_id", request.TransactionId);
             body.Add("wire_status", request.WireStatus);
-
-
             string serializedBody = SerializationUtil.Serialize(body);
-
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
-
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
-
             return ResponseUtils.PrepareResponse<MockWireOutFileResponse>(response);
         }
     }

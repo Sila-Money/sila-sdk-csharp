@@ -8,7 +8,6 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.security;
 using SilaAPI.silamoney.client.util;
-
 namespace Sila.API.Client.Wallets
 {
     /// <summary>
@@ -18,7 +17,6 @@ namespace Sila.API.Client.Wallets
     {
         private static string endpoint = "/register_wallet";
         private RegisterWallet() { }
-
         /// <summary>
         /// 
         /// </summary>
@@ -39,14 +37,10 @@ namespace Sila.API.Client.Wallets
             if (!string.IsNullOrWhiteSpace(request.Wallet.PrivateKey))
                 body.Add("wallet_verification_signature", Signer.Sign(request.Wallet.Address, request.Wallet.PrivateKey));
             body.Add("wallet", new Wallet(request.Wallet.Address, CryptoEnum.Crypto.ETH, request.NickName, request.IsDefault));
-
             string serializedBody = SerializationUtil.Serialize(body);
-
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
-
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
-
             return ResponseUtils.PrepareResponse<RegisterWalletResponse>(response);
         }
     }

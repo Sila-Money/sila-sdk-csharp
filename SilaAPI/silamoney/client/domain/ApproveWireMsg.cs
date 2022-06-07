@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -18,25 +17,21 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "transaction_id", EmitDefaultValue = false)]
         public string TransactionId { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "approve")]
         public bool Approve { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "notes", EmitDefaultValue = false)]
         public string Notes { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "mock_wire_account_name", EmitDefaultValue = false)]
         public string MockWireAccountName { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -56,4 +51,3 @@ namespace SilaAPI.silamoney.client.domain
         }
     }
 }
-

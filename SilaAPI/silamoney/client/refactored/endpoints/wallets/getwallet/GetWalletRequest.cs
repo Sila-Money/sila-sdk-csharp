@@ -1,5 +1,4 @@
 ﻿using Sila.API.Client.Domain;
-
 namespace Sila.API.Client.Wallets
 {
     /// <summary>

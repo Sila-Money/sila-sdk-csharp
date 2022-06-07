@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -18,6 +17,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("balance")]
         public VirtualAccountBalance Balance { get; set; }
-
     }
 }

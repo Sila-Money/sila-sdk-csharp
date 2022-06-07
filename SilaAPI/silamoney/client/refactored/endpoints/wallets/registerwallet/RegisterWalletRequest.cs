@@ -1,5 +1,4 @@
 ﻿using Sila.API.Client.Domain;
-
 namespace Sila.API.Client.Wallets
 {
     /// <summary>
@@ -11,22 +10,18 @@ namespace Sila.API.Client.Wallets
         /// 
         /// </summary>
         public string UserHandle { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         public string UserPrivateKey { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         public UserWallet Wallet { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         public string NickName { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

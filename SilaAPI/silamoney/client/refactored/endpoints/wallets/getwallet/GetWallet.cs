@@ -7,7 +7,6 @@ using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
-
 namespace Sila.API.Client.Wallets
 {
     /// <summary>
@@ -17,7 +16,6 @@ namespace Sila.API.Client.Wallets
     {
         private static string endpoint = "/get_wallet";
         private GetWallet() { }
-
         /// <summary>
         /// 
         /// </summary>
@@ -35,14 +33,10 @@ namespace Sila.API.Client.Wallets
                 Reference = UuidUtils.GetUuid(),
                 Version = "0.2"
             });
-
             string serializedBody = SerializationUtil.Serialize(body);
-
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers = HeaderUtils.SetAuthSignature(headers, serializedBody);
-
             IRestResponse response = (IRestResponse)ApiClient.CallApi(endpoint, RestSharp.Method.POST, serializedBody, headers, "application/json");
-
             return ResponseUtils.PrepareResponse<GetWalletResponse>(response);
         }
     }
