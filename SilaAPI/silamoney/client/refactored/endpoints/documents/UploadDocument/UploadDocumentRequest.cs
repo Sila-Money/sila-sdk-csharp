@@ -1,6 +1,6 @@
 ﻿using Sila.API.Client.Domain;
 
-namespace Sila.API.Client.UploadDocument
+namespace Sila.API.Client.Documents
 {
     /// <summary>
     /// 

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>

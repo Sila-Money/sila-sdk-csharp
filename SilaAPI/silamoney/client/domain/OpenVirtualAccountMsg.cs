@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
 namespace SilaAPI.silamoney.client.domain
 {   /// <summary>
     /// DeleteTransactionMsg object used in the open_virtual_account endpoint
@@ -11,19 +10,16 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "virtual_account_name", EmitDefaultValue = false)]
         public string VirtualAccountName { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "ach_credit_enabled", EmitDefaultValue = false)]
         public bool? AchCreditEnabled { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [DataMember(Name = "ach_debit_enabled", EmitDefaultValue = false)]
         public bool? AchDebitEnabled { get; set; }
-
        /// <summary>
        /// 
        /// </summary>

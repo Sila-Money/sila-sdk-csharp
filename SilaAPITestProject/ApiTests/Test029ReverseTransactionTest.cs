@@ -10,7 +10,7 @@ namespace SilaApiTest
     public class Test029ReverseTransactionTest
     {
         SilaApi api = DefaultConfig.Client;
-
+        
         [TestMethod("1 - IssueSila - Succesfully issue")]
         public void Response200()
         {
@@ -84,5 +84,5 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
     }
-}
 
+}

@@ -13,6 +13,12 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "account_name", EmitDefaultValue = false)]
         public string AccountName { get; set; }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="appHandle"></param>
+        /// <param name="accountName"></param>
         public DeleteAccountMsg(string userHandle,
             string appHandle,
             string accountName)

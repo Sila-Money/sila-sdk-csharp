@@ -13,6 +13,19 @@ namespace SilaApiTest
         public static string privateKey = "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e";
         public static string appHandle = "digital_geko_e2e.silamoney.eth";
         public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
+        public static string WirebusinessUuid = "25e77968-1ca3-4a4b-8e72-506dcac20dc7";
+
+        ////Wire       
+        //public static string environment = "https://sandbox.silamoney.com/0.2";
+        //public static string privateKey = "7713b1360ea1620a88d3d83ee25d18955d05258e86befaf5ee452d98f6e45eb7";
+        //public static string appHandle = "test_wires_stage001";
+        //public static string businessUuid = "ad1a71cf-9313-48d8-9ba9-78fdbf33f140";
+
+        //STAGING
+        //public static string environment = "https://sandbox.silamoney.com/0.2";
+        //public static string privateKey = "1b84b246caa5aba7f46fec324962e2824e1cf2c7bf18db4c74ca5b9de2192465";
+        //public static string appHandle = "arc_sandbox_wires_app_001";
+        //public static string businessUuid = "69fabe4e-994c-4229-a873-41d36240b76d";
 
         //STAGING
         //public static string environment = "https://stageapi.silamoney.com/0.2";
@@ -206,9 +219,9 @@ namespace SilaApiTest
         public static string DocumentId { get; internal set; }
         public static string IdentityUuid { get; internal set; }
         public static string VirtualAccountId { get; internal set; }
-        public static string AccountNumberDis { get; internal set; }        
+        public static string AccountNumberDis { get; internal set; }
         public static string AccountNumber { get; internal set; }
-        public static string VirtualAccountDisId { get; internal set; }        
+        public static string VirtualAccountDisId { get; internal set; }
         public static string EmailUuid { get; internal set; }
         public static string PhoneUuid { get; internal set; }
         public static string AddressUuid { get; internal set; }

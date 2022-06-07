@@ -170,7 +170,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId, null);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -230,10 +230,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="cardName"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
+        /// <param name="mockWireAccountName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null)
+        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string mockWireAccountName = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId, mockWireAccountName);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -1019,7 +1020,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> PlaidUpdateLinkToken(string userHandle, string accountName)
         {
-            PlaidUpdateLinkTokenMsg body = new PlaidUpdateLinkTokenMsg(userHandle,Configuration.AppHandle, accountName);
+            PlaidUpdateLinkTokenMsg body = new PlaidUpdateLinkTokenMsg(userHandle, Configuration.AppHandle, accountName);
             var path = "/plaid_update_link_token";
             return MakeRequest<PlaidUpdateLinkTokenResponse>(path, body);
         }
@@ -1046,7 +1047,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> GetInstitutions(InstitutionSearchFilters searchFilters = null)
         {
-            GetInstitutionsMsg body = new GetInstitutionsMsg(Configuration.AppHandle, searchFilters);           
+            GetInstitutionsMsg body = new GetInstitutionsMsg(Configuration.AppHandle, searchFilters);
             var path = "/get_institutions";
             return MakeRequest<GetInstitutionsResponse>(path, body);
         }
@@ -1076,7 +1077,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns></returns>
         public ApiResponse<object> GetCards(string userHandle, string userPrivateKey)
         {
-            GetCardsMsg body = new GetCardsMsg(userHandle,Configuration.AppHandle);
+            GetCardsMsg body = new GetCardsMsg(userHandle, Configuration.AppHandle);
             var path = "/get_cards";
             return MakeRequest<GetCardsResponse>(path, body, userPrivateKey);
         }
@@ -1250,6 +1251,37 @@ namespace SilaAPI.silamoney.client.api
             var path = "/create_test_virtual_account_ach_transaction";
 
             return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="transactionId"></param>
+        /// <param name="approve"></param>
+        /// <param name="notes"></param>
+        /// <param name="mockWireAccountName"></param>
+        /// <returns></returns>
+        public ApiResponse<object> ApproveWire(string userHandle, string userPrivateKey, string transactionId, bool approve, string notes = null, string mockWireAccountName = null)
+        {
+            ApproveWireMsg body = new ApproveWireMsg(userHandle, Configuration.AppHandle, transactionId, approve, notes, mockWireAccountName);
+            var path = "/approve_wire";
+            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="transactionId"></param>
+        /// <param name="wireStatus"></param>
+        /// <returns></returns>
+        public ApiResponse<object> MockWireOutFile(string userHandle, string userPrivateKey, string transactionId, string wireStatus)
+        {
+            MockWireOutFileMsg body = new MockWireOutFileMsg(userHandle, Configuration.AppHandle, transactionId, wireStatus);
+            var path = "/mock_wire_out_file";
+            return MakeRequest<MockWireOutFileResponse>(path, body, userPrivateKey);
         }
 
         /// <summary>

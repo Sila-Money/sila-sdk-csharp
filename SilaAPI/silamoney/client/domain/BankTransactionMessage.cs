@@ -38,6 +38,12 @@ namespace SilaAPI.silamoney.client.domain
         public string DestinationId { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "mock_wire_account_name", EmitDefaultValue = false)]
+        public string MockWireAccountName { get; set; }
+
+        /// <summary>
         /// BankTransactionMessage constructor
         /// </summary>
         /// <param name="userHandle"></param>
@@ -51,7 +57,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="cardName"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
-        public BankTransactionMessage(string userHandle, int amount, string authHandle, string accountName, string descriptor, string businessUuid, ProcessingType? processingType, Message messageType, string cardName, string sourceId, string destinationId )
+        /// <param name="mockWireAccountName"></param>
+        public BankTransactionMessage(string userHandle, int amount, string authHandle, string accountName, string descriptor, string businessUuid, ProcessingType? processingType, Message messageType, string cardName, string sourceId, string destinationId, string mockWireAccountName)
         {
             Header = new Header(userHandle, authHandle);
             Amount = amount;
@@ -63,6 +70,7 @@ namespace SilaAPI.silamoney.client.domain
             CardName = cardName;
             SourceId = sourceId;
             DestinationId = destinationId;
+            MockWireAccountName = mockWireAccountName;
         }
     }
 }

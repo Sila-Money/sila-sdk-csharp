@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -12,7 +11,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "virtual_account_id", EmitDefaultValue = false)]
         public string VirtualAccountId { get; set; }
-
         /// <summary>
         /// 
         /// </summary>

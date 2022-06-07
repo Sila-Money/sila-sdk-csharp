@@ -8,7 +8,7 @@ using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.util;
 
-namespace Sila.API.Client.RetryWebhook
+namespace Sila.API.Client.Webhooks
 {
     /// <summary>
     /// 

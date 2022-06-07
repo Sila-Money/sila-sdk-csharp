@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using static SilaAPI.silamoney.client.domain.Header;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -27,25 +26,20 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "nickname", EmitDefaultValue = false)]
         public string Nickname { get; set; }
-
         /// <summary>
         /// bool field used in the Wallet object to save default
         /// </summary>
         [DataMember(Name = "default", EmitDefaultValue = false)]
         public bool? IsDefault { get; set; }
-
         /// <summary>
         ///  wallet_id (uuid)
         /// </summary>
         [DataMember(Name = "wallet_id", EmitDefaultValue = false)]
         public string WalletId { get; set; }
-
-
         /// <summary>
         /// 
         /// </summary>
         public Wallet() { }
-
         /// <summary>
         /// Wallet constructor
         /// </summary>

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
@@ -13,12 +12,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("payment_methods")]
         public List<PaymentMethods> PaymentMethods { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("pagination")]
         public Pagination Pagination { get; set; }
-
     }
 }
