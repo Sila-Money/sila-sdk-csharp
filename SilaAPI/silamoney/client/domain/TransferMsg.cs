@@ -38,6 +38,12 @@ namespace SilaAPI.silamoney.client.domain
         public string DestinationId { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "transaction_idempotency_id", EmitDefaultValue = false)]
+        public string TransactionIdempotencyId { get; set; }
+
+        /// <summary>
         /// TransferMsg constructor
         /// </summary>
         /// <param name="userHandle"></param>
@@ -50,6 +56,7 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="businessUuid"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
+        /// <param name="transactionIdempotencyId"></param>
         public TransferMsg(string userHandle,
             int amount,
             string destinationHandle,
@@ -58,7 +65,7 @@ namespace SilaAPI.silamoney.client.domain
             string destinationWallet,
             string descriptor,
             string businessUuid,
-            string sourceId, string destinationId)
+            string sourceId, string destinationId, string transactionIdempotencyId)
         {
             Header = new Header(userHandle, authHandle);
             DestinationHandle = destinationHandle;
@@ -70,6 +77,7 @@ namespace SilaAPI.silamoney.client.domain
             BusinessUuid = businessUuid;
             SourceId = sourceId;
             DestinationId = destinationId;
+            TransactionIdempotencyId = transactionIdempotencyId;
         }
     }
 }

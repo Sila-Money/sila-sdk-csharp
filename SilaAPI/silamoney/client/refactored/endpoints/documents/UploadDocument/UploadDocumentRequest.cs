@@ -1,5 +1,4 @@
-﻿using Sila.API.Client.Domain;
-
+﻿using System.Collections.Generic;
 namespace Sila.API.Client.Documents
 {
     /// <summary>
@@ -14,28 +13,7 @@ namespace Sila.API.Client.Documents
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Filename { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Hash { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string MimeType { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string DocumentType { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description { get; }
-
-
+        public List<Sila.API.Client.Domain.UploadDocument> UploadDocument { get; }
+      
     }
 }

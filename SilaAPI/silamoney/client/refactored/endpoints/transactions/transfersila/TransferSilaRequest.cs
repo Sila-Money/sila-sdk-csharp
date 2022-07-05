@@ -48,5 +48,10 @@ namespace Sila.API.Client.Transactions
         /// 
         /// </summary>
         public string BusinessUuid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TransactionIdempotencyId { get; set; }
     }
 }

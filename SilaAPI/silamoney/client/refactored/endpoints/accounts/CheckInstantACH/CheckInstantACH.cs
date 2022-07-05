@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.api;
-using SilaAPI.silamoney.client.util;
 
 namespace Sila.API.Client.Accounts
 {

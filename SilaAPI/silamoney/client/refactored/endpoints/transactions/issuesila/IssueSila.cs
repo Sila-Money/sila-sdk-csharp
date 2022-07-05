@@ -5,9 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
-using SilaAPI.silamoney.client.api;
 
 namespace Sila.API.Client.Transactions
 {
@@ -45,6 +43,10 @@ namespace Sila.API.Client.Transactions
             body.Add("card_name", request.CardName);
             body.Add("source_id", request.SourceId);
             body.Add("destination_id", request.DestinationId);
+            if (!string.IsNullOrWhiteSpace(request.TransactionIdempotencyId))
+            {
+                body.Add("transaction_idempotency_id", request.TransactionIdempotencyId);
+            }
 
             string serializedBody = SerializationUtil.Serialize(body);
 

@@ -50,5 +50,11 @@ namespace Sila.API.Client.Transactions
         /// 
         /// </summary>
         public string DestinationId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TransactionIdempotencyId { get; set; }
     }
+
 }
