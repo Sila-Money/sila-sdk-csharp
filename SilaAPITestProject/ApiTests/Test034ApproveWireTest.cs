@@ -100,39 +100,39 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponseMockWireOutFile.ResponseTimeMs);
         }
 
-        [TestMethod("5 - ApproveWire - Successful ApproveWire")]
-        public void T00344Response200ApproveWire()
-        {
-            var user = DefaultConfig.FirstUser;
-            var responseRedeemSila = api.RedeemSila(user.UserHandle, 11000, user.PrivateKey, accountName: "defaultpt", businessUuid: DefaultConfig.WirebusinessUuid, processingType: ProcessingType.Wire, mockWireAccountName: "mock_account_success");
-            var parsedResponseRedeemSila = (TransactionResponse)responseRedeemSila.Data;
-            Thread.Sleep(30000);
-            var responseApproveWire = api.ApproveWire(user.UserHandle, user.PrivateKey, parsedResponseRedeemSila.TransactionId, true, mockWireAccountName: "mock_account_success");
-            var parsedResponseApproveWire = (BaseResponse)responseApproveWire.Data;
+        //[TestMethod("5 - ApproveWire - Successful ApproveWire")]
+        //public void T00344Response200ApproveWire()
+        //{
+        //    var user = DefaultConfig.FirstUser;
+        //    var responseRedeemSila = api.RedeemSila(user.UserHandle, 11000, user.PrivateKey, accountName: "defaultpt", businessUuid: DefaultConfig.WirebusinessUuid, processingType: ProcessingType.Wire, mockWireAccountName: "mock_account_success");
+        //    var parsedResponseRedeemSila = (TransactionResponse)responseRedeemSila.Data;
+        //    Thread.Sleep(30000);
+        //    var responseApproveWire = api.ApproveWire(user.UserHandle, user.PrivateKey, parsedResponseRedeemSila.TransactionId, true, mockWireAccountName: "mock_account_success");
+        //    var parsedResponseApproveWire = (BaseResponse)responseApproveWire.Data;
 
-            Assert.AreEqual("SUCCESS", parsedResponseApproveWire.Status);
-            Assert.IsTrue(parsedResponseApproveWire.Success);
-            Assert.IsNotNull(parsedResponseApproveWire.Message);
-            Assert.IsNotNull(parsedResponseApproveWire.Reference);
-            Assert.IsNotNull(parsedResponseApproveWire.ResponseTimeMs);
-        }
+        //    Assert.AreEqual("SUCCESS", parsedResponseApproveWire.Status);
+        //    Assert.IsTrue(parsedResponseApproveWire.Success);
+        //    Assert.IsNotNull(parsedResponseApproveWire.Message);
+        //    Assert.IsNotNull(parsedResponseApproveWire.Reference);
+        //    Assert.IsNotNull(parsedResponseApproveWire.ResponseTimeMs);
+        //}
 
-        [TestMethod("6 - Deny ApproveWire - Successful Deny ApproveWire")]
-        public void T00345Response200ApproveWireDeny()
-        {
-            var user = DefaultConfig.FirstUser;
-            var responseRedeemSila = api.RedeemSila(user.UserHandle, 11000, user.PrivateKey, accountName: "defaultpt", businessUuid: DefaultConfig.WirebusinessUuid, processingType: ProcessingType.Wire, mockWireAccountName: "mock_account_fail");
-            var parsedResponseRedeemSila = (TransactionResponse)responseRedeemSila.Data;
-            Thread.Sleep(30000);
-            var responseApproveWire = api.ApproveWire(user.UserHandle, user.PrivateKey, parsedResponseRedeemSila.TransactionId, false, "My reason to deny wire", mockWireAccountName: "mock_account_fail");
-            var parsedResponseApproveWire = (BaseResponse)responseApproveWire.Data;
+        //[TestMethod("6 - Deny ApproveWire - Successful Deny ApproveWire")]
+        //public void T00345Response200ApproveWireDeny()
+        //{
+        //    var user = DefaultConfig.FirstUser;
+        //    var responseRedeemSila = api.RedeemSila(user.UserHandle, 11000, user.PrivateKey, accountName: "defaultpt", businessUuid: DefaultConfig.WirebusinessUuid, processingType: ProcessingType.Wire, mockWireAccountName: "mock_account_fail");
+        //    var parsedResponseRedeemSila = (TransactionResponse)responseRedeemSila.Data;
+        //    Thread.Sleep(30000);
+        //    var responseApproveWire = api.ApproveWire(user.UserHandle, user.PrivateKey, parsedResponseRedeemSila.TransactionId, false, "My reason to deny wire", mockWireAccountName: "mock_account_fail");
+        //    var parsedResponseApproveWire = (BaseResponse)responseApproveWire.Data;
 
-            Assert.AreEqual("SUCCESS", parsedResponseApproveWire.Status);
-            Assert.IsTrue(parsedResponseApproveWire.Success);
-            Assert.IsNotNull(parsedResponseApproveWire.Message);
-            Assert.IsNotNull(parsedResponseApproveWire.Reference);
-            Assert.IsNotNull(parsedResponseApproveWire.ResponseTimeMs);
-        }
+        //    Assert.AreEqual("SUCCESS", parsedResponseApproveWire.Status);
+        //    Assert.IsTrue(parsedResponseApproveWire.Success);
+        //    Assert.IsNotNull(parsedResponseApproveWire.Message);
+        //    Assert.IsNotNull(parsedResponseApproveWire.Reference);
+        //    Assert.IsNotNull(parsedResponseApproveWire.ResponseTimeMs);
+        //}
     }
 }
 
