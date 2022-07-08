@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using Sila.API.Client.Utils;
 using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using SilaAPI.silamoney.client.security;
@@ -167,10 +166,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="cardName">Optional.</param>
         /// <param name="sourceId">Optional.</param>
         /// <param name="destinationId">Optional.</param>
+        /// <param name="transactionIdempotencyId">Optional.</param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null)
+        public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string transactionIdempotencyId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId, null);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId, null, transactionIdempotencyId);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -232,9 +232,9 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="destinationId"></param>
         /// <param name="mockWireAccountName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string mockWireAccountName = null)
+        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string mockWireAccountName = null, string transactionIdempotencyId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId, mockWireAccountName);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId, mockWireAccountName, transactionIdempotencyId);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -358,11 +358,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="businessUuid"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
+        /// <param name="transactionIdempotencyId"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> TransferSila(string userHandle, int amount, string destinationHandle, string userPrivateKey, string destinationAddress = null, string destinationWallet = null,
-            string descriptor = null, string businessUuid = null, string sourceId = null, string destinationId = null)
+            string descriptor = null, string businessUuid = null, string sourceId = null, string destinationId = null, string transactionIdempotencyId = null)
         {
-            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid, sourceId, destinationId);
+            TransferMsg body = new TransferMsg(userHandle, amount, destinationHandle, Configuration.AppHandle, destinationAddress, destinationWallet, descriptor, businessUuid, sourceId, destinationId, transactionIdempotencyId);
             var path = "/transfer_sila";
 
             return MakeRequest<TransferResponse>(path, body, userPrivateKey);
@@ -734,6 +735,33 @@ namespace SilaAPI.silamoney.client.api
             file.Close();
             DocumentMsg body = new DocumentMsg(Configuration.AppHandle, userHandle, filename, hash, mimeType, documentType, name, description);
             return MakeRequest<DocumentResponse>(path, body, filePath, body.MimeType, userPrivateKey);
+        }
+
+        /// <summary>
+        /// Upload supporting documentation for KYC
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="uploadDocument"></param>
+        /// <returns></returns>
+        public ApiResponse<object> UploadDocuments(string userHandle, string userPrivateKey, List<UploadDocument> uploadDocument)
+        {
+            var path = "/documents";
+            Dictionary<string, DocumentMsg> fileDictionary = new Dictionary<string, DocumentMsg>();
+            int i = 1;
+            string myfile = "file_";
+            foreach (var lst in uploadDocument)
+            {
+                FileStream file = new FileStream(lst.FilePath, FileMode.Open);
+                string hash = Signer.HashFile(file);
+                file.Close();
+                DocumentMsg innerBody = new DocumentMsg(lst.FileName, hash, lst.MimeType, lst.DocumentType, lst.Name, lst.Description);
+                fileDictionary.Add(myfile + i, innerBody);
+                i++;
+            }
+            UploadDocumentListMsg body = new UploadDocumentListMsg(Configuration.AppHandle, userHandle, fileDictionary);
+
+            return MakeRequest<UploadDocumentsResponse>(path, body, uploadDocument, userPrivateKey);
         }
 
         /// <summary>
@@ -1339,6 +1367,16 @@ namespace SilaAPI.silamoney.client.api
             var headerParams = PrepareHeaders(requestBody, userPrivateKey);
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, filePath, contentType);
+
+            return GenerateResponseFromJson<T>(response, false);
+        }
+
+        private ApiResponse<object> MakeRequest<T>(string path, object body, List<UploadDocument> uploadDocument, string userPrivateKey)
+        {
+            string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey);
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, uploadDocument);
 
             return GenerateResponseFromJson<T>(response, false);
         }

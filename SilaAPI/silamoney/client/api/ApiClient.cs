@@ -4,6 +4,7 @@ using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SilaAPI.silamoney.client.api
 {
@@ -46,9 +47,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="headerParams"></param>
         /// <param name="contentType"></param>
         /// <returns>RestRequest with headers and parameters.</returns>
-        private RestRequest PrepareRequest(
-            string path, Method method, object postBody, Dictionary<string, string> headerParams,
-            string contentType)
+        private RestRequest PrepareRequest(string path, Method method, object postBody, Dictionary<string, string> headerParams, string contentType)
         {
             var request = new RestRequest(path, method);
 
@@ -71,9 +70,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="headerParams"></param>
         /// <param name="contentType"></param>
         /// <returns>The response from the server.</returns>
-        public object CallApi(
-            string path, Method method, object postBody, Dictionary<string, string> headerParams,
-            string contentType)
+        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string contentType)
         {
             var request = PrepareRequest(
                 path, method, postBody, headerParams, contentType);
@@ -93,6 +90,29 @@ namespace SilaAPI.silamoney.client.api
                 request.AddHeader(param.Key, param.Value);
 
             request.AddFile("file", filePath, contentType);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("data", postBody, ParameterType.GetOrPost);
+
+            RestClient.Timeout = Configuration.Timeout;
+            RestClient.UserAgent = Configuration.UserAgent;
+
+            return RestClient.Execute(request);
+        }
+
+        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, List<UploadDocument> uploadDocument)
+        {
+            var request = new RestRequest(path, method, DataFormat.None);
+            foreach (var param in headerParams)
+                request.AddHeader(param.Key, param.Value);
+
+            int i = 1;
+            string myfile = "file_";           
+            foreach (var lst in uploadDocument)
+            {
+                request.AddFile(myfile + i, lst.FilePath, lst.MimeType);
+                i++;
+            }
+
             request.AlwaysMultipartFormData = true;
             request.AddParameter("data", postBody, ParameterType.GetOrPost);
 

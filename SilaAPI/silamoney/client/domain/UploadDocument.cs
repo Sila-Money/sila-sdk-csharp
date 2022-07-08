@@ -3,32 +3,31 @@
     /// <summary>
     /// 
     /// </summary>
-    public class BusinessEntityMessage
+    public class UploadDocument
     {
         /// <summary>
         /// 
         /// </summary>
-        public string EntityName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string BusinessType { get; set; }
+        public string FileName { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public int? NaicsCode { get; set; }
+        public string MimeType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string DoingBusinessAs { get; set; }
+        public string DocumentType { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string BusinessWebsite { get; set; }
-
+        public string Description { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string RegistrationState { get; set; }
+        public string FilePath { get; set; }
     }
 }

@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Sila.API.Client.Domain;
-
-namespace Sila.API.Client.Documents
+﻿using Newtonsoft.Json;
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// 
     /// </summary>
-    public class UploadDocumentResponse : BaseResponse
+    public class UploadDocumentsResponse : BaseResponseWithoutReference
     {
         /// <summary>
         /// 

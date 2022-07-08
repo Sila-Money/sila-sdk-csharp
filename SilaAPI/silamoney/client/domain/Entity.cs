@@ -69,6 +69,12 @@ namespace SilaAPI.silamoney.client.domain
         public string BusinessTypeUuid { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "registration_state", EmitDefaultValue = false)]
+        public string RegistrationState { get; set; }
+
+        /// <summary>
         /// If user is not null, set user values in the Entity object
         /// </summary>
         /// <param name="user"></param>
@@ -100,6 +106,7 @@ namespace SilaAPI.silamoney.client.domain
                 DoingBusinessAs = user.DoingBusinessAs;
                 NaicsCode = user.NaicsCode;
                 Type = user.Type ?? "business";
+                RegistrationState = user.RegistrationState;
             }
         }
 

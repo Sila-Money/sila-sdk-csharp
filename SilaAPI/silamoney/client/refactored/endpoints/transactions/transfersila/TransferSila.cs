@@ -5,9 +5,7 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
-using SilaAPI.silamoney.client.api;
 
 namespace Sila.API.Client.Transactions
 {
@@ -45,7 +43,10 @@ namespace Sila.API.Client.Transactions
             body.Add("descriptor", request.Descriptor);
             body.Add("business_uuid", request.BusinessUuid);
             body.Add("message", "transfer_msg");
-
+            if (!string.IsNullOrWhiteSpace(request.TransactionIdempotencyId))
+            {
+                body.Add("transaction_idempotency_id", request.TransactionIdempotencyId);
+            }
 
             string serializedBody = SerializationUtil.Serialize(body);
 

@@ -46,8 +46,8 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
             Assert.IsTrue(parsedResponse.Documents.Count > 0);
-            Assert.AreEqual(user.UserHandle.ToLower(), parsedResponse.Documents[0].UserHandle);
-            Assert.AreEqual(DefaultConfig.DocumentId, parsedResponse.Documents[0].DocumentId);
+            Assert.AreEqual(user.UserHandle.ToLower(), parsedResponse.Documents[0].UserHandle);           
+            Assert.IsNotNull(parsedResponse.Documents[0].DocumentId);
             Assert.IsNotNull(parsedResponse.Documents[0].Name);
             Assert.IsNotNull(parsedResponse.Documents[0].Filename);
             Assert.IsNotNull(parsedResponse.Documents[0].Hash);

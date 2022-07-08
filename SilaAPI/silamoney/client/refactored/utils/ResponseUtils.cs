@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using RestSharp;
-using SilaAPI.silamoney.client.api;
-using SilaAPI.silamoney.client.domain;
+using Sila.API.Client.Domain;
 using System.Collections.Generic;
 using System.Linq;
 

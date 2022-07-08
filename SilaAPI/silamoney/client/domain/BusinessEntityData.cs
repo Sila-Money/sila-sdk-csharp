@@ -42,5 +42,10 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("business_website")]
         public string BusinessWebsite { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("registration_state")]
+        public string RegistrationState { get; set; }
     }
 }

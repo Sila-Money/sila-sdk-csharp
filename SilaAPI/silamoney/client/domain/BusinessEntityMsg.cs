@@ -16,6 +16,9 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "business_website", EmitDefaultValue = false)]
         public string BusinessWebsite { get; }
 
+        [DataMember(Name = "registration_state", EmitDefaultValue = false)]
+        public string RegistrationState { get; }
+
         public BusinessEntityMsg(string authHandle, string userHandle, BusinessEntityMessage entity) : base(authHandle, userHandle)
         {
             EntityName = entity.EntityName;
@@ -23,6 +26,7 @@ namespace SilaAPI.silamoney.client.domain
             NaicsCode = entity.NaicsCode;
             DoingBusinessAs = entity.DoingBusinessAs;
             BusinessWebsite = entity.BusinessWebsite;
+            RegistrationState = entity.RegistrationState;
         }
     }
 }

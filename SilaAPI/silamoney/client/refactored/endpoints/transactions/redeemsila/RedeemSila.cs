@@ -5,9 +5,8 @@ using RestSharp;
 using Sila.API.Client.Domain;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.util;
 using Sila.API.Client;
-using SilaAPI.silamoney.client.api;
+
 namespace Sila.API.Client.Transactions
 {
     /// <summary>
@@ -46,6 +45,10 @@ namespace Sila.API.Client.Transactions
             if (!string.IsNullOrWhiteSpace(request.MockWireAccountName))
             {
                 body.Add("mock_wire_account_name", request.MockWireAccountName);
+            }
+            if (!string.IsNullOrWhiteSpace(request.TransactionIdempotencyId))
+            {
+                body.Add("transaction_idempotency_id", request.TransactionIdempotencyId);
             }
             string serializedBody = SerializationUtil.Serialize(body);
             Dictionary<string, string> headers = new Dictionary<string, string>();

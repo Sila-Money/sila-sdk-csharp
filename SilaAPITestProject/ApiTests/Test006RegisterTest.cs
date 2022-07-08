@@ -37,10 +37,10 @@ namespace SilaApiTest
             Assert.AreEqual(200, fourthResponse.StatusCode);
             Assert.AreEqual("SUCCESS", ((BaseResponse)fourthResponse.Data).Status, $"{fourthUser.UserHandle} should register");
 
-            var businessUser = ModelsUtilities.BusinessUser;
+            var businessUser = ModelsUtilities.BusinessUser;            
             var businessResponse = api.Register(businessUser);
 
-            Assert.AreEqual(200, fourthResponse.StatusCode);
+            Assert.AreEqual(200, businessResponse.StatusCode);
             Assert.AreEqual("SUCCESS", ((BusinessUserResponse)businessResponse.Data).Status, $"{businessUser.UserHandle} should register");
 
             var basicUser = ModelsUtilities.BasicUser;

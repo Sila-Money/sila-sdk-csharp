@@ -4,9 +4,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using Sila.API.Client.Exceptions;
 using Sila.API.Client.Utils;
-using SilaAPI.silamoney.client.util;
 using Sila.API.Client.Domain;
-using SilaAPI.silamoney.client.api;
 
 namespace Sila.API.Client.Accounts
 {

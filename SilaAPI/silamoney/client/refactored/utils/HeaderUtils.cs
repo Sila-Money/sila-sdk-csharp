@@ -1,6 +1,5 @@
+using Sila.API.Client.security;
 using System.Collections.Generic;
-
-using SilaAPI.silamoney.client.security;
 
 namespace Sila.API.Client.Utils
 {
