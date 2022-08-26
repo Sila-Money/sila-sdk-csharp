@@ -5,7 +5,7 @@ on:
       - master # or the name of your main branch
       - develop
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
     
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Sila-Money_sila-sdk-csharp" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
