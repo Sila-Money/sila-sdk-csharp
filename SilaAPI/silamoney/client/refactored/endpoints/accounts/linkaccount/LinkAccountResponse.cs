@@ -35,6 +35,12 @@ namespace Sila.API.Client.Accounts
         /// 
         /// </summary>
         [JsonProperty("web_debit_verified")]
-        public bool WebDebitVerified { get; set; }
+        public bool? WebDebitVerified { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("provider")]
+        public string Provider { get; set; }
     }
 }
