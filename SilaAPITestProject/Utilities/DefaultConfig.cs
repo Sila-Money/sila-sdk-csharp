@@ -33,6 +33,13 @@ namespace SilaApiTest
         //public static string appHandle = "arcgate_stage_app01";
         //public static string businessUuid = "dbe721f6-1140-41e3-bdc4-baa632b37405";
 
+        //STAGINGMX
+        //public static string environment = "https://stageapi.silamoney.com/0.2";
+        //public static string privateKey = "669761bcd34f90a7347a5cbf6bdc47f41068cc5896f7634ea8e76337f3e5a9f7";
+        //public static string appHandle = "mx_stage_app_001";
+        //public static string businessUuid = "ad1a71cf-9313-48d8-9ba9-78fdbf33f140"; 
+
+
         //DEVELOPERMENT       
         //public static string environment = "https://stageapi.silamoney.com/0.2";
         //public static string privateKey = "b141233286d93618db64788a88017e1b901f3c084a047d8e3efbbbea5dd4a873";

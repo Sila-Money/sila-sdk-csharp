@@ -187,8 +187,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="plaidTokenType"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         /// 
-        public ApiResponse<object> LinkAccount(string userHandle, string publicToken, string userPrivateKey,
-            string accountName = null, string accountId = null, string plaidTokenType = null)
+        public ApiResponse<object> LinkAccount(string userHandle, string publicToken, string userPrivateKey, string accountName = null, string accountId = null, string plaidTokenType = null)
         {
             LinkAccountMsg body = new LinkAccountMsg(userHandle, publicToken, Configuration.AppHandle, accountId, accountName);
             body.PlaidTokenType = plaidTokenType;
@@ -207,13 +206,31 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="routingNumber"></param>
         /// <param name="accountName"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> LinkAccountDirect(string userHandle, string userPrivateKey,
-            string accountNumber, string routingNumber, string accountType = null, string accountName = null)
+        public ApiResponse<object> LinkAccountDirect(string userHandle, string userPrivateKey, string accountNumber, string routingNumber, string accountType = null, string accountName = null)
         {
             LinkAccountMsg body = new LinkAccountMsg(userHandle, Configuration.AppHandle, accountNumber,
                 routingNumber, accountType, accountName);
             var path = "/link_account";
 
+            return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="provider">'mx'|'plaid' - case sensitive, must be "mx" for MX</param>
+        /// <param name="providerTokenType"> 'processor'|'link'|'processor' lower case only, must be "processor" for MX</param>
+        /// <param name="providerToken">he String value of the processor_authorization_code that MX</param>
+        /// <param name="accountName"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public ApiResponse<object> LinkAccountMx(string userHandle, string userPrivateKey, string provider, string providerTokenType, string providerToken,
+            string accountName = null, string accountId = null)
+        {
+            LinkAccountMsg body = new LinkAccountMsg(userHandle, Configuration.AppHandle, provider, providerTokenType, providerToken, accountId, accountName);
+            var path = "/link_account";
             return MakeRequest<LinkAccountResponse>(path, body, userPrivateKey);
         }
 

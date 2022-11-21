@@ -1,35 +1,35 @@
 using Newtonsoft.Json;
-
-namespace SilaAPI.silamoney.client.domain
+using Sila.API.Client.Domain;
+namespace Sila.API.Client.Accounts
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LinkAccountResponse : BaseResponse
+    public class LinkAccountMxResponse : BaseResponse
     {
         /// <summary>
         /// 
-        /// </summary> 
+        /// </summary>
         [JsonProperty("account_name")]
-        public string AccountName { get; set; }
+        public string AccountName { get; private set; }
 
         /// <summary>
         /// 
-        /// </summary> 
+        /// </summary>
         [JsonProperty("match_score")]
-        public decimal? MatchScore { get; set; }
+        public float? MatchScore { get; private set; }
 
         /// <summary>
         /// 
-        /// </summary> 
+        /// </summary>
         [JsonProperty("account_owner_name")]
-        public string AccountOwnerName { get; set; }
+        public string AccountOwnerName { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty("entity_name")]
-        public string EntityName { get; set; }
+        public string EntityName { get; private set; }
 
         /// <summary>
         /// 

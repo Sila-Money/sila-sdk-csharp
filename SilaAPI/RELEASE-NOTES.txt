@@ -1,3 +1,11 @@
+v0.2.49
+Enhancements:
+    - Added Provider field to the response in /link_account.
+    - Added Provider field to the response in /get_account_balance.
+    - Added ProviderName field to the response in /get_accounts.
+New Feature:
+    - Created a new method LinkAccountMx to support for MX provider tokens in /link_account endpoint.
+
 v0.2.48
 Enhancements:	
     - Added RegistrationState new optional input field in BusinessUser class in /register. 
