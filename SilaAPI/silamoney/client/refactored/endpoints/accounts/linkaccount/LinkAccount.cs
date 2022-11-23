@@ -8,10 +8,19 @@ using Sila.API.Client.Domain;
 
 namespace Sila.API.Client.Accounts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LinkAccount : AbstractEndpoint
     {
         private static string endpoint = "/link_account";
         private LinkAccount() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static ApiResponse<object> Send(LinkAccountRequest request)
         {
             Dictionary<string, object> body = new Dictionary<string, object>();

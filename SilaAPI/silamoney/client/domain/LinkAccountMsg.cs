@@ -39,8 +39,27 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "account_type", EmitDefaultValue = false)]
         public string AccountType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         [DataMember(Name = "plaid_token_type", EmitDefaultValue = false)]
         public string PlaidTokenType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "provider", EmitDefaultValue = false)]
+        public string Provider { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "provider_token_type", EmitDefaultValue = false)]
+        public string ProviderTokenType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "provider_token", EmitDefaultValue = false)]
+        public string ProviderToken { get; set; }
 
         /// <summary>
         /// LinkAccountMsg constructor
@@ -72,10 +91,10 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="routingNumber"></param>
         /// <param name="accountName"></param>
         /// <param name="accountType"></param>
-        public LinkAccountMsg(string userHandle, 
-            string appHandle, 
-            string accountNumber, 
-            string routingNumber,  
+        public LinkAccountMsg(string userHandle,
+            string appHandle,
+            string accountNumber,
+            string routingNumber,
             string accountType,
             string accountName)
         {
@@ -85,6 +104,27 @@ namespace SilaAPI.silamoney.client.domain
             AccountType = accountType;
             MessageOption = Message.LinkAccountMsg;
             AccountName = accountName;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="appHandle"></param>
+        /// <param name="provider"></param>
+        /// <param name="providerTokenType"></param>
+        /// <param name="providerToken"></param>
+        /// <param name="accountId"></param>
+        /// <param name="accountName"></param>
+        public LinkAccountMsg(string userHandle, string appHandle, string provider, string providerTokenType, string providerToken, string accountId, string accountName)
+        {
+            Header = new Header(userHandle, appHandle);
+            Provider = provider;
+            ProviderTokenType = providerTokenType;
+            ProviderToken = providerToken;
+            MessageOption = Message.LinkAccountMsg;
+            AccountName = accountName;
+            SelectedAccountId = accountId;
         }
     }
 }
