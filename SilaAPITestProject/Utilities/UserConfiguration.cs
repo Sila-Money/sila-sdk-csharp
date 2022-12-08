@@ -7,7 +7,7 @@ namespace SilaApiTest {
         public string PrivateKey { get; }
 
         public UserConfiguration() {
-            UserHandle = "netSDK-" + new System.Random().Next();
+            UserHandle = "netSDK-" + System.Guid.NewGuid().ToString();
             var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
             CryptoAddress = ecKey.GetPublicAddress();
             PrivateKey = ecKey.GetPrivateKey();
