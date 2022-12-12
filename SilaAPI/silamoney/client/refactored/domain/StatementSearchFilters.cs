@@ -36,7 +36,4 @@ namespace Sila.API.Client.Domain
         [JsonProperty("per_page")]
         public int PerPage { get; set; }
     }
-}
-
-
-
+} 
