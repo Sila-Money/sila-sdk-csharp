@@ -1328,6 +1328,32 @@ namespace SilaAPI.silamoney.client.api
             var path = "/mock_wire_out_file";
             return MakeRequest<MockWireOutFileResponse>(path, body, userPrivateKey);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="walletId"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetWalletStatementData(string userHandle, string walletId, StatementSearchFilters searchFilters = null)
+        {
+            GetStatementsDataMsg body = new GetStatementsDataMsg(userHandle, Configuration.AppHandle, walletId, searchFilters);
+            var path = "/get_wallet_statement_data";
+            return MakeRequest<GetStatementResponse>(path, body);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> GetStatementsData(string userHandle, StatementSearchFilters searchFilters = null)
+        {
+            GetStatementsDataMsg body = new GetStatementsDataMsg(userHandle, Configuration.AppHandle, searchFilters);
+            var path = "/get_statements_data";
+            return MakeRequest<GetStatementResponse>(path, body);
+        }
 
         /// <summary>
         /// 

@@ -1,3 +1,8 @@
+v0.2.50
+New Feature:
+    - Created a new method GetWalletStatementData to support for /get_wallet_statement_data.
+    - Created a new method GetStatementsData to support for /get_statements_data.
+
 v0.2.49
 Enhancements:
     - Added Provider field to the response in /link_account.
