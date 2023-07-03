@@ -32,6 +32,11 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "ach_debit_enabled", EmitDefaultValue = false)]
         public bool? AchDebitEnabled { get; set; }
         /// <summary>
+        /// Boolean field of statements_enabled.
+        /// </summary>
+        [DataMember(Name = "statements_enabled", EmitDefaultValue = false)]
+        public bool? StatementsEnabled { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="userHandle"></param>
@@ -41,7 +46,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="achCreditEnabled"></param>
         /// <param name="achDebitEnabled"></param>
         /// <param name="active"></param>
-        public UpdateVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountId, string virtualAccountName, bool? achCreditEnabled, bool? achDebitEnabled, bool? active = true)
+        /// <param name="statementsEnabled"></param>
+        public UpdateVirtualAccountMsg(string userHandle, string appHandle, string virtualAccountId, string virtualAccountName, bool? achCreditEnabled, bool? achDebitEnabled, bool? active = true, bool? statementsEnabled = null)
         {
             Header = new Header(userHandle, appHandle);
             VirtualAccountId = virtualAccountId;
@@ -49,6 +55,7 @@ namespace SilaAPI.silamoney.client.domain
             Active = active;
             AchCreditEnabled = achCreditEnabled;
             AchDebitEnabled = achDebitEnabled;
+            StatementsEnabled = statementsEnabled;
         }
     }
 }

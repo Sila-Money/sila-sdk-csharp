@@ -37,6 +37,11 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "wallet_id", EmitDefaultValue = false)]
         public string WalletId { get; set; }
         /// <summary>
+        /// bool field used in the Wallet object to save statements_enabled
+        /// </summary>
+        [DataMember(Name = "statements_enabled", EmitDefaultValue = false)]
+        public bool? StatementsEnabled { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         public Wallet() { }
@@ -47,12 +52,14 @@ namespace SilaAPI.silamoney.client.domain
         /// <param name="blockChainNetwork"></param>
         /// <param name="nickname"></param>
         /// <param name="isDefault"></param>
-        public Wallet(string blockChainAddress, Crypto blockChainNetwork, string nickname, bool? isDefault)
+        /// <param name="statementsEnabled"></param>
+        public Wallet(string blockChainAddress, Crypto blockChainNetwork, string nickname, bool? isDefault, bool? statementsEnabled)
         {
             BlockChainAddress = blockChainAddress;
             BlockChainNetwork = blockChainNetwork;
             Nickname = nickname;
             IsDefault = isDefault;
+            StatementsEnabled = statementsEnabled;
         }
     }
 }

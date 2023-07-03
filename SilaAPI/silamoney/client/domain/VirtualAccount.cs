@@ -64,5 +64,11 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [JsonProperty("ach_debit_enabled")]
         public bool AchDebitEnabled { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("statements_enabled")]
+        public bool StatementsEnabled { get; set; }
     }
 }

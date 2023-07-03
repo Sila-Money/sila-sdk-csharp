@@ -14,7 +14,8 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             var nickname = "default";
-            var response = api.UpdateWallet(user.UserHandle, user.PrivateKey, nickname, true);
+            bool? statementsEnabled = false;
+            var response = api.UpdateWallet(user.UserHandle, user.PrivateKey, nickname, true, statementsEnabled);
             var parsedResponse = (UpdateWalletResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -22,9 +23,10 @@ namespace SilaApiTest
             Assert.IsTrue(parsedResponse.Wallet.Default);
             Assert.AreEqual(nickname, parsedResponse.Wallet.Nickname);
             Assert.AreEqual(2, parsedResponse.Changes.Count);
+            Assert.AreEqual(statementsEnabled, parsedResponse.Wallet.StatementsEnabled);
 
             user = DefaultConfig.SecondUser;
-            response = api.UpdateWallet(user.UserHandle, user.PrivateKey, nickname, true);
+            response = api.UpdateWallet(user.UserHandle, user.PrivateKey, nickname, true, statementsEnabled);
             parsedResponse = (UpdateWalletResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -33,6 +35,7 @@ namespace SilaApiTest
             Assert.AreEqual(nickname, parsedResponse.Wallet.Nickname);
             Assert.AreEqual(2, parsedResponse.Changes.Count);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
+            Assert.AreEqual(statementsEnabled, parsedResponse.Wallet.StatementsEnabled);
         }
 
         [TestMethod("2 - UpdateWallet - Bad app signature failure")]

@@ -447,10 +447,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="wallet"></param>
         /// <param name="nickname"></param>
         /// <param name="isDefault">optional</param>
+        /// <param name="statementsEnabled"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RegisterWallet(string userHandle, string userPrivateKey, UserWallet wallet, string nickname, bool? isDefault = null)
+        public ApiResponse<object> RegisterWallet(string userHandle, string userPrivateKey, UserWallet wallet, string nickname, bool? isDefault = null, bool? statementsEnabled = null)
         {
-            RegisterWalletMsg body = new RegisterWalletMsg(userHandle, Configuration.AppHandle, wallet, nickname, isDefault);
+            RegisterWalletMsg body = new RegisterWalletMsg(userHandle, Configuration.AppHandle, wallet, nickname, isDefault, statementsEnabled);
             var path = "/register_wallet";
 
             return MakeRequest<RegisterWalletResponse>(path, body, userPrivateKey);
@@ -462,11 +463,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>   
         /// <param name="nickname"></param>  
-        /// <param name="isDefault"></param>     
+        /// <param name="isDefault"></param>   
+        /// <param name="statementsEnabled"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> UpdateWallet(string userHandle, string userPrivateKey, string nickname = null, bool? isDefault = null)
+        public ApiResponse<object> UpdateWallet(string userHandle, string userPrivateKey, string nickname = null, bool? isDefault = null, bool? statementsEnabled = null)
         {
-            UpdateWalletMsg body = new UpdateWalletMsg(userHandle, Configuration.AppHandle, nickname, isDefault);
+            UpdateWalletMsg body = new UpdateWalletMsg(userHandle, Configuration.AppHandle, nickname, isDefault, statementsEnabled);
             var path = "/update_wallet";
 
             return MakeRequest<UpdateWalletResponse>(path, body, userPrivateKey);
@@ -1133,10 +1135,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="cardName"></param>
+        /// <param name="provider"></param>
         /// <returns></returns>
-        public ApiResponse<object> DeleteCard(string userHandle, string userPrivateKey, string cardName)
+        public ApiResponse<object> DeleteCard(string userHandle, string userPrivateKey, string cardName, string provider)
         {
-            DeleteCardMsg body = new DeleteCardMsg(userHandle, Configuration.AppHandle, cardName);
+            DeleteCardMsg body = new DeleteCardMsg(userHandle, Configuration.AppHandle, cardName, provider);
             var path = "/delete_card";
 
             return MakeRequest<DeleteCardResult>(path, body, userPrivateKey);
@@ -1191,10 +1194,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="virtualAccountName"></param>
         /// <param name="achCreditEnabled"></param>
         /// <param name="achDebitEnabled"></param>
+        /// <param name="statementsEnabled"></param>
         /// <returns></returns>
-        public ApiResponse<object> OpenVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountName, bool? achCreditEnabled = null, bool? achDebitEnabled = null)
+        public ApiResponse<object> OpenVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountName, bool? achCreditEnabled = null, bool? achDebitEnabled = null, bool? statementsEnabled = null)
         {
-            OpenVirtualAccountMsg body = new OpenVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountName, achCreditEnabled, achDebitEnabled);
+            OpenVirtualAccountMsg body = new OpenVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountName, achCreditEnabled, achDebitEnabled, statementsEnabled);
             var path = "/open_virtual_account";
 
             return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
@@ -1210,10 +1214,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="isActive"></param>
         /// <param name="achCreditEnabled"></param>
         /// <param name="achDebitEnabled"></param>
+        /// <param name="statementsEnabled"></param>
         /// <returns></returns>
-        public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true, bool? achCreditEnabled = null, bool? achDebitEnabled = null)
+        public ApiResponse<object> UpdateVirtualAccount(string userHandle, string userPrivateKey, string virtualAccountId, string virtualAccountName, bool? isActive = true, bool? achCreditEnabled = null, bool? achDebitEnabled = null, bool? statementsEnabled = null)
         {
-            UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, achCreditEnabled, achDebitEnabled, isActive);
+            UpdateVirtualAccountMsg body = new UpdateVirtualAccountMsg(userHandle, Configuration.AppHandle, virtualAccountId, virtualAccountName, achCreditEnabled, achDebitEnabled, isActive, statementsEnabled);
             var path = "/update_virtual_account";
 
             return MakeRequest<VirtualAccountResponse>(path, body, userPrivateKey);
@@ -1370,6 +1375,35 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<T>(path, body, userPrivateKey);
         }
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="userHandle"></param>
+        ///// <param name="userPrivateKey"></param>
+        ///// <param name="searchFilters"></param>
+        ///// <returns></returns>
+        //public ApiResponse<object> Statements(string userHandle, string userPrivateKey, StatementsSearchFilters searchFilters = null)
+        //{
+        //    StatementsMsg body = new StatementsMsg(userHandle, Configuration.AppHandle, searchFilters);
+        //    var path = "/statements";
+        //    //return GetMakeRequest<StatementsResponse>(path, body, userPrivateKey);
+        //    return MakeRequest<StatementsResponse>(path, body, userPrivateKey);
+        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="statementId"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> ResendStatements(string userHandle, string userPrivateKey, string statementId, StatementsSearchFilters searchFilters = null)
+        {
+            StatementsResendMsg body = new StatementsResendMsg(userHandle, Configuration.AppHandle, searchFilters);
+            var path = $"/statements/{statementId}";
+            return PutMakeRequest<StatementsResponse>(path, body, userPrivateKey);
+        }
+
         private string GetRequestParams(int? page = null, int? perPage = null, string order = null)
         {
             string requestParams = "";
@@ -1431,6 +1465,29 @@ namespace SilaAPI.silamoney.client.api
             string contentType = "application/json";
 
             IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.POST, requestBody, headerParams, contentType);
+            if (path == "/issue_sila")
+            {
+                return GenerateResponseFromJson<T>(response, true);
+            }
+            return GenerateResponseFromJson<T>(response, false);
+        }
+
+        private ApiResponse<object> GetMakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
+        {
+            string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey, businessPrivateKey);
+            string contentType = "application/json";
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallGetApi(path, Method.GET, requestBody, headerParams, contentType);
+            return GenerateResponseFromJson<T>(response, false);
+        }
+
+        private ApiResponse<object> PutMakeRequest<T>(string path, object body, string userPrivateKey = null, string businessPrivateKey = null)
+        {
+            string requestBody = SerializationUtil.Serialize(body);
+            var headerParams = PrepareHeaders(requestBody, userPrivateKey, businessPrivateKey);
+            string contentType = "application/json";
+
+            IRestResponse response = (IRestResponse)Configuration.ApiClient.CallApi(path, Method.PUT, requestBody, headerParams, contentType);
             if (path == "/issue_sila")
             {
                 return GenerateResponseFromJson<T>(response, true);

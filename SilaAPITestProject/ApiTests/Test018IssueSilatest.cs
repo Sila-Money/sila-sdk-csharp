@@ -53,6 +53,7 @@ namespace SilaApiTest
         public void Response200SuccessInstantAch()
         {
             UserConfiguration user = DefaultConfig.InstantUser;
+            //UserConfiguration user = DefaultConfig.FirstUser;
             ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.InstantACH, accountName: "defaultpt");
 
             Assert.AreEqual(200, response.StatusCode);
@@ -104,7 +105,8 @@ namespace SilaApiTest
         [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
         public void Response401NotVerified()
         {
-            var user = DefaultConfig.ThirdUser;
+            //var user = DefaultConfig.ThirdUser;
+            var user = DefaultConfig.InstantUser;
             ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode);

@@ -12,15 +12,22 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "card_name", EmitDefaultValue = false)]
         public string CardName { get; set; }
         /// <summary>
+        /// String field to accept Provider value in delete_card endpoint
+        /// </summary>
+        [DataMember(Name = "provider", EmitDefaultValue = false)]
+        public string Provider { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="appHandle"></param>
         /// <param name="cardName"></param>
-        public DeleteCardMsg(string userHandle, string appHandle, string cardName)
+        /// <param name="provider"></param>
+        public DeleteCardMsg(string userHandle, string appHandle, string cardName, string provider)
         {
             Header = new Header(userHandle, appHandle);
             CardName = cardName;
+            Provider = provider;
         }
     }
 }
