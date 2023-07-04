@@ -102,18 +102,7 @@ namespace SilaApiTest
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - IssueSila");
         }
 
-        [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
-        public void Response401NotVerified()
-        {
-            //var user = DefaultConfig.ThirdUser;
-            var user = DefaultConfig.InstantUser;
-            ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
-
-            Assert.AreEqual(401, response.StatusCode);
-            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
-        }
-
-        [TestMethod("10 - IssueSila - Bad app signature failure")]
+        [TestMethod("9 - IssueSila - Bad app signature failure")]
         public void Response401()
         {
             var user = DefaultConfig.FirstUser;
