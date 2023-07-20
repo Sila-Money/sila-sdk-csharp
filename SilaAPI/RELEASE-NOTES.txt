@@ -1,7 +1,23 @@
-v0.2.51:
+
+v0.2.52:
 Enhancements
     - Updated packages
     - Fixed broken Tests
+
+v0.2.51
+New Features:
+    - Created a new method ResendStatements to support for /statements/<statement_id>.
+Enhancements:
+    - Allowed statementsEnabled a new optional input in Wallet and added statements_enabled field to the response in /register_wallet.
+    - Allowed statementsEnabled a new optional input and added statements_enabled field to the response in /update_wallet.
+    - Added statements_enabled field to the response in /get_wallet.
+    - Added statements_enabled field to the response in /get_wallets.
+    - Allowed statementsEnabled a new optional input and added statements_enabled field to the response in /open_virtual_account.
+    - Allowed statementsEnabled a new optional input and added statements_enabled field to the response in /update_virtual_account.
+    - Added statements_enabled field to the response in /close_virtual_account.
+    - Allowed provider a new input in /delete_card.
+    - Upgraded Newtonsoft.Json version to 13.0.3
+    - Upgraded Nethereum.Signer version to 4.0.0
 
 v0.2.50
 New Feature:

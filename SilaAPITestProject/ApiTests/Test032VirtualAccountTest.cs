@@ -16,7 +16,8 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.FirstUser;
             string virtualAccountName = "virtualaccount";
-            var response = api.OpenVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountName);
+            bool? statementsEnabled = false;
+            var response = api.OpenVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountName, statementsEnabled);
             var parsedResponse = (VirtualAccountResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Status);
@@ -25,7 +26,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.VirtualAccount);
 
             user = DefaultConfig.SecondUser;
-            response = api.OpenVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountName);
+            response = api.OpenVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountName, statementsEnabled);
             parsedResponse = (VirtualAccountResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Status);
@@ -170,8 +171,9 @@ namespace SilaApiTest
             string virtualAccountId = DefaultConfig.VirtualAccountId;
             string virtualAccountName = "virtualaccount";
             bool? isActive = false;
+            bool? statementsEnabled = false;
 
-            var response = api.UpdateVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountId, virtualAccountName, isActive);
+            var response = api.UpdateVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountId, virtualAccountName, isActive, statementsEnabled);
             var parsedResponse = (VirtualAccountResponse)response.Data;
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.Status);

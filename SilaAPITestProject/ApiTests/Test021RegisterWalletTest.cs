@@ -9,18 +9,22 @@ namespace SilaApiTest
     {
         SilaApi api = DefaultConfig.Client;
 
-        [TestMethod("1 - RegisterWallet - Succesful add new wallet to existing user")]
+        [TestMethod("1 - RegisterWallet - Successful add new wallet to existing user")]
         public void Response200()
         {
+          
+
             var user = DefaultConfig.FirstUser;
             var wallet = DefaultConfig.Wallet;
             var nickname = "new_wallet";
-            var response = api.RegisterWallet(user.UserHandle, user.PrivateKey, wallet, nickname);
+            bool statementsEnabled = false;
+            var response = api.RegisterWallet(user.UserHandle, user.PrivateKey, wallet, nickname, statementsEnabled: statementsEnabled);
             var parsedResponse = (RegisterWalletResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode, $"{user.UserHandle} should succesfully add wallet {wallet.Address}");
             Assert.IsTrue(parsedResponse.Success);
             Assert.AreEqual(nickname, parsedResponse.WalletNickname);
+            Assert.AreEqual(statementsEnabled, parsedResponse.StatementsEnabled);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
