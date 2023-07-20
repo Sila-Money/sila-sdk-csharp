@@ -10,7 +10,7 @@
 		<Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
 		<Company>DigitalGeko</Company>
 		<Product>SilaSDK</Product>
-		<Version>0.2.50</Version>
+		<Version>0.2.51</Version>
 		<owners>Silamoney</owners>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -30,7 +30,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Nethereum.Signer" Version="3.8.0" />
+		<PackageReference Include="BouncyCastle" Version="1.8.9" />
+		<PackageReference Include="Nethereum.Signer" Version="4.15.2" />
 		<PackageReference Include="Microsoft.CSharp" VersionOption="4.6.0" Version="4.7.0" />
 		<PackageReference Include="RestSharp" Version="106.12.0" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />

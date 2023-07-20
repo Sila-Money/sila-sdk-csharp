@@ -107,7 +107,7 @@ namespace SilaApiTest
             var user = DefaultConfig.ThirdUser;
             ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
-            Assert.AreEqual(401, response.StatusCode);
+            Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
 

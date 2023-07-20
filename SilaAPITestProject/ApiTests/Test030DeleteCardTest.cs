@@ -14,7 +14,7 @@ namespace SilaApiTest
         public void Response200()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.DeleteCard(user.UserHandle, user.PrivateKey, "visa");
+            var response = api.DeleteCard(user.UserHandle, user.PrivateKey, "visa", "CKO");
             var parsedResponse = (DeleteCardResult)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);

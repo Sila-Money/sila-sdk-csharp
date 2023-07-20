@@ -1133,10 +1133,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userHandle"></param>
         /// <param name="userPrivateKey"></param>
         /// <param name="cardName"></param>
+        /// <param name="providerName"></param>
         /// <returns></returns>
-        public ApiResponse<object> DeleteCard(string userHandle, string userPrivateKey, string cardName)
+        public ApiResponse<object> DeleteCard(string userHandle, string userPrivateKey, string cardName, string providerName)
         {
-            DeleteCardMsg body = new DeleteCardMsg(userHandle, Configuration.AppHandle, cardName);
+            DeleteCardMsg body = new DeleteCardMsg(userHandle, Configuration.AppHandle, cardName, providerName);
             var path = "/delete_card";
 
             return MakeRequest<DeleteCardResult>(path, body, userPrivateKey);

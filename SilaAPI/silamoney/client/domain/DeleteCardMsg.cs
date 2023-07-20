@@ -14,13 +14,20 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
+        [DataMember(Name = "provider", EmitDefaultValue = false)]
+        public string ProviderName { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="appHandle"></param>
         /// <param name="cardName"></param>
-        public DeleteCardMsg(string userHandle, string appHandle, string cardName)
+        /// <param name="providerName"></param>
+        public DeleteCardMsg(string userHandle, string appHandle, string cardName, string providerName)
         {
             Header = new Header(userHandle, appHandle);
             CardName = cardName;
+            ProviderName = providerName;
         }
     }
 }

@@ -1,3 +1,8 @@
+v0.2.51:
+Enhancements
+    - Updated packages
+    - Fixed broken Tests
+
 v0.2.50
 New Feature:
     - Created a new method GetWalletStatementData to support for /get_wallet_statement_data.
