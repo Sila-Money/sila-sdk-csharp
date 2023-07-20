@@ -11,7 +11,7 @@ Enhancements:
     - Added statements_enabled field to the response in /close_virtual_account.
     - Allowed provider a new input in /delete_card.
     - Upgraded Newtonsoft.Json version to 13.0.3
-
+    - Upgraded Nethereum.Signer version to 4.0.0
 v0.2.50
 New Feature:
     - Created a new method GetWalletStatementData to support for /get_wallet_statement_data.
