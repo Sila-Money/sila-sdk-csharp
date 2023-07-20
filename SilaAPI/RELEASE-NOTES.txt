@@ -10,6 +10,7 @@ Enhancements:
     - Allowed statementsEnabled a new optional input and added statements_enabled field to the response in /update_virtual_account.
     - Added statements_enabled field to the response in /close_virtual_account.
     - Allowed provider a new input in /delete_card.
+    - Upgraded Newtonsoft.Json version to 13.0.3
 
 v0.2.50
 New Feature:
