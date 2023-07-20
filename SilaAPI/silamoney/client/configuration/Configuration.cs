@@ -33,7 +33,7 @@ namespace SilaAPI.silamoney.client.configuration
 
         public Configuration()
         {
-            UserAgent = "SilaSDK-.net/0.2.50";
+            UserAgent = "SilaSDK-.net/0.2.51";
             BasePath = Environments.SANDBOX;
             Debug = false;
             Timeout = 100000;

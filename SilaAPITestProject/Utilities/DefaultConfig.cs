@@ -10,8 +10,8 @@ namespace SilaApiTest
     {
         //SANDBOX
         public static string environment = "https://sandbox.silamoney.com/0.2";
-        public static string privateKey = "e60a5c57130f4e82782cbdb498943f31fe8f92ab96daac2cc13cbbbf9c0b4d9e";
-        public static string appHandle = "digital_geko_e2e.silamoney.eth";
+        public static string privateKey = "9c17e7b767b8f4a63863caf1619ef3e9967a34b287ce58542f3eb19b5a72f076";
+        public static string appHandle = "arc_sandbox_test_app01.silamoney.eth";
         public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
         public static string WirebusinessUuid = "25e77968-1ca3-4a4b-8e72-506dcac20dc7";
 

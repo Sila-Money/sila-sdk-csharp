@@ -12,6 +12,9 @@ namespace SilaApiTest
         [TestMethod("1 - GetWallet - Sucessful retrieve for both wallets")]
         public void Response200()
         {
+
+
+
             var user = DefaultConfig.FirstUser;
             var firstResponse = api.GetWallet(user.UserHandle, user.PrivateKey);
             var parsedResponse = (SingleWalletResponse)firstResponse.Data;
