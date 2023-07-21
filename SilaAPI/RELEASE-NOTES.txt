@@ -1,3 +1,10 @@
+v0.2.51-rc1
+Hotfix:
+Breaking changes:
+    - Upgraded NNethereum.Signer version to 4.15.2
+    - Upgraded BouncyCastle version to 1.8.2
+    - Bug fixes
+
 v0.2.51
 New Features:
     - Created a new method ResendStatements to support for /statements/<statement_id>.
@@ -12,6 +19,7 @@ Enhancements:
     - Allowed provider a new input in /delete_card.
     - Upgraded Newtonsoft.Json version to 13.0.3
     - Upgraded Nethereum.Signer version to 4.0.0
+
 v0.2.50
 New Feature:
     - Created a new method GetWalletStatementData to support for /get_wallet_statement_data.

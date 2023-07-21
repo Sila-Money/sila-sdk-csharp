@@ -112,6 +112,7 @@ namespace SilaApiTest
             var response = failApi.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
             Assert.AreEqual(401, response.StatusCode, "Bad app signature status - IssueSila");
+            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
     }
 }
