@@ -19,7 +19,7 @@ jobs:
         sdkVersion: '2.1.x'
         frameworkVersion: 'netcoreapp2.1'
         #executeSonar: true
-      netcore31:
+      netCore31:
         sdkVersion: '3.1.x'
         frameworkVersion: 'netcoreapp3.1'
   steps:
