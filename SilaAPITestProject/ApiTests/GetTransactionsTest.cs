@@ -10,9 +10,9 @@ namespace SilaApiTest
     {
         private static SilaApi api = DefaultConfig.Client;
 
-        public static void Poll(string userHandle, string userPrivateKey, SearchFilters filters, string result)
+        public static void Poll(string userHandle, SearchFilters filters, string result)
         {
-            var response = api.GetTransactions(userHandle, userPrivateKey, filters);
+            var response = api.GetTransactions(userHandle, filters);
             var statusCode = response.StatusCode;
             var parsedResponse = (GetTransactionsResult)response.Data;
             var transactionStatus = parsedResponse.Transactions[0].Status;
@@ -21,7 +21,7 @@ namespace SilaApiTest
             {
                 Console.WriteLine("Transaction waiting 30 seconds...");
                 Thread.Sleep(30000);
-                response = api.GetTransactions(userHandle, userPrivateKey, filters);
+                response = api.GetTransactions(userHandle, filters);
                 statusCode = response.StatusCode;
                 parsedResponse = (GetTransactionsResult)response.Data;
                 transactionStatus = parsedResponse.Transactions[0].Status;

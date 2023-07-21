@@ -73,7 +73,7 @@ namespace SilaApiTest
                 ReferenceId = DefaultConfig.IssueReference
             };
 
-            GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
+            GetTransactionsTest.Poll(user.UserHandle, filters, "success");
         }
 
         [TestMethod("6 - IssueSila - Empty user handle failure")]
