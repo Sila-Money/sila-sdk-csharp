@@ -1,8 +1,15 @@
-
-v0.2.52:
+v1.0.0:
+Breaking Changes
+    - Removed support for deprecated .NET frameworks 4.6.1 and 4.6
 Enhancements
-    - Updated packages
-    - Fixed broken Tests
+    - Added support for .NET 5.0, 6.0, and 7.0
+    - Upgraded Nethereum.Signer to 4.15.2
+    - Upgraded coverlet.msbuild to 6.0.0
+    - Upgraded Microsoft.NET.Test.Sdk to 17.6.3
+    - Upgraded MSTest.TestAdapter to 3.1.1
+    - Upgraded MSTest.TestFramework to 3.1.1
+    - Upgraded coverlet.collector to 6.0.0
+    - Upgraded BouncyCastle to 1.8.9
 
 v0.2.51
 New Features:

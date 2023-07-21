@@ -70,7 +70,7 @@ jobs:
   variables:
     solution: '**/*.sln'
     buildPlatform: 'Any CPU'
-    frameworkVersion: 'net46'
+    frameworkVersion: 'net462'
   steps:
   - task: NuGetToolInstaller@1
     displayName: 'Nuget Installer'

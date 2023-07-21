@@ -2,15 +2,15 @@
 
 	<PropertyGroup>
 		<TargetFrameworks Condition="'$(CoreOnly)' != 'True'">
-			netcoreapp2.1;netcoreapp3.1;net46;net461;net462;net47;net471;net472;net48
+			netcoreapp2.1;netcoreapp3.1;net462;net47;net471;net472;net48;net5.0;net6.0;net7.0
 		</TargetFrameworks>
 		<TargetFrameworks Condition="'$(CoreOnly)' == 'True'">
-			netcoreapp2.1;netcoreapp3.1
+			netcoreapp2.1;netcoreapp3.1;net5.0;net6.0;net7.0
 		</TargetFrameworks>
 		<Authors>Karlo Lorenzana;Jose Luis Morales Ruiz</Authors>
 		<Company>DigitalGeko</Company>
 		<Product>SilaSDK</Product>
-		<Version>0.2.51</Version>
+		<Version>1.0.0</Version>
 		<owners>Silamoney</owners>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -20,7 +20,6 @@
 		<PackageIconUrl></PackageIconUrl>
 		<AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
 		<PackageId>Sila.SDK</PackageId>
-		<TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net46;net461;net462;net47;net471;net472;net48</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
