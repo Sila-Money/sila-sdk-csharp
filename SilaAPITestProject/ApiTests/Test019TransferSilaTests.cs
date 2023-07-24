@@ -124,7 +124,7 @@ namespace SilaApiTest
                 ReferenceId = DefaultConfig.TransferReference
             };
 
-            GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
+            GetTransactionsTest.Poll(user.UserHandle, filters, "success");
         }
 
         [TestMethod("11 - TransferSila - Empty user handle failure")]

@@ -1,3 +1,16 @@
+v1.0.0:
+Breaking Changes
+    - Removed support for deprecated .NET frameworks 4.6.1 and 4.6
+Enhancements
+    - Added support for .NET 5.0, 6.0, and 7.0
+    - Upgraded Nethereum.Signer to 4.15.2
+    - Upgraded coverlet.msbuild to 6.0.0
+    - Upgraded Microsoft.NET.Test.Sdk to 17.6.3
+    - Upgraded MSTest.TestAdapter to 3.1.1
+    - Upgraded MSTest.TestFramework to 3.1.1
+    - Upgraded coverlet.collector to 6.0.0
+    - Upgraded BouncyCastle to 1.8.9
+
 v0.2.51
 New Features:
     - Created a new method ResendStatements to support for /statements/<statement_id>.
@@ -12,6 +25,7 @@ Enhancements:
     - Allowed provider a new input in /delete_card.
     - Upgraded Newtonsoft.Json version to 13.0.3
     - Upgraded Nethereum.Signer version to 4.0.0
+
 v0.2.50
 New Feature:
     - Created a new method GetWalletStatementData to support for /get_wallet_statement_data.

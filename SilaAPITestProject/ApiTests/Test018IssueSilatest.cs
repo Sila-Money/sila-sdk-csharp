@@ -73,7 +73,7 @@ namespace SilaApiTest
                 ReferenceId = DefaultConfig.IssueReference
             };
 
-            GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
+            GetTransactionsTest.Poll(user.UserHandle, filters, "success");
         }
 
         [TestMethod("6 - IssueSila - Empty user handle failure")]
@@ -102,7 +102,17 @@ namespace SilaApiTest
             Assert.AreEqual(401, response.StatusCode, "Bad user signature status - IssueSila");
         }
 
-        [TestMethod("9 - IssueSila - Bad app signature failure")]
+        [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
+        public void Response401NotVerified()
+        {
+            var user = DefaultConfig.ThirdUser;
+            ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
+
+            Assert.AreEqual(403, response.StatusCode);
+            Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
+        }
+
+        [TestMethod("10 - IssueSila - Bad app signature failure")]
         public void Response401()
         {
             var user = DefaultConfig.FirstUser;

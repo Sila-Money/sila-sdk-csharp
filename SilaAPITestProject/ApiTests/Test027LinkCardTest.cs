@@ -29,6 +29,7 @@ namespace SilaApiTest
             var parsedResponse = (LinkCardResponse)response.Data;
 
             Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.CardDetail.CardName);
             Assert.IsNotNull(parsedResponse.AVS);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Status);

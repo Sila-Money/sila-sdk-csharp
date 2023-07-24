@@ -17,7 +17,7 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "provider", EmitDefaultValue = false)]
         public string Provider { get; set; }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="userHandle"></param>
         /// <param name="appHandle"></param>

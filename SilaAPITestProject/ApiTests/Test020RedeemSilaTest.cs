@@ -28,12 +28,11 @@ namespace SilaApiTest
         public void T002Response200Success()
         {
             var user = DefaultConfig.SecondUser;
-            var filters = new SearchFilters()
-            {
+            var filters = new SearchFilters{
                 ReferenceId = DefaultConfig.RedeemReference
             };
 
-            GetTransactionsTest.Poll(user.UserHandle, user.PrivateKey, filters, "success");
+            GetTransactionsTest.Poll(user.UserHandle, filters, "success");
         }
 
         [TestMethod("3 - RedeemSila - Successful redeem tokens with business uuid and descriptor")]
