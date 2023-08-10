@@ -59,7 +59,7 @@ namespace SilaAPI.silamoney.client.domain
         /// 
         /// </summary>
         [DataMember(Name = "delivery_status", EmitDefaultValue = false)]
-        public object DeliveryStatus { get; set; }
+        public string DeliveryStatus { get; set; }
         /// <summary>
         /// 
         /// </summary>

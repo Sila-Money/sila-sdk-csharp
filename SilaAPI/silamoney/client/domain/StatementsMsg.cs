@@ -19,11 +19,11 @@ namespace SilaAPI.silamoney.client.domain
         [DataMember(Name = "search_filters", EmitDefaultValue = false)]
         public StatementsSearchFilters SearchFilters { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [DataMember(Name = "message", EmitDefaultValue = false)]
-        public string Message { get; set; }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[DataMember(Name = "message", EmitDefaultValue = false)]
+        //public string Message { get; set; }
 
         /// <summary>
         /// 
@@ -35,7 +35,7 @@ namespace SilaAPI.silamoney.client.domain
         {
             this.Header = new Header(userHandle, authHandle);
             this.SearchFilters = searchFilters;
-            this.Message = "statements";
+            //this.Message = "statements";
         }
 
 
