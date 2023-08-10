@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SilaAPI.silamoney.client.domain
@@ -16,7 +17,8 @@ namespace SilaAPI.silamoney.client.domain
         /// <summary>
         /// 
         /// </summary>
-        [DataMember(Name = "delivery_attempts", EmitDefaultValue = false)]
+        //[DataMember(Name = "delivery_attempts", EmitDefaultValue = false)]
+        [JsonProperty("delivery_attempts")]
         public List<StatementsDeliveryAttempt> DeliveryAttempts { get; set; }
     }
 }

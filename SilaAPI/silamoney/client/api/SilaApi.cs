@@ -1375,20 +1375,20 @@ namespace SilaAPI.silamoney.client.api
             return MakeRequest<T>(path, body, userPrivateKey);
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="userHandle"></param>
-        ///// <param name="userPrivateKey"></param>
-        ///// <param name="searchFilters"></param>
-        ///// <returns></returns>
-        //public ApiResponse<object> Statements(string userHandle, string userPrivateKey, StatementsSearchFilters searchFilters = null)
-        //{
-        //    StatementsMsg body = new StatementsMsg(userHandle, Configuration.AppHandle, searchFilters);
-        //    var path = "/statements";
-        //    //return GetMakeRequest<StatementsResponse>(path, body, userPrivateKey);
-        //    return MakeRequest<StatementsResponse>(path, body, userPrivateKey);
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="searchFilters"></param>
+        /// <returns></returns>
+        public ApiResponse<object> Statements(string userHandle, string userPrivateKey, StatementsSearchFilters searchFilters = null)
+        {
+            StatementsMsg body = new StatementsMsg(userHandle, Configuration.AppHandle, searchFilters);
+            var path = "/statements";
+            //return GetMakeRequest<StatementsResponse>(path, body, userPrivateKey);
+            return MakeRequest<StatementsResponse>(path, body, userPrivateKey);
+        }
         /// <summary>
         /// 
         /// </summary>
