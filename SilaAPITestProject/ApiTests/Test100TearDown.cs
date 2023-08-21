@@ -91,23 +91,7 @@ namespace SilaApiTest
 
 
 
-        //[TestMethod("5 - DeleteRegistrationIdentity - Success Response")]
-        //public void T105Response200DeleteRegistrationIdentity()
-        //{
-        //    var user = DefaultConfig.FirstUser;
-
-        //    var response = api.GetEntity(user.UserHandle, user.PrivateKey);
-        //    Assert.AreEqual(200, response.StatusCode);
-        //    var entityResponse = (GetEntityResponse)response.Data;
-
-
-        //    response = api.DeleteRegistrationData(user.UserHandle, user.PrivateKey, RegistrationData.Identity, entityResponse.Identities[0].Uuid);
-        //    Assert.AreEqual(200, response.StatusCode);
-        //    var parsedResponse = (BaseResponseWithoutReference)response.Data;
-        //    Assert.IsTrue(parsedResponse.Success);
-        //    Assert.AreEqual("SUCCESS", parsedResponse.Status);
-        //    Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        //}
+       
 
         [TestMethod("105 - DeleteRegistrationPhone - Success Response")]
         public void T105Response200DeleteRegistrationPhone()
@@ -127,23 +111,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        //[TestMethod("7 - DeleteRegistrationDevice - Success Response")]
-        //public void T107Response200DeleteRegistrationDevice()
-        //{
-        //    var user = DefaultConfig.FirstUser;
-
-        //    var response = api.GetEntity(user.UserHandle, user.PrivateKey);
-        //    Assert.AreEqual(200, response.StatusCode);
-        //    var entityResponse = (GetEntityResponse)response.Data;
-
-
-        //    response = api.DeleteRegistrationData(user.UserHandle, user.PrivateKey, RegistrationData.Device, entityResponse.Devices[0].Uuid);
-        //    Assert.AreEqual(200, response.StatusCode);
-        //    var parsedResponse = (BaseResponseWithoutReference)response.Data;
-        //    Assert.IsTrue(parsedResponse.Success);
-        //    Assert.AreEqual("SUCCESS", parsedResponse.Status);
-        //    Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        //}
+      
 
         [TestMethod("106 - DeleteLinkAccountDirect - Successful delete account")]
         public void T106Response200DeleteLinkAccountDirect()
@@ -173,19 +141,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        //[TestMethod("8 - Delete account - Successful delete account")]
-        //public void T108Response200DeleteAccount()
-        //{
-        //    var user = DefaultConfig.FirstUser;
-        //    var response = api.DeleteAccount(user.UserHandle, user.PrivateKey, "toupdate");
-        //    var parsedResponse = (DeleteAccountResult)response.Data;
-
-        //    Assert.AreEqual(200, response.StatusCode);
-        //    Assert.IsNotNull(parsedResponse.Message);
-        //    Assert.IsNotNull(parsedResponse.Status);
-        //    Assert.IsTrue(parsedResponse.Success);
-        //    Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        //}
+        
         [TestMethod("108 - DeleteLinkAccount1 - Successful delete account")]
         public void T108Response200DeleteLinkAccount1()
         {
