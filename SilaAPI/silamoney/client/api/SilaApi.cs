@@ -1107,10 +1107,12 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="accountPostalCode"></param>
         /// <param name="cardName"></param>
+        /// <param name="provider"></param>
+        /// <param name="skipVerification"></param>
         /// <returns></returns>
-        public ApiResponse<object> LinkCard(string userHandle, string token, string userPrivateKey, string accountPostalCode, string cardName = null)
+        public ApiResponse<object> LinkCard(string userHandle, string token, string userPrivateKey, string accountPostalCode=null, string cardName = null,string provider = null,bool skipVerification =false)
         {
-            LinkCardMsg body = new LinkCardMsg(userHandle, token, Configuration.AppHandle, accountPostalCode, cardName);
+            LinkCardMsg body = new LinkCardMsg(userHandle, token, Configuration.AppHandle, accountPostalCode, cardName, provider, skipVerification);
             var path = "/link_card";
 
             return MakeRequest<LinkCardResponse>(path, body, userPrivateKey);
@@ -1403,6 +1405,33 @@ namespace SilaAPI.silamoney.client.api
             var path = $"/statements/{statementId}";
             return PutMakeRequest<StatementsResponse>(path, body, userPrivateKey);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public ApiResponse<object> CreateCkoTtestingToken(string userHandle, string userPrivateKey, Message message = null)
+        {
+            CkoTestingTokenMsg body = new CkoTestingTokenMsg(userHandle, Configuration.AppHandle, message);
+            var path = "/create_cko_testing_token";
+            return MakeRequest<CkoTestingTokenResponse>(path, body, userPrivateKey);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userHandle"></param>
+        /// <param name="userPrivateKey"></param>
+        /// <param name="transactionId"></param>
+        /// <returns></returns>
+        public ApiResponse<object> RefundDebitCard(string userHandle, string userPrivateKey, string transactionId)
+        {
+            RefundDebitCardMsg body = new RefundDebitCardMsg(userHandle, Configuration.AppHandle, transactionId);
+            var path = "/refund_debit_card";
+            return MakeRequest<RefundDebitCardResponse>(path, body, userPrivateKey);
+        }
+
 
         private string GetRequestParams(int? page = null, int? perPage = null, string order = null)
         {
