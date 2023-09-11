@@ -31,7 +31,7 @@ namespace SilaApiTest
             //Check KYC(Empty User)
             SuccessCheck(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey);
 
-
+            Thread.Sleep(5000);
             //Generated CKO Token
             var filters = new Message()
             {
@@ -50,24 +50,23 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse1.Reference);
             Assert.IsNotNull(parsedResponse1.ResponseTimeMs);
 
+            Thread.Sleep(5000);
             //Link Card and pass token i.e generated from (Generate CKO token method)
             string card_name = System.Guid.NewGuid().ToString();
             //var user = DefaultConfig.CKOUser;
             var responseLinkCard = api.LinkCard(ckoUser.UserHandle, parsedResponse1.Token, DefaultConfig.CKOUser.PrivateKey, "12345", card_name, "cko");
             var parsedResponseLinkCard = (LinkCardResponse)responseLinkCard.Data;
 
-
+            Thread.Sleep(5000);
             //Issue Sila from Card Name
             var responseIssueSila = api.IssueSila(ckoUser.UserHandle, 1000, DefaultConfig.CKOUser.PrivateKey, accountName: null, cardName: card_name);
             var parsedResponseIssueSila = (TransactionResponse)responseIssueSila.Data;
 
-
+            Thread.Sleep(5000);
             //Refund Debit Card
             var responseRefundDebitCard = api.RefundDebitCard(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, parsedResponseIssueSila.TransactionId);
             var parsedResponseRefundDebitCard = responseRefundDebitCard.Data;
-
             Assert.AreEqual(202, responseRefundDebitCard.StatusCode);
-
         }
 
         private void SuccessCheck(string handle, string privateKey)
@@ -83,7 +82,7 @@ namespace SilaApiTest
             {
                 Console.WriteLine($"{handle} KYC check waiting 30 seconds...");
                 Console.WriteLine($"Last call result. Status: {statusCode}; Result: {status}; Message: {message}");
-                Thread.Sleep(30000);
+                Thread.Sleep(5000);
                 response = api.CheckKYC(handle, privateKey);
                 parsedResponse = (CheckKYCResponse)response.Data;
                 statusCode = response.StatusCode;
