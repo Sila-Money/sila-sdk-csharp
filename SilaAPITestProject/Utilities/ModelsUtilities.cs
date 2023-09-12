@@ -17,6 +17,7 @@ namespace SilaApiTest
         private static User deviceUser;
         private static BusinessUser basicBusiness;
         private static User instantUser;
+        private static User ckoUser;
         public static User FirstUser
         {
             get
@@ -144,6 +145,15 @@ namespace SilaApiTest
             }
         }
 
+        public static User CKOUser
+        {
+            get
+            {
+                if (ckoUser == null) ckoUser = CreateCKOUser(DefaultConfig.CKOUser.UserHandle, "First", "User", DefaultConfig.CKOUser.CryptoAddress);
+                return ckoUser;
+            }
+        }
+
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
@@ -154,6 +164,13 @@ namespace SilaApiTest
         {
             return new BusinessUser(handle, entityName, "123452222", "1234567890", "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code, deviceFingerprint: "asdfgh", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1", type: "business");
+        }
+
+        //created new-cko user-  Swati(07-09-2023)
+        public static User CreateCKOUser(string handle, string firstName, string lastName, string cryptoAddress)
+        {
+            return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", System.Guid.NewGuid().ToString() + "@email.com", "123 Main Street",
+                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), deviceFingerprint: "asdfghjk", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1");
         }
     }
 }

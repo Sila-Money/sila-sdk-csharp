@@ -73,6 +73,7 @@ namespace SilaApiTest
         private static UserConfiguration deviceUser;
         private static UserConfiguration basicBusiness;
         private static UserConfiguration instantUser;
+        private static UserConfiguration ckoUser;
         private static SilaApi client;
 
         public static SilaApi Client
@@ -171,6 +172,15 @@ namespace SilaApiTest
             {
                 if (instantUser == null) instantUser = new UserConfiguration();
                 return instantUser;
+            }
+        }
+
+        public static UserConfiguration CKOUser
+        {
+            get
+            {
+                if (ckoUser == null) ckoUser = new UserConfiguration();
+                return ckoUser;
             }
         }
 
