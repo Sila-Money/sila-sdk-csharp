@@ -1,6 +1,6 @@
 v1.0.1
 New Features:
-    - Created a new method CreateCkoTtestingToken to support for /create_cko_testing_token.
+    - Created a new method CreateCkoTestingToken to support for /create_cko_testing_token.
     - Created a new method RefundDebitCard to support for /refund_debit_card.
 Enhancements:
     - Allowed provider and skipVerification new optional input in  /link_card.

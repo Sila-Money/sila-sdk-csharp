@@ -41,7 +41,7 @@ namespace SilaApiTest
                 CkoPublicKey = "pk_sbox_i2uzy5w5nsllogfsc4xdscorcii",
             };
 
-            var response1 = api.CreateCkoTtestingToken(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, filters);
+            var response1 = api.CreateCkoTestingToken(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, filters);
             var parsedResponse1 = (CkoTestingTokenResponse)response1.Data;
             Assert.AreEqual(200, response1.StatusCode);
             Assert.IsTrue(parsedResponse1.Success);
@@ -101,7 +101,7 @@ namespace SilaApiTest
                 ExpiryMonth = 12,
                 CkoPublicKey = "pk_sbox_i2uzy5w5nsllogfsc4xdscorcii",
             };
-            var response = api.CreateCkoTtestingToken(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, filters);
+            var response = api.CreateCkoTestingToken(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, filters);
             var parsedResponse = (BaseResponse)response.Data;
             Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);

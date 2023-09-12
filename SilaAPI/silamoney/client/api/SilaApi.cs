@@ -1412,7 +1412,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public ApiResponse<object> CreateCkoTtestingToken(string userHandle, string userPrivateKey, Message message = null)
+        public ApiResponse<object> CreateCkoTestingToken(string userHandle, string userPrivateKey, Message message = null)
         {
             CkoTestingTokenMsg body = new CkoTestingTokenMsg(userHandle, Configuration.AppHandle, message);
             var path = "/create_cko_testing_token";
