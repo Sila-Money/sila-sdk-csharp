@@ -52,8 +52,9 @@ namespace SilaApiTest
         }
 
 
-        [TestMethod("103 - DeleteRegistrationAddress - Success Response")]
-        public void T103Response200DeleteRegistrationAddress()
+        [TestMethod("103 - DeleteRegistrationAddress - Failure Response")]
+        // Addresses cannot be deleted or modified within 30 days of passing kyc.
+        public void T103Response403DeleteRegistrationAddress()
         {
             var user = DefaultConfig.FirstUser;
 
@@ -63,10 +64,10 @@ namespace SilaApiTest
 
 
             response = api.DeleteRegistrationData(user.UserHandle, user.PrivateKey, RegistrationData.Address, entityResponse.Addresses[0].Uuid);
-            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual(403, response.StatusCode);
             var parsedResponse = (BaseResponseWithoutReference)response.Data;
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);
+            Assert.IsFalse(parsedResponse.Success);
+            Assert.AreEqual("FAILURE", parsedResponse.Status);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 

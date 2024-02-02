@@ -21,11 +21,6 @@ namespace Sila.API.Client.Domain
         [EnumMember(Value = "SAME_DAY_ACH")]
         Sameday = 2,
         /// <summary>
-        /// Instant ACH
-        /// </summary>
-        [EnumMember(Value = "INSTANT_ACH")]
-        Instant,
-        /// <summary>
         /// CARD
         /// </summary>
         [EnumMember(Value = "CARD")]

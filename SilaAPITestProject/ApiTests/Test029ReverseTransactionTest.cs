@@ -15,7 +15,7 @@ namespace SilaApiTest
         public void Response200()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey, accountName: null, cardName: "visa");
+            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey, accountName: null, cardName: "cko");
             var parsedResponse = (TransactionResponse)response.Data;
             Assert.AreEqual(200, response.StatusCode);
             Assert.AreEqual("SUCCESS", parsedResponse.Status);
@@ -67,7 +67,7 @@ namespace SilaApiTest
             }
             while (i <= 8);
 
-            Assert.AreEqual("CARD", parsedResponse.Transactions[0].ProcessingType);
+            Assert.AreEqual("CARD_CKO", parsedResponse.Transactions[0].ProcessingType);
         }
 
         [TestMethod("3 - Reverse Transaction - Successful reverse Transaction")]

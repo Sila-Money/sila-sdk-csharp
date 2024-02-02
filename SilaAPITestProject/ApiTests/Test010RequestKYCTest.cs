@@ -69,7 +69,7 @@ namespace SilaApiTest
 
             user = DefaultConfig.InstantUser;
 
-            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey, kycLevel: "INSTANT-ACH");
+            response = api.RequestKYC(userHandle: user.UserHandle, userPrivateKey: user.PrivateKey, kycLevel: "KYC-STANDARD");
             parsedResponse = (RequestKYCResponse) response.Data;
 
             Assert.IsTrue(parsedResponse.Success);

@@ -43,8 +43,10 @@ namespace SilaApiTest
         [TestMethod("2 - UpdateEmail - Success Response")]
         public void Response200Email()
         {
+            Guid newuuid = Guid.NewGuid();
+            string uuidstr = newuuid.ToString();
             var user = DefaultConfig.FirstUser;
-            var email = "some.updated.email@domain.go";
+            var email = $"some.new.email{uuidstr}@domain.go";
             var response = api.UpdateEmail(user.UserHandle, user.PrivateKey, DefaultConfig.EmailUuid, email);
 
             Assert.AreEqual(200, response.StatusCode);
