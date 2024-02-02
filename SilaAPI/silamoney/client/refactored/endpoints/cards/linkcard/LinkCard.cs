@@ -36,6 +36,7 @@ namespace Sila.API.Client.Cards
             body.Add("token", request.Token);
             body.Add("card_name", request.CardName);
             body.Add("account_postal_code",  request.AccountPostalCode);
+            body.Add("provider", request.Provider);
             body.Add("message", "header_msg"); //link_card_msg
 
             string serializedBody = SerializationUtil.Serialize(body);

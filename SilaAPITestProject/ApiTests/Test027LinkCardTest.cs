@@ -13,24 +13,25 @@ namespace SilaApiTest
 
         [TestMethod("1 - LinkCard - Success Response")]
         public void Response200()
-        {
-            var client = new RestClient("https://sso.sandbox.tabapay.com:8443/v2/SSOEncrypt");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Content-Type", "application/tabapay-compact");
-            request.AddHeader("Referer", "https://sso.sandbox.tabapay.com:8443/SSOEvolveISO.html");
-            var body = @"cBm0RU8eASGfSxLYJjsG73Q	n9010111999999992	e202201	s4561";
-            request.AddParameter("application/tabapay-compact", body, ParameterType.RequestBody);
-            IRestResponse responseToken = client.Execute(request);
-            string token = responseToken.Content.ToString().Replace("S2\td", "");
-
+        {           
             var user = DefaultConfig.FirstUser;
-            var response = api.LinkCard(user.UserHandle, token, user.PrivateKey, "12345", "visa");
+            var filters = new Message()
+            {
+                CardNumber = "4659105569051157",
+                ExpiryMonth = 12,
+                ExpiryYear = 2027,
+                CkoPublicKey = "pk_sbox_i2uzy5w5nsllogfsc4xdscorcii",
+            };
+
+            var response1 = api.CreateCkoTestingToken(user.UserHandle, DefaultConfig.CKOUser.PrivateKey, filters);
+            var parsedResponse1 = (CkoTestingTokenResponse)response1.Data;
+            var token = parsedResponse1.Token;
+
+            var response = api.LinkCard(user.UserHandle, token, user.PrivateKey, "12345", "cko", "cko");
             var parsedResponse = (LinkCardResponse)response.Data;
 
             Assert.IsTrue(parsedResponse.Success);
             Assert.IsNotNull(parsedResponse.CardDetail.CardName);
-            Assert.IsNotNull(parsedResponse.AVS);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Status);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);

@@ -28,7 +28,10 @@ namespace Sila.API.Client.Cards
         /// 
         /// </summary>
         public string CardName { get; set; } = null;
-
+        /// <summary>
+        ///
+        ///</summary>
+        public string Provider { get; set; } = null;
 
     }
 }

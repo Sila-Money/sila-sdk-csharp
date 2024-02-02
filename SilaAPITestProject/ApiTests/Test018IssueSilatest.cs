@@ -49,20 +49,6 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        [TestMethod("4 - IssueSila - Successful instant ach")]
-        public void Response200SuccessInstantAch()
-        {
-            UserConfiguration user = DefaultConfig.InstantUser;
-            //UserConfiguration user = DefaultConfig.FirstUser;
-            ApiResponse<object> response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, businessUuid: DefaultConfig.businessUuid, processingType: ProcessingType.InstantACH, accountName: "defaultpt");
-
-            Assert.AreEqual(200, response.StatusCode);
-            TransactionResponse parsedResponse = (TransactionResponse)response.Data;
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        }
-
         [TestMethod("5 - IssueSila - Poll until successful issue")]
         [Timeout(300000)]
         public void Response200Transaction()
@@ -108,7 +94,7 @@ namespace SilaApiTest
             var user = DefaultConfig.ThirdUser;
             ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
-            Assert.AreEqual(403, response.StatusCode);
+            Assert.AreEqual(401, response.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
 

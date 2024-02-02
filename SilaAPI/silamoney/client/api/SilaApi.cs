@@ -1073,21 +1073,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="accountName"></param>
-        /// <param name="kycLevel"></param>
-        /// <returns></returns>
-        public ApiResponse<object> CheckInstantACH(string userHandle, string userPrivateKey, string accountName, string kycLevel = null)
-        {
-            CheckInstantACHMsg body = new CheckInstantACHMsg(userHandle, Configuration.AppHandle, accountName, kycLevel);
-            var path = "/check_instant_ach";
-            return MakeRequest<CheckInstantACHResponse>(path, body, userPrivateKey);
-        }
-
-        /// <summary>
         /// Fetch data about institutions and which products they support.
         /// </summary>
         /// <param name="searchFilters"></param>

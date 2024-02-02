@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 
@@ -47,8 +48,10 @@ namespace SilaApiTest
         [TestMethod("2 - AddEmail - Success Response")]
         public void Response200Email()
         {
+            Guid newuuid = Guid.NewGuid();
+            string uuidstr = newuuid.ToString();
             var user = DefaultConfig.FirstUser;
-            var email = "some.new.email@domain.go";
+            var email = $"some.new.email{uuidstr}@domain.go";
             var response = api.AddEmail(user.UserHandle, user.PrivateKey, email);
 
             Assert.AreEqual(200, response.StatusCode);

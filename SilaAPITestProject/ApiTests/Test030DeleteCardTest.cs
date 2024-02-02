@@ -13,11 +13,9 @@ namespace SilaApiTest
         [TestMethod("1 - Delete card - Successful delete card")]
         public void Response200()
         {
-           
-
             var user = DefaultConfig.FirstUser;
-            string cardName = "visa";
-            string provider = "evolve";
+            string cardName = "cko";
+            string provider = "cko";
             var response = api.DeleteCard(user.UserHandle, user.PrivateKey, cardName, provider);
             var parsedResponse = (DeleteCardResult)response.Data;
 

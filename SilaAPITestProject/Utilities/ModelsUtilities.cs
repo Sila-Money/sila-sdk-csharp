@@ -130,7 +130,7 @@ namespace SilaApiTest
                     IdentityValue = "123458888",
                     Phone = "1234567890",
                     SmsOptIn = true,
-                    Email = "intant@email.com",
+                    Email = System.Guid.NewGuid().ToString() + "instant@email.com",
                     AddressAlias = "default",
                     StreetAddress1 = "1232 Main Street",
                     City = "New City",
@@ -156,13 +156,13 @@ namespace SilaApiTest
 
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
-            return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", "fake@email.com", "123 Main Street",
+            return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", System.Guid.NewGuid().ToString() + "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), deviceFingerprint: "asdfghjk", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1");
         }
 
         public static BusinessUser CreateBusinessUser(string handle, string entityName, string cryptoAddress, BusinessType businessType, NaicsSubcategory naicsSubcategory)
         {
-            return new BusinessUser(handle, entityName, "123452222", "1234567890", "fake@email.com", "123 Main Street",
+            return new BusinessUser(handle, entityName, "123452222", "1234567890", System.Guid.NewGuid().ToString() + "fake@email.com", "123 Main Street",
                 "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code, deviceFingerprint: "asdfgh", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1", type: "business");
         }
 

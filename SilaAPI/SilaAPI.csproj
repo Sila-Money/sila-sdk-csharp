@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BouncyCastle" Version="1.8.9" />
-		<PackageReference Include="Nethereum.Signer" Version="4.15.2" />
+		<PackageReference Include="Nethereum.Signer" Version="4.18.0" />
 		<PackageReference Include="Microsoft.CSharp" VersionOption="4.6.0" Version="4.7.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="RestSharp" Version="106.12.0" />
