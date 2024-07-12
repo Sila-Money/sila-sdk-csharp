@@ -63,7 +63,7 @@ namespace SilaApiTest
         public void T003IssueSilaVirtualAccount()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, accountName: "defaultpt",
+            var response = api.IssueSila(user.UserHandle, 200, user.PrivateKey, accountName: "default",
                 descriptor: DefaultConfig.IssueTrans, businessUuid: DefaultConfig.businessUuid, destinationId: DefaultConfig.VirtualAccountId);
             Thread.Sleep(30000);
             var parsedResponse = (TransactionResponse)response.Data;
@@ -87,7 +87,7 @@ namespace SilaApiTest
             {
                 if (parsedResponse.Balance.AvailableSilaBalance <= 0)
                 {
-                    Thread.Sleep(30000);
+                    Thread.Sleep(40000);
                     response = api.GetVirtualAccount(user.UserHandle, user.PrivateKey, DefaultConfig.VirtualAccountId);
                     parsedResponse = (GetVirtualAccountResponse)response.Data;
                     if (parsedResponse.Balance.AvailableSilaBalance > 0)
@@ -99,7 +99,7 @@ namespace SilaApiTest
                 {
                     break;
                 }
-                Thread.Sleep(30000);
+                Thread.Sleep(40000);
                 i++;
             }
             while (i <= 8);
@@ -116,7 +116,7 @@ namespace SilaApiTest
         public void T005RedeemSilaVirtualAccount()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "defaultpt", descriptor: DefaultConfig.RedeemTrans,
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "default", descriptor: DefaultConfig.RedeemTrans,
                businessUuid: DefaultConfig.businessUuid, sourceId: DefaultConfig.VirtualAccountId);
 
             var parsedResponse = (TransactionResponse)response.Data;

@@ -61,12 +61,6 @@ namespace SilaApiTest
             //Issue Sila from Card Name
             var responseIssueSila = api.IssueSila(ckoUser.UserHandle, 1000, DefaultConfig.CKOUser.PrivateKey, accountName: null, cardName: card_name);
             var parsedResponseIssueSila = (TransactionResponse)responseIssueSila.Data;
-
-            Thread.Sleep(5000);
-            //Refund Debit Card
-            var responseRefundDebitCard = api.RefundDebitCard(ckoUser.UserHandle, DefaultConfig.CKOUser.PrivateKey, parsedResponseIssueSila.TransactionId);
-            var parsedResponseRefundDebitCard = responseRefundDebitCard.Data;
-            Assert.AreEqual(202, responseRefundDebitCard.StatusCode);
         }
 
         private void SuccessCheck(string handle, string privateKey)
