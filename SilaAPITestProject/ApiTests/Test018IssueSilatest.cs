@@ -13,8 +13,7 @@ namespace SilaApiTest
         public void Response200Success()
         {
             var user = DefaultConfig.FirstUser;
-            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
-            api.IssueSila(user.UserHandle, 420, user.PrivateKey);
+            var response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey, accountName: "defaultpt");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -89,12 +88,12 @@ namespace SilaApiTest
         }
 
         [TestMethod("9 - IssueSila - Unsuccessfully issue tokens")]
-        public void Response401NotVerified()
+        public void Response403NotVerified()
         {
             var user = DefaultConfig.ThirdUser;
             ApiResponse<object> response = api.IssueSila(user.UserHandle, 1000, user.PrivateKey);
 
-            Assert.AreEqual(401, response.StatusCode);
+            Assert.AreEqual(403, response.StatusCode);
             Assert.AreEqual("FAILURE", ((BaseResponse)response.Data).Status);
         }
 

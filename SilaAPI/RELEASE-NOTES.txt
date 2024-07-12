@@ -1,5 +1,6 @@
 v1.0.2
     - Added notices.txt
+    - Switched BouncyCastle to BouncyCastle.Cryptography
 
 v1.0.1
 New Features:
