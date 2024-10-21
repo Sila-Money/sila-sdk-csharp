@@ -14,7 +14,6 @@ namespace SilaApiTest
         private static User fifthUser;
         private static BusinessUser businessUser;
         private static User basicUser;
-        private static User deviceUser;
         private static BusinessUser basicBusiness;
         private static User instantUser;
         private static User ckoUser;
@@ -76,26 +75,8 @@ namespace SilaApiTest
                     FirstName = "Basic",
                     LastName = "Last",
                     CryptoAddress = DefaultConfig.BasicUser.CryptoAddress,
-                    DeviceFingerprint = "asdfghkl"
                 };
                 return basicUser;
-            }
-        }
-        public static User DeviceUser
-        {
-            get
-            {
-                if (deviceUser == null) deviceUser = new User
-                {
-                    UserHandle = DefaultConfig.DeviceUser.UserHandle,
-                    FirstName = "Device",
-                    LastName = "User",
-                    CryptoAddress = DefaultConfig.DeviceUser.CryptoAddress,
-                    DeviceFingerprint = "test_instant_ach",
-                    Phone = "1234567890",
-                    SmsOptIn = true
-                };
-                return deviceUser;
             }
         }
         public static BusinessUser BasicBusiness
@@ -110,9 +91,7 @@ namespace SilaApiTest
                     Type = "business",
                     BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
                     NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code,
-                    DeviceFingerprint = "test_business_ach",
                     Phone = "1234567890",
-                    SmsOptIn = true
                 };
                 return basicBusiness;
             }
@@ -129,7 +108,6 @@ namespace SilaApiTest
                     EntityName = "Instant User",
                     IdentityValue = "123458888",
                     Phone = "1234567890",
-                    SmsOptIn = true,
                     Email = System.Guid.NewGuid().ToString() + "instant@email.com",
                     AddressAlias = "default",
                     StreetAddress1 = "1232 Main Street",
@@ -139,7 +117,6 @@ namespace SilaApiTest
                     CryptoAddress = DefaultConfig.InstantUser.CryptoAddress,
                     CryptoAlias = "default",
                     Birthdate = new DateTime(1994, 1, 8),
-                    DeviceFingerprint = "test_instant_ach"
                 };
                 return instantUser;
             }
@@ -157,20 +134,20 @@ namespace SilaApiTest
         public static User CreateUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", System.Guid.NewGuid().ToString() + "fake@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), deviceFingerprint: "asdfghjk", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1");
+                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), addressAlias: "Office", cryptoAlias: "Address 1");
         }
 
         public static BusinessUser CreateBusinessUser(string handle, string entityName, string cryptoAddress, BusinessType businessType, NaicsSubcategory naicsSubcategory)
         {
             return new BusinessUser(handle, entityName, "123452222", "1234567890", System.Guid.NewGuid().ToString() + "fake@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code, deviceFingerprint: "asdfgh", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1", type: "business");
+                "", "New City", "OR", "97204", cryptoAddress, businessType, "https://www.businesswebsite.com", "test doing business as", naicsSubcategory.Code, addressAlias: "Office", cryptoAlias: "Address 1", type: "business");
         }
 
         //created new-cko user-  Swati(07-09-2023)
         public static User CreateCKOUser(string handle, string firstName, string lastName, string cryptoAddress)
         {
             return new User(handle, firstName, lastName, $"{firstName} {lastName}", "123452222", "1234567890", System.Guid.NewGuid().ToString() + "@email.com", "123 Main Street",
-                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), deviceFingerprint: "asdfghjk", smsOptIn: true, addressAlias: "Office", cryptoAlias: "Address 1");
+                "", "New City", "OR", "97204", cryptoAddress, new DateTime(1990, 05, 19), addressAlias: "Office", cryptoAlias: "Address 1");
         }
     }
 }

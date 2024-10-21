@@ -23,11 +23,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "email", EmitDefaultValue = false)]
         public string Email { get; set; }
-        /// <summary>
-        /// Optional. If true, if and if app is configured with an SMS flow, triggers sending a confirmation SMS to the phone number in contact.phone. If no contact.phone field was provided, this is ignored.
-        /// </summary>
-        [DataMember(Name = "sms_opt_in", EmitDefaultValue = false)]
-        public bool? SmsOptIn { get; set; }
 
         /// <summary>
         /// If user is not null, set user values in the Contact object
@@ -40,7 +35,6 @@ namespace SilaAPI.silamoney.client.domain
                 ContactAlias = user.ContactAlias ?? "";
                 Email = user.Email;
                 Phone = user.Phone;
-                SmsOptIn = user.SmsOptIn;
             }
         }
     }

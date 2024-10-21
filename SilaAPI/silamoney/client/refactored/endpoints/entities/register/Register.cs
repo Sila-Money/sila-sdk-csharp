@@ -43,7 +43,6 @@ namespace Sila.API.Client.Entities
             body.Add("contact", request.Contact);
             body.Add("crypto_entry", request.CryptoEntry);
             body.Add("entity", request.Entity);
-            body.Add("device", request.Device);
 
             string serializedBody = SerializationUtil.Serialize(body);
 

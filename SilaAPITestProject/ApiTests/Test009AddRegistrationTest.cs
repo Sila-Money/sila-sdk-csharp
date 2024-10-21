@@ -111,19 +111,5 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
             DefaultConfig.PhoneUuid = parsedResponse.Phone.Uuid;
         }
-
-        [TestMethod("5 - AddDevice - Success Response")]
-        public void Response200Device()
-        {
-            var user = DefaultConfig.FirstUser;
-            var deviceFingerprint = "test_device_fingerprint";
-            var response = api.AddDevice(user.UserHandle, user.PrivateKey, deviceFingerprint);
-
-            Assert.AreEqual(200, response.StatusCode);
-            var parsedResponse = (BaseResponse)response.Data;
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.AreEqual("SUCCESS", parsedResponse.Status);
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        }
     }
 }

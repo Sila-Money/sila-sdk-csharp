@@ -860,20 +860,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Add a new phone to a registered entity.
-        /// </summary>
-        /// <param name="userHandle">The user handle</param>
-        /// <param name="userPrivateKey">The user's private key</param>
-        /// <param name="phone">The new phone</param>
-        /// <param name="smsOptIn"></param>
-        /// <returns></returns>
-        public ApiResponse<object> AddPhone(string userHandle, string userPrivateKey, string phone, Boolean smsOptIn)
-        {
-            var body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, null, smsOptIn);
-            return CallRegistrationData<PhoneResponse>("add", RegistrationData.Phone, userPrivateKey, body);
-        }
-
-        /// <summary>
         /// Add a new identity to a registered entity.
         /// </summary>
         /// <param name="userHandle">The user handle</param>
@@ -900,20 +886,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Add a new device fingerprint to a registered entity
-        /// </summary>
-        /// <param name="userHandle">The user handle</param>
-        /// <param name="userPrivateKey">The user's private key</param>
-        /// <param name="deviceFingerprint">Iovation device token to be used in verification</param>
-        /// <param name="sessionIdentifier">Iovation device token to be used in verification</param>
-        /// <returns></returns>
-        public ApiResponse<object> AddDevice(string userHandle, string userPrivateKey, string deviceFingerprint, string sessionIdentifier = null)
-        {
-            var body = new DeviceMsg(Configuration.AppHandle, userHandle, deviceFingerprint, sessionIdentifier);
-            return CallRegistrationData<BaseResponse>("add", RegistrationData.Device, userPrivateKey, body);
-        }
-
-        /// <summary>
         /// Update an existing email of a registered entity
         /// </summary>
         /// <param name="userHandle">The user handle</param>
@@ -934,11 +906,10 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="userPrivateKey">The user's private key</param>
         /// <param name="uuid">The phone uuid</param>
         /// <param name="phone">The updated phone</param>
-        /// <param name="smsOptIn">optional boolean field. If true, and if app is configured to send SMS messages, sends a confirmation SMS to the passed-in phone number</param>
         /// <returns></returns>
-        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone, bool? smsOptIn = null)
+        public ApiResponse<object> UpdatePhone(string userHandle, string userPrivateKey, string uuid, string phone)
         {
-            PhoneMsg body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid, smsOptIn);
+            PhoneMsg body = new PhoneMsg(Configuration.AppHandle, userHandle, phone, uuid);
             return CallRegistrationData<PhoneResponse>("update", RegistrationData.Phone, userPrivateKey, body);
         }
 
@@ -1289,37 +1260,7 @@ namespace SilaAPI.silamoney.client.api
 
             return MakeRequest<BaseResponse>(path, body, userPrivateKey);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="transactionId"></param>
-        /// <param name="approve"></param>
-        /// <param name="notes"></param>
-        /// <param name="mockWireAccountName"></param>
-        /// <returns></returns>
-        public ApiResponse<object> ApproveWire(string userHandle, string userPrivateKey, string transactionId, bool approve, string notes = null, string mockWireAccountName = null)
-        {
-            ApproveWireMsg body = new ApproveWireMsg(userHandle, Configuration.AppHandle, transactionId, approve, notes, mockWireAccountName);
-            var path = "/approve_wire";
-            return MakeRequest<BaseResponse>(path, body, userPrivateKey);
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="transactionId"></param>
-        /// <param name="wireStatus"></param>
-        /// <returns></returns>
-        public ApiResponse<object> MockWireOutFile(string userHandle, string userPrivateKey, string transactionId, string wireStatus)
-        {
-            MockWireOutFileMsg body = new MockWireOutFileMsg(userHandle, Configuration.AppHandle, transactionId, wireStatus);
-            var path = "/mock_wire_out_file";
-            return MakeRequest<MockWireOutFileResponse>(path, body, userPrivateKey);
-        }
         /// <summary>
         /// 
         /// </summary>

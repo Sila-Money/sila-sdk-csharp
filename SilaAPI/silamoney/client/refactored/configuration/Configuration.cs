@@ -31,7 +31,7 @@ namespace Sila.API.Client.configuration
 
         public Configuration()
         {
-            UserAgent = "SilaSDK-.net/0.2.51";
+            UserAgent = "SilaSDK-.net/1.1.0";
             BasePath = Environments.SANDBOX.ToString();
             Debug = false;
             Timeout = 100000;
