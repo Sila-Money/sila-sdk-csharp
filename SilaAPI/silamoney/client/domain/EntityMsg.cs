@@ -32,11 +32,6 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [DataMember(Name = "entity", EmitDefaultValue = false)]
         public Entity Entity { get; set; }
-        /// <summary>
-        /// Device object field used in the EntityMsg object to save a device fingerprint
-        /// </summary>
-        [DataMember(Name = "device", EmitDefaultValue = false)]
-        public Device Device { get; set; }
 
         /// <summary>
         /// If user and appHandle are not null, set user values in the differents object
@@ -77,12 +72,10 @@ namespace SilaAPI.silamoney.client.domain
             Header = new Header(user.UserHandle, appHandle);
             if (user.AddressAlias != null || user.StreetAddress1 != null || user.StreetAddress2 != null || user.City != null || user.State != null || user.Country != null || user.PostalCode != null)
                 Address = new Address(user);
-            if (user.Phone != null || user.Email != null || user.ContactAlias != null || user.SmsOptIn.HasValue)
+            if (user.Phone != null || user.Email != null || user.ContactAlias != null)
                 Contact = new Contact(user);
             if (user.CryptoAddress != null || user.CryptoAlias != null)
                 CryptoEntry = new CryptoEntry(user);
-            if (user.DeviceFingerprint != null || user.SessionIdentifier != null)
-                Device = new Device(user);
             this.MessageOption = Message.EntityMsg;
         }
     }

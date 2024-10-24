@@ -31,9 +31,5 @@ namespace Sila.API.Client.Entities
         /// 
         /// </summary>
         public Entity Entity { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Device Device { get; set; }
     }
 }

@@ -29,11 +29,6 @@ namespace Sila.API.Client.Domain
         /// INSTANTSETTLEMENT
         /// </summary>
         [EnumMember(Value = "INSTANT_SETTLEMENT")]
-        InstantSettlement,
-        /// <summary>
-        /// WIRE
-        /// </summary>
-        [EnumMember(Value = "WIRE")]
-        Wire
+        InstantSettlement
     }
 }

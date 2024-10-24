@@ -57,10 +57,6 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Phones.First().ModifiedEpoch);
             Assert.IsNotNull(parsedResponse.Phones.First().Phone);
             Assert.IsNotNull(parsedResponse.Phones.First().Uuid);
-            Assert.IsTrue(parsedResponse.Devices.Count > 0);           
-            Assert.IsNotNull(parsedResponse.Devices.First().AddedEpoch);
-            Assert.IsNotNull(parsedResponse.Devices.First().ModifiedEpoch);
-            Assert.IsNotNull(parsedResponse.Devices.First().Uuid);
             Assert.IsNotNull(parsedResponse.UserHandle);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
@@ -119,10 +115,6 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Phones.First().Modified);
             Assert.IsNotNull(parsedResponse.Phones.First().Phone);
             Assert.IsNotNull(parsedResponse.Phones.First().Uuid);
-            Assert.IsTrue(parsedResponse.Devices.Count > 0);        
-            Assert.IsNotNull(parsedResponse.Devices.First().AddedEpoch);
-            Assert.IsNotNull(parsedResponse.Devices.First().ModifiedEpoch);
-            Assert.IsNotNull(parsedResponse.Devices.First().Uuid);
             Assert.IsNotNull(parsedResponse.UserHandle);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }

@@ -29,7 +29,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public static readonly RegistrationData Device = new RegistrationData("device");
 
         private RegistrationData(string url)
         {

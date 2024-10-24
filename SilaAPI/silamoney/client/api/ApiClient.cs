@@ -132,59 +132,8 @@ namespace SilaAPI.silamoney.client.api
             var response = RestClient.Execute(request);
 
             return response;
-
-            //var client = new HttpClient();
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"{RestClient.BaseUrl}{path}");
-            //client.Timeout = new TimeSpan(Configuration.Timeout);
-            //request.Headers.Add("User-Agent", Configuration.UserAgent);
-            //foreach (var param in headerParams)
-            //    request.Headers.Add(param.Key, param.Value);
-            //var content = new StringContent(postBody.ToString(), null, contentType);
-            //request.Content = content;
-            //var response = client.SendAsync(request);
-            //return response;
-            ////response.EnsureSuccessStatusCode();
-            ////Console.WriteLine(response.Content.ReadAsStringAsync());
-
-            //HttpWebResponse oResponse = null;
-            //var request = WebRequest.Create($"{RestClient.BaseUrl}{path}");
-            //try
-            //{
-            //    byte[] requestBytes = null;
-            //    if (!string.IsNullOrEmpty(postBody.ToString()))
-            //    {
-            //        requestBytes = Encoding.ASCII.GetBytes(postBody.ToString());
-            //        request.ContentLength = requestBytes.Length;
-            //    }
-
-
-            //    request.ContentType = "application/json";
-            //    request.Method = "GET";
-            //    request.Timeout = Configuration.Timeout;
-            //    request.Headers.Add("User-Agent", Configuration.UserAgent);
-            //    foreach (var param in headerParams)
-            //        request.Headers.Add(param.Key, param.Value);
-            //    if (!string.IsNullOrEmpty(postBody.ToString()))
-            //    {
-            //        Stream writer = request.GetRequestStream();
-            //        writer.Write(requestBytes, 0, requestBytes.Length);
-            //        writer.Flush();
-            //        writer.Close();
-            //    }
-            //    var response = (HttpWebResponse)request.GetResponse();
-            //    return response;
-            //}
-            //catch (Exception ex)
-            //{
-
-
-            //}
-
-            ////var response = (HttpWebResponse)request.GetResponse();
-            ////return response;
-            //return oResponse;
-
         }
+
         public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string filePath, string contentType)
         {
             var request = new RestRequest(path, method, DataFormat.None);
