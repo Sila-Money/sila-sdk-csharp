@@ -3,6 +3,7 @@ v1.1.0
     - deprecated SMS related options
     - removed obsolete endpoints
     - added support for .NET 8.0
+    - removed support for .NET Core 2.1
 
 v1.0.2
     - Added notices.txt
