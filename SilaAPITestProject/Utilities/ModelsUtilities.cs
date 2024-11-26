@@ -11,7 +11,6 @@ namespace SilaApiTest
         private static User secondUser;
         private static User thirdUser;
         private static User fourthUser;
-        private static User fifthUser;
         private static BusinessUser businessUser;
         private static User basicUser;
         private static BusinessUser basicBusiness;
@@ -49,14 +48,6 @@ namespace SilaApiTest
                 return fourthUser;
             }
         }
-        public static User FifthUser
-        {
-            get
-            {
-                if (fifthUser == null) fifthUser = CreateUser(DefaultConfig.FifthUser.UserHandle, "Fif", "User", DefaultConfig.FifthUser.CryptoAddress);
-                return fifthUser;
-            }
-        }
         public static BusinessUser BusinessUser
         {
             get
@@ -92,6 +83,7 @@ namespace SilaApiTest
                     BusinessTypeUuid = DefaultConfig.BusinessTypes.First().Uuid,
                     NaicsCode = DefaultConfig.NaicsCategories.First().Value.First().Code,
                     Phone = "1234567890",
+                    SmsOptIn = true,
                 };
                 return basicBusiness;
             }
@@ -108,6 +100,7 @@ namespace SilaApiTest
                     EntityName = "Instant User",
                     IdentityValue = "123458888",
                     Phone = "1234567890",
+                    SmsOptIn = true,
                     Email = System.Guid.NewGuid().ToString() + "instant@email.com",
                     AddressAlias = "default",
                     StreetAddress1 = "1232 Main Street",

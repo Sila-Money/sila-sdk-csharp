@@ -2,6 +2,7 @@
 
 namespace Sila.API.Client
 {
+    #pragma warning disable CS1591
     /// <summary>
     /// Singleton class used to configure the api calls.
     /// </summary>
@@ -48,4 +49,5 @@ namespace Sila.API.Client
             return _instance;
         }
     }
+    #pragma warning restore CS1591
 }

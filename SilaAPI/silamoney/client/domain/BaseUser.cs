@@ -1,4 +1,6 @@
-﻿namespace SilaAPI.silamoney.client.domain
+﻿using System;
+
+namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
     /// 
@@ -70,5 +72,10 @@
         /// Optional. Choice Field: valid values are individual and business. (If not specified, other validation fields assume individual)
         /// </summary>
         public string Type { get; set; }
+        /// <summary>
+        /// Optional. If true, if and if app is configured with an SMS flow, triggers sending a confirmation SMS to the phone number in contact.phone. If no contact.phone field was provided, this is ignored.
+        /// </summary>
+        [Obsolete("SmsOptIn has been deprecated and will be removed from the next version of the SDK. Please remove all uses from your code.", false)]
+        public bool? SmsOptIn { get; set; }
     }
 }

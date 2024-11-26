@@ -8,6 +8,7 @@ using Sila.API.Client.Utils;
 
 namespace Sila.API.Client.Accounts
 {
+    #pragma warning disable CS1591
     public class GetInstitutions : AbstractEndpoint
     {
         private static string endpoint = "/get_institutions";
@@ -44,4 +45,5 @@ namespace Sila.API.Client.Accounts
             return ResponseUtils.PrepareResponse<GetInstitutionsResponse>(response);
         }
     }
+    #pragma warning restore CS1591
 }

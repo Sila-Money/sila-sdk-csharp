@@ -39,7 +39,7 @@ namespace SilaApiTest
         [TestMethod("2 - CheckHandle - Default user failure")]
         public void Response200Failure()
         {
-            var handle = "user.silamoney.eth";
+            var handle = "user";
             var response = api.CheckHandle(handle);
 
             Assert.AreEqual(200, response.StatusCode);

@@ -30,11 +30,5 @@ namespace SilaAPI.silamoney.client.domain
         /// </summary>
         [EnumMember(Value = "INSTANT_SETTLEMENT")]
         InstantSettlement,
-
-        /// <summary>
-        /// WIRE
-        /// </summary>
-        [EnumMember(Value = "WIRE")]
-        Wire
     }
 }

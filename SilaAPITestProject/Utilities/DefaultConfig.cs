@@ -11,9 +11,8 @@ namespace SilaApiTest
         //SANDBOX
         public static string environment = "https://sandbox.silamoney.com/0.2";
         public static string privateKey = "9c17e7b767b8f4a63863caf1619ef3e9967a34b287ce58542f3eb19b5a72f076";
-        public static string appHandle = "arc_sandbox_test_app01.silamoney.eth";
+        public static string appHandle = "arc_sandbox_test_app01";
         public static string businessUuid = "9f280665-629f-45bf-a694-133c86bffd5e";
-        public static string WirebusinessUuid = "25e77968-1ca3-4a4b-8e72-506dcac20dc7";
         public static string InvalidBusinessUuid { get { return "6d933c10-fa89-41ab-b443-2e78a7cc8cac"; } }
         public static string IssueTrans { get { return "Issue Trans"; } }
         public static string TransferTrans { get { return "Transfer Trans"; } }
@@ -29,7 +28,6 @@ namespace SilaApiTest
         private static UserConfiguration secondUser;
         private static UserConfiguration thirdUser;
         private static UserConfiguration fourthUser;
-        private static UserConfiguration fifthUser;
         private static UserConfiguration businessUser;
         private static UserConfiguration basicUser;
         private static UserConfiguration basicBusiness;
@@ -79,15 +77,6 @@ namespace SilaApiTest
             {
                 if (fourthUser == null) fourthUser = new UserConfiguration();
                 return fourthUser;
-            }
-        }
-
-        public static UserConfiguration FifthUser
-        {
-            get
-            {
-                if (fifthUser == null) fifthUser = new UserConfiguration();
-                return fifthUser;
             }
         }
 

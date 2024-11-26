@@ -1,5 +1,6 @@
 namespace Sila.API.Client.Accounts
 {
+    #pragma warning disable CS1591
     public class UpdateAccountRequest
     {
         public string UserHandle { get; set; }
@@ -8,4 +9,5 @@ namespace Sila.API.Client.Accounts
         public string NewAccountName { get; set; }
         public bool IsActive { get; set; } = true;
     }
+    #pragma warning restore CS1591
 }

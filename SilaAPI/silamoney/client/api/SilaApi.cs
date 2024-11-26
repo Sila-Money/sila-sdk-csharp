@@ -170,7 +170,7 @@ namespace SilaAPI.silamoney.client.api
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
         public ApiResponse<object> IssueSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string transactionIdempotencyId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId, null, transactionIdempotencyId);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, this.Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.IssueMsg, cardName, sourceId, destinationId, transactionIdempotencyId);
             var path = "/issue_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);
@@ -247,11 +247,11 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="cardName"></param>
         /// <param name="sourceId"></param>
         /// <param name="destinationId"></param>
-        /// <param name="mockWireAccountName"></param>
+        /// <param name="transactionIdempotencyId"></param>
         /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string mockWireAccountName = null, string transactionIdempotencyId = null)
+        public ApiResponse<object> RedeemSila(string userHandle, int amount, string userPrivateKey, string accountName = "default", string descriptor = null, string businessUuid = null, ProcessingType? processingType = null, string cardName = null, string sourceId = null, string destinationId = null, string transactionIdempotencyId = null)
         {
-            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId, mockWireAccountName, transactionIdempotencyId);
+            BankTransactionMessage body = new BankTransactionMessage(userHandle, amount, Configuration.AppHandle, accountName, descriptor, businessUuid, processingType, BaseMessage.Message.RedeemMsg, cardName, sourceId, destinationId, transactionIdempotencyId);
             var path = "/redeem_sila";
 
             return MakeRequest<TransactionResponse>(path, body, userPrivateKey);

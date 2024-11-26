@@ -15,13 +15,9 @@ jobs:
     vmImage: 'ubuntu-latest'
   strategy:
     matrix:
-      netCore21:
-        sdkVersion: '2.1.x'
-        frameworkVersion: 'netcoreapp2.1'
-        #executeSonar: true
-      netCore31:
-        sdkVersion: '3.1.x'
-        frameworkVersion: 'netcoreapp3.1'
+      net8.0:
+        sdkVersion: '8.x'
+        frameworkVersion: 'net8.0'
   steps:
   - task: UseDotNet@2
     inputs:
@@ -83,6 +79,7 @@ jobs:
   - task: VSBuild@1
     inputs:
       solution: '$(solution)'
+      vsVersion: 'latest'
       msbuildArgs: '/p:TargetFrameworks=$(frameworkVersion)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
