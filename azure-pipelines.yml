@@ -15,7 +15,7 @@ jobs:
     vmImage: 'ubuntu-latest'
   strategy:
     matrix:
-      net8:
+      net8.0:
         sdkVersion: '8.x'
         frameworkVersion: 'net8.0'
   steps:
@@ -79,6 +79,7 @@ jobs:
   - task: VSBuild@1
     inputs:
       solution: '$(solution)'
+      vsVersion: 'latest'
       msbuildArgs: '/p:TargetFrameworks=$(frameworkVersion)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
