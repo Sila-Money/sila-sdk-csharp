@@ -8,6 +8,7 @@ using Sila.API.Client.Utils;
 
 namespace Sila.API.Client.Entities
 {
+    #pragma warning disable CS1591
     public class CheckPartnerKyc : AbstractEndpoint
     {
         private static string endpoint = "/check_partner_kyc";
@@ -36,4 +37,5 @@ namespace Sila.API.Client.Entities
             return ResponseUtils.PrepareResponse<CheckPartnerKycResponse>(response);
         }
     }
+    #pragma warning restore CS1591
 }

@@ -6,6 +6,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace SilaAPI.silamoney.client.util
 {
+    #pragma warning disable CS1591
     public class RemoveStringsImplementation : DefaultContractResolver
     {
         public static readonly RemoveStringsImplementation Instance = new RemoveStringsImplementation();
@@ -25,6 +26,5 @@ namespace SilaAPI.silamoney.client.util
             return property;
         }
     }
-
-
+    #pragma warning restore CS1591
 }
