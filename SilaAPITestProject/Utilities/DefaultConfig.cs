@@ -2,7 +2,6 @@
 using SilaAPI.silamoney.client.domain;
 using System;
 using System.Collections.Generic;
-using static SilaAPITestProject.Utilities.PlaidTokenHelper;
 
 namespace SilaApiTest
 {
@@ -122,14 +121,6 @@ namespace SilaApiTest
             {
                 if (ckoUser == null) ckoUser = new UserConfiguration();
                 return ckoUser;
-            }
-        }
-
-        public static PlaidConfiguration PlaidToken
-        {
-            get
-            {
-                return getPlaidToken();
             }
         }
 

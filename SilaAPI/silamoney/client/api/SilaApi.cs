@@ -387,21 +387,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// Makes a call to the plaid_sameday_auth endpoint.
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="accountName"></param>        
-        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> PlaidSameDayAuth(string userHandle, string userPrivateKey, string accountName)
-        {
-            PlaidSameDayAuthMsg body = new PlaidSameDayAuthMsg(userHandle, Configuration.AppHandle, accountName);
-            var path = "/plaid_sameday_auth";
-
-            return MakeRequest<PlaidSameDayAuthResponse>(path, body, userPrivateKey);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="userHandle"></param>
@@ -966,21 +951,6 @@ namespace SilaAPI.silamoney.client.api
         }
 
         /// <summary>
-        /// An end-user who is attempting to complete the Plaid's authorization needs a Plaid link_token to initiate the process.
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="userPrivateKey"></param>
-        /// <param name="androidPackageName">optional</param>
-        /// <returns>ApiResponse&lt;object&gt; object with the server response</returns>
-        public ApiResponse<object> PlaidLinkToken(string userHandle, string userPrivateKey, string androidPackageName = null)
-        {
-            PlaidLinkTokenMsg body = new PlaidLinkTokenMsg(userHandle, Configuration.AppHandle, androidPackageName);
-            var path = "/plaid_link_token";
-
-            return MakeRequest<PlaidLinkTokenResult>(path, body, userPrivateKey);
-        }
-
-        /// <summary>
         /// Deletes a bank account.
         /// </summary>
         /// <param name="userHandle"></param>
@@ -1028,19 +998,6 @@ namespace SilaAPI.silamoney.client.api
             body.Add("active", isActive);
 
             return MakeRequest<UpdateAccountResponse>(path, body, userPrivateKey);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userHandle"></param>
-        /// <param name="accountName"></param>
-        /// <returns></returns>
-        public ApiResponse<object> PlaidUpdateLinkToken(string userHandle, string accountName)
-        {
-            PlaidUpdateLinkTokenMsg body = new PlaidUpdateLinkTokenMsg(userHandle, Configuration.AppHandle, accountName);
-            var path = "/plaid_update_link_token";
-            return MakeRequest<PlaidUpdateLinkTokenResponse>(path, body);
         }
 
         /// <summary>

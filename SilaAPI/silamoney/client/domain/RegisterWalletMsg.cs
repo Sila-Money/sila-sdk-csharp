@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace SilaAPI.silamoney.client.domain
 {
     /// <summary>
-    /// RegisterWalletMsg object used in the plaid same day auth endpoint
+    /// RegisterWalletMsg object
     /// </summary>
     public partial class RegisterWalletMsg : BaseMessageNoMsg
     {

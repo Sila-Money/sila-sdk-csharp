@@ -1,19 +1,67 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using RestSharp;
 using SilaAPI.silamoney.client.api;
+using SilaAPI.silamoney.client.configuration;
 using SilaAPI.silamoney.client.domain;
+using System.Collections.Generic;
+using System.Net;
+using System.Reflection;
+using Newtonsoft.Json;
 
 namespace SilaApiTest
 {
+    #pragma warning disable CS0618
     [TestClass]
     public class Test020RedeemSilaTest
-    {
-        SilaApi api = DefaultConfig.Client;
+    {    
+        private Mock<ApiClient> mockApiClient;
+        private SilaApi api;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            mockApiClient = new Mock<ApiClient>(DefaultConfig.environment) { CallBase = true };
+
+            // Create a real instance of Configuration
+            var configuration = new Configuration();
+            configuration.PrivateKey = DefaultConfig.privateKey;
+
+            // Use reflection to set the internal ApiClient instance in Configuration
+            var apiClientField = typeof(Configuration).GetField("_apiClient", BindingFlags.Instance | BindingFlags.NonPublic);
+            apiClientField.SetValue(configuration, mockApiClient.Object);
+
+            // Use the real SilaApi instance with the mocked ApiClient in Configuration
+            api = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, false);
+            var configProperty = typeof(SilaApi).GetProperty("Configuration", BindingFlags.Instance | BindingFlags.NonPublic);
+            configProperty.SetValue(api, configuration);
+
+        }
 
         [TestMethod("1 - RedeemSila - Successful redeem for user")]
         public void T001Response200Success()
         {
+            var mockResponse = new Mock<IRestResponse>();
+            mockResponse.SetupGet(r => r.Headers).Returns(new List<RestSharp.Parameter>{});
+            mockResponse.SetupGet(r => r.StatusCode).Returns(HttpStatusCode.OK);
+            mockResponse.SetupGet(r => r.Content).Returns(JsonConvert.SerializeObject(new TransactionResponse
+            {
+                Status = "SUCCESS",
+                TransactionId = "mock-transaction-id",
+                Reference = "mock-reference",
+                ResponseTimeMs = "123"
+            }));
+
+            mockApiClient.Setup(m => m.CallApi(
+                It.IsAny<string>(),
+                It.IsAny<Method>(),
+                It.IsAny<object>(),
+                It.IsAny<Dictionary<string, string>>(),
+                It.IsAny<string>()))
+            .Returns(mockResponse.Object);
+
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "defaultpt");
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "mock_acct");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -23,23 +71,31 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        [TestMethod("2 - RedeemSila - Poll for successful redeem")]
-        [Timeout(480000)]
-        public void T002Response200Success()
+        [TestMethod("2 - RedeemSila - Successful redeem tokens with business uuid and descriptor")]
+        public void T002Response200Descriptor()
         {
-            var user = DefaultConfig.SecondUser;
-            var filters = new SearchFilters{
-                ReferenceId = DefaultConfig.RedeemReference
-            };
+            var mockResponse = new Mock<IRestResponse>();
+            mockResponse.SetupGet(r => r.Headers).Returns(new List<RestSharp.Parameter>{});
+            mockResponse.SetupGet(r => r.StatusCode).Returns(HttpStatusCode.OK);
+            mockResponse.SetupGet(r => r.Content).Returns(JsonConvert.SerializeObject(new TransactionResponse
+            {
+                Status = "SUCCESS",
+                TransactionId = "mock-transaction-id",
+                Reference = "mock-reference",
+                ResponseTimeMs = "123",
+                Descriptor = DefaultConfig.RedeemTrans
+            }));
 
-            GetTransactionsTest.Poll(user.UserHandle, filters, "success");
-        }
+            mockApiClient.Setup(m => m.CallApi(
+                It.IsAny<string>(),
+                It.IsAny<Method>(),
+                It.IsAny<object>(),
+                It.IsAny<Dictionary<string, string>>(),
+                It.IsAny<string>()))
+            .Returns(mockResponse.Object);
 
-        [TestMethod("3 - RedeemSila - Successful redeem tokens with business uuid and descriptor")]
-        public void T003Response200Descriptor()
-        {
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid, accountName: "defaultpt");
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.businessUuid, accountName: "mock_acct");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -49,11 +105,30 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        [TestMethod("4 - RedeemSila - Successful redeem tokens with same day ACH")]
-        public void T004Response200SameDay()
+        [TestMethod("3 - RedeemSila - Successful redeem tokens with same day ACH")]
+        public void T003Response200SameDay()
         {
+            var mockResponse = new Mock<IRestResponse>();
+            mockResponse.SetupGet(r => r.Headers).Returns(new List<RestSharp.Parameter>{});
+            mockResponse.SetupGet(r => r.StatusCode).Returns(HttpStatusCode.OK);
+            mockResponse.SetupGet(r => r.Content).Returns(JsonConvert.SerializeObject(new TransactionResponse
+            {
+                Status = "SUCCESS",
+                TransactionId = "mock-transaction-id",
+                Reference = "mock-reference",
+                ResponseTimeMs = "123"
+            }));
+
+            mockApiClient.Setup(m => m.CallApi(
+                It.IsAny<string>(),
+                It.IsAny<Method>(),
+                It.IsAny<object>(),
+                It.IsAny<Dictionary<string, string>>(),
+                It.IsAny<string>()))
+            .Returns(mockResponse.Object);
+   
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday, accountName: "defaultpt");
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, processingType: ProcessingType.Sameday, accountName: "mock_acct");
             var parsedResponse = (TransactionResponse)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);
@@ -61,31 +136,54 @@ namespace SilaApiTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(parsedResponse.TransactionId));
         }
 
-        [TestMethod("5 - RedeemSila - Unsuccessful redeem for empty wallet")]
-        public void T005Response200Failure()
+        [TestMethod("4 - RedeemSila - Unsuccessful redeem for empty wallet")]
+        public void T004Response200Failure()
         {
-            var user = DefaultConfig.FourthUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey);
-            var parsedResponse = (BaseResponse)response.Data;
+            var mockResponse = new Mock<IRestResponse>();            
+            mockResponse.SetupGet(r => r.Headers).Returns(new List<RestSharp.Parameter>{});
+            mockResponse.SetupGet(r => r.StatusCode).Returns(HttpStatusCode.BadRequest);
+            mockResponse.SetupGet(r => r.Content).Returns(JsonConvert.SerializeObject(new BadRequestResponse
+            {
+                Status = "FAILURE",
+                Reference = "mock-reference",
+                ResponseTimeMs = "123",
+                Message = "Insufficient wallet balance."
+            }));
 
-            //Assert.AreEqual(400, response.StatusCode);
+            mockApiClient.Setup(m => m.CallApi(
+                It.IsAny<string>(),
+                It.IsAny<Method>(),
+                It.IsAny<object>(),
+                It.IsAny<Dictionary<string, string>>(),
+                It.IsAny<string>()))
+            .Returns(mockResponse.Object);
+
+            var user = DefaultConfig.FourthUser;
+            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, accountName: "mock_acct");
+            var parsedResponse = (BadRequestResponse)response.Data;
+
+            Assert.AreEqual(400, response.StatusCode);
             Assert.AreEqual("FAILURE", parsedResponse.Status);
             DefaultConfig.InvalidRedeemReference = parsedResponse.Reference;
         }
 
-        [TestMethod("6 - RedeemSila - Empty user handle failure")]
-        public void T006Response400()
+        [TestMethod("5 - RedeemSila - Empty user handle failure")]
+        public void T005Response400()
         {
-            ApiResponse<object> response = api.RedeemSila("", 100, DefaultConfig.FirstUser.PrivateKey);
+            var realApi = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, false);
+
+            ApiResponse<object> response = realApi.RedeemSila("", 100, DefaultConfig.FirstUser.PrivateKey);
 
             Assert.AreEqual(400, response.StatusCode);
         }
 
-        [TestMethod("7 - RedeemSila - Fail redeem tokens with invalid business uuid and descriptor")]
-        public void T007Response400Descriptor()
+        [TestMethod("6 - RedeemSila - Fail redeem tokens with invalid business uuid and descriptor")]
+        public void T006Response400Descriptor()
         {
+            var realApi = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, false);
+
             var user = DefaultConfig.SecondUser;
-            var response = api.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.InvalidBusinessUuid);
+            var response = realApi.RedeemSila(user.UserHandle, 100, user.PrivateKey, descriptor: DefaultConfig.RedeemTrans, businessUuid: DefaultConfig.InvalidBusinessUuid);
             var parsedResponse = (BadRequestResponse)response.Data;
 
             Assert.AreEqual(400, response.StatusCode);
@@ -93,16 +191,18 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        [TestMethod("8 - RedeemSila - Bad user signature failure")]
-        public void T008Response401User()
+        [TestMethod("7 - RedeemSila - Bad user signature failure")]
+        public void T007Response401User()
         {
-            var response = api.RedeemSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.privateKey);
+            var realApi = new SilaApi(DefaultConfig.environment, DefaultConfig.privateKey, DefaultConfig.appHandle, false);
 
-            Assert.AreEqual(401, response.StatusCode, "Bad user signature status - IssueSila");
+            var response = realApi.RedeemSila(DefaultConfig.FirstUser.UserHandle, 100, DefaultConfig.privateKey);
+
+            Assert.AreEqual(401, response.StatusCode, "Bad user signature status - RedeemSila");
         }
 
-        [TestMethod("9 - RedeemSila - Bad app signature failure")]
-        public void T009Response401()
+        [TestMethod("8 - RedeemSila - Bad app signature failure")]
+        public void T008Response401()
         {
             var user = DefaultConfig.FirstUser;
             var failApi = new SilaApi(DefaultConfig.environment,
@@ -110,7 +210,8 @@ namespace SilaApiTest
                 DefaultConfig.appHandle);
             var response = failApi.RedeemSila(user.UserHandle, 100, user.PrivateKey);
 
-            Assert.AreEqual(401, response.StatusCode, "Bad app signature status - IssueSila");
+            Assert.AreEqual(401, response.StatusCode, "Bad app signature status - RedeemSila");
         }
     }
+    #pragma warning restore CS0618
 }

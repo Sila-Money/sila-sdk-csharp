@@ -7,13 +7,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("SilaAPITestProject")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace SilaAPI.silamoney.client.api
 {
     /// <summary>
     /// Class used to prepare requests and make calls to the api server.
     /// </summary>
-    internal partial class ApiClient
+    public partial class ApiClient
     {
         /// <summary>
         /// ApiClient constructor.
@@ -100,7 +103,7 @@ namespace SilaAPI.silamoney.client.api
         /// <param name="headerParams"></param>
         /// <param name="contentType"></param>
         /// <returns>The response from the server.</returns>
-        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string contentType)
+        public virtual object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string contentType)
         {
             var request = PrepareRequest(
                 path, method, postBody, headerParams, contentType);
@@ -134,7 +137,7 @@ namespace SilaAPI.silamoney.client.api
             return response;
         }
 
-        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string filePath, string contentType)
+        public virtual object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, string filePath, string contentType)
         {
             var request = new RestRequest(path, method, DataFormat.None);
             foreach (var param in headerParams)
@@ -150,7 +153,7 @@ namespace SilaAPI.silamoney.client.api
             return RestClient.Execute(request);
         }
 
-        public object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, List<UploadDocument> uploadDocument)
+        public virtual object CallApi(string path, Method method, object postBody, Dictionary<string, string> headerParams, List<UploadDocument> uploadDocument)
         {
             var request = new RestRequest(path, method, DataFormat.None);
             foreach (var param in headerParams)

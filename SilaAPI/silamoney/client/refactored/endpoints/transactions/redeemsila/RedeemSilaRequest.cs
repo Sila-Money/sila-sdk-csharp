@@ -45,10 +45,6 @@ namespace Sila.API.Client.Transactions
         /// <summary>
         /// 
         /// </summary>
-        public string MockWireAccountName { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
         public string TransactionIdempotencyId { get; set; }
     }
 
