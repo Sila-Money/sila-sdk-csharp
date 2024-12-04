@@ -14,7 +14,7 @@ namespace SilaApiTest
         [TestMethod("1 - GetEntities - Successful GetEntities")]
         public void T022Response200()
         {
-            var response = api.GetEntities();
+            var response = api.GetEntities(perPage: 50);
 
             var parsedResponse = (GetEntitiesResponse)response.Data;
 
@@ -28,7 +28,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().FullName);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Handle);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().BusinessType);
-            //Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Dba);
+            Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Dba);
             Assert.IsNotNull(parsedResponse.Entities.Businesses.First().Uuid);
             Assert.IsTrue(parsedResponse.Entities.Businesses.First().BlockchainAddresses.Count > 0);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
