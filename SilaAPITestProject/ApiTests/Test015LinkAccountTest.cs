@@ -9,109 +9,6 @@ namespace SilaApiTest
     {
         SilaApi api = DefaultConfig.Client;
 
-        [TestMethod("5 - LinkAccount - Link through plaid token")]
-        public void T005_Response200Success()
-        {
-            var user = DefaultConfig.FirstUser;
-            var plaid = DefaultConfig.PlaidToken;
-
-            var response = api.LinkAccount(
-                userHandle: user.UserHandle, 
-                publicToken: plaid.Token, 
-                userPrivateKey: user.PrivateKey, 
-                accountName: "defaultpt"
-            );
-            var parsedResponse = (LinkAccountResponse)response.Data;
-
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.AccountName);
-            Assert.IsNotNull(parsedResponse.AccountOwnerName);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Reference);
-            Assert.IsNotNull(parsedResponse.Status);
-
-            user = DefaultConfig.SecondUser;
-            plaid = DefaultConfig.PlaidToken;
-
-            response = api.LinkAccount(
-                userHandle: user.UserHandle, 
-                publicToken: plaid.Token, 
-                userPrivateKey: user.PrivateKey, 
-                accountName: "defaultpt"
-            );
-            parsedResponse = (LinkAccountResponse)response.Data;
-
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.AccountName);
-            Assert.IsNotNull(parsedResponse.AccountOwnerName);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Reference);
-            Assert.IsNotNull(parsedResponse.Status);
-
-            user = DefaultConfig.FourthUser;
-            plaid = DefaultConfig.PlaidToken;
-
-            response = api.LinkAccount(
-                userHandle: user.UserHandle, 
-                publicToken: plaid.Token, 
-                userPrivateKey: user.PrivateKey, 
-                accountName: "defaultpt", 
-                plaidTokenType: "legacy"
-            );
-            parsedResponse = (LinkAccountResponse)response.Data;
-
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.AccountName);
-            Assert.IsNotNull(parsedResponse.AccountOwnerName);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Reference);
-            Assert.IsNotNull(parsedResponse.Status);
-
-            user = DefaultConfig.InstantUser;
-            plaid = DefaultConfig.PlaidToken;
-
-            response = api.LinkAccount(
-                userHandle: user.UserHandle, 
-                publicToken: plaid.Token, 
-                userPrivateKey: user.PrivateKey, 
-                accountName: "defaultpt"
-            );
-            parsedResponse = (LinkAccountResponse)response.Data;
-
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.AccountName);
-            Assert.IsNotNull(parsedResponse.AccountOwnerName);
-            Assert.IsNotNull(parsedResponse.EntityName);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Reference);
-            Assert.IsNotNull(parsedResponse.Status);
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        }
-
-        [TestMethod("6 - LinkAccount - Link through plaid token and account id")]
-        public void T006_Response200SuccessId()
-        {
-            var user = DefaultConfig.FirstUser;
-            var plaid = DefaultConfig.PlaidToken;
-
-            var response = api.LinkAccount(
-                userHandle: user.UserHandle, 
-                publicToken: plaid.Token, 
-                userPrivateKey: user.PrivateKey, 
-                accountName: "sync_by_id",
-                accountId: plaid.AccountId
-            );
-            var parsedResponse = (LinkAccountResponse)response.Data;
-
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.AccountName);
-            Assert.IsNotNull(parsedResponse.AccountOwnerName);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Reference);
-            Assert.IsNotNull(parsedResponse.Status);
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        }
-
         [TestMethod("7 - LinkAccount - Link direct account link")]
         public void T007_Response200SuccessDirect()
         {
@@ -163,9 +60,56 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Status);
 
             response = api.LinkAccountDirect(
+                userHandle: DefaultConfig.SecondUser.UserHandle, 
+                userPrivateKey: DefaultConfig.SecondUser.PrivateKey,
+                accountName: "defaultpt",
+                accountNumber: "12345678912", 
+                routingNumber: "123456780"
+            );
+            parsedResponse = (LinkAccountResponse)response.Data;
+
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.AccountName);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+
+            response = api.LinkAccountDirect(
                 userHandle: user.UserHandle, 
                 userPrivateKey: user.PrivateKey,
-                accountName: "toupdate",
+                accountName: "defaultpt",
+                accountNumber: "12345678912", 
+                routingNumber: "123456780"
+            );
+            parsedResponse = (LinkAccountResponse)response.Data;
+
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.AccountName);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
+
+            response = api.LinkAccountDirect(
+                userHandle: DefaultConfig.FourthUser.UserHandle, 
+                userPrivateKey: DefaultConfig.FourthUser.PrivateKey,
+                accountName: "defaultpt",
+                accountNumber: "12345678912", 
+                routingNumber: "123456780"
+            );
+            parsedResponse = (LinkAccountResponse)response.Data;
+
+            Assert.IsTrue(parsedResponse.Success);
+            Assert.IsNotNull(parsedResponse.AccountName);
+            Assert.IsNotNull(parsedResponse.Message);
+            Assert.IsNotNull(parsedResponse.Reference);
+            Assert.IsNotNull(parsedResponse.Status);
+            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
+
+            response = api.LinkAccountDirect(
+                userHandle: DefaultConfig.InstantUser.UserHandle, 
+                userPrivateKey: DefaultConfig.InstantUser.PrivateKey,
+                accountName: "defaultpt",
                 accountNumber: "12345678912", 
                 routingNumber: "123456780"
             );

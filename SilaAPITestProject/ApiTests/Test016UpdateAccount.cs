@@ -13,7 +13,7 @@ namespace SilaApiTest
         public void T020Response200()
         {
             var response = api.UpdateAccount(
-                accountName: "toupdate",
+                accountName: "unlink",
                 newAccountName: "updated",
                 userHandle: DefaultConfig.FirstUser.UserHandle,
                 userPrivateKey: DefaultConfig.FirstUser.PrivateKey

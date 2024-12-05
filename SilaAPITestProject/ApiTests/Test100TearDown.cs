@@ -128,18 +128,17 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
-        [TestMethod("107 - DeleteLinkAccountDirect - Successful delete account")]
-        public void T107Response200DeleteLinkAccountDirect()
+        [TestMethod("107 - DeleteAccount - Account in use by tx")]
+        public void T107Response403DeleteAccountInUse()
         {
             var user = DefaultConfig.FirstUser;
             var response = api.DeleteAccount(user.UserHandle, user.PrivateKey, "default");
-            var parsedResponse = (DeleteAccountResult)response.Data;
+            var parsedResponse = (BaseResponse)response.Data;
 
-            Assert.AreEqual(200, response.StatusCode);
+            Assert.AreEqual(403, response.StatusCode);
             Assert.IsNotNull(parsedResponse.Message);
             Assert.IsNotNull(parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
+            Assert.IsFalse(parsedResponse.Success);
         }
 
         
@@ -191,20 +190,6 @@ namespace SilaApiTest
         {
             var user = DefaultConfig.InstantUser;
             var response = api.DeleteAccount(user.UserHandle, user.PrivateKey, "defaultpt");
-            var parsedResponse = (DeleteAccountResult)response.Data;
-
-            Assert.AreEqual(200, response.StatusCode);
-            Assert.IsNotNull(parsedResponse.Message);
-            Assert.IsNotNull(parsedResponse.Status);
-            Assert.IsTrue(parsedResponse.Success);
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-        }
-
-        [TestMethod("112 - DeleteLinkAccountPlaid - Successful delete account")]
-        public void T112Response200DeleteLinkAccountPlaid()
-        {
-            var user = DefaultConfig.FirstUser;
-            var response = api.DeleteAccount(user.UserHandle, user.PrivateKey, "sync_by_id");
             var parsedResponse = (DeleteAccountResult)response.Data;
 
             Assert.AreEqual(200, response.StatusCode);

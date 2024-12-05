@@ -12,6 +12,7 @@ namespace SilaApiTest
         SilaApi api = DefaultConfig.Client;
 
         [TestMethod("1 - OpenVirtualAccount - Successfully create of VirtualAccount")]
+        [Priority(0)]
         public void T001OpenVirtualAccount()
         {
             var user = DefaultConfig.FirstUser;
@@ -25,6 +26,7 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
 
+            /// This test is needed for T10CreateTestVirtualAccountAchTransaction to succeed.
             user = DefaultConfig.SecondUser;
             response = api.OpenVirtualAccount(user.UserHandle, user.PrivateKey, virtualAccountName, statementsEnabled);
             parsedResponse = (VirtualAccountResponse)response.Data;
@@ -34,7 +36,8 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.Reference);
             Assert.IsNotNull(parsedResponse.VirtualAccount);
             Assert.IsNotNull(parsedResponse.ResponseTimeMs);
-
+            DefaultConfig.VirtualAccountDisId = parsedResponse.VirtualAccount.VirtualAccountId;
+            DefaultConfig.AccountNumberDis = parsedResponse.VirtualAccount.AccountNumber;
         }
 
         [TestMethod("2 - GetVirtualAccounts - Successfully retrieve of VirtualAccounts")]
@@ -50,13 +53,6 @@ namespace SilaApiTest
             Assert.IsNotNull(parsedResponse.VirtualAccounts);
             DefaultConfig.VirtualAccountId = parsedResponse.VirtualAccounts[0].VirtualAccountId;
             DefaultConfig.AccountNumber = parsedResponse.VirtualAccounts[0].AccountNumber;
-
-            user = DefaultConfig.SecondUser;
-            response = api.GetVirtualAccounts(user.UserHandle, user.PrivateKey);
-            parsedResponse = (GetVirtualAccountsResponse)response.Data;
-            DefaultConfig.VirtualAccountDisId = parsedResponse.VirtualAccounts[0].VirtualAccountId;
-            DefaultConfig.AccountNumberDis = parsedResponse.VirtualAccounts[0].AccountNumber;
-            Assert.IsNotNull(parsedResponse.ResponseTimeMs);
         }
 
         [TestMethod("3 - IssueSila - Successfully issue of VirtualAccount")]
@@ -198,6 +194,7 @@ namespace SilaApiTest
         }
 
         [TestMethod("10 - CreateTestVirtualAccountAchTransaction - Successfully create of test VirtualAccountAchTransaction")]
+        [Priority(1)]
         public void T10CreateTestVirtualAccountAchTransaction()
         {
             var user = DefaultConfig.SecondUser;

@@ -1,6 +1,9 @@
 ﻿using SilaAPI.silamoney.client.api;
 using SilaAPI.silamoney.client.domain;
 using System;
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("SilaAPITestProject")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace SilaAPI.silamoney.client.configuration
 {
@@ -33,7 +36,7 @@ namespace SilaAPI.silamoney.client.configuration
 
         public Configuration()
         {
-            UserAgent = "SilaSDK-.net/0.2.51";
+            UserAgent = "SilaSDK-.net/1.1.0";
             BasePath = Environments.SANDBOX;
             Debug = false;
             Timeout = 100000;
@@ -90,7 +93,7 @@ namespace SilaAPI.silamoney.client.configuration
 
         #region Methods
 
-        public ApiClient CreateApiClient()
+        public virtual ApiClient CreateApiClient()
         {
             return new ApiClient(BasePath) { Configuration = this };
         }
